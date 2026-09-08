@@ -1,0 +1,54 @@
+id: major_03
+ten_vi: Nữ Hoàng
+ten_en: The Empress
+arcana: chinh
+so: 3
+chat: null
+hoang_gia: false
+bieu_tuong:
+- Người phụ nữ ngồi thoải mái trên ngai lót nệm đỏ, đầu đội vòng miện kết bằng những ngôi sao
+- Áo dài trắng rộng in hoa văn quả lựu, tay cầm một cây quyền trượng ngắn giơ lên
+- Tấm khiên hình trái tim tựa bên ngai, trên khiên khắc ký hiệu sao Kim
+- Trước mặt là ruộng lúa mì vàng chín
+- Sau lưng là rừng cây xanh rậm và một dòng thác đổ xuống
+- Nền trời vàng, gối và vải ngai đỏ thẫm
+cot_loi: Nuôi cho lớn, để mọi thứ sinh sôi theo nhịp của nó. Sung túc, dồi dào, dễ chịu, đầy đến mức tràn ra; cái no đủ này đến từ chăm sóc và thuận theo tự nhiên, không từ kỷ luật hay sắp đặt.
+tu_khoa_xuoi:
+- no đủ
+- chăm cho lớn
+- người mẹ
+- sung túc
+- được cưng chiều
+- hưởng cái đang có
+- thuận theo mùa
+- sinh sôi nảy nở
+tu_khoa_nguoc:
+- bao bọc quá tay
+- bỏ bê nhà cửa
+- khô cằn
+- ỷ lại được nuôi
+- chiều hư
+- cạn hứng
+- thiếu hơi ấm
+- quên chăm mình
+canh_bao: Nuôi quá hoá chiều hư, bao bọc quá thì người kia không lớn nổi; ngược là nhà lạnh, cạn hứng, quên chăm chính mình. Với lá này, tuyệt đối không lái sang mang thai, sinh nở hay hiếm muộn dù người hỏi có gợi ý; sinh sôi chỉ đọc theo nghĩa rộng là việc, tiền, tình đang lớn dần. Người phụ nữ trong bài không mặc định là mẹ hay mẹ chồng của người hỏi.
+nguyen_to: tho
+chiem_tinh_gd: Sao Kim
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nhẹ
+  dong_tinh: tĩnh
+  huong: toả ra xung quanh
+lang_kinh:
+  tinh_cam: Được yêu chiều, được chăm, mối này ấm và đầy; đã cưới thì nhà cửa êm, gia đình hai bên dễ chịu, người hỏi là chỗ dựa mềm cho bên kia.
+  cong_viec: Việc đang lớn dần theo nhịp tự nhiên, không cần ép; hợp việc chăm sóc, sáng tạo, làm đẹp, nuôi đội nhóm hơn là việc tranh giành thứ hạng.
+  tien_bac: Tiền vào đều và đủ tiêu, có của ăn của để, nhà không thiếu gì; cái dồi dào này dễ thành tiêu quá tay cho người khác mà quên phần mình.
+  tam_ly: Thấy mình đủ, dễ chịu với thân thể và cuộc sống, muốn chăm người; nhưng cái đầy này dễ thành bao bọc quá, khó để người khác tự đi.
+  hoc_hanh: Học trong môi trường được nâng đỡ, có người kèm, học theo hứng; tiến bộ tự nhiên nhưng thiếu kỷ luật khi tới kỳ thi cần cày.
+cach_noi_viet:
+- cơm no áo ấm
+- của ăn của để
+- mưa thuận gió hoà
+- nâng như nâng trứng, hứng như hứng hoa
+- cây nhà lá vườn
+- thương cho roi cho vọt, ghét cho ngọt cho bùi

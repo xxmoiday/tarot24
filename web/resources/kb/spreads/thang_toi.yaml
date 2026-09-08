@@ -1,0 +1,76 @@
+id: thang_toi
+ten_vi: Năm lá tháng tới
+ten_en: Five Card Month Ahead
+nhom: chuyen_de
+so_la: 5
+mo_ta: Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng. Để biết đoạn nào nên dồn sức, đoạn nào nên giữ sức.
+hop_voi:
+- Tháng tới của mình thế nào
+- Tháng sau đi làm có êm không
+- Tháng này chuyện tình cảm có chuyển gì không
+- Tháng tới mình nên dồn sức vào đoạn nào
+khong_hop_voi:
+- Ngày nào trong tháng nên ký hợp đồng
+- Tháng tới có gặp tai nạn gì không
+- Tháng tới có nên mua vàng không
+cach_rut: Xào bài, rút năm lá; bốn lá đầu đặt hàng ngang từ trái sang phải cho bốn tuần, lá năm đặt trên hàng đó làm chủ đề của tháng.
+vi_tri:
+- stt: 1
+  ten: Tuần đầu
+  cau_hoi: Đoạn đầu tháng, cái gì đang chi phối và người hỏi nên để ý điều gì
+  goi_y_doc: Đọc theo lăng kính của câu hỏi, câu hỏi chung thì lấy tam_ly làm nền. Nói theo khoảng "đầu tháng", không ngày. Lá nặng là đoạn nên giữ sức, lá nhẹ là đoạn có đà. Lá ngược thiên về đoạn này chậm hoặc chưa rõ. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Tuần hai
+  cau_hoi: Sang đoạn thứ hai, chuyện chuyển sang đâu so với tuần đầu
+  goi_y_doc: Đọc nối với lá một, nói bằng "sang tuần sau" hoặc "giữa tháng". Lá nặng sau lá nhẹ là chỗ đà chững lại; lá nhẹ sau lá nặng là chỗ dễ thở hơn. Lá ngược thiên về chuyện đang kẹt lại ở đoạn này. Không đọc rời.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Tuần ba
+  cau_hoi: Đoạn sau giữa tháng, cái gì nổi lên và người hỏi cần làm gì
+  goi_y_doc: Đọc nối với lá hai, nói bằng "nửa sau tháng". Lá nặng là chỗ nên chuẩn bị, lá nhẹ là chỗ nên tận dụng. Lá ngược thiên về đoạn này cần làm khác đi. Nếu lá này cùng chiều với lá năm thì đây là đoạn then chốt của tháng.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 4
+  ten: Tuần cuối
+  cau_hoi: Cuối tháng khép lại thế nào, đà nào mang sang tháng sau
+  goi_y_doc: Đọc như điểm khép của tháng, nói bằng "cuối tháng", không mốc ngày. Lá nhẹ là tháng khép êm, lá nặng là tháng khép còn dở, nói gọn cái dở đó là gì. Lá ngược thiên về chuyện chưa xong, kéo sang tháng sau. Dùng huong trong sac_thai để nói tháng đi lên hay đi xuống.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 5
+  ten: Chủ đề của tháng
+  cau_hoi: Cả tháng này xoay quanh chuyện gì, bài học hay tâm thế nào bao trùm bốn tuần
+  goi_y_doc: Đọc rộng bằng cot_loi, lấy tam_ly làm nền. Lá nặng là tháng có một thứ phải đi qua, không phải tháng xấu; lá nhẹ là tháng có một thứ để xây. Lá ngược thiên về tháng này người hỏi phải làm ngược thói quen. Lá hoàng gia đọc theo la_nang_luong, là tâm thế nên giữ cả tháng.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Mở bài bằng lá năm, gọi tên chủ đề tháng, rồi mới đi qua bốn tuần theo thứ tự; kết cũng quay về lá năm để nói việc nên giữ cả tháng.
+- Nói theo khoảng thời gian như đầu tháng, giữa tháng, nửa sau, cuối tháng; không nói ngày, không nói thứ, không nói "khoảng mùng".
+- Không hứa sự kiện; mỗi tuần nói về đà, tâm thế và chỗ nên dồn sức hay giữ sức, không nói "tuần này có tin", "tuần này gặp người". Câu hỏi về tai nạn, bệnh, sinh tử trong tháng thì chuyển hướng theo mục 5 của system prompt.
+- Bốn lá tuần nối thành một đường, nói tuần nào là đỉnh, tuần nào là đáy của tháng; hai tuần giống nhau thì gộp thành một câu, không kéo dài để đủ bốn.
+- Lá tuần nào cùng chiều với lá năm là tuần then chốt, nói kỹ hơn; các tuần còn lại mỗi tuần một hai câu.
+do_dai:
+  min: 280
+  max: 380
+vi_du:
+- cau_hoi: Tháng tới của mình thế nào
+  linh_vuc: chung
+  la:
+  - vi_tri: 1
+    id: cup_01
+    nguoc: false
+  - vi_tri: 2
+    id: cup_10
+    nguoc: true
+  - vi_tri: 3
+    id: major_03
+    nguoc: false
+  - vi_tri: 4
+    id: major_15
+    nguoc: false
+  - vi_tri: 5
+    id: major_14
+    nguoc: false
+  bai_luan: |-
+    Chủ đề của tháng là Tiết Chế, một tháng học rót cho vừa. Thiên thần trên lá rót nước từ cốc này sang cốc kia; cả tháng xoay quanh liều lượng, thừa thì tràn, thiếu thì lạnh, và bốn tuần dưới đây có cả hai chỗ đó. Bàn có ba Ẩn Chính, chuyện tháng này không nằm hết trong tay bạn.
+
+    Đầu tháng là Át Cốc, lòng đầy đến tràn, dễ xúc động, muốn cho đi mà chưa rõ cho ai. Đoạn này có đà, nhưng là đà của cảm xúc, chưa phải của việc; đừng hứa gì lớn lúc cốc đang tràn. Giữa tháng là Mười Cốc, lá ngược, và đà chững lại đúng ở chỗ nhà, cái tràn của tuần đầu đổ vào người thân mà gặp lạnh; ngoài nhìn vẫn êm, trong thì mỗi người một hướng. Đoạn này kẹt, nên giữ sức, đừng cố rót thêm cho ấm, vì rót thêm là quá liều. Nửa sau tháng là Nữ Hoàng, tuần đáng dồn sức nhất vì nó cùng nhịp với cả tháng, cái gì được chăm đúng nhịp thì lớn, việc, tiền, tình đều dễ chịu hơn, ruộng lúa trên lá đang chín. Đây là đỉnh của tháng, dồn theo kiểu chăm cho lớn, không ép, và nhớ chăm cả mình. Cuối tháng là Ác Quỷ, đáy của tháng, và tháng khép còn dở ở chỗ này, một thói quen, một cái thích, hay một nỗi sợ được nuôi suốt tháng đang thành cái trói. Xích trên lá rộng và lỏng, lối ra có, chỉ là bạn chưa muốn bước. Đà mang sang tháng sau là cái trói đó, nếu bạn không nhìn ra trước khi tháng hết.
+
+    Tháng tới đi lên ở nửa sau và ghì xuống ở cuối, không phải tháng xấu, là tháng có một liều lượng phải học. Việc giữ cả tháng là chọn đúng một thứ bạn hay làm quá tay, ví dụ tiêu cho người khác, đặt cho nó một mức mỗi tuần và giữ suốt bốn tuần, kể cả tuần dễ chịu nhất.

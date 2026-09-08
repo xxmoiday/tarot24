@@ -1,0 +1,77 @@
+id: cong_viec_5
+ten_vi: Năm lá công việc
+ten_en: Five Card Career
+nhom: chuyen_de
+so_la: 5
+mo_ta: Cho chuyện đi làm và đường sự nghiệp. Năm lá nhìn chỗ đứng hiện tại, cái mình đang có, cái đang cản, yếu tố bên ngoài và hướng nên đi.
+hop_voi:
+- Mình có nên xin nghỉ chỗ này không
+- Sao ở công ty mãi không lên được
+- Đường đi tiếp trong nghề của mình là gì
+- Mình đang định chuyển ngành, chuyện đó ra sao
+- Dự án này của mình đang ở đâu
+khong_hop_voi:
+- Có nên nhận offer A hay offer B
+- Nên góp vốn mở quán với bạn không
+- Bao giờ được tăng lương
+cach_rut: Xào bài, rút năm lá; lá một đặt giữa, lá hai bên trái, lá ba bên phải, lá bốn phía trên, lá năm phía dưới.
+vi_tri:
+- stt: 1
+  ten: Chỗ đứng hiện tại
+  cau_hoi: Ở chỗ làm hoặc trên đường nghề, người hỏi đang đứng ở đâu, vững hay chông chênh
+  goi_y_doc: Đọc theo lăng kính cong_viec, gọi tên chỗ đứng bằng cot_loi. Lá nặng là chỗ đứng đang mỏng hoặc đang mệt; lá nhẹ là đang có nền, có khi đang ở chỗ dễ chịu quá nên chưa muốn nhúc nhích. Lá ngược thiên về chỗ đứng đang kẹt hoặc người hỏi đánh giá sai vị trí của mình. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: cong_viec
+- stt: 2
+  ten: Điểm mạnh đang có
+  cau_hoi: Người hỏi đang có cái vốn gì để dùng, tay nghề, uy tín, quan hệ hay sức bền
+  goi_y_doc: Lá nào ở đây cũng đọc thành một cái vốn; lá nặng ở đây là cái người hỏi đã trải qua và biến thành kinh nghiệm, ví dụ từng đổ vỡ nên giờ tỉnh. Lá ngược thiên về vốn đang có nhưng chưa được dùng hoặc đang bị người hỏi coi nhẹ. Ưu tiên tu_khoa_xuoi hợp với công việc và lăng kính cong_viec. Lá hoàng gia đọc theo la_nang_luong.
+  lang_kinh_uu_tien: cong_viec
+- stt: 3
+  ten: Cái đang cản
+  cau_hoi: Cái gì đang giữ chân, trong người hỏi hay trong chỗ làm
+  goi_y_doc: Lá nào ở đây cũng đọc thành cái cản; lá nhẹ ở đây là một thứ tốt đang bị dùng quá tay hoặc đang làm người hỏi ngủ quên. Ưu tiên phần đầu của canh_bao. Lá ngược thiên về cái cản nằm ở thói quen hay nỗi sợ của người hỏi hơn ở hoàn cảnh. Lá hoàng gia có thể là một người ở chỗ làm, đọc theo la_nguoi và nói bằng "có vẻ".
+  lang_kinh_uu_tien: cong_viec
+- stt: 4
+  ten: Người hoặc yếu tố bên ngoài
+  cau_hoi: Sếp, đồng nghiệp, thị trường hay hoàn cảnh bên ngoài đang tác động thế nào lên chuyện này
+  goi_y_doc: Đọc thành người hoặc hoàn cảnh ngoài tầm tay người hỏi. Lá nhẹ là có chỗ dựa hoặc bên ngoài đang thuận; lá nặng là bên ngoài đang ép, đang lạnh hoặc không đỡ. Lá ngược thiên về bên ngoài đang chuyển mà người hỏi chưa thấy. Lá hoàng gia đọc theo la_nguoi, không gán tên, không phán về người vắng mặt như sự thật.
+  lang_kinh_uu_tien: cong_viec
+- stt: 5
+  ten: Hướng đi
+  cau_hoi: Với bàn bài này, hướng nên đi là gì và việc đầu tiên nên làm là gì
+  goi_y_doc: Đọc lá thành hành động hoặc tâm thế, nói bằng "nghiêng về", không đọc thành kết quả. Lá nhẹ là việc nên đẩy tới; lá nặng là việc nên tránh, nên chấp nhận hoặc nên dừng trước khi đi tiếp. Lá ngược thiên về "đi chậm lại" hoặc "làm khác cách cũ". Lá hoàng gia đọc theo la_nang_luong.
+  lang_kinh_uu_tien: cong_viec
+luat_doc:
+- Lá một và lá ba là cặp then chốt; nói được chỗ đứng và cái cản rõ thì bài mới có nghĩa, lá năm phải trả lời đúng cái cản đó.
+- Nói theo thứ tự một, hai, ba, bốn, năm; gom lá hai và lá ba thành một đoạn "cái đang có và cái đang giữ chân", lá bốn nhắc một câu, lá năm là kết.
+- Câu hỏi nghỉ hay ở lại thì không quyết thay người hỏi; nói bài nghiêng về đâu và cái giá của mỗi phía, việc cụ thể ở cuối là việc làm được ngay tại chỗ hiện tại.
+- Không nói về lương thưởng, thu nhập như con số hay mốc thời gian; không đoán ai được lên, ai bị cho nghỉ như sự kiện.
+- Câu hỏi chạm góp vốn, mở công ty, đầu tư thì chuyển hướng theo mục 5 của system prompt và chỉ đọc phần tay nghề, sức bền, chỗ đứng.
+do_dai:
+  min: 280
+  max: 380
+vi_du:
+- cau_hoi: Sếp mới về, mình nên bám lại công ty hay tìm chỗ khác
+  linh_vuc: cong_viec
+  la:
+  - vi_tri: 1
+    id: major_13
+    nguoc: false
+  - vi_tri: 2
+    id: coin_01
+    nguoc: false
+  - vi_tri: 3
+    id: wand_01
+    nguoc: false
+  - vi_tri: 4
+    id: cup_07
+    nguoc: false
+  - vi_tri: 5
+    id: cup_06
+    nguoc: false
+  bai_luan: |-
+    Bàn này nặng và đang chuyển, một Ẩn Chính rất nặng ngay chỗ đứng, hai lá Át kẹp hai bên cho thấy cái mới đang nhú. Thần Chết nói thẳng rằng vai trò bạn từng có ở công ty này, cái nếp làm việc thời sếp cũ, đã hết đời của nó. Sếp mới về không phải nguyên nhân, chỉ là cú chốt. Ván đã đóng thuyền, cái mất là thật, dù bạn ở hay đi; nhưng trên lá mặt trời vẫn mọc ở chân trời xa, khép chỗ này mở chỗ khác.
+
+    Cái bạn đang có là Át Tiền, một cái vốn cầm được, tay nghề thật và nền chắc để gây dựng lại, hạt giống chứ chưa phải mùa. Cái đang giữ chân bạn là Át Gậy, lá đẹp nhưng nằm ở chỗ cản thì đang bị dùng quá tay. Cái hứng muốn bứt đi, muốn làm khác, đang bốc rất thật nhưng còn thô; bạn đang để một cơn hứng đứng thay cho một quyết định, mà lửa kiểu này hôm nay rực, tuần sau dễ nguội, nhảy việc theo nó thì dễ đầu voi đuôi chuột. Bên ngoài là Bảy Cốc, chỗ khác nhìn từ đây cái nào cũng lấp lánh mà chưa cái nào sờ được, kể cả sếp mới cũng còn là một cái cốc trên mây.
+
+    Hướng đi rơi vào Sáu Cốc, và bài nghiêng về hai điều. Một, đường ra nếu có thì đi qua người cũ, quan hệ cũ trong nghề, không qua cái lấp lánh ngoài kia. Hai, bạn đang so sếp mới với sếp cũ, và cái ngọt của ngày cũ đang níu bạn lại. Bài không quyết thay bạn. Ở lại thì giá là chấp nhận vai trò cũ đã hết hẳn, làm lại từ nền với sếp mới như với người lạ. Đi thì giá là phải biến cơn hứng thành kế hoạch trước, kẻo rơi vào cốc mây. Tuần này viết ra ba thứ bạn cầm được thật ở đây, rồi nhắn hỏi thăm một người quen cũ trong nghề.

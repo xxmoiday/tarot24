@@ -1,0 +1,156 @@
+{
+ "major_00": {
+  "tinh_cam": "Mới gặp, chưa biết gì về nhau mà đã muốn thử; mối này còn ở bước đầu, chưa nên đòi cam kết, cứ đi rồi biết.",
+  "cong_viec": "Nhận việc mới hoặc bỏ chỗ quen để bắt đầu từ số không, chưa có kinh nghiệm nhưng được cái không sợ; lật lại thì thành bỏ việc bốc đồng.",
+  "tien_bac": "Tiền vào ra chưa có nếp, tiêu theo hứng và chưa tính xa; hầu bao nhẹ nhưng nợ chưa có, coi như tờ giấy trắng.",
+  "tam_ly": "Trong đầu nhẹ tênh, không mang chuyện cũ, nhìn phía trước bằng lòng tin hơn là bằng tính toán; cái ngây thơ này vừa là sức vừa là điểm hở.",
+  "hoc_hanh": "Mới bắt đầu học một thứ hoàn toàn lạ, chưa có nền, học bằng tò mò; chọn ngành hay đăng ký lớp chỉ vì hứng nhất thời thì dễ bỏ ngang."
+ },
+ "major_01": {
+  "tinh_cam": "Người này biết cách tỏ ý, chủ động bắt chuyện, hẹn hò; mối này tiến nhờ một bên ra tay khéo, còn khi ngược, lời ngọt chỉ để lấy lòng chứ chưa thật.",
+  "cong_viec": "Đủ tay nghề để nhận việc khó, trình bày dự án là người ta gật; xin việc lúc này mạnh ở vòng phỏng vấn, làm riêng thì có đủ vốn nghề.",
+  "tien_bac": "Tiền kiếm bằng tay nghề và sự khéo, mở thêm nguồn thu từ cái mình biết làm; ngược thì coi chừng khoản thu nghe hay mà rỗng.",
+  "tam_ly": "Tự tin, đầu óc tập trung, thấy rõ mình có gì và muốn gì; trạng thái làm được, chỉ còn thiếu cái bắt tay vào.",
+  "hoc_hanh": "Học đến đâu dùng được đến đó, thi cử mạnh ở phần thực hành và trình bày; học nghề hợp hơn học lý thuyết suông."
+ },
+ "major_02": {
+  "tinh_cam": "Đối phương có điều chưa nói, hoặc chính người hỏi đang giữ một bí mật; mối này chưa ngã ngũ, nghe linh tính hơn nghe lời hứa.",
+  "cong_viec": "Chỗ làm đang có chuyện ngầm chưa công bố, sếp biết mà chưa nói; lúc này quan sát và giữ miệng, chưa phải lúc bày tỏ ý kiến.",
+  "tien_bac": "Có khoản tiền hoặc thông tin về tiền chưa được nói rõ, bên kia giấu số; chưa nắm chắc thì chưa ký gì cả.",
+  "tam_ly": "Bên trong biết rồi nhưng chưa dám gọi tên; người hỏi đang nghe hai tiếng nói cùng lúc, lời người ngoài và linh tính của mình.",
+  "hoc_hanh": "Học bằng đọc và ngẫm, hợp với môn cần hiểu sâu hơn học vẹt; luận văn hoặc bài thi cần thời gian lặng để ý tứ tự ngấm."
+ },
+ "major_03": {
+  "tinh_cam": "Được yêu chiều, được chăm, mối này ấm và đầy; đã cưới thì nhà cửa êm, gia đình hai bên dễ chịu, người hỏi là chỗ dựa mềm cho bên kia.",
+  "cong_viec": "Việc đang lớn dần theo nhịp tự nhiên, không cần ép; hợp việc chăm sóc, sáng tạo, làm đẹp, nuôi đội nhóm hơn là việc tranh giành thứ hạng.",
+  "tien_bac": "Tiền vào đều và đủ tiêu, có của ăn của để, nhà không thiếu gì; cái dồi dào này dễ thành tiêu quá tay cho người khác mà quên phần mình.",
+  "tam_ly": "Thấy mình đủ, dễ chịu với thân thể và cuộc sống, muốn chăm người; nhưng cái đầy này dễ thành bao bọc quá, khó để người khác tự đi.",
+  "hoc_hanh": "Học trong môi trường được nâng đỡ, có người kèm, học theo hứng; tiến bộ tự nhiên nhưng thiếu kỷ luật khi tới kỳ thi cần cày."
+ },
+ "major_04": {
+  "tinh_cam": "Người đàn ông lớn tuổi hơn, chắc chắn, thích sắp đặt; mối này ổn định nhưng nặng tính kiểm soát, bên nhà nào cũng có tiếng nói của người cha.",
+  "cong_viec": "Sếp lớn nắm quyền quyết; người hỏi đang hoặc sắp giữ vị trí đứng đầu, cần đặt luật rõ cho đội, làm riêng thì phải chịu hết trách nhiệm.",
+  "tien_bac": "Tiền bạc có kỷ luật, có bảng chi tiêu, có người giữ tay hòm chìa khoá; thu nhập ổn từ vị trí, lá ngược thành siết quá chặt hoặc mất quyền quản tiền.",
+  "tam_ly": "Muốn mọi thứ trong tầm tay, ghét bất ngờ, gánh trách nhiệm thay người khác; vai trụ cột đang đè lên vai kể cả khi mệt.",
+  "hoc_hanh": "Tự đặt kỷ luật học cho mình, giờ nào việc nấy, không cho ai làm loãng; học chắc từng phần theo thứ tự, ngược lại là ép mình đến khô hoặc bỏ lịch."
+ },
+ "major_05": {
+  "tinh_cam": "Mối này đi theo lề lối: ra mắt, hỏi ý gia đình, cưới xin đúng phép; đã cưới thì nặng truyền thống, ngược thì là muốn thoát khuôn mà chưa dám.",
+  "cong_viec": "Cơ quan lớn, công ty có quy trình, làm đúng bài là được công nhận; có người đi trước dẫn dắt, thăng tiến theo thâm niên hơn theo tài lẻ.",
+  "tien_bac": "Tiền đi theo lối an toàn quen thuộc của gia đình, lương đều, không phiêu lưu; chắc, nhưng cách giữ tiền cũ kỹ có lúc không còn hợp thời.",
+  "tam_ly": "Cần một chỗ thuộc về, cần được người có uy chỉ bảo; thước đo đang dùng là thước của tập thể, chưa phải ý riêng.",
+  "hoc_hanh": "Học chính quy, theo trường lớp, có thầy có bài; thi cử, chứng chỉ, bằng cấp đều thuận nếu chịu học đúng giáo trình."
+ },
+ "major_06": {
+  "tinh_cam": "Hai người hút nhau thật, thấy rõ nhau và cần chọn: tiến tới hay dừng, người này hay người kia; chuyện này phải tự quyết, không ai chọn hộ được.",
+  "cong_viec": "Đứng giữa hai lời mời hoặc hai hướng đi, chọn cái này là bỏ cái kia; đồng nghiệp hợp ý, cộng sự ăn ý, nhưng quyết định là của riêng người hỏi.",
+  "tien_bac": "Tiền dính tới người yêu hay vợ chồng: góp chung, chi cho nhau, chọn cách tiêu; lúc này phải hợp nhau ở cách nhìn tiền, chứ không chỉ chia con số.",
+  "tam_ly": "Bị giằng giữa hai điều đều muốn, hiểu rằng chọn là mất; phải sống thật với mình mới biết mình muốn gì.",
+  "hoc_hanh": "Chọn ngành, chọn trường, chọn thầy: đến lúc phải quyết theo cái mình thật thích; học chung với người hợp ý thì vào rất nhanh."
+ },
+ "major_07": {
+  "tinh_cam": "Một bên quyết theo đuổi bằng được, yêu xa hay có trở ngại vẫn đi tới; mối này tiến nhờ ý chí, nhưng ép quá thì thành kéo người ta đi.",
+  "cong_viec": "Dự án đang chạy, người hỏi cầm lái và ghìm được các bên kéo ngược; đi công tác, chuyển chỗ làm, thăng tiến nhờ quyết liệt.",
+  "tien_bac": "Kiếm tiền bằng cách lao tới, đặt mục tiêu con số rồi đuổi theo; tiền dính tới xe cộ, đi lại; ngược lại là chạy quá đà vượt khả năng.",
+  "tam_ly": "Đầu đầy quyết tâm, dồn hết vào một hướng, kìm được nỗi sợ lẫn cái nóng; tự chủ đấy nhưng dây đang căng.",
+  "hoc_hanh": "Cày thi bằng ý chí, đặt lịch và bám lịch, không để phân tâm; đỗ nhờ bền sức hơn nhờ thông minh, ngược thì là học lan man mất lái."
+ },
+ "major_08": {
+  "tinh_cam": "Một bên nóng nảy hoặc khó chiều, bên kia dỗ bằng mềm mỏng và bền; mối này giữ được nhờ chịu đựng có tình chứ không nhờ ai thắng ai.",
+  "cong_viec": "Sếp khó, khách dữ, đồng nghiệp gắt: người hỏi xử bằng bình tĩnh và kiên trì, không đối đầu; việc khó dần được thuần, ngược thì là mất bình tĩnh vỡ chuyện.",
+  "tien_bac": "Cầm được ham muốn tiêu, nhịn được cái muốn mua ngay; trả nợ bằng bền bỉ từng tháng; lật ngược là thả tay tiêu cho hả cơn.",
+  "tam_ly": "Đang đối diện với cơn giận, nỗi sợ hay thói quen trong mình mà không đè nén cũng không nổ; sức nằm ở chỗ ngồi yên được với nó.",
+  "hoc_hanh": "Học môn ghét hoặc khó, không bỏ cuộc, mỗi ngày một ít cho quen; thi cử vượt được nhờ tâm lý vững hơn nhờ ôn nhiều."
+ },
+ "major_09": {
+  "tinh_cam": "Một bên đang cần ở một mình, rút khỏi hẹn hò để ngẫm; độc thân lúc này là chủ ý; đã cưới thì là khoảng lặng cần thiết, không phải nguội.",
+  "cong_viec": "Làm việc một mình, nghiên cứu, tư vấn, cố vấn; tạm đứng ngoài cuộc đua thăng tiến để nhìn lại mình muốn nghề gì; có thầy già chỉ đường.",
+  "tien_bac": "Tiêu ít, sống giản, không cần khoe; giai đoạn tính lại cách dùng tiền hơn là kiếm thêm; nhưng keo với cả chính mình chỉ vì sợ thì lại quá đà.",
+  "tam_ly": "Muốn tránh đám đông để nghe mình rõ hơn, ngẫm lại chặng vừa qua; cái sáng đến chậm, nhưng là của chính mình chứ không mượn ai.",
+  "hoc_hanh": "Tự học, nghiên cứu sâu, làm luận văn hay đề tài riêng; hợp học một mình trong yên tĩnh, tìm thầy giỏi để hỏi đúng chỗ khó."
+ },
+ "major_10": {
+  "tinh_cam": "Gặp người đúng lúc không hẹn trước, hoặc mối đang chậm bỗng xoay chiều; chuyện này do duyên đưa đẩy, sắp đổi giai đoạn dù chưa ai chủ động.",
+  "cong_viec": "Có bước ngoặt từ bên ngoài: công ty tái cơ cấu, được điều chuyển, cơ hội rơi xuống; nắm được thời thì lên, ngược thì đang ở đoạn xuống của vòng.",
+  "tien_bac": "Tiền lên xuống theo thời, có lộc bất ngờ hoặc khoản thu đổi chiều; lúc lên đừng tưởng mãi, lúc xuống biết là chưa hết vòng.",
+  "tam_ly": "Thấy mình bị đời xoay, không nắm được hết; lúc này chỉ có cách chịu cái ngoài tầm tay, không đổ tại số mà cũng không cố cưỡng.",
+  "hoc_hanh": "Kết quả thi có phần may rủi: trúng tủ hay lệch tủ, xét tuyển đổi quy chế; cơ hội học bổng đến bất ngờ, phải chớp ngay."
+ },
+ "major_11": {
+  "tinh_cam": "Hai người cần sòng phẳng với nhau, cho bao nhiêu nhận bấy nhiêu; chia tay thì chia rõ ràng; ai đã sai với ai giờ đến lúc trả.",
+  "cong_viec": "Được đánh giá đúng công sức, hợp đồng, thoả thuận, xét lương lên bàn cân; người hỏi được xét đúng nếu có lý, ngược thì là bị xử ép hoặc chính mình thiên vị.",
+  "tien_bac": "Nợ ai trả nấy, ai nợ mình cũng phải trả, ký giấy đọc kỹ từng dòng; tiền về ứng đúng công đã bỏ, không có lộc trời cho, ngược thì là bị chia thiếu phần.",
+  "tam_ly": "Tỉnh táo, cân hai bên, muốn quyết bằng lý chứ không bằng cảm tình; câu hỏi tự đặt ra là mình có công bằng với người và với chính mình không.",
+  "hoc_hanh": "Điểm số phản ánh đúng lượng học, thi công bằng, không may rủi; hợp học luật, kế toán, các môn cần lập luận chặt."
+ },
+ "major_12": {
+  "tinh_cam": "Mối này đang treo: một bên chờ, một bên chưa quyết; tạm gác để nhìn lại thay vì ép câu trả lời, chờ có chủ ý khác chờ vô vọng.",
+  "cong_viec": "Dự án đình lại, chờ duyệt, chờ người khác; người hỏi chịu thiệt một chút để giữ cái lớn hơn, hoặc lùi một bước để nhìn việc từ góc khác.",
+  "tien_bac": "Khoản tiền bị treo, chưa về, phải nhịn một thời gian; chịu mất một khoản để dứt chuyện lớn hơn, khác với kẹt tiền mà không thấy lối.",
+  "tam_ly": "Cảm giác lơ lửng, không tiến không lùi, nhưng đầu bắt đầu thấy khác; cái đang học là nhìn ngược lại điều mình vẫn tin.",
+  "hoc_hanh": "Học đang chững, thi hoãn, đổi phương pháp mới vào; giai đoạn tưởng đứng yên nhưng đầu đang sắp xếp lại, chưa nên bỏ cuộc."
+ },
+ "major_13": {
+  "tinh_cam": "Một mối đến hồi kết, chia tay dứt hẳn, không quay lại; hoặc mối cũ hết đời của nó để hai người sang một dạng khác, ngược thì là níu cái đã hết.",
+  "cong_viec": "Nghỉ việc, đóng công ty, kết thúc một vai trò đã hết đường; chuyện đến chậm mà chắc, ngược thì là bám ghế cũ khi việc đã hết.",
+  "tien_bac": "Một nguồn thu chấm dứt, cách kiếm tiền cũ không còn; phải khép sổ chuyện cũ để mở nếp mới, mất mát này là bước sang trang.",
+  "tam_ly": "Con người cũ đang hết thời của nó, cách sống cũ không dùng được nữa; đau, lột xác, nhưng biết rõ là không thể quay lại.",
+  "hoc_hanh": "Bỏ ngành, thôi học một hướng đã hết hợp, đóng lại chặng học cũ để bắt đầu chặng mới hoàn toàn khác; tiếc cũng không giữ được."
+ },
+ "major_14": {
+  "tinh_cam": "Hai người khác tính đang tìm liều lượng hợp nhau, nhường một chút mỗi bên; mối này chín chậm, ổn nhờ đều đặn, ngược thì là nay nóng mai lạnh.",
+  "cong_viec": "Cân giữa hai việc, hai nhóm, hai sếp mà không nghiêng hẳn; tiến độ chậm mà đều, hợp vai điều phối, hoà giải trong đội.",
+  "tien_bac": "Thu chi cân nhau, tiêu chừng mực, để dành từ từ mỗi tháng một ít; không giàu nhanh nhưng không thủng, ngược thì là lúc vung lúc siết.",
+  "tam_ly": "Bình, không quá cao không quá thấp, đang hoà được cái lý và cái tình trong mình; không sốt ruột với nhịp của mình.",
+  "hoc_hanh": "Học đều mỗi ngày thay vì cày dồn trước thi, phối hợp nhiều môn cho vừa sức; tiến bộ chậm mà chắc, ôn thi có lịch."
+ },
+ "major_15": {
+  "tinh_cam": "Mối này dính chặt vì ham muốn, ghen tuông hay sợ mất, biết không tốt mà không rời; người cũ vẫn kéo được vì mình còn thích, ngược thì là bắt đầu gỡ xích.",
+  "cong_viec": "Bám chỗ làm vì lương hoặc vì sợ, chịu sếp độc đoán mà không đi; hoặc bị món hời mờ ám dụ; lối ra có nhưng người hỏi chưa muốn thấy.",
+  "tien_bac": "Nợ xấu, chi tiêu theo cơn, mua sắm để dịu, cờ bạc, tiền trói người; càng gỡ càng dính nếu còn thích cái cảm giác đó.",
+  "tam_ly": "Thói quen hay nỗi sợ đang cầm dây, và người hỏi tin là không có đường khác; thực ra xích lỏng, chỉ chưa muốn cất bước.",
+  "hoc_hanh": "Học bị điện thoại, game, chuyện chơi kéo mất; biết mất tập trung mà cứ lặp lại; ngược thì là bắt đầu cai được để quay lại bàn."
+ },
+ "major_16": {
+  "tinh_cam": "Chuyện vỡ đột ngột: lộ chuyện giấu, cãi lớn, chia tay trong một tối; cái đổ là cái xây trên nền không thật, ngược thì là rạn mà cố giữ vỏ.",
+  "cong_viec": "Mất việc bất ngờ, dự án sụp, công ty biến động lớn, một sự thật ở chỗ làm bung ra; cái vỡ này lộ chỗ hổng đã có từ lâu.",
+  "tien_bac": "Mất tiền đột ngột, kế hoạch tài chính đổ, một khoản dựa dẫm biến mất; đau nhưng cho thấy chỗ đã mỏng từ trước.",
+  "tam_ly": "Niềm tin cũ về mình hay về người sụp một lúc, chao đảo, sốc; nhưng cái vỡ là cái vỏ, sự thật trần trụi hiện ra sau đó.",
+  "hoc_hanh": "Trượt bất ngờ, mất suất, đổi quy chế thi, phát hiện học sai hướng từ lâu; sốc này buộc dựng lại cách học từ nền."
+ },
+ "major_17": {
+  "tinh_cam": "Sau đổ vỡ, lòng lành dần, còn tin vào yêu; mối mới còn ở xa nhưng có thật, mối cũ lành lại nhờ thật lòng và không tiếc gì với nhau.",
+  "cong_viec": "Sau giai đoạn khó, công việc nhìn thấy hướng: hồ sơ được để ý, đội nhóm lấy lại tinh thần; chưa có kết quả ngay nhưng đường đã lộ.",
+  "tien_bac": "Tiền chưa dư nhưng hết lo, có nguồn nhỏ đều, cho đi thoải mái không tiếc; giai đoạn hồi phục túi tiền sau thời cạn.",
+  "tam_ly": "Nhẹ, trong, không còn phòng thủ; hy vọng không ồn nhưng vững, đang lành và dám nhìn về xa; ngược thì là chán nản hết tin.",
+  "hoc_hanh": "Lấy lại hứng học sau kỳ thi tệ, tìm được môn hay hướng thấy sáng; kết quả chưa tới ngay nhưng mục tiêu ở xa đã rõ."
+ },
+ "major_18": {
+  "tinh_cam": "Không rõ đối phương nghĩ gì, nghi ngờ, ghen bóng, tưởng tượng nhiều hơn thật; có điều còn khuất, ngược thì là sương tan, sự thật hé ra.",
+  "cong_viec": "Chỗ làm mập mờ, tin đồn, chưa biết ai thật ai giả; dự án không rõ đích; lúc này quyết theo cảm giác sợ hãi là dễ sai, chờ rõ hơn.",
+  "tien_bac": "Số tiền chưa minh bạch, khoản thu chưa rõ nguồn, lo tiền không có căn cứ; đọc kỹ cái khuất trước khi tin cái thấy.",
+  "tam_ly": "Lo lắng mơ hồ, mộng mị, sợ thứ không tên; cái trong đầu người hỏi lớn hơn cái ngoài đời; cần phân biệt tưởng và thật.",
+  "hoc_hanh": "Học mà không biết mình hiểu chưa, ôn lan man, đề thi mơ hồ; hợp môn cần tưởng tượng, nhưng thi cử cần bám lại cái chắc."
+ },
+ "major_19": {
+  "tinh_cam": "Yêu ra mặt, không giấu ai, hai bên vui thật; đang tìm hiểu thì rõ ý, đã cưới thì nhà đầy tiếng cười, gia đình hai bên đón nhận.",
+  "cong_viec": "Thành công thấy được, được khen công khai, dự án ra kết quả rõ; xin việc lúc này sáng cửa, ngược thì là vui chưa trọn hoặc khoe quá đà.",
+  "tien_bac": "Tiền vào rõ ràng, thưởng, lộc công khai, không phải giấu ai; đủ để vui và chia sẻ; ngược thì là tiêu để khoe hơn là để sống.",
+  "tam_ly": "Sáng rõ, khoẻ, hồn nhiên, không còn gì phải giấu; tin mình và tin đời như trẻ con, ngược thì là cười gượng cho có.",
+  "hoc_hanh": "Kết quả đang rõ, được ghi nhận trước lớp; học với niềm vui thật, ngược thì là chủ quan vì thấy dễ."
+ },
+ "major_20": {
+  "tinh_cam": "Nhìn lại cả một mối để quyết dứt khoát: quay lại với người cũ vì đã hiểu ra, hoặc tổng kết và đứng dậy khỏi chuyện cũ cho xong.",
+  "cong_viec": "Được gọi tên: lời mời quay lại, kết quả xét duyệt, đánh giá cuối kỳ; người hỏi tổng kết cả chặng nghề để trả lời có đi tiếp không.",
+  "tien_bac": "Tổng kết cả chặng tiêu tiền, nhận ra chỗ đã lặp lại sai và quyết đổi hẳn nếp cũ; cái nhìn về tiền đổi khác hẳn so với trước.",
+  "tam_ly": "Tỉnh ra sau một thời dài, tự xét mình sòng phẳng, chấp nhận kết cục rồi đứng dậy; ngược thì là tự trách mãi không dậy nổi.",
+  "hoc_hanh": "Kết quả thi công bố, bảng điểm cuối kỳ, biết mình đậu hay rớt; lúc này nhìn cả chặng học để quyết học tiếp, thi lại hay đổi hướng."
+ },
+ "major_21": {
+  "tinh_cam": "Mối này đi trọn: cưới, về chung nhà, hay hoàn tất một giai đoạn cùng nhau; hai người khớp nhau, chặng sau, nếu có, là vòng mới.",
+  "cong_viec": "Xong dự án lớn, hết hợp đồng có hậu, thăng chức về đích; hoặc làm việc với nước ngoài, đi xa; ngược thì là gần xong mà hụt.",
+  "tien_bac": "Trả hết nợ, đạt mục tiêu để dành, khép sổ một chặng tài chính tròn; tiền có thể dính tới đi lại, nước ngoài.",
+  "tam_ly": "Thấy mình đâu vào đấy, tròn, không thiếu gì; đứng ở cuối chặng và biết cái tiếp theo là một vòng khác.",
+  "hoc_hanh": "Tốt nghiệp, hoàn thành khoá học, bảo vệ xong, du học; ngược thì là dở dang, thiếu một môn để khép chặng."
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "wand_page": [
+  "tin lạ mới tới",
+  "nổi hứng",
+  "muốn thử ngay",
+  "người đưa tin",
+  "lính mới hăng",
+  "tin trong nhà",
+  "một ý loé lên",
+  "chưa biết dẫn đâu"
+ ],
+ "wand_knight": [
+  "lên đường ngay",
+  "chuyển chỗ ở",
+  "gan mà vội",
+  "làm trước tính sau",
+  "đi xa",
+  "đốt giai đoạn",
+  "người tới rồi đi",
+  "cháy hết mình"
+ ],
+ "wand_queen": [
+  "tự tin toả ra",
+  "ấm mà thẳng tính",
+  "được người mến",
+  "lo nhà lo việc",
+  "buôn bán mát tay",
+  "nói thẳng không gắt",
+  "thích nổi bật",
+  "quen biết rộng"
+ ],
+ "wand_king": [
+  "đứng mũi chịu sào",
+  "vạch hướng giao việc",
+  "nói được làm được",
+  "tầm nhìn xa",
+  "ông chủ thật thà",
+  "kéo người theo mình",
+  "có uy tự nhiên"
+ ],
+ "cup_page": [
+  "tin về tình cảm",
+  "xao xuyến đầu",
+  "bất ngờ dễ thương",
+  "chưa rõ là gì",
+  "nghe theo linh cảm",
+  "sẵn lòng giúp",
+  "mơ mộng tuổi mới lớn",
+  "linh tính bật lên"
+ ],
+ "cup_knight": [
+  "lời mời tới",
+  "ngỏ lời",
+  "hào hoa lịch sự",
+  "tán tỉnh có lễ",
+  "lời mời cần soi",
+  "người mang tin tình",
+  "tiến tới từ tốn",
+  "mơ mộng đa tình"
+ ],
+ "cup_queen": [
+  "hiểu chưa cần nói",
+  "giữ kín cảm nhận",
+  "thương không bỏ việc",
+  "vợ hiền mẹ tốt",
+  "tận tuỵ giúp người",
+  "linh cảm sâu",
+  "nhìn thấu lòng người",
+  "dịu mà chắc"
+ ],
+ "cup_king": [
+  "vững giữa sóng gió",
+  "cảm mà không loạn",
+  "thương có chừng mực",
+  "người khuyên nghe được",
+  "dàn hoà",
+  "kín đáo, biết nhịn",
+  "có học, có nghề",
+  "mềm ngoài chắc trong"
+ ],
+ "sword_page": [
+  "nghe ngóng",
+  "tò mò hỏi tới",
+  "mắt tinh tai thính",
+  "để ý từng chút",
+  "nhanh miệng, lanh",
+  "gom tin chưa dùng",
+  "dò xét trước",
+  "nói không ngại"
+ ],
+ "sword_knight": [
+  "xông thẳng vào",
+  "nói toạc",
+  "dứt điểm nhanh",
+  "cãi thắng bằng lý",
+  "gấp, quyết",
+  "không quay đầu",
+  "cuốn phăng",
+  "thẳng đến phũ"
+ ],
+ "sword_queen": [
+  "từng đau nên tỉnh",
+  "nói thẳng, lạnh",
+  "sống một mình được",
+  "không ảo tưởng",
+  "soi rõ từng kẽ",
+  "cắt gọn",
+  "chẳng nể ai",
+  "tự chủ, xa cách"
+ ],
+ "sword_king": [
+  "phân đúng sai",
+  "ra lệnh",
+  "người có chức",
+  "quyết bằng lý",
+  "không thiên vị",
+  "lời có trọng lượng",
+  "chuẩn mực nghiêm",
+  "đầu lạnh"
+ ],
+ "coin_page": [
+  "học nghề",
+  "chăm chú một thứ",
+  "việc nhỏ đầu tay",
+  "tin về việc làm",
+  "tập tành từ đầu",
+  "còn học chưa kiếm",
+  "mê đến quên đường",
+  "chậm mà chắc"
+ ],
+ "coin_knight": [
+  "cày đều",
+  "làm tới cùng",
+  "không cần thúc",
+  "bền như trâu",
+  "đúng hẹn, đúng việc",
+  "chắc từng bước",
+  "trách nhiệm hơn hứng",
+  "giữ nhịp ngày thường"
+ ],
+ "coin_queen": [
+  "lo cho no ấm",
+  "tay hòm chìa khoá",
+  "khéo vun vén",
+  "hào phóng",
+  "chỗ dựa vật chất",
+  "thương bằng cái thực",
+  "nhà cửa ấm",
+  "giàu mà kín"
+ ],
+ "coin_king": [
+  "cơ ngơi vững",
+  "giữ của",
+  "tay làm ăn lão luyện",
+  "tính toán chắc tay",
+  "làm ăn lớn",
+  "của bền lâu năm",
+  "chậm đổi mới",
+  "có tiếng có miếng"
+ ]
+}

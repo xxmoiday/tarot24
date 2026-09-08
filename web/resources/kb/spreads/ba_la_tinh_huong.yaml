@@ -1,0 +1,62 @@
+id: ba_la_tinh_huong
+ten_vi: Ba lá tình huống, trở ngại, lời khuyên
+ten_en: Three Card Situation Obstacle Advice
+nhom: co_ban
+so_la: 3
+mo_ta: Cho một chuyện đang kẹt và muốn biết kẹt ở đâu. Ba lá gọi tên tình huống, chỉ cái đang cản và đưa một hướng gỡ.
+hop_voi:
+- Mình đang kẹt với dự án này, gỡ thế nào
+- Chuyện với người yêu cứ cãi hoài, tại đâu
+- Sao mãi không để dành được tiền
+- Học mãi không vào, mình đang vướng cái gì
+khong_hop_voi:
+- Chuyện này rồi có thành không
+- Nên chọn hướng nào trong hai hướng
+- Người kia đang nghĩ gì về mình
+cach_rut: Xào bài, rút ba lá đặt hàng ngang từ trái sang phải theo thứ tự tình huống, trở ngại, lời khuyên.
+vi_tri:
+- stt: 1
+  ten: Tình huống
+  cau_hoi: Chuyện này thật ra đang là chuyện gì, gốc của nó ở đâu
+  goi_y_doc: Gọi tên tình huống bằng cot_loi, hạ xuống lăng kính theo câu hỏi. Lá nặng thì chuyện đang nặng thật, nói thẳng; lá nhẹ thì chuyện không tệ như người hỏi nghĩ, cái kẹt nằm ở lá hai. Lá ngược thiên về tình huống đang kẹt hoặc người hỏi chưa nhìn đúng nó.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Trở ngại
+  cau_hoi: Cái gì đang cản, từ bên ngoài hay từ chính người hỏi
+  goi_y_doc: Ở vị trí này, lá nào cũng đọc thành cái cản; lá nhẹ ở đây là một thứ tốt đang bị dùng sai hoặc quá tay, không phải tin vui. Ưu tiên phần đầu của canh_bao và tu_khoa_nguoc kể cả khi lá xuôi. Lá ngược thì trở ngại thường nằm ở trong người hỏi hơn ở ngoài. Lá hoàng gia có thể là một người đang cản, đọc theo la_nguoi nếu ngữ cảnh có người đó.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Lời khuyên
+  cau_hoi: Người hỏi nên làm gì hoặc giữ tâm thế nào để qua cái cản ở lá hai
+  goi_y_doc: Đọc lá thành một hành động hoặc một tâm thế, không đọc thành dự báo. Lá nhẹ là việc nên làm, lá nặng là việc nên tránh hoặc thứ phải chấp nhận trước khi đi tiếp. Lá ngược thiên về "đừng làm quá" hoặc "đi chậm lại". Lá hoàng gia đọc theo la_nang_luong.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Lá hai là then chốt; bài phải nói được cái cản này là gì bằng một câu rõ, rồi lá ba trả lời đúng cái cản đó, không khuyên chung chung.
+- Nói theo thứ tự một, hai, ba; lá một chỉ cần một hai câu nếu người hỏi đã kể rõ tình huống.
+- Nếu lá một và lá hai cùng chất hoặc cùng nghĩa, nói rằng cái cản chính là cách người hỏi đang nhìn chuyện này.
+- Lá ba biến thành việc cụ thể ở đoạn kết; việc đó phải nối được với cot_loi của lá ba, không thêm lời khuyên ngoài bài.
+- Kiểu trải này không nói kết cục; người hỏi hỏi "rồi có thành không" thì nói bài này chỉ gỡ chỗ kẹt, muốn nhìn hướng đi thì trải ba lá thời gian.
+do_dai:
+  min: 220
+  max: 300
+vi_du:
+- cau_hoi: Ôn thi IELTS mãi không lên điểm, mình phải làm sao
+  linh_vuc: hoc_hanh
+  la:
+  - vi_tri: 1
+    id: cup_01
+    nguoc: true
+  - vi_tri: 2
+    id: major_18
+    nguoc: false
+  - vi_tri: 3
+    id: cup_10
+    nguoc: false
+  bai_luan: |-
+    Hai lá Cốc kẹp một Mặt Trăng ở giữa, nên chuyện điểm không lên là chuyện của lòng và của cái mờ, không phải thiếu tài liệu hay thiếu mẹo làm bài.
+
+    Tình huống là Át Cốc ngược. Át Cốc xuôi là cái hứng vừa nhen, mới thấy thích một môn và hào hứng ghi danh; ngược là cốc đã cạn. Bạn đang ôn bằng quán tính, ngồi vào bàn mà lòng trống, giờ ngồi có mà chữ không vào. Cái cản là Mặt Trăng, bạn đang ôn trong sương, không biết mình hiểu tới đâu, yếu ở kỹ năng nào, cứ ôn lan man theo nỗi lo, và cái lo về điểm lớn hơn cái thật của bài làm. Cái mờ này nằm trong đầu bạn nhiều hơn trong đề thi.
+
+    Lời khuyên là Mười Cốc, lá rất nhẹ, đọc thành một tâm thế, học cho có gốc, có người quanh mình, đều đặn như một nếp nhà, thay vì một mình đi trong sương. Mười Cốc là niềm vui cả nhà giữ được qua năm tháng; hạ xuống việc học là kéo người thân, bạn thân vào cùng, và nhớ lại điểm số này để lo cho ai lâu dài.
+
+    Điểm không lên vì bạn đang học cạn lòng và mù đường, không biết mình đứng đâu. Tuần tới rủ đúng một người, trong nhà hay bạn thân, hẹn một buổi cố định mỗi tuần, làm một đề đủ bốn kỹ năng có bấm giờ, chấm cùng nhau và ghi rõ kỹ năng nào thấp nhất; biết chỗ thấp mới biết dồn sức vào đâu.

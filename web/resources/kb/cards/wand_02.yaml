@@ -1,0 +1,55 @@
+id: wand_02
+ten_vi: Hai Gậy
+ten_en: Two of Wands
+arcana: phu
+so: 2
+chat: gay
+hoang_gia: false
+bieu_tuong:
+- Một người đàn ông đứng trên sân thượng lâu đài có tường răng cưa, tay phải cầm một quả cầu nhỏ hình trái đất, tay trái giữ một cây gậy
+- Cây gậy thứ hai được gắn cố định vào tường đá bằng một vòng sắt
+- Trên tường phía bên trái có hình hoa hồng và hoa huệ xếp chéo nhau kiểu chữ thập
+- Người này mặc áo choàng dài màu đỏ, đội mũ đỏ, nhìn ra xa về phía biển
+- Trước mặt là biển rộng, bờ vịnh cong, dãy núi mờ ở chân trời
+- Bên dưới tường thành có cây xanh và vài mái nhà nhỏ
+- Tường lâu đài bằng đá xám, chiếm gần hết phần dưới lá
+cot_loi: Đã có một chỗ đứng chắc, và chính cái chắc đó thành chật. Đứng giữa cái đang cầm trong tay và cái lớn hơn ở ngoài kia, tính đường đi xa mà chưa nhấc chân; quyền chọn còn nguyên trong tay mình.
+tu_khoa_xuoi:
+- chỗ đứng đã chắc
+- tính đường đi xa
+- chưa nhấc chân
+- nhìn ra ngoài kia
+- quyền chọn trong tay
+- chật chỗ cũ
+- vẽ kế hoạch dài
+- muốn hơn cái đang có
+tu_khoa_nguoc:
+- ngại đi xa
+- kế hoạch nằm giấy
+- sợ rời chỗ cũ
+- mơ xa quên gần
+- mất quyền chọn
+- bị đẩy đi
+- an phận
+- bất ngờ đổi hướng
+canh_bao: 'Người này có thể đứng trên tường mãi mà không bước, càng tính càng sợ rời chỗ cũ, rốt cuộc sống trong bản kế hoạch thay vì sống thật; hoặc khinh cái đang có, mơ xa tới mức bỏ bê việc gần. Giữ mọi thứ ở mức đang cân nhắc: đừng chốt hộ người hỏi nên đi hay ở, đừng đọc quả cầu thành đi nước ngoài chắc chắn. Waite có ghi bệnh tật, đau đớn thể xác trong nghĩa xuôi, bỏ hẳn hướng đó, không suy ra sức khoẻ.'
+nguyen_to: hoa
+chiem_tinh_gd: Sao Hoả ở Bạch Dương
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: tĩnh
+  huong: nhìn ra xa
+lang_kinh:
+  tinh_cam: Đang có một mối yên ổn mà trong đầu đã tính chuyện xa hơn, cưới hay không, theo nhau đi xa hay không; mới ngắm nghía, chưa mở lời với ai.
+  cong_viec: Chỗ làm hiện tại ổn định mà đã thấy chật, đang cân nhắc nhảy việc, mở chi nhánh, hay ra làm riêng; mọi thứ còn trên giấy, quyền quyết định vẫn ở người hỏi.
+  tien_bac: 'Lương ổn, đã có khoản để dành, đang ngồi tính xem tiền này đủ cho chuyện lớn hơn không: mở tiệm, đi xa, đổi nghề; mới là bài toán trên giấy, chưa đụng tới ví.'
+  tam_ly: Người hỏi tự thấy mình đứng yên quá lâu ở chỗ an toàn, vừa hài lòng vừa bứt rứt; đầu đã đi xa hơn chân, biết mình phải chọn mà còn nấn ná.
+  hoc_hanh: Học ổn ở trường hiện tại mà đã ngó sang du học, đổi ngành, học lên cao; đang so sánh các đường đi trên giấy, quyền chọn còn nguyên và chưa ai ép.
+cach_noi_viet:
+- đứng núi này trông núi nọ
+- nhìn xa trông rộng
+- chân trong chân ngoài
+- đi một ngày đàng học một sàng khôn
+- dù trong dù đục ao nhà vẫn hơn
+- tính già hoá non

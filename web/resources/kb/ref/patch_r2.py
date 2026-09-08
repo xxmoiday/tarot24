@@ -1,0 +1,18 @@
+import sys; sys.path.insert(0,'/home/claude/kb/ref')
+import patch_r1 as p
+p.P.clear(); s=p.s
+s("wand_queen","ba_cach_doc","việc có người vừa lo được nhà vừa kéo được người đứng sau.","trong việc có người vừa lo được nhà vừa kéo được người theo mình.",sub="la_tinh_huong")
+s("major_19","cot_loi","sức sống và sự thật thà như trẻ con","sức sống và cái thật thà như trẻ con")
+s("coin_knight","ba_cach_doc","cày đến đuối rồi buông đúng lúc gần xong.","cày đến đuối rồi bỏ dở ngay lúc gần xong.",sub="la_nang_luong")
+s("sword_01","lang_kinh","vừa lóe ra","vừa loé ra",sub="cong_viec")
+s("wand_king","tu_khoa_nguoc","nghiêm mà không hẹp (ngược nhẹ)","nghiêm mà không hẹp")
+s("wand_queen","tu_khoa_nguoc","kín tiếng, chịu khó (ngược nhẹ)","kín tiếng, chịu khó")
+s("wand_08","cach_noi_viet","phóng lao phải theo lao","đâm lao phải theo lao")
+s("major_20","tu_khoa_xuoi","nhận phán quyết","nhận kết cục")
+s("major_20","lang_kinh","chấp nhận phán quyết rồi đứng dậy","chấp nhận kết cục rồi đứng dậy",sub="tam_ly")
+s("cup_page","tu_khoa_xuoi","rung động đầu","xao xuyến đầu")
+s("coin_07","canh_bao","chỉ chụp khoảnh khắc đang cân;","chỉ chụp đúng lúc đang cân;")
+s("major_17","tu_khoa_nguoc","trời không sao","trời tắt sao")
+s("cup_05","tu_khoa_nguoc","qua cầu",None)
+s("cup_05","tu_khoa_nguoc","họ hàng có tin","người thân tìm về")
+p.apply()

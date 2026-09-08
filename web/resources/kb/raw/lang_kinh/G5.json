@@ -1,0 +1,72 @@
+{
+ "coin_01": {
+  "tinh_cam": "Một mối vừa chớm nhưng có nền thật, người kia làm ăn đàng hoàng, tính chuyện lâu dài được; mới là bước đầu, đừng vội đòi cả mùa.",
+  "cong_viec": "Lời mời làm việc, hợp đồng hay dự án mới vừa đến tay, điều kiện rõ ràng; nhận rồi phải bắt tay làm ngay thì hạt mới nảy mầm.",
+  "tien_bac": "Có khoản tiền mới về hoặc một nguồn thu vừa mở, không lớn nhưng chắc; ngược thì tiền vào chưa kịp ấm túi đã ra.",
+  "tam_ly": "Đầu óc thực tế, hăm hở với cái vừa cầm được trong tay, thấy mình có chỗ để bắt đầu lại từ một nền vững.",
+  "hoc_hanh": "Vừa đỗ, vừa được nhận vào khoá học hay chỗ học nghề mong muốn; nền có rồi, kết quả về sau tuỳ công học từ giờ."
+ },
+ "coin_02": {
+  "tinh_cam": "Vừa lo chuyện yêu vừa lo cơm áo, hay đứng giữa hai mối chưa dứt; hai người còn giữ được nhịp, ngược thì một bên sẽ rơi.",
+  "cong_viec": "Làm hai việc cùng lúc, việc chính lẫn việc ngoài, hạn chồng hạn; vẫn xoay xở được nhưng đang thiếu chỗ nghỉ tay.",
+  "tien_bac": "Tiền vào ra liên tục, tháng này đắp chỗ kia bù chỗ nọ, chưa dư mà cũng chưa hụt; chỉ cần một khoản bất ngờ là lệch cân.",
+  "tam_ly": "Đầu chạy đi chạy lại giữa nhiều mối lo, không có gì đổ nhưng cũng chưa được ngồi yên một phút.",
+  "hoc_hanh": "Vừa đi học vừa đi làm, hay theo hai chương trình một lúc; đủ sức cho cả hai nếu chia giờ khéo, lệch một chút là rớt một bên."
+ },
+ "coin_03": {
+  "tinh_cam": "Hai người đang cùng xây một thứ chung, nhà cửa hay kế hoạch, mỗi người thấy phần mình được người kia ghi nhận; nhà hai họ cũng góp tay.",
+  "cong_viec": "Được giao việc đúng tay nghề, sếp và đồng nghiệp thấy giá trị của mình, dự án chạy vì mỗi người biết rõ phần việc.",
+  "tien_bac": "Tiền đến từ tay nghề được trả công xứng đáng, được thưởng hay tăng lương vì làm tốt phần việc trong nhóm.",
+  "tam_ly": "Thấy mình có ích, có chỗ đứng trong một tập thể, được cần đến; ngược thì tự thấy mình xoàng, chẳng ai để ý.",
+  "hoc_hanh": "Học theo nhóm, có thầy hướng dẫn sát, luận văn được góp ý kỹ; bài được công nhận vì tay nghề chứ không phải điểm số suông."
+ },
+ "coin_04": {
+  "tinh_cam": "Ôm khư khư người kia vì sợ mất, ghen, kiểm soát; mối này chắc mà khô, không có chỗ cho cái mới, chuyện cũ cũng chẳng chịu buông.",
+  "cong_viec": "Giữ ghế, giữ việc quen, không dám đổi chỗ dù đã chán; an toàn thật nhưng cơ hội mới cũng bị chặn ngoài cửa.",
+  "tien_bac": "Để dành được, không tiêu bừa, tiền nằm yên trong tay; chặt quá thành bủn xỉn, ngược thì tiền đang treo, chưa về.",
+  "tam_ly": "Sợ mất nhiều hơn muốn được, đóng cửa với người ngoài, tự kiểm soát đến cứng người; ngồi yên thì an mà không vui.",
+  "hoc_hanh": "Học theo cách cũ đã thuộc, ôn kỹ những gì đã biết, ngại thử cách mới; thi chắc điểm nhưng khó bứt lên."
+ },
+ "coin_05": {
+  "tinh_cam": "Hai người cùng cảnh khó dựa vào nhau lúc túng; hay người hỏi thấy mình bị bỏ rơi, chia tay xong không còn ai bên cạnh.",
+  "cong_viec": "Mất việc, hay đang làm mà bị gạt ra rìa, sếp không để ý; có chỗ sẵn lòng nhận mình nhưng chưa nhìn tới vì mải lo cái đã mất.",
+  "tien_bac": "Túng thật, hết tiền, hụt nguồn thu; chỗ có thể giúp ngay trước mặt, người thân hay chỗ làm cũ, mà chưa chịu gõ cửa.",
+  "tam_ly": "Đứng ngoài, thiếu chỗ dựa, mắt chỉ dán vào cái mình không có; càng cúi càng không thấy đèn đang sáng ngay trên đầu.",
+  "hoc_hanh": "Thiếu tiền học, thiếu người chỉ, rớt một kỳ; có chỗ hỗ trợ, có người cùng cảnh mà ngại hỏi nên đi qua không thấy."
+ },
+ "coin_06": {
+  "tinh_cam": "Một người cho, một người nhận, tiền hay tình cảm, mà phần cho đang nghiêng hẳn về một phía; hỏi kỹ mối này là được chăm hay đang mang ơn.",
+  "cong_viec": "Được sếp thưởng, nâng đỡ, giao thêm quyền; hay chính mình đang chia việc, chia phần cho người dưới, ơn có qua có lại.",
+  "tien_bac": "Được giúp tiền đúng lúc, vay được, được cho; ngược thì món nợ thành gánh nặng, cho vay rồi kể công.",
+  "tam_ly": "Đang tự hỏi mình ở trên hay dưới trong một mối quan hệ, biết ơn hay áy náy; sợ mình nhận nhiều hơn xứng đáng.",
+  "hoc_hanh": "Được học bổng, được thầy kèm riêng, có người lo tiền học; nhớ rõ ai đã cho để sau này trả ơn cho đúng."
+ },
+ "coin_07": {
+  "tinh_cam": "Đã bỏ nhiều công cho mối này, giờ đứng nhìn lại tự hỏi có đáng; chưa đến lúc gặt, đi tiếp hay thôi phải tự cân.",
+  "cong_viec": "Dự án làm lâu chưa thấy kết quả, sốt ruột; đây là lúc đánh giá lại chứ không phải lúc bỏ ngang, ngược thì nản tay bỏ dở.",
+  "tien_bac": "Tiền để dành, tiền góp lâu ngày lớn chậm, chưa rút được; khoản đã cho mượn đang khó đòi.",
+  "tam_ly": "Mệt, ngắm công sức đã bỏ mà lòng nửa tin nửa nghi, sốt ruột chờ một thứ mình không đẩy nhanh được.",
+  "hoc_hanh": "Học đã lâu mà điểm chưa lên, luận văn làm dở, tự hỏi có nên đi tiếp; kiến thức đang ngấm, chưa nổi lên bài."
+ },
+ "coin_08": {
+  "tinh_cam": "Mối này cần vun bằng việc nhỏ đều đặn, mỗi ngày một chút; không phải cảm xúc bùng lên mà là công chăm sóc lặp đi lặp lại.",
+  "cong_viec": "Đang học việc, làm quen tay ở chỗ mới, làm đi làm lại cho thạo; chưa nổi bật nhưng nghề đang vào tay.",
+  "tien_bac": "Tiền đến từng khoản nhỏ theo công làm, đều tay mà không có lộc bất ngờ; muốn ăn xổi là hỏng luôn cái đều.",
+  "tam_ly": "Cúi đầu vào việc, không màng ai nhìn, tìm được cái yên từ chính việc lặp lại; chán là vì đang muốn kết quả nhanh.",
+  "hoc_hanh": "Ôn thi bằng cách làm đề nhiều lần, học nghề qua tay, kiên trì từng bài; chăm hơn khéo là đúng cách cho lúc này."
+ },
+ "coin_09": {
+  "tinh_cam": "Người hỏi tự lo được, không cần ai để thấy đủ; độc thân mà ổn, có yêu thì chọn kỹ; ngược là giàu có mà bên cạnh trống.",
+  "cong_viec": "Làm riêng, tự chủ công việc, có thành quả không phải nhờ ai; ngồi vị trí đủ cao để làm theo cách mình muốn.",
+  "tien_bac": "Có của riêng tự tay gây dựng, chi tiêu thoải mái trong sức mình, không phải ngửa tay xin ai; lố tay là vì khoe hơn vì cần.",
+  "tam_ly": "Ung dung, tự tin vì biết rõ mình đã làm gì để có hôm nay; kỷ luật thành nếp nên không phải gồng.",
+  "hoc_hanh": "Tự học được, không cần ai ép, có nếp học riêng và kết quả chứng minh; học vì muốn giỏi chứ không vì ai bắt."
+ },
+ "coin_10": {
+  "tinh_cam": "Chuyện hai người đã thành chuyện hai nhà, tính cưới, tính ở đâu, gia đình hai bên chấp thuận; ngược thì rạn từ trong họ hàng.",
+  "cong_viec": "Công ty gia đình, chỗ làm ổn định lâu năm, được thừa hưởng vị trí hay mối làm ăn đời trước để lại.",
+  "tien_bac": "Tài sản lớn và bền, cơ ngơi tổ tiên, của để đời; ngược thì tranh của trong nhà, gánh nợ dòng họ.",
+  "tam_ly": "An tâm vì có gốc, có chỗ về, biết mình là một mắt xích trong dòng họ; đôi khi nặng vì phải giữ nếp nhà.",
+  "hoc_hanh": "Được nhà lo cho học đến nơi đến chốn, ngành học gắn với nghề ông cha; học để về giữ cơ nghiệp hơn là để tự đi."
+ }
+}

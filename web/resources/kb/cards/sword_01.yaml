@@ -1,0 +1,54 @@
+id: sword_01
+ten_vi: Át Kiếm
+ten_en: Ace of Swords
+arcana: phu
+so: 1
+chat: kiem
+hoang_gia: false
+bieu_tuong:
+- Một bàn tay trắng thò ra từ đám mây bên mép phải lá bài, nắm chặt chuôi một thanh kiếm dựng thẳng đứng
+- Mũi kiếm xuyên qua một vương miện vàng, lơ lửng quanh mũi kiếm
+- 'Từ vương miện rủ xuống hai nhánh cây: một nhánh cọ và một nhánh ô liu, mỗi nhánh nghiêng về một bên lưỡi kiếm'
+- Quanh lưỡi kiếm có những đốm sáng nhỏ hình giọt lửa rơi xuống
+- Không có nhân vật nào, chỉ có bàn tay, kiếm và vương miện
+- Phía dưới là dãy núi xám lởm chởm, đỉnh nhọn, không cây cối
+- Trời xám nhạt, không mặt trời, không mưa, tông màu chủ đạo xám, trắng và vàng của vương miện
+cot_loi: Một sự thật vừa lộ ra, rõ và sắc, cắt đứt mọi mập mờ. Đây là mầm của một ý nghĩ đủ mạnh để đổi hướng cả chuyện, nhưng mới chỉ là lưỡi cắt, thành hay hỏng còn tuỳ tay cầm.
+tu_khoa_xuoi:
+- nhìn thấu
+- đầu óc tỉnh táo
+- nói thẳng
+- ý mới sắc bén
+- vỡ lẽ
+- chặt đứt mập mờ
+- lý lẽ thắng
+- quyết một nhát
+tu_khoa_nguoc:
+- đầu óc rối
+- ý chưa thành hình
+- nói không nên lời
+- lời sắc làm đau
+- dùng lý để ép
+- nhìn lệch sự thật
+- quyết vội mà sai
+canh_bao: Lưỡi cắt này khi quá tay thành lời nói làm đau, lấy lý lẽ ép người khác im, hoặc quyết một nhát rồi mới thấy mình nhìn lệch. Ý vừa loé lên mà chưa thành hình, nói ra sớm dễ thành cãi vã thay vì sáng tỏ. Nghĩa ngược ở sách gốc có ghi thụ thai, sinh nở, người luận không được vin vào đó, lá này chỉ nói đầu óc đang sáng ra; cũng đừng đọc thành thắng chắc, kiếm mới rút, chưa ai thắng.
+nguyen_to: khi
+chiem_tinh_gd: Gốc của nguyên tố Khí
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: động đột ngột
+  huong: cắt xuống
+lang_kinh:
+  tinh_cam: 'Một câu nói thẳng lột trần chuyện hai người lâu nay né tránh: đang tìm hiểu thì rõ đi hay ở, đã cưới thì phải ngồi lại nói hết một lần.'
+  cong_viec: Một ý tưởng hay quyết định vừa loé ra, đủ sức xoay cả dự án; nói thẳng với sếp lúc này được nghe, miễn đừng sắc đến mức làm người khác mất mặt.
+  tien_bac: Ngồi rà lại một lần là thấy rõ tiền đang chảy đi đâu, cắt được khoản thừa và chốt dứt khoát một chuyện tiền nong treo từ lâu.
+  tam_ly: Đầu óc vừa sáng ra sau một dạo mù mờ, thấy rõ mình muốn gì và không muốn gì; cái rõ này dễ thành cứng nhắc nếu lấy lý đè hết cảm xúc.
+  hoc_hanh: Đọc một lần mà vỡ ra cả chương lâu nay không hiểu, chọn được đề tài luận văn, hay quyết dứt khoát học ngành nào; ý đã rõ, còn lại là làm.
+cach_noi_viet:
+- nói toạc móng heo
+- thuốc đắng dã tật, sự thật mất lòng
+- một là một, hai là hai
+- chém đinh chặt sắt
+- con dao hai lưỡi
+- lựa lời mà nói cho vừa lòng nhau

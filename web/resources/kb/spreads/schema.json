@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Kiểu trải bài tarot (tiếng Việt)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "ten_vi", "ten_en", "nhom", "so_la", "mo_ta", "hop_voi", "khong_hop_voi", "cach_rut", "vi_tri", "luat_doc", "do_dai", "vi_du"],
+  "properties": {
+    "id":      {"type": "string", "pattern": "^[a-z0-9_]+$"},
+    "ten_vi":  {"type": "string", "minLength": 3},
+    "ten_en":  {"type": "string", "minLength": 3},
+    "nhom":    {"enum": ["co_ban", "chuyen_de"]},
+    "so_la":   {"type": "integer", "minimum": 1, "maximum": 12},
+    "mo_ta":   {"type": "string", "minLength": 30},
+    "hop_voi": {"type": "array", "minItems": 2, "maxItems": 6, "items": {"type": "string", "minLength": 5}},
+    "khong_hop_voi": {"type": "array", "minItems": 1, "maxItems": 4, "items": {"type": "string", "minLength": 5}},
+    "cach_rut": {"type": "string", "minLength": 10},
+    "vi_tri": {
+      "type": "array", "minItems": 1, "maxItems": 12,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["stt", "ten", "cau_hoi", "goi_y_doc"],
+        "properties": {
+          "stt":       {"type": "integer", "minimum": 1},
+          "ten":       {"type": "string", "minLength": 2},
+          "cau_hoi":   {"type": "string", "minLength": 10},
+          "goi_y_doc": {"type": "string", "minLength": 30},
+          "lang_kinh_uu_tien": {"enum": ["theo_cau_hoi", "tinh_cam", "cong_viec", "tien_bac", "tam_ly", "hoc_hanh"]}
+        }
+      }
+    },
+    "luat_doc": {"type": "array", "minItems": 2, "maxItems": 8, "items": {"type": "string", "minLength": 20}},
+    "do_dai":  {"type": "object", "additionalProperties": false, "required": ["min", "max"],
+                "properties": {"min": {"type": "integer"}, "max": {"type": "integer"}}},
+    "vi_du": {
+      "type": "array", "minItems": 1, "maxItems": 3,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["cau_hoi", "linh_vuc", "la", "bai_luan"],
+        "properties": {
+          "cau_hoi":  {"type": "string", "minLength": 10},
+          "linh_vuc": {"enum": ["tinh_cam", "cong_viec", "tien_bac", "tam_ly", "hoc_hanh", "chung", "chu_de_cam"]},
+          "ghi_chu":  {"type": "string"},
+          "la": {
+            "type": "array", "minItems": 1,
+            "items": {
+              "type": "object", "additionalProperties": false,
+              "required": ["vi_tri", "id", "nguoc"],
+              "properties": {
+                "vi_tri": {"type": "integer", "minimum": 1},
+                "id":     {"type": "string", "pattern": "^(major_(0[0-9]|1[0-9]|2[01])|(wand|cup|sword|coin)_(0[1-9]|10|page|knight|queen|king))$"},
+                "nguoc":  {"type": "boolean"}
+              }
+            }
+          },
+          "bai_luan": {"type": "string", "minLength": 200}
+        }
+      }
+    }
+  }
+}

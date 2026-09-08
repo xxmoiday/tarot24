@@ -1,0 +1,58 @@
+id: wand_knight
+ten_vi: Hiệp Sĩ Gậy
+ten_en: Knight of Wands
+arcana: phu
+so: null
+chat: gay
+hoang_gia: true
+bieu_tuong:
+- Kỵ sĩ mặc giáp cưỡi con ngựa nâu đỏ đang chồm hai chân trước lên cao
+- Tay phải giơ cây gậy mọc lá, tay trái ghì cương
+- Ngoài lớp giáp khoác áo vàng in hình kỳ nhông, mũ giáp có chùm lông đỏ dài
+- Bờm và đuôi ngựa tua ra như ngọn lửa, yên cương có tua rua vàng
+- Nền đất cát khô, mấy kim tự tháp phía xa
+- Trời vàng đều
+cot_loi: 'Lao đi ngay, đi xa, đổi chỗ: sức nóng của hành động không chờ tính kỹ. Được cái nhanh và gan, mất cái bền; rời đi dễ hơn ở lại, đốt cháy giai đoạn hơn là xây.'
+tu_khoa_xuoi:
+- lên đường ngay
+- chuyển chỗ ở
+- gan mà vội
+- làm trước tính sau
+- đi xa
+- đốt giai đoạn
+- người tới rồi đi
+- cháy hết mình
+tu_khoa_nguoc:
+- chuyến đi bị hoãn
+- đứt gánh giữa đường
+- nóng máu gây gổ
+- chia năm xẻ bảy
+- liều hơn gan
+- hùng hục rồi bỏ
+- hết lửa, nằm im
+- đi rồi không về
+canh_bao: Bứt đi giữa chừng, việc dở bỏ lại cho người khác dọn, mối tình nồng mấy tuần rồi người ấy chuyển đi; ngược thì nóng máu gây gổ, chia bè, chuyến đi hoãn vô thời hạn. Lá này không đủ để nói sẽ chia tay hay người ấy đang lừa dối; nó nói về tốc độ và sự rời chỗ, chưa nói về lòng dạ. Đừng đọc thành lời khuyên nghỉ việc, bỏ nhà đi ngay, và tránh khẳng định lá báo trước chuyện đi nước ngoài.
+nguyen_to: hoa
+chiem_tinh_gd: Khí của Hoả — Hoàng Tử (Prince); 20° Cự Giải – 20° Sư Tử
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: động đột ngột
+  huong: phóng đi xa
+lang_kinh:
+  tinh_cam: Người này tới rất nồng, hẹn hò dồn dập, nhưng hay đi công tác, đổi chỗ, khó giữ lâu; yêu xa, hoặc một người sắp rời đi.
+  cong_viec: Nhận việc phải đi công tác xa, chuyển chi nhánh, hoặc nhảy từ chỗ này sang chỗ khác rất nhanh; làm dự án cháy hết mình rồi rời trước khi xong.
+  tien_bac: Tiền ra nhanh cho chuyến đi, chuyển nhà, mua sắm trong cơn nóng; kiếm nhanh mà tiêu cũng nhanh, khoản để dành khó đầy.
+  tam_ly: Nóng ruột không ngồi yên, muốn đi đâu đó ngay, làm gì đó ngay; nhìn mình như người sắp bứt ra khỏi chỗ cũ.
+  hoc_hanh: Học kiểu chạy nước rút, nhồi trước ngày thi, hoặc đi học xa nhà, chuyển trường; nhanh mà không kỹ, ngược thì bỏ ngang giữa khoá.
+cach_noi_viet:
+- đi cho biết đó biết đây
+- đi mây về gió
+- nóng như Trương Phi
+- cưỡi ngựa xem hoa
+- đi đâu mà vội mà vàng
+- đứt gánh giữa đường
+ba_cach_doc:
+  la_nguoi: 'Kiểu người đến đâu nóng đó: hẹn hò dồn dập, làm việc cháy hết mình, rồi đùng một cái chuyển chỗ, đi công tác, đi xa. Anh bạn hay đổi việc, người yêu hay vắng nhà, đứa em lúc nào cũng có kế hoạch đi đâu đó. Gan, vui, cuốn hút, nhưng khó giữ lâu.'
+  la_nang_luong: 'Với chuyện này thì làm trước tính sau, quyết trong một buổi, có cớ là lên đường. Sức nóng chứ không phải sức bền: nhanh, dứt khoát, dám rời chỗ cũ, nhưng hết hứng là khó ở lại. Hợp lúc cần bứt ra, không hợp lúc cần xây.'
+  la_tinh_huong: Một chuyến đi, một lần đổi chỗ ở, chuyển chi nhánh, hay ai đó trong chuyện này sắp rời đi. Việc đang chuyển động gấp, có lửa, không giữ nguyên như cũ được nữa. Ngược thì chuyến đi hoãn, chuyện dở dang giữa đường, có người bỏ ngang trong cơn nóng.

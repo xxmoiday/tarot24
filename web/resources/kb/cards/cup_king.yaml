@@ -1,0 +1,58 @@
+id: cup_king
+ten_vi: Vua Cốc
+ten_en: King of Cups
+arcana: phu
+so: null
+chat: cup
+hoang_gia: true
+bieu_tuong:
+- Vua ngồi trên ngai đá nổi giữa biển, tay phải cầm chiếc cốc lớn, tay trái cầm cây trượng ngắn
+- Áo dài xanh dương, khoác áo choàng vàng cam, cổ đeo dây chuyền có mặt hình con cá
+- Đội vương miện vàng, mặt nhìn thẳng, ngồi bất động
+- Một bên là con tàu buồm đang đi, bên kia là con cá heo nhảy lên khỏi mặt nước
+- Sóng biển xám xanh dập dềnh quanh bệ ngai, không thấy bờ
+- Trời nhạt màu
+cot_loi: 'Giữa sóng gió vẫn không chao: cảm được hết nhưng không để cảm xúc cầm lái. Thương người theo cách có chừng, khuyên được, xử được, giữ hoà khí khi người khác đang nóng.'
+tu_khoa_xuoi:
+- vững giữa sóng gió
+- cảm mà không loạn
+- thương có chừng mực
+- người khuyên nghe được
+- dàn hoà
+- kín đáo, biết nhịn
+- có học, có nghề
+- mềm ngoài chắc trong
+tu_khoa_nguoc:
+- nén rồi bùng
+- hai mang
+- lạnh tanh, đóng cửa
+- bê bối lộ ra
+- thao túng khéo
+- ngoài hoà trong hận
+- tin nhầm, thiệt lớn
+- sa vào bê tha
+canh_bao: Nén giỏi quá thành nén lâu, đến lúc bùng thì ai cũng ngã ngửa; hoặc lạnh tanh đóng cửa, ngoài hoà trong hận, khéo đến mức thao túng người thân mà họ không biết. Nghĩa gốc gắn ông với nghề luật, nhưng không đọc lá thành thắng thua vụ kiện hay lời khuyên thuê luật sư; chỉ là người xử việc có đầu có đuôi. Tránh gán thiệt lớn khi ngược thành mất tiền ở một khoản đầu tư cụ thể.
+nguyen_to: thuy
+chiem_tinh_gd: Hoả của Thuỷ — Hiệp Sĩ (Knight); 20° Bảo Bình – 20° Song Ngư
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: tĩnh
+  huong: vững giữa sóng
+lang_kinh:
+  tinh_cam: Bạn đời hoặc người đang tìm hiểu là người điềm đạm, biết nhường khi mình nóng; chuyện nhà có cãi thì người này đứng ra dàn hoà.
+  cong_viec: Nhóm đang mâu thuẫn thì có người điềm đạm đứng ra xử; sếp kiểu này ít nói, nghe hết rồi mới quyết, đồng nghiệp nể mà không sợ.
+  tien_bac: Tiền vào ra có chừng, không hoảng khi hụt, không vung khi dư; là người khuyên chuyện tiền mà người khác nghe được; ngược thì tin nhầm người mà thiệt lớn.
+  tam_ly: Bên trong có sóng nhưng mặt ngoài phẳng, tự giữ mình đứng vững để người khác dựa; ngược thì nén lâu quá, bùng ra lúc không ngờ.
+  hoc_hanh: Làm luận văn hay ôn thi giữ nhịp đều, không cuống trước ngày thi; thầy hướng dẫn điềm đạm, góp ý mềm mà trúng.
+cach_noi_viet:
+- một điều nhịn, chín điều lành
+- dĩ hoà vi quý
+- chín bỏ làm mười
+- vững như kiềng ba chân
+- tẩm ngẩm tầm ngầm mà đấm chết voi
+- bắt cá hai tay
+ba_cach_doc:
+  la_nguoi: 'Điềm đạm, nghe hết rồi mới nói, có học có nghề: thầy giáo cũ, người anh làm nghề tư vấn, ông sếp ít lời mà ai cũng nể. Trong nhà là người dàn hoà khi ai cũng nóng. Cảm được hết nhưng không để lộ; đôi khi khó biết trong đầu người ấy thật sự nghĩ gì.'
+  la_nang_luong: 'Nhận hết cảm xúc vào, nhưng quyết bằng cái đầu yên, cảm mà không loạn. Trong chuyện này là người giữ hoà khí: nhịn được, khuyên được, ai nóng cũng không lên giọng theo. Chỉ coi chừng nén lâu quá, đến lúc bùng thì chẳng ai ngờ.'
+  la_tinh_huong: 'Chuyện đang có sóng nhưng có người đứng vững ở giữa để xử: hoà giải trong nhà, mâu thuẫn nhóm có người đứng ra, một lời khuyên chín đến đúng lúc. Hoàn cảnh ổn nhờ chừng mực. Ngược thì có kẻ hai mang, chuyện kín lộ ra, tin nhầm người mà thiệt.'

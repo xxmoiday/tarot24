@@ -1,0 +1,805 @@
+import type { AspectKey } from "./cards";
+
+/**
+ * Cách bày lá. "row" và "single" xếp theo dòng, các kiểu còn lại đặt lá theo
+ * toạ độ để giữ đúng hình mà kiểu trải quy định.
+ */
+export type LayoutKind =
+  "single" | "row" | "pair" | "love" | "plus" | "branch" | "month" | "cross";
+
+export type TopicKey = AspectKey | "general";
+
+export const TOPICS: { key: TopicKey; label: string }[] = [
+  { key: "love", label: "Tình cảm" },
+  { key: "work", label: "Công việc" },
+  { key: "money", label: "Tiền bạc" },
+  { key: "mind", label: "Tâm lý" },
+  { key: "study", label: "Học hành" },
+  { key: "general", label: "Chung" },
+];
+
+export const TOPIC_LABEL: Record<TopicKey, string> = Object.fromEntries(
+  TOPICS.map((t) => [t.key, t.label]),
+) as Record<TopicKey, string>;
+
+export interface SpreadPosition {
+  /** Tên chính thức của vị trí, dùng ở trang kiểu trải và trong bài luận */
+  label: string;
+  /**
+   * Lăng kính nên đọc lá ở vị trí này. Không có nghĩa là đọc theo lĩnh vực
+   * của câu hỏi; có thì vị trí đó luôn đọc theo lăng kính này bất kể câu hỏi.
+   */
+  lens?: AspectKey;
+  /** Nhãn rút gọn hiện dưới lá khi chỗ hẹp; không có thì dùng label */
+  short?: string;
+  /** Vị trí này trả lời cái gì, dùng khi viết bài luận */
+  meaning: string;
+}
+
+export interface Spread {
+  slug: string;
+  name: string;
+  /** Tên tiếng Anh, dùng cho thẻ meta và dữ liệu có cấu trúc */
+  nameEn: string;
+  count: number;
+  /** Khoảng độ dài bài luận, tính bằng tiếng */
+  length: { min: number; max: number };
+  group: "basic" | "topic";
+  /** Kiểu bày lá trên màn, theo đúng cách đặt lá của kiểu trải */
+  layout: LayoutKind;
+  /** Một câu ngắn cho thẻ kiểu trải ở trang chủ */
+  blurb: string;
+  /** Đoạn mô tả đầy đủ cho trang kiểu trải */
+  about: string;
+  /** Cách rút và cách bày lá */
+  how: string;
+  placeholder: string;
+  /** Câu hỏi kiểu trải này trả lời tốt */
+  fits: string[];
+  /** Câu hỏi nên hỏi bằng kiểu trải khác */
+  notFor: string[];
+  defaultTopic: TopicKey;
+  positions: SpreadPosition[];
+  /** Trải này trả lời câu hỏi có/không */
+  yesNo?: boolean;
+  /**
+   * Chỉ số những lá luôn đọc xuôi dù rút ra ngược, ví dụ lá nằm ngang trong
+   * Thập tự Celtic thì không có chiều nên không có nghĩa ngược.
+   */
+  uprightOnly?: number[];
+  seo: { title: string; description: string };
+}
+
+export const SPREADS: Spread[] = [
+  {
+    slug: "mot-la-hom-nay",
+    name: "Một lá cho hôm nay",
+    nameEn: "One Card Daily",
+    count: 1,
+    length: { min: 120, max: 180 },
+    group: "basic",
+    layout: "single",
+    blurb:
+      "Rút một lá cho ngày hôm nay hoặc cho một chuyện đang vướng trong đầu. Nhanh, gọn, đủ để biết mình đang đứng ở đâu.",
+    about:
+      "Rút một lá cho ngày hôm nay hoặc cho một chuyện đang vướng trong đầu. Nhanh, gọn, đủ để biết mình đang đứng ở đâu.",
+    how: "Xào bài, nghĩ tới hôm nay hoặc chuyện đang vướng, rút một lá và đặt ngửa trước mặt.",
+    placeholder: "Hôm nay bạn đang nghĩ về chuyện gì",
+    fits: [
+      "Hôm nay mình nên để ý chuyện gì",
+      "Dạo này mình đang bị kẹt ở đâu",
+      "Chuyện với người đó, mình đang ở chỗ nào",
+      "Tuần này đi làm cần giữ cái gì",
+    ],
+    notFor: [
+      "Có nên nhận offer bên kia không, hay ở lại",
+      "Anh ấy có đang nghĩ đến mình không",
+      "Tháng sau tiền nong có ổn không",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Lá hôm nay",
+        short: "Hôm nay",
+        meaning:
+          "hôm nay, hoặc trong chuyện đang hỏi, cái gì đang chi phối và bạn nên để ý điều gì",
+      },
+    ],
+    seo: {
+      title: "Rút một lá tarot cho hôm nay",
+      description:
+        "Rút một lá tarot cho ngày hôm nay và nhận một bài đọc ngắn, nói thẳng bạn đang đứng ở đâu.",
+    },
+  },
+  {
+    slug: "co-hay-khong",
+    name: "Một lá có hay không",
+    nameEn: "One Card Yes or No",
+    count: 1,
+    length: { min: 120, max: 180 },
+    group: "basic",
+    layout: "single",
+    yesNo: true,
+    blurb:
+      "Một câu hỏi có hoặc không, một lá trả lời. Bài chỉ nói đang nghiêng về phía nào và vì sao, không hứa chắc.",
+    about:
+      "Một câu hỏi có hoặc không, một lá trả lời. Bài chỉ nói đang nghiêng về phía nào và vì sao, không hứa chắc.",
+    how: "Đặt câu hỏi ở dạng có hoặc không thật rõ trong đầu, xào bài, rút một lá và đặt ngửa.",
+    placeholder: "Có nên… không",
+    fits: [
+      "Có nên nhắn cho người đó trước không",
+      "Tuần này có nên nộp đơn vào chỗ đó không",
+      "Mình có nên nói thẳng với sếp chuyện này không",
+      "Đi chuyến này có hợp không",
+    ],
+    notFor: [
+      "Có thắng kiện không",
+      "Có nên mua mảnh đất đó không",
+      "Bệnh này có khỏi không",
+      "Có bầu chưa",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Lá trả lời",
+        short: "Câu trả lời",
+        meaning:
+          "với câu hỏi này, bài đang nghiêng về có hay về không, và vì sao",
+      },
+    ],
+    seo: {
+      title: "Bói tarot có hay không · một lá",
+      description:
+        "Đặt một câu hỏi có hoặc không, rút một lá tarot và xem bài đang nghiêng về phía nào cùng lý do.",
+    },
+  },
+  {
+    slug: "ba-la-thoi-gian",
+    name: "Ba lá quá khứ, hiện tại, tương lai gần",
+    nameEn: "Three Card Past Present Future",
+    count: 3,
+    length: { min: 220, max: 300 },
+    group: "basic",
+    layout: "row",
+    blurb:
+      "Ba lá xếp theo dòng thời gian của một chuyện, để thấy nó từ đâu tới, đang ở đâu và nếu giữ đà thì đi về đâu.",
+    about:
+      "Ba lá xếp theo dòng thời gian của một chuyện, để thấy nó từ đâu tới, đang ở đâu và nếu giữ đà thì đi về đâu.",
+    how: "Xào bài, rút ba lá và đặt thành hàng ngang từ trái sang phải theo thứ tự quá khứ, hiện tại, tương lai gần.",
+    placeholder: "Bạn đang vướng chuyện gì",
+    fits: [
+      "Chuyện giữa mình và người đó đang đi về đâu",
+      "Việc ở công ty này rồi sẽ ra sao",
+      "Chuyện tiền nong của mình đang chuyển thế nào",
+      "Mấy tháng nay mình lận đận, có sáng hơn không",
+    ],
+    notFor: [
+      "Nên chọn A hay chọn B",
+      "Bao giờ có kết quả",
+      "Người đó có đang nghĩ đến mình không",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Quá khứ",
+        meaning:
+          "chuyện này từ đâu mà ra, cái gì đã xảy ra và vẫn còn đè lên hiện tại",
+      },
+      {
+        label: "Hiện tại",
+        meaning: "ngay lúc này chuyện đang ở đâu, cái gì đang chi phối bạn",
+      },
+      {
+        label: "Tương lai gần",
+        meaning:
+          "nếu giữ đà hiện tại thì vài tuần tới chuyện này nghiêng về đâu",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot ba lá quá khứ, hiện tại, tương lai",
+      description:
+        "Trải ba lá theo dòng thời gian để thấy chuyện của bạn từ đâu tới, đang ở đâu và sẽ đi về đâu nếu giữ đà.",
+    },
+  },
+  {
+    slug: "ba-la-tinh-huong",
+    name: "Ba lá tình huống, trở ngại, lời khuyên",
+    nameEn: "Three Card Situation Obstacle Advice",
+    count: 3,
+    length: { min: 220, max: 300 },
+    group: "basic",
+    layout: "row",
+    blurb: "Cho một chuyện đang kẹt và muốn biết kẹt ở đâu.",
+    about:
+      "Cho một chuyện đang kẹt và muốn biết kẹt ở đâu. Ba lá gọi tên tình huống, chỉ cái đang cản và đưa một hướng gỡ.",
+    how: "Xào bài, rút ba lá đặt hàng ngang từ trái sang phải theo thứ tự tình huống, trở ngại, lời khuyên.",
+    placeholder: "Chuyện gì đang kẹt",
+    fits: [
+      "Mình đang kẹt với dự án này, gỡ thế nào",
+      "Chuyện với người yêu cứ cãi hoài, tại đâu",
+      "Sao mãi không để dành được tiền",
+      "Học mãi không vào, mình đang vướng cái gì",
+    ],
+    notFor: [
+      "Chuyện này rồi có thành không",
+      "Nên chọn hướng nào trong hai hướng",
+      "Người kia đang nghĩ gì về mình",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Tình huống",
+        meaning: "chuyện này thật ra đang là chuyện gì, gốc của nó ở đâu",
+      },
+      {
+        label: "Trở ngại",
+        meaning: "cái gì đang cản, từ bên ngoài hay từ chính bạn",
+      },
+      {
+        label: "Lời khuyên",
+        meaning: "bạn nên làm gì hoặc giữ tâm thế nào để qua cái cản ở lá hai",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot tình huống, trở ngại, lời khuyên",
+      description:
+        "Ba lá cho một chuyện đang kẹt: chuyện đang ra sao, cái gì chặn nó, và nên làm gì tiếp.",
+    },
+  },
+  {
+    slug: "nam-la-tinh-cam",
+    name: "Năm lá chuyện tình cảm",
+    nameEn: "Five Card Relationship",
+    count: 5,
+    length: { min: 280, max: 380 },
+    group: "basic",
+    layout: "love",
+    blurb:
+      "Cho một mối đang có hoặc đang tìm hiểu. Năm lá nhìn phía mình, phía người kia, cái đang nối, cái đang cản và hướng mối này đang đi.",
+    about:
+      "Cho một mối đang có hoặc đang tìm hiểu. Năm lá nhìn phía mình, phía người kia, cái đang nối, cái đang cản và hướng mối này đang đi.",
+    how: "Xào bài, rút năm lá; hai lá đầu đặt cạnh nhau như hai người đối diện, lá ba đặt giữa, lá bốn đặt dưới, lá năm đặt trên cùng.",
+    placeholder: "Chuyện tình cảm nào bạn muốn hỏi",
+    fits: [
+      "Mối này có đi xa được không",
+      "Mình với người đó đang ở đâu, có nên tiếp tục tìm hiểu không",
+      "Hai đứa dạo này lạnh nhạt, tại đâu",
+      "Mình còn nên chờ người này không",
+    ],
+    notFor: [
+      "Người đó có đang ngoại tình không",
+      "Có nên cưới hay chia tay, chọn giúp mình",
+      "Bao giờ mình gặp được người yêu",
+    ],
+    defaultTopic: "love",
+    positions: [
+      {
+        label: "Bạn trong chuyện này",
+        short: "Phía bạn",
+        meaning:
+          "bạn đang đứng trong mối này với tâm thế gì, đang cho đi và đang giữ lại cái gì",
+        lens: "love",
+      },
+      {
+        label: "Người kia trong chuyện này",
+        short: "Phía người kia",
+        meaning:
+          "trong mối này, bài đang cho thấy gì về phía người kia, cách người đó đang đứng và đang cho đi",
+        lens: "love",
+      },
+      {
+        label: "Cái đang nối hai người",
+        short: "Cái đang nối",
+        meaning:
+          "cái gì đang giữ hai người lại với nhau lúc này, thứ đó chắc hay mỏng",
+        lens: "love",
+      },
+      {
+        label: "Cái đang cản",
+        meaning: "cái gì đang kéo hai người ra xa hoặc làm mối này khó đi tiếp",
+        lens: "love",
+      },
+      {
+        label: "Hướng đi",
+        meaning:
+          "nếu giữ đà này thì mối này nghiêng về đâu, và bạn làm được gì để nó đi theo hướng tốt hơn",
+        lens: "love",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot tình cảm năm lá",
+      description:
+        "Năm lá nhìn phía bạn, phía người kia, cái đang nối, cái đang cản và hướng mối quan hệ đang đi.",
+    },
+  },
+  {
+    slug: "thap-tu-celtic",
+    name: "Thập tự Celtic",
+    nameEn: "Celtic Cross",
+    count: 10,
+    length: { min: 450, max: 550 },
+    group: "basic",
+    layout: "cross",
+    uprightOnly: [1],
+    blurb:
+      "Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài.",
+    about:
+      "Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài. Mất thời gian hơn nhưng thấy đủ mọi phía.",
+    how: "Rút mười lá theo thứ tự; lá một đặt giữa, lá hai đặt nằm ngang chéo lên lá một, lá ba dưới, lá bốn bên trái, lá năm trên, lá sáu bên phải, rồi bốn lá còn lại xếp thành cột dọc bên phải từ dưới lên.",
+    placeholder: "Chuyện lớn nào bạn muốn nhìn cho hết",
+    fits: [
+      "Cả chuyện tình cảm này của mình, nhìn toàn cảnh",
+      "Con đường sự nghiệp của mình đang thế nào, nên hiểu sao cho đúng",
+      "Năm nay mình cứ lận đận, nhìn giúp mình toàn bộ chuyện này",
+      "Mình đang định đổi hẳn cách sống, chuyện đó ra sao",
+    ],
+    notFor: [
+      "Hôm nay có nên nhắn cho người đó không",
+      "Câu hỏi nhanh có hoặc không",
+      "Chọn A hay B",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Hoàn cảnh",
+        meaning: "tâm điểm của chuyện này là gì, bạn đang đứng giữa cái gì",
+      },
+      {
+        label: "Cái cắt ngang",
+        meaning: "cái gì đang cắt ngang hoàn cảnh, giúp hay cản, mạnh tới đâu",
+      },
+      {
+        label: "Gốc rễ",
+        meaning:
+          "nền của chuyện này nằm ở đâu, cái gì bên dưới đã tạo ra hoàn cảnh hiện tại",
+        lens: "mind",
+      },
+      {
+        label: "Quá khứ gần",
+        meaning:
+          "chuyện gì vừa qua và đang lùi lại, nhưng còn để dấu lên hiện tại",
+      },
+      {
+        label: "Trên đầu",
+        meaning:
+          "khả năng tốt nhất của chuyện này là gì, hoặc điều bạn đang nghĩ tới và đang nhắm tới",
+      },
+      {
+        label: "Tương lai gần",
+        meaning:
+          "nếu giữ đà hiện tại thì vài tuần tới chuyện này chuyển sang đâu",
+      },
+      {
+        label: "Bản thân người hỏi",
+        short: "Bản thân bạn",
+        meaning:
+          "bạn đang mang tâm thế gì vào chuyện này, đang tự thấy mình ra sao",
+        lens: "mind",
+      },
+      {
+        label: "Xung quanh",
+        meaning:
+          "người khác và hoàn cảnh bên ngoài đang tác động thế nào lên chuyện này",
+      },
+      {
+        label: "Hy vọng và nỗi sợ",
+        meaning:
+          "bạn đang mong gì và đang sợ gì ở chuyện này, hai thứ đó có phải là một không",
+        lens: "mind",
+      },
+      {
+        label: "Kết cục nếu giữ đà",
+        meaning: "nếu mọi thứ giữ nguyên như bàn bài này thì chuyện đi tới đâu",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot Thập tự Celtic mười lá",
+      description:
+        "Trải mười lá Thập tự Celtic cho một chuyện lớn: hoàn cảnh, trở ngại, gốc rễ, quá khứ, tương lai và kết cục.",
+    },
+  },
+  {
+    slug: "nam-la-cong-viec",
+    name: "Năm lá công việc",
+    nameEn: "Five Card Career",
+    count: 5,
+    length: { min: 280, max: 380 },
+    group: "topic",
+    layout: "plus",
+    blurb: "Cho chuyện đi làm và đường sự nghiệp.",
+    about:
+      "Cho chuyện đi làm và đường sự nghiệp. Năm lá nhìn chỗ đứng hiện tại, cái mình đang có, cái đang cản, yếu tố bên ngoài và hướng nên đi.",
+    how: "Xào bài, rút năm lá; lá một đặt giữa, lá hai bên trái, lá ba bên phải, lá bốn phía trên, lá năm phía dưới.",
+    placeholder: "Chuyện công việc nào bạn muốn hỏi",
+    fits: [
+      "Mình có nên xin nghỉ chỗ này không",
+      "Sao ở công ty mãi không lên được",
+      "Đường đi tiếp trong nghề của mình là gì",
+      "Mình đang định chuyển ngành, chuyện đó ra sao",
+      "Dự án này của mình đang ở đâu",
+    ],
+    notFor: [
+      "Có nên nhận offer A hay offer B",
+      "Nên góp vốn mở quán với bạn không",
+      "Bao giờ được tăng lương",
+    ],
+    defaultTopic: "work",
+    positions: [
+      {
+        label: "Chỗ đứng hiện tại",
+        short: "Chỗ đứng",
+        meaning:
+          "ở chỗ làm hoặc trên đường nghề, bạn đang đứng ở đâu, vững hay chông chênh",
+        lens: "work",
+      },
+      {
+        label: "Điểm mạnh đang có",
+        short: "Điểm mạnh",
+        meaning:
+          "bạn đang có cái vốn gì để dùng, tay nghề, uy tín, quan hệ hay sức bền",
+        lens: "work",
+      },
+      {
+        label: "Cái đang cản",
+        meaning: "cái gì đang giữ chân, trong chính bạn hay trong chỗ làm",
+        lens: "work",
+      },
+      {
+        label: "Người hoặc yếu tố bên ngoài",
+        short: "Bên ngoài",
+        meaning:
+          "sếp, đồng nghiệp, thị trường hay hoàn cảnh bên ngoài đang tác động thế nào lên chuyện này",
+        lens: "work",
+      },
+      {
+        label: "Hướng đi",
+        meaning:
+          "với bàn bài này, hướng nên đi là gì và việc đầu tiên nên làm là gì",
+        lens: "work",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot công việc năm lá",
+      description:
+        "Năm lá cho chuyện đi làm: hiện trạng, điểm mạnh, cái cản, việc nên làm và hướng đi của sự nghiệp.",
+    },
+  },
+  {
+    slug: "bon-la-tien-bac",
+    name: "Bốn lá tiền bạc",
+    nameEn: "Four Card Money",
+    count: 4,
+    length: { min: 280, max: 380 },
+    group: "topic",
+    layout: "row",
+    blurb: "Cho chuyện tiền nong hằng ngày, thu, chi, giữ.",
+    about:
+      "Cho chuyện tiền nong hằng ngày, thu, chi, giữ. Bốn lá nhìn tình hình hiện tại, nếp đang tạo ra nó, cái nên giữ hay bỏ và hướng đi. Không phải chỗ hỏi mua bán, đầu tư.",
+    how: "Xào bài, rút bốn lá và đặt hàng ngang từ trái sang phải theo thứ tự tình hình, nguyên nhân, giữ hay bỏ, hướng đi.",
+    placeholder: "Chuyện tiền bạc nào bạn muốn hỏi",
+    fits: [
+      "Sao tiền cứ vào rồi ra hết",
+      "Tình hình tiền nong của mình mấy tháng tới thế nào",
+      "Mình có đang tiêu sai chỗ không",
+      "Nguồn thu của mình đang ổn hay đang mỏng",
+    ],
+    notFor: [
+      "Có nên mua vàng lúc này không",
+      "Nên bán đất hay giữ",
+      "Mã này có lên không",
+      "Có nên cho người ta vay tiền để họ đầu tư không",
+    ],
+    defaultTopic: "money",
+    positions: [
+      {
+        label: "Tình hình hiện tại",
+        short: "Tình hình",
+        meaning:
+          "tiền nong của bạn đang ở trạng thái nào, đủ, thiếu, hay đang lúc lắc",
+        lens: "money",
+      },
+      {
+        label: "Nguyên nhân hoặc thói quen",
+        short: "Nếp đang có",
+        meaning:
+          "nếp tiêu, nếp làm hay nếp nghĩ nào đang tạo ra tình hình ở lá một",
+        lens: "money",
+      },
+      {
+        label: "Cái nên giữ hoặc bỏ",
+        short: "Giữ hay bỏ",
+        meaning:
+          "trong cách xoay tiền hiện tại, cái gì nên giữ lại và cái gì nên bỏ đi",
+        lens: "money",
+      },
+      {
+        label: "Hướng đi",
+        meaning:
+          "nếu sửa được theo lá ba thì tiền nong nghiêng về đâu trong vài tháng tới, và việc đầu tiên nên làm là gì",
+        lens: "money",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot tiền bạc bốn lá",
+      description:
+        "Bốn lá cho dòng tiền: đang vào, đang ra, đang giữ và điều nên chỉnh.",
+    },
+  },
+  {
+    slug: "ba-la-giua-hai-nguoi",
+    name: "Ba lá giữa hai người",
+    nameEn: "Three Card Between Two People",
+    count: 3,
+    length: { min: 220, max: 300 },
+    group: "topic",
+    layout: "pair",
+    blurb: "Khi đang vướng một người và muốn biết giữa hai bên đang có gì.",
+    about:
+      "Khi đang vướng một người và muốn biết giữa hai bên đang có gì. Ba lá cho phía mình, phía người kia và cái đang diễn ra ở giữa.",
+    how: "Xào bài, rút ba lá; lá một đặt bên trái cho phía mình, lá hai bên phải cho phía người kia, lá ba đặt giữa hai lá.",
+    placeholder: "Bạn đang vướng ai",
+    fits: [
+      "Người ấy đang nghĩ gì về mình",
+      "Giữa mình với người đó đang có gì",
+      "Mình với đứa bạn thân dạo này xa cách, tại sao",
+      "Mình với sếp có đang hiểu lầm nhau không",
+    ],
+    notFor: [
+      "Người đó có đang lừa mình không",
+      "Có nên tỏ tình hay không",
+      "Người đó có quay lại không",
+    ],
+    defaultTopic: "love",
+    positions: [
+      {
+        label: "Bạn",
+        meaning:
+          "bạn đang mang gì tới mối này, đang nghĩ và đang cư xử với người kia ra sao",
+      },
+      {
+        label: "Người kia",
+        meaning:
+          "trong mối này, bài đang cho thấy gì về phía người kia, cách người đó đang đứng với bạn",
+      },
+      {
+        label: "Giữa hai người",
+        short: "Ở giữa",
+        meaning:
+          "cái đang diễn ra ở khoảng giữa hai người là gì, đang nối hay đang kéo xa",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot ba lá giữa hai người",
+      description:
+        "Ba lá nhìn phía bạn, phía người kia và cái đang nằm giữa hai người.",
+    },
+  },
+  {
+    slug: "nam-la-chon-huong",
+    name: "Năm lá chọn giữa hai hướng",
+    nameEn: "Five Card Two Paths Decision",
+    count: 5,
+    length: { min: 280, max: 380 },
+    group: "topic",
+    layout: "branch",
+    blurb: "Khi đang phân vân giữa hai hướng.",
+    about:
+      "Khi đang phân vân giữa hai hướng. Năm lá nhìn gốc của phân vân, rồi mỗi hướng một cặp lá cho thấy nó là gì và dẫn tới đâu.",
+    how: "Định rõ trong đầu hướng A và hướng B, xào bài, rút năm lá; lá một đặt giữa, lá hai và lá ba xếp dọc bên trái cho hướng A, lá bốn và lá năm xếp dọc bên phải cho hướng B.",
+    placeholder: "Bạn đang phải chọn giữa hai gì",
+    fits: [
+      "Có nên nhận offer bên kia không, hay ở lại chỗ cũ",
+      "Về quê hay ở lại thành phố",
+      "Nói thẳng với người đó hay im để yên chuyện",
+      "Học tiếp lên cao hay đi làm luôn",
+    ],
+    notFor: [
+      "Nên mua nhà bây giờ hay chờ giá xuống",
+      "Nên bán cổ phiếu hay giữ",
+      "Nên chọn bệnh viện nào để chữa",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Gốc của phân vân",
+        short: "Gốc phân vân",
+        meaning:
+          "bạn đang đứng ở đâu và cái gì thật sự làm chuyện này khó chọn",
+      },
+      {
+        label: "Hướng A",
+        meaning:
+          "chọn hướng A thì bạn đang bước vào cái gì, được gì và phải mang gì",
+      },
+      {
+        label: "Hướng A dẫn tới đâu",
+        short: "A dẫn tới",
+        meaning: "nếu đi hướng A và giữ đà thì vài tháng tới nó dẫn tới đâu",
+      },
+      {
+        label: "Hướng B",
+        meaning:
+          "chọn hướng B thì bạn đang bước vào cái gì, được gì và phải mang gì",
+      },
+      {
+        label: "Hướng B dẫn tới đâu",
+        short: "B dẫn tới",
+        meaning: "nếu đi hướng B và giữ đà thì vài tháng tới nó dẫn tới đâu",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot chọn giữa hai hướng",
+      description:
+        "Năm lá cho một lựa chọn khó: bạn đang ở đâu, và mỗi hướng cho gì, lấy đi gì.",
+    },
+  },
+  {
+    slug: "nam-la-thang-toi",
+    name: "Năm lá tháng tới",
+    nameEn: "Five Card Month Ahead",
+    count: 5,
+    length: { min: 280, max: 380 },
+    group: "topic",
+    layout: "month",
+    blurb:
+      "Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng.",
+    about:
+      "Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng. Để biết đoạn nào nên dồn sức, đoạn nào nên giữ sức.",
+    how: "Xào bài, rút năm lá; bốn lá đầu đặt hàng ngang từ trái sang phải cho bốn tuần, lá năm đặt trên hàng đó làm chủ đề của tháng.",
+    placeholder: "Bạn muốn nhìn trước tháng tới ở mặt nào",
+    fits: [
+      "Tháng tới của mình thế nào",
+      "Tháng sau đi làm có êm không",
+      "Tháng này chuyện tình cảm có chuyển gì không",
+      "Tháng tới mình nên dồn sức vào đoạn nào",
+    ],
+    notFor: [
+      "Ngày nào trong tháng nên ký hợp đồng",
+      "Tháng tới có gặp tai nạn gì không",
+      "Tháng tới có nên mua vàng không",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Tuần đầu",
+        meaning: "đoạn đầu tháng, cái gì đang chi phối và bạn nên để ý điều gì",
+      },
+      {
+        label: "Tuần hai",
+        meaning: "sang đoạn thứ hai, chuyện chuyển sang đâu so với tuần đầu",
+      },
+      {
+        label: "Tuần ba",
+        meaning: "đoạn sau giữa tháng, cái gì nổi lên và bạn cần làm gì",
+      },
+      {
+        label: "Tuần cuối",
+        meaning: "cuối tháng khép lại thế nào, đà nào mang sang tháng sau",
+      },
+      {
+        label: "Chủ đề của tháng",
+        short: "Chủ đề tháng",
+        meaning:
+          "cả tháng này xoay quanh chuyện gì, bài học hay tâm thế nào bao trùm bốn tuần",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot tháng tới năm lá",
+      description:
+        "Bốn lá cho bốn tuần và một lá chủ đề, nhìn trước cả tháng sắp tới.",
+    },
+  },
+];
+
+export const SPREAD_BY_SLUG = new Map(SPREADS.map((s) => [s.slug, s]));
+
+export function getSpread(slug: string) {
+  return SPREAD_BY_SLUG.get(slug);
+}
+
+/** Một vị trí trên bàn: tâm lá tính theo phần trăm khung. */
+export interface LayoutPoint {
+  x: number;
+  y: number;
+  z?: number;
+  rotate?: number;
+}
+
+export interface SpreadLayout {
+  /** Tỉ lệ khung, dùng cho aspect-ratio */
+  ratio: [number, number];
+  /** Bề ngang một lá, theo phần trăm bề ngang khung */
+  cardWidth: number;
+  /** Tâm từng lá, xếp theo đúng thứ tự vị trí của kiểu trải */
+  points: LayoutPoint[];
+}
+
+/**
+ * Hình của từng kiểu trải, dựng theo đúng phần "cách rút" trong tài liệu.
+ * Toạ độ là phần trăm nên bàn bài co giãn theo bề ngang màn.
+ */
+export const SPREAD_LAYOUTS: Record<
+  Exclude<LayoutKind, "single" | "row">,
+  SpreadLayout
+> = {
+  /** Lá một trái, lá hai phải, lá ba nằm giữa hai lá */
+  pair: {
+    ratio: [100, 52],
+    cardWidth: 26,
+    points: [
+      { x: 15, y: 50 },
+      { x: 85, y: 50 },
+      { x: 50, y: 50, z: 2 },
+    ],
+  },
+  /** Hai lá đầu đối diện nhau, lá ba giữa, lá bốn dưới, lá năm trên cùng */
+  love: {
+    ratio: [100, 128],
+    cardWidth: 24,
+    points: [
+      { x: 20, y: 50 },
+      { x: 80, y: 50 },
+      { x: 50, y: 50, z: 2 },
+      { x: 50, y: 82 },
+      { x: 50, y: 18 },
+    ],
+  },
+  /** Lá một giữa, hai trái, ba phải, bốn trên, năm dưới */
+  plus: {
+    ratio: [100, 128],
+    cardWidth: 24,
+    points: [
+      { x: 50, y: 50, z: 2 },
+      { x: 20, y: 50 },
+      { x: 80, y: 50 },
+      { x: 50, y: 18 },
+      { x: 50, y: 82 },
+    ],
+  },
+  /** Lá một giữa, cặp hướng A dọc bên trái, cặp hướng B dọc bên phải */
+  branch: {
+    ratio: [100, 100],
+    cardWidth: 24,
+    points: [
+      { x: 50, y: 50, z: 2 },
+      { x: 16, y: 26 },
+      { x: 16, y: 74 },
+      { x: 84, y: 26 },
+      { x: 84, y: 74 },
+    ],
+  },
+  /** Bốn tuần hàng ngang, lá chủ đề nằm trên hàng đó */
+  month: {
+    ratio: [100, 78],
+    cardWidth: 20,
+    points: [
+      { x: 12.5, y: 72 },
+      { x: 37.5, y: 72 },
+      { x: 62.5, y: 72 },
+      { x: 87.5, y: 72 },
+      { x: 50, y: 24, z: 2 },
+    ],
+  },
+  /** Thập tự Celtic: sáu lá dựng thành thập tự, bốn lá còn lại thành cột bên phải */
+  cross: {
+    ratio: [350, 440],
+    cardWidth: 16.6,
+    points: [
+      { x: 32, y: 47.6, z: 3 },
+      { x: 32, y: 47.6, z: 4, rotate: 90 },
+      { x: 32, y: 70.3, z: 2 },
+      { x: 11.4, y: 47.6, z: 2 },
+      { x: 32, y: 24.9, z: 2 },
+      { x: 52.6, y: 47.6, z: 2 },
+      { x: 79.7, y: 84, z: 2 },
+      { x: 79.7, y: 60.8, z: 2 },
+      { x: 79.7, y: 37.6, z: 2 },
+      { x: 79.7, y: 14.4, z: 2 },
+    ],
+  },
+};
+
+export function getLayout(kind: LayoutKind): SpreadLayout | null {
+  if (kind === "single" || kind === "row") return null;
+  return SPREAD_LAYOUTS[kind];
+}

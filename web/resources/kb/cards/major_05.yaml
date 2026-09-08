@@ -1,0 +1,54 @@
+id: major_05
+ten_vi: Giáo Hoàng
+ten_en: The Hierophant
+arcana: chinh
+so: 5
+chat: null
+hoang_gia: false
+bieu_tuong:
+- Người đàn ông đội mũ ba tầng, ngồi giữa hai cột đá xám, tay phải giơ lên với hai ngón tay chỉ trời và hai ngón gập xuống
+- Tay trái cầm cây gậy dài đầu có ba thanh ngang xếp chồng
+- Áo choàng đỏ, viền cổ và vai màu trắng xanh, chân đi hài trắng đặt trên thảm
+- Hai tu sĩ cạo đầu quỳ dưới chân, quay lưng về người xem, áo một người in hoa hồng, người kia in hoa huệ
+- Hai chiếc chìa khoá bắt chéo nhau đặt dưới chân ngai
+- Bối cảnh là tường và cột đá xám trong nhà, không có trời
+cot_loi: Làm theo lề lối đã có và học từ người đi trước. Thuộc về một tập thể, một truyền thống, một cách làm được công nhận; đúng sai đo bằng phép tắc chung, và quyền ở đây là quyền của hệ thống chứ không của một cá nhân.
+tu_khoa_xuoi:
+- theo lề lối
+- học thầy
+- phép tắc chung
+- làm đúng bài
+- có người dẫn dắt
+- nghi lễ
+- vào khuôn phép
+- được công nhận
+tu_khoa_nguoc:
+- phá lệ
+- chống lại thầy
+- giáo điều
+- theo mù quáng
+- thầy rởm
+- tự tìm đường riêng
+- ngoài khuôn phép
+- lễ nghi rỗng ruột
+canh_bao: Gặp thầy rởm mà vẫn quỳ, hoặc thuộc bài đến mức bài thành xích; ngược là phá lệ chỉ để phá. Không nên đọc lá này thành sắp cưới mỗi khi câu hỏi là tình cảm; nó chỉ nói mối này đi theo phép tắc chung, có gia đình và lễ nghi, chứ chưa hứa đám cưới. Chùa chiền, đi lễ, cúng bái hay thầy bói khác không thuộc lá này; thầy ở đây là người đi trước có uy trong nghề, trong nhà.
+nguyen_to: tho
+chiem_tinh_gd: Kim Ngưu
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: tĩnh
+  huong: truyền xuống dưới
+lang_kinh:
+  tinh_cam: 'Mối này đi theo lề lối: ra mắt, hỏi ý gia đình, cưới xin đúng phép; đã cưới thì nặng truyền thống, ngược thì là muốn thoát khuôn mà chưa dám.'
+  cong_viec: Cơ quan lớn, công ty có quy trình, làm đúng bài là được công nhận; có người đi trước dẫn dắt, thăng tiến theo thâm niên hơn theo tài lẻ.
+  tien_bac: Tiền đi theo lối an toàn quen thuộc của gia đình, lương đều, không phiêu lưu; chắc, nhưng cách giữ tiền cũ kỹ có lúc không còn hợp thời.
+  tam_ly: Cần một chỗ thuộc về, cần được người có uy chỉ bảo; thước đo đang dùng là thước của tập thể, chưa phải ý riêng.
+  hoc_hanh: Học chính quy, theo trường lớp, có thầy có bài; thi cử, chứng chỉ, bằng cấp đều thuận nếu chịu học đúng giáo trình.
+cach_noi_viet:
+- không thầy đố mày làm nên
+- nhập gia tuỳ tục
+- phép vua thua lệ làng
+- tiên học lễ, hậu học văn
+- cha mẹ đặt đâu con ngồi đấy
+- đúng quy trình

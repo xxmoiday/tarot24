@@ -1,0 +1,69 @@
+id: tien_bac_4
+ten_vi: Bốn lá tiền bạc
+ten_en: Four Card Money
+nhom: chuyen_de
+so_la: 4
+mo_ta: Cho chuyện tiền nong hằng ngày, thu, chi, giữ. Bốn lá nhìn tình hình hiện tại, nếp đang tạo ra nó, cái nên giữ hay bỏ và hướng đi. Không phải chỗ hỏi mua bán, đầu tư.
+hop_voi:
+- Sao tiền cứ vào rồi ra hết
+- Tình hình tiền nong của mình mấy tháng tới thế nào
+- Mình có đang tiêu sai chỗ không
+- Nguồn thu của mình đang ổn hay đang mỏng
+khong_hop_voi:
+- Có nên mua vàng lúc này không
+- Nên bán đất hay giữ
+- Mã này có lên không
+- Có nên cho người ta vay tiền để họ đầu tư không
+cach_rut: Xào bài, rút bốn lá và đặt hàng ngang từ trái sang phải theo thứ tự tình hình, nguyên nhân, giữ hay bỏ, hướng đi.
+vi_tri:
+- stt: 1
+  ten: Tình hình hiện tại
+  cau_hoi: Tiền nong của người hỏi đang ở trạng thái nào, đủ, thiếu, hay đang lúc lắc
+  goi_y_doc: Đọc theo lăng kính tien_bac, gọi tên tình hình bằng cot_loi. Lá nặng là đang thiếu, đang hụt hoặc đang lo; lá nhẹ là đang đủ hoặc đang có đà, có khi đang thoải mái quá nên lỏng tay. Lá ngược thiên về tình hình đang kẹt hoặc người hỏi chưa nhìn thẳng vào sổ sách. Không đọc thành con số.
+  lang_kinh_uu_tien: tien_bac
+- stt: 2
+  ten: Nguyên nhân hoặc thói quen
+  cau_hoi: Nếp tiêu, nếp làm hay nếp nghĩ nào đang tạo ra tình hình ở lá một
+  goi_y_doc: Đọc lá thành một thói quen hoặc một cách nghĩ về tiền, lấy tam_ly làm nền rồi hạ xuống tien_bac. Lá nặng là nếp đang gây hụt, ví dụ tiêu để bù buồn, cả nể cho vay, sợ mà không dám nhìn; lá nhẹ là một nếp tốt đang bị làm quá hoặc ngược lại đang giữ tình hình ổn. Lá ngược thiên về nếp mà người hỏi chưa tự nhận. Ưu tiên phần đầu của canh_bao khi lá nặng.
+  lang_kinh_uu_tien: tien_bac
+- stt: 3
+  ten: Cái nên giữ hoặc bỏ
+  cau_hoi: Trong cách xoay tiền hiện tại, cái gì nên giữ lại và cái gì nên bỏ đi
+  goi_y_doc: Đọc theo nghĩa nếp sống với tiền, không đọc thành tài sản cụ thể. Lá nhẹ đọc là cái nên giữ, nói rõ đó là nếp gì; lá nặng đọc là cái nên bỏ, và ở vị trí này lá nặng là tin tốt vì chỉ đúng chỗ cắt. Lá ngược thiên về "bỏ" nếu lá vốn nhẹ, "giữ mà sửa lại" nếu lá vốn nặng. Không bao giờ diễn giải thành giữ hay bán một khoản đầu tư, một món tài sản.
+  lang_kinh_uu_tien: tien_bac
+- stt: 4
+  ten: Hướng đi
+  cau_hoi: Nếu sửa được theo lá ba thì tiền nong nghiêng về đâu trong vài tháng tới, và việc đầu tiên nên làm là gì
+  goi_y_doc: Đọc như hướng, nói bằng "nếu giữ nếp này thì", theo khoảng "vài tháng tới", không mốc ngày, không con số. Lá nhẹ là đang có đường ra hoặc đang có đà thu; lá nặng là đang phải qua một đoạn thắt, nói gọn rồi chỉ chỗ làm được. Lá ngược thiên về hướng đó đến chậm. Dùng huong trong sac_thai để nói đang lên, xuống hay đứng.
+  lang_kinh_uu_tien: tien_bac
+luat_doc:
+- Tuyệt đối không thành khuyến nghị mua, bán, giữ, vay để đầu tư, dù người hỏi gặng hay lá nào rơi ra; kể cả Mười Tiền, Bánh Xe, Mặt Trời cũng không đọc thành "nên xuống tiền". Bài chỉ nói về ba thứ là nếp tiêu, nguồn thu và cách giữ.
+- Câu hỏi có nhắc vàng, đất, cổ phiếu, coin, góp vốn, cho vay để đầu tư thì chuyển hướng theo mục 5 của system prompt ngay đầu bài, rồi đọc phần tách được là tâm thế với tiền và nếp giữ tiền.
+- Lá hai và lá ba là cặp then chốt, lá ba phải trả lời đúng cái nếp mà lá hai gọi tên; nói theo thứ tự một, hai, ba, bốn và gom hai lá này thành một đoạn.
+- Không nói con số, không nói "tháng này có lộc", "sắp có khoản lớn" như sự kiện; lá nhẹ ở lá bốn chỉ là đà, không phải khoản tiền.
+- Việc cụ thể ở cuối là một việc với sổ sách hoặc với nếp tiêu, ví dụ ghi lại chi trong hai tuần, tách một khoản cố định, nói rõ với người đang mượn, không phải việc với thị trường.
+do_dai:
+  min: 280
+  max: 380
+vi_du:
+- cau_hoi: Lương ổn mà cuối tháng vẫn hết tiền, mình sai ở đâu
+  linh_vuc: tien_bac
+  la:
+  - vi_tri: 1
+    id: major_12
+    nguoc: false
+  - vi_tri: 2
+    id: major_07
+    nguoc: false
+  - vi_tri: 3
+    id: sword_page
+    nguoc: false
+  - vi_tri: 4
+    id: wand_02
+    nguoc: true
+  bai_luan: |-
+    Hai Ẩn Chính đứng cạnh nhau, một lá treo yên, một lá lao tới; chuyện tiền của bạn không phải chuyện thiếu, mà là chuyện chưa nhìn. Tình hình hiện tại là Người Treo Ngược, tiền không hụt hẳn, cũng không dư, cứ lơ lửng; cuối tháng như có một khoản bị đem hy sinh mà bạn chưa gọi tên. Người trên lá mặt bình thản, mắt mở; cái treo này bạn chịu được, chỉ chưa chịu nhìn từ chiều ngược.
+
+    Nếp tạo ra nó là Cỗ Xe, chỗ đáng nói nhất. Bạn xoay tiền bằng ý chí, đầu tháng đặt mục tiêu con số, tin mình cầm lái được, nên không ghi chép, cứ lao tới. Hai con nhân sư trước xe không có dây cương; hai lực trong bạn, muốn giữ và muốn tiêu, được ghìm bằng quyết tâm chứ chưa hoà giải, nên đầu tháng ý chí thắng, cuối tháng ý chí đuối. Nếp tốt, chỉ bị dùng quá tay. Cái nên giữ và nên bỏ rơi vào Tiểu Đồng Kiếm, đọc như một cách làm. Giữ lại con mắt canh chừng, thói xem lại sao kê, để ý từng khoản nhỏ, đúng cái Cỗ Xe đang thiếu. Bỏ phần dở, dò hỏi lương người này, so giá với người kia, gom số mà không dùng để quyết.
+
+    Hướng đi là Hai Gậy ngược. Người trên lá đứng trên tường thành nhìn ra biển; ngược thì kế hoạch lớn nằm giấy, cái nhìn xa làm bạn quên cái gần, là ví mình. Giữ nếp cũ thì vài tháng tới tiền nghiêng về đứng yên, không thủng nhưng không lên; sửa theo Tiểu Đồng Kiếm thì đà lên chậm, nhưng là đà thật. Bạn không sai ở lương, sai ở chỗ chạy mà không nhìn, để tiền tự trôi thay vì tự tay cất nó. Ngay ngày lương về, tách một khoản cố định sang chỗ khác trước khi tiêu, rồi ghi từng khoản chi trong hai tuần, cuối mỗi tuần khoanh những khoản tiêu để thấy mình đang tiến chứ không vì cần.

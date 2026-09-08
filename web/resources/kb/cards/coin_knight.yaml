@@ -1,0 +1,58 @@
+id: coin_knight
+ten_vi: Hiệp Sĩ Tiền
+ten_en: Knight of Pentacles
+arcana: phu
+so: null
+chat: tien
+hoang_gia: true
+bieu_tuong:
+- Kỵ sĩ mặc giáp ngồi trên con ngựa đen to nặng đứng yên cả bốn chân, tay phải giơ đồng tiền ra trước mặt nhưng mắt nhìn thẳng qua đồng tiền
+- Mũ giáp cắm nhánh lá sồi xanh, đầu ngựa cũng gắn lá sồi
+- Ngoài giáp có áo đỏ, cương ngựa màu đỏ
+- Phía sau là những thửa ruộng đã cày, luống thẳng, đất nâu đỏ
+- Đồng trống, không có người
+- Trời vàng
+cot_loi: 'Đi chậm nhưng không dừng: làm phần việc mình nhận cho đến cùng, ngày này qua ngày khác, không cần ai thúc. Ít hứng, nhiều trách nhiệm; quá tay thì thành ì.'
+tu_khoa_xuoi:
+- cày đều
+- làm tới cùng
+- không cần thúc
+- bền như trâu
+- đúng hẹn, đúng việc
+- chắc từng bước
+- trách nhiệm hơn hứng
+- giữ nhịp ngày thường
+tu_khoa_nguoc:
+- ì ra, giậm chân
+- chán việc
+- làm cho có
+- cày quá mà đuối
+- khư khư lối cũ
+- nản, buông tay
+- lỡ hẹn liên miên
+- tẻ nhạt ngày ngày
+canh_bao: Ngày nào cũng như ngày nào, làm cho có, khư khư lối cũ, cày đến đuối rồi buông; người bên cạnh thấy tẻ mà không biết trách vào đâu. Sự chậm của lá không được đọc thành không có gì xảy ra hay mối này đã chết; chậm ở đây là đang đi, chỉ không thấy hứng. Tránh biến lá thành người chồng tốt tương lai; đây là cách làm việc bền, không phải lời hứa về một người.
+nguyen_to: tho
+chiem_tinh_gd: Khí của Thổ — Hoàng Tử (Prince); 20° Bạch Dương – 20° Kim Ngưu
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: động vừa
+  huong: đi chậm không dừng
+lang_kinh:
+  tinh_cam: 'Người này yêu bằng việc làm đều đặn: nhắn mỗi sáng, đến đúng giờ, ít lời lãng mạn; cưới rồi thì bền nhưng dễ tẻ.'
+  cong_viec: Làm mỗi ngày đúng phần việc, đúng hạn, không hay ho nhưng chắc; sếp tin vì không cần nhắc; ngược thì chán việc, ì ra không đổi.
+  tien_bac: Lương đều mỗi tháng, để dành đều mỗi tháng, trả nợ đúng hạn; không giàu nhanh nhưng không hụt; ngược thì giậm chân, chán không cải thiện.
+  tam_ly: Trong đầu chỉ có việc phải làm hôm nay, không mơ, không sốt ruột; ngược thì tẻ, ì, thấy ngày nào cũng như ngày nào.
+  hoc_hanh: Ôn thi mỗi ngày một ít, đúng lịch, không cần ai nhắc; luận văn xong vì bền chứ không vì xuất sắc; ngược thì ì ra, để mai.
+cach_noi_viet:
+- cày sâu cuốc bẫm
+- kiến tha lâu cũng đầy tổ
+- có công mài sắt, có ngày nên kim
+- đều như vắt tranh
+- ăn chắc mặc bền
+- một nắng hai sương
+ba_cach_doc:
+  la_nguoi: Làm đều như trâu cày, đúng hẹn đúng việc, không cần thúc, ít lời. Anh chồng nhắn mỗi sáng, đồng nghiệp năm này qua năm khác xong phần mình đúng hạn, người bố đi làm về đúng giờ. Bền, đáng tin, nhưng dễ tẻ; ngược thì ì ra, làm cho có.
+  la_nang_luong: Chuyện này cày mỗi ngày một ít, không dừng mà cũng không bốc. Nhận phần việc là làm tới cùng, giữ nhịp ngày thường, chẳng cần ai ghi công; làm vì trách nhiệm hơn vì hứng. Coi chừng khư khư lối cũ, và cày đến đuối rồi bỏ dở ngay lúc gần xong.
+  la_tinh_huong: 'Việc đang đi chậm mà đều: dự án chạy đúng tiến độ, khoản nợ trả dần, mối quan hệ không sóng gió và cũng không bất ngờ. Chuyện này không có gì mới nhưng đang tiến, đừng đọc thành đứng yên. Ngược thì giậm chân, chán, lỡ hẹn liên miên.'

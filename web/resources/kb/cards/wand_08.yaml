@@ -1,0 +1,54 @@
+id: wand_08
+ten_vi: Tám Gậy
+ten_en: Eight of Wands
+arcana: phu
+so: 8
+chat: gay
+hoang_gia: false
+bieu_tuong:
+- Tám cây gậy bay chéo song song trên không, từ góc trên bên phải xuống góc dưới bên trái, không có người cầm
+- Mỗi cây gậy có mấy chồi lá non mọc dọc thân
+- Không có người nào trên hình, chỉ có gậy, trời, đồi và dòng sông
+- Phía dưới là vùng đồng bằng xanh, một dòng sông uốn cong chảy qua
+- Xa xa trên đồi có một ngôi nhà nhỏ
+- Nền trời xanh trong, không mây, không gió, ánh sáng ban ngày
+cot_loi: Mọi thứ đang lao rất nhanh về phía đích, không còn ai cầm giữ được nữa. Tin tức, chuyến đi, chuyện chờ lâu giờ tới dồn dập; chỉ còn cách theo kịp, mọi quyết định lớn đã nằm ở phía sau.
+tu_khoa_xuoi:
+- tin tới dồn dập
+- chuyện chạy nhanh
+- chuyến đi gấp
+- hết chờ
+- lao về đích
+- đường thông
+- nhắn tin qua lại
+- phải theo kịp
+tu_khoa_nguoc:
+- tin trễ
+- kẹt giữa đường
+- chuyến đi hoãn
+- vội hoá hỏng
+- loạn nhịp
+- hiểu lầm tin nhắn
+- ghen bóng ghen gió
+- vợ chồng cãi vặt
+canh_bao: 'Nhanh quá thì trượt: gửi vội mà sai, hứa vội mà hụt, lịch chồng lên nhau; ngược thì tin kẹt giữa đường, chuyến đi hoãn, tin nhắn đọc sai ý rồi ghen bóng ghen gió. Waite gọi đây là mũi tên tình yêu, nhưng không đọc thành sắp có người yêu hay người kia sắp tỏ tình; nó nói chuyện tiến nhanh, không nói tiến về đâu. Với người có gia đình, nghĩa ngược chỉ là cãi vặt trong nhà, đừng đẩy lên thành ngoại tình hay chia tay.'
+nguyen_to: hoa
+chiem_tinh_gd: Sao Thuỷ ở Nhân Mã
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nhẹ
+  dong_tinh: động đột ngột
+  huong: lao thẳng tới đích
+lang_kinh:
+  tinh_cam: Tin nhắn qua lại dồn dập, chuyện tiến rất nhanh, vừa quen đã hẹn, vừa hẹn đã tính đi chơi xa; nếu ngược thì nhắn nhiều mà hiểu lầm, ghen bóng ghen gió.
+  cong_viec: Việc dồn tới tấp, deadline chồng nhau, email và cuộc gọi liên tục, có thể phải đi công tác gấp; chuyện chờ lâu bỗng chạy, chỉ còn cách theo kịp.
+  tien_bac: Tiền ra vào nhanh, chuyển khoản liên tục, khoản chờ lâu bỗng về gấp rồi cũng đi gấp; thu chi loạn nhịp, cần ghi lại kẻo trôi mất mà không biết đi đâu.
+  tam_ly: Đầu chạy nhanh hơn người, nghĩ chưa xong việc này đã sang việc khác, nôn nóng muốn mọi thứ xong ngay; nếu ngược thì loạn nhịp, vội quá mà nói lời không kịp nghĩ.
+  hoc_hanh: Lịch thi dồn dập, bài tập chồng lên nhau, kết quả về nhanh hơn dự tính, có thể phải đi thi xa gấp; học nhồi mà vào, miễn đừng vội tới mức đọc sai đề.
+cach_noi_viet:
+- nhanh như tên bắn
+- chân không chạm đất
+- chạy như cờ lông công
+- đâm lao phải theo lao
+- dục tốc bất đạt
+- bát đũa còn có khi xô

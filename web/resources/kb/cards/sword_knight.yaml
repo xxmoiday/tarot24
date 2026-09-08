@@ -1,0 +1,58 @@
+id: sword_knight
+ten_vi: Hiệp Sĩ Kiếm
+ten_en: Knight of Swords
+arcana: phu
+so: null
+chat: kiem
+hoang_gia: true
+bieu_tuong:
+- Kỵ sĩ giáp trụ phi ngựa trắng lao thẳng về phía trước, kiếm giơ cao quá đầu
+- Ngựa vươn cổ, chân duỗi hết cỡ, miệng há
+- Áo choàng đỏ bay ngược ra sau, mũ giáp có chùm lông đỏ
+- Yên cương ngựa trang trí hình bướm và chim
+- Mây xám kéo thành vệt dài ngang trời, cây cối phía xa ngả rạp theo gió, vài con chim bay
+- Nền đất trống, không có chướng ngại phía trước
+cot_loi: Xông thẳng vào mục tiêu bằng lý lẽ và ý chí, không vòng vo, không chờ. Làm cho xong rất nhanh, nhưng cuốn phăng cả người lẫn việc trên đường, dễ thành đối đầu.
+tu_khoa_xuoi:
+- xông thẳng vào
+- nói toạc
+- dứt điểm nhanh
+- cãi thắng bằng lý
+- gấp, quyết
+- không quay đầu
+- cuốn phăng
+- thẳng đến phũ
+tu_khoa_nguoc:
+- cãi cho bằng thắng
+- át giọng người
+- lao đầu vào tường
+- lỡ lời gây hoạ
+- tính ẩu vì gấp
+- to mồm, nhát tay
+- chạy đâu không rõ
+- phá hơn xây
+canh_bao: Nói toạc trong cơn nóng, cãi cho bằng thắng, lao thẳng vào tường và kéo theo cả việc lẫn người; ngược thì to mồm nhát tay, chạy hùng hục mà không biết chạy về đâu. Waite có nhắc chữ chết, nhưng lá này không bao giờ đọc thành tai nạn, sinh tử hay bệnh nặng, dù đứng cạnh lá nào. Không xem lá là người hùng đến cứu hay người yêu lý tưởng; đây là sức lao tới của một người đang làm quá nhanh, quá gắt.
+nguyen_to: khi
+chiem_tinh_gd: Khí của Khí — Hoàng Tử (Prince); 20° Ma Kết – 20° Bảo Bình
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nặng
+  dong_tinh: động đột ngột
+  huong: xông thẳng vào
+lang_kinh:
+  tinh_cam: Tỏ tình hoặc nói chia tay ngay trong cơn nóng, cãi thắng lý nhưng làm người kia đau; người đến nhanh, đi cũng phũ.
+  cong_viec: Xử việc tồn đọng dứt điểm, đấu thẳng với sếp về cách làm, đòi thay đổi ngay; thắng lý mà mất đồng nghiệp, đổi việc trong cơn giận.
+  tien_bac: 'Quyết chuyện tiền trong một buổi: cắt khoản này, đòi nợ kia, đóng tài khoản nọ; nhanh gọn nhưng dễ tính ẩu vì gấp.'
+  tam_ly: Đầu chỉ có một hướng, phải làm cho rõ ngay, không chờ nổi; lý át cảm, sẵn sàng đối đầu bất cứ ai cản đường.
+  hoc_hanh: Giải đề nhanh, tranh luận thắng, làm bài dứt điểm; hay đọc lướt đề, sai chỗ dễ; thi tốc độ thì hợp, thi kỹ thì hụt.
+cach_noi_viet:
+- nói toạc móng heo
+- thẳng như ruột ngựa
+- được ăn cả, ngã về không
+- đâm lao phải theo lao
+- nhanh nhảu đoảng
+- cả vú lấp miệng em
+ba_cach_doc:
+  la_nguoi: Nói toạc, làm gấp, cãi bằng lý và phải thắng. Ông sếp vào phòng là hỏi tiến độ, người yêu tỏ tình hôm trước rồi đòi chia tay ngay sau trận cãi, đứa bạn bênh mình rất dữ mà cũng va chạm rất nhanh. Giỏi, gan, nhưng cuốn phăng cả người đứng cạnh.
+  la_nang_luong: 'Vào việc này thì lý phải sắc, đã quyết là không quay đầu: xông thẳng, dứt điểm ngay, không vòng vo, không chờ ai gật. Việc tồn đọng cần chặt thì đúng bài; việc cần giữ người thì hỏng. Tính lại một lần trước khi chém, vì chém rồi không nối lại được.'
+  la_tinh_huong: 'Sự việc đang lao tới rất nhanh: một cuộc đối đầu, một quyết định bị ép ra trong cơn nóng, thay đổi gấp, cãi nhau to. Chuyện này không còn chỗ cho chậm rãi. Ngược thì lao đầu vào tường, tính ẩu vì gấp, to mồm rồi chẳng làm gì.'

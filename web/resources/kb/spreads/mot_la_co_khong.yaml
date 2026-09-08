@@ -1,0 +1,58 @@
+id: mot_la_co_khong
+ten_vi: Một lá có hay không
+ten_en: One Card Yes or No
+nhom: co_ban
+so_la: 1
+mo_ta: Một câu hỏi có hoặc không, một lá trả lời. Bài chỉ nói đang nghiêng về phía nào và vì sao, không hứa chắc.
+hop_voi:
+- Có nên nhắn cho người đó trước không
+- Tuần này có nên nộp đơn vào chỗ đó không
+- Mình có nên nói thẳng với sếp chuyện này không
+- Đi chuyến này có hợp không
+khong_hop_voi:
+- Có thắng kiện không
+- Có nên mua mảnh đất đó không
+- Bệnh này có khỏi không
+- Có bầu chưa
+cach_rut: Đặt câu hỏi ở dạng có hoặc không thật rõ trong đầu, xào bài, rút một lá và đặt ngửa.
+vi_tri:
+- stt: 1
+  ten: Lá trả lời
+  cau_hoi: Với câu hỏi này, bài đang nghiêng về có hay về không, và vì sao
+  goi_y_doc: Nhìn sac_thai.trong_luong trước để lấy hướng nghiêng, rồi đọc cot_loi để nói vì sao. Lá nhẹ nghiêng về có nhưng vẫn phải nêu điều kiện đi kèm; lá nặng nghiêng về không, nói ngắn cái gì đang cản. Lá ngược làm mềm hướng nghiêng của lá nặng và làm chậm hướng nghiêng của lá nhẹ; nếu tu_khoa_nguoc lật hẳn sang mặt đối lập thì đảo kết luận. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- 'Kết luận ba mức theo sac_thai.trong_luong: rất nhẹ hoặc nhẹ thì "nghiêng về có"; nặng hoặc rất nặng thì "nghiêng về không"; vừa thì "chưa ngã ngũ" và đọc cot_loi để nói cái gì đang giữ chuyện ở giữa.'
+- 'Lá ngược điều chỉnh kết luận: lá nặng ngược thì cái nặng đang dịu, có thể nâng lên "chưa ngã ngũ"; lá nhẹ ngược thì cái nhẹ đang bị chặn, hạ xuống "chưa ngã ngũ"; chỉ đảo hẳn khi tu_khoa_nguoc của lá đó lật sang nghĩa đối lập rõ ràng. Lá vừa ngược vẫn là chưa ngã ngũ.'
+- Nói kết luận ngay câu đầu bằng đúng một trong ba cụm trên, rồi mới giải thích bằng cot_loi và một hai tu_khoa hợp câu hỏi. Không bao giờ viết "chắc chắn có", "chắc chắn không", "có", "không" trần trụi như một lời phán.
+- Câu hỏi có/không rơi vào chủ đề cấm ở mục 5 của system prompt (bệnh, sinh tử, thai sản, kiện tụng, mua bán đầu tư) thì không kết luận có hay không dù lá nhẹ hay nặng; chuyển hướng đúng theo mục 5, rồi nếu tách được thì đọc lá theo tâm thế và việc trong tầm tay.
+- Kết bằng một việc cụ thể đi kèm kết luận, ví dụ nghiêng về có thì làm gì để giữ đà, nghiêng về không thì chờ hay đổi cách. Với "chưa ngã ngũ", nói rõ điều gì người hỏi làm được để chuyện ngã về một bên.
+do_dai:
+  min: 120
+  max: 180
+vi_du:
+- cau_hoi: Có nên nhắn cho người yêu cũ trước không
+  linh_vuc: tinh_cam
+  la:
+  - vi_tri: 1
+    id: cup_03
+    nguoc: false
+  bai_luan: |-
+    Nghiêng về có, nhưng kèm điều kiện. Ba Cốc là lá rất nhẹ, nói về niềm vui có người cùng chia, vui rộng hơn một đôi. Nó không nói hai người quay lại; nó nói giữa bạn và người cũ vẫn còn chỗ nói chuyện tử tế, kiểu chung vui chứ không kiểu đòi lại.
+
+    Vậy nếu nhắn, nhắn với tâm thế của ba cô gái trong hình nâng cốc chạm nhau, không ai đứng riêng cầu xin ai. Một câu hỏi thăm, một câu chúc, một tin về đám bạn chung, miễn không có chữ nhớ và không có chữ tại sao. Nhắn để ấm lại như người quen cũ thì thuận; nhắn để thăm dò xem người ta còn gì với mình không thì lá này không đỡ nổi.
+
+    Vậy nhắn trước được. Soạn một tin ba dòng, xoá mọi câu đòi hồi âm, rồi gửi lúc bạn đang vui sẵn, không gửi lúc đêm khuya một mình.
+- cau_hoi: Có nên mua mảnh đất ở Long Thành bây giờ không
+  linh_vuc: chu_de_cam
+  la:
+  - vi_tri: 1
+    id: major_16
+    nguoc: true
+  bai_luan: |-
+    Chuyện có nên xuống tiền cho mảnh đất này không, bài tarot ở đây không dùng để trả lời, mình không kết luận có hay không dù lá ra sao. Cái đó phải hỏi người có chuyên môn tài chính và người rành pháp lý đất đai. Bài chỉ nói được bạn đang mang chuyện này với tâm thế gì.
+
+    Lá rút ra là Toà Tháp ngược, cái xây trên nền sai sụp trong một cú; ngược là sợ sụp mà không dám nhìn. Cái đang chi phối bạn có vẻ không phải mảnh đất mà là nỗi sợ hụt chân, sợ đứng ngoài khi ai cũng bàn chuyện đất. Quyết trong lúc sợ thì hay quyết theo cái người ta nói chứ không theo cái mình có.
+
+    Tuần này viết đúng ba dòng, tiền lấy từ đâu, thiếu nó nhà bạn còn ổn không, ai rành mà bạn chưa hỏi. Rồi mang tờ giấy đó đi hỏi người đó, không hỏi bài.
+  ghi_chu: 'Câu hỏi rơi vào chủ đề cấm (đầu tư): mẫu chuyển hướng theo mục 5, rồi đọc phần tâm thế nếu tách được'

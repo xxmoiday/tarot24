@@ -1,0 +1,58 @@
+id: sword_page
+ten_vi: Tiểu Đồng Kiếm
+ten_en: Page of Swords
+arcana: phu
+so: null
+chat: kiem
+hoang_gia: true
+bieu_tuong:
+- Người trẻ đứng trên gò đất cao, hai tay nắm thanh kiếm dựng đứng, thân xoay một hướng mà đầu ngoái nhìn hướng khác
+- Tóc bị gió thổi bạt về sau, mặc áo chẽn màu tím
+- Trên trời mây trắng cuộn thành từng xoáy, có một đàn chim nhỏ bay xa
+- Cây cối phía xa nghiêng theo chiều gió
+- Chân đứng trên đất gồ ghề có cỏ xanh, phía sau là những ngọn đồi
+- Trời xanh nhạt, nhiều mây
+cot_loi: Đầu óc mới sắc, tò mò, canh chừng khắp phía, gom tin nhiều hơn dùng tin. Cái được là nhanh nhạy và nói không sợ; cái thiếu là chưa biết lúc nào nên im.
+tu_khoa_xuoi:
+- nghe ngóng
+- tò mò hỏi tới
+- mắt tinh tai thính
+- để ý từng chút
+- nhanh miệng, lanh
+- gom tin chưa dùng
+- dò xét trước
+- nói không ngại
+tu_khoa_nguoc:
+- buôn chuyện
+- nói hớ
+- trở tay không kịp
+- đa nghi
+- nói nhiều làm ít
+- rình mò
+- cãi cùn
+- tin vịt
+canh_bao: Gom tin mà không dùng, đem chuyện nhà người ra buôn, nói hớ một câu là hỏng cả mối; soi từng dấu hiệu, rồi lúc chuyện thật ập tới lại trở tay không kịp. Chữ ốm đau ở nghĩa ngược chỉ là trạng thái bị bất ngờ, chưa chuẩn bị; tuyệt đối không đọc thành bệnh tật hay sức khoẻ của ai. Cũng đừng biến dò xét thành khẳng định người kia có gì giấu; lá nói người hỏi đang nghe ngóng, không nói điều nghe được là thật.
+nguyen_to: khi
+chiem_tinh_gd: Thổ của Khí — Công Chúa (Princess); góc phần tư Ma Kết – Bảo Bình – Song Ngư
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: vừa
+  dong_tinh: động vừa
+  huong: ngó quanh canh chừng
+lang_kinh:
+  tinh_cam: Đang lướt trang cá nhân người ấy, hỏi bạn chung dò xét, đọc lại từng tin nhắn; biết nhiều mà chưa dám nói thẳng, dễ nghi từ chuyện nhỏ.
+  cong_viec: Mới vào chỗ làm, để ý từng người, nghe ngóng chuyện nội bộ; giỏi gom tin nhưng chưa được giao việc lớn, dễ mang tiếng buôn chuyện.
+  tien_bac: Xem đi xem lại sao kê, so giá từng món, dò hỏi lương người khác; nắm nhiều số liệu nhưng chưa quyết chi hay giữ.
+  tam_ly: Đầu chạy liên tục, để ý từng dấu hiệu, nghi ngờ rồi lại tự bác; hỏi nhiều người mà chẳng tin ai hoàn toàn.
+  hoc_hanh: Tò mò học đủ thứ, đọc rộng, hỏi nhiều, gom tài liệu chưa dùng; giỏi tranh luận trên lớp nhưng ôn thi thiếu tập trung một mối.
+cach_noi_viet:
+- nghe hơi nồi chõ
+- tai vách mạch rừng
+- hỏi cho ra nhẽ
+- buôn dưa lê
+- trong nhà chưa tỏ, ngoài ngõ đã tường
+- biết thì thưa thốt, không biết thì dựa cột mà nghe
+ba_cach_doc:
+  la_nguoi: Lanh, mắt tinh tai thính, hỏi tới nơi, biết chuyện gì cũng trước cả phòng. Đứa em suốt ngày lướt mạng dò tin, đồng nghiệp mới để ý từng người, đứa cháu cãi lý không thua ai. Nói nhanh, nói không ngại, nhưng chưa biết lúc nào nên im; dễ mang tiếng buôn chuyện.
+  la_nang_luong: Nghe ngóng trước, dò cho kỹ rồi hãy ra mặt. Đọc kỹ, hỏi kỹ, canh đủ mọi hướng, để ý từng dấu hiệu nhỏ, cần thì nói thẳng. Được cái khó bị lừa; dở cái gom tin mãi mà chưa dùng, rồi sinh nghi từ chuyện không đáng.
+  la_tinh_huong: 'Có tin đang lan: lời đồn, tin nội bộ, một câu nghe lỏm, tin nhắn bị đọc trộm. Chuyện này đang ở giai đoạn thăm dò, chưa ai nói thẳng với ai. Ngược thì tin vịt, nói hớ gây hoạ, hoặc một việc ập tới lúc chưa kịp chuẩn bị gì.'

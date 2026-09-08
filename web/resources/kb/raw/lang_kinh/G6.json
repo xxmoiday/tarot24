@@ -1,0 +1,114 @@
+{
+ "wand_page": {
+  "tinh_cam": "Vừa có tin nhắn, lời rủ đi chơi từ một người mới, hứng lên rất nhanh; mối này mới ở mức tò mò, chưa biết có đi tới đâu.",
+  "cong_viec": "Nghe tin về một vị trí mới, một dự án vừa nhen, hăng lên muốn nhận ngay; lính mới nhiệt tình nhưng chưa hình dung việc này dẫn đi đâu.",
+  "tien_bac": "Có tin về một khoản nhỏ, một cách kiếm thêm mới nghe qua; chi tiêu theo ý vừa loé lên, tiền thật thì chưa thấy về.",
+  "tam_ly": "Trong đầu có một ý vừa loé, háo hức đến bồn chồn, muốn kể cho ai đó ngay; chưa biết sẽ làm gì với nó, chỉ biết đang hứng.",
+  "hoc_hanh": "Mới đăng ký khoá học, mới nghe về một ngành hay, hăng đọc được mấy hôm; cần giữ lửa qua tuần thứ ba, vì hứng kiểu này dễ xẹp."
+ },
+ "wand_knight": {
+  "tinh_cam": "Người này tới rất nồng, hẹn hò dồn dập, nhưng hay đi công tác, đổi chỗ, khó giữ lâu; yêu xa, hoặc một người sắp rời đi.",
+  "cong_viec": "Nhận việc phải đi công tác xa, chuyển chi nhánh, hoặc nhảy từ chỗ này sang chỗ khác rất nhanh; làm dự án cháy hết mình rồi rời trước khi xong.",
+  "tien_bac": "Tiền ra nhanh cho chuyến đi, chuyển nhà, mua sắm trong cơn nóng; kiếm nhanh mà tiêu cũng nhanh, khoản để dành khó đầy.",
+  "tam_ly": "Nóng ruột không ngồi yên, muốn đi đâu đó ngay, làm gì đó ngay; nhìn mình như người sắp bứt ra khỏi chỗ cũ.",
+  "hoc_hanh": "Học kiểu chạy nước rút, nhồi trước ngày thi, hoặc đi học xa nhà, chuyển trường; nhanh mà không kỹ, ngược thì bỏ ngang giữa khoá."
+ },
+ "wand_queen": {
+  "tinh_cam": "Một người tự tin, ấm, nói thẳng đang hút người hỏi về phía mình; nếu đã cưới, đây là người giữ lửa cả nhà; ngược thì ghen bóng ghen gió.",
+  "cong_viec": "Cầm việc gọn, đồng nghiệp mến, sếp tin giao thêm; làm riêng thì buôn bán mát tay nhờ quen biết rộng; ngược thì hơn thua, chèn ép người dưới.",
+  "tien_bac": "Buôn bán mát tay, thích tiền và biết kiếm, chi rộng cho nhà cửa, bạn bè và cho vẻ ngoài của mình; kiếm được thì tiêu không tiếc.",
+  "tam_ly": "Thấy mình đáng được để ý, nói thẳng điều mình muốn, không ngại ánh nhìn; hôm nào tự tin lung lay thì quay ra so bì với người khác.",
+  "hoc_hanh": "Học tốt nhờ tự tin, dám phát biểu, kéo cả nhóm học cùng; hợp ngành cần giao tiếp, đứng trước đám đông, thuyết trình."
+ },
+ "wand_king": {
+  "tinh_cam": "Người đàn ông từng trải, đã có gia đình hoặc làm chủ, ngỏ ý rõ ràng và giữ lời; trong hôn nhân là người quyết chuyện lớn, đôi khi áp đặt.",
+  "cong_viec": "Được giao đứng đầu một mảng, vạch hướng rồi phân việc cho đội; sếp kiểu này thẳng, nói là làm, nhưng nóng khi đội chậm tiến độ.",
+  "tien_bac": "Cầm tiền của cả một mảng việc, tiêu lớn nhưng thật thà, sổ sách rõ; tiền vào lớn nhưng đi cũng nhanh nếu việc chậm.",
+  "tam_ly": "Nhìn mình như người phải cầm trịch, chịu trách nhiệm thay cả đám; sốt ruột khi mọi thứ chậm hơn ý mình, khó ngồi hàng ghế sau.",
+  "hoc_hanh": "Chọn hướng học dài hạn rồi kéo người khác theo, làm trưởng nhóm đồ án; thầy hướng dẫn thẳng tính, đòi hỏi cao, ít kiên nhẫn."
+ },
+ "cup_page": {
+  "tinh_cam": "Có người mới nhắn hỏi thăm, lòng hơi xao xuyến mà chưa dám gọi tên; nếu đang yêu, sắp có tin về tình cảm đến bất ngờ và dễ thương.",
+  "cong_viec": "Có đồng nghiệp trẻ nhiệt tình xin phụ, hoặc một ý mới nhú trong lúc làm; việc thiên về sáng tạo, chăm sóc khách, chưa ra kết quả đo được.",
+  "tien_bac": "Tiền chưa phải chuyện lớn lúc này; có quà nhỏ, có người giúp một khoản vì thương chứ không vì tính; mua sắm hay theo cảm xúc hơn theo nhu cầu.",
+  "tam_ly": "Lòng đang mềm, dễ rung, mơ nhiều hơn tính; một cảm giác lạ nhú lên chưa gọi được tên, hơi ngại nói ra với ai.",
+  "hoc_hanh": "Học theo cảm hứng, hợp nghệ thuật, văn, tâm lý; hay mơ màng trong giờ, có ý lạ nhưng chưa nắn được thành bài."
+ },
+ "cup_knight": {
+  "tinh_cam": "Ai đó sắp ngỏ lời, tỏ tình, rủ về ra mắt; lời lẽ đẹp, cử chỉ có lễ, phải xem người ấy có làm như nói không.",
+  "cong_viec": "Nhận được lời mời làm việc hoặc đề nghị hợp tác trình bày rất đẹp; đọc kỹ điều khoản trước khi gật, vì phần nói hay hơn phần thật.",
+  "tien_bac": "Có người đề nghị góp vốn, cho vay, chung tiền với lời lẽ ngọt; lời hứa thường nghe hay hơn phần chắc, tiền dễ đi theo lời.",
+  "tam_ly": "Đầu đầy hình ảnh đẹp về người kia, về chuyện sắp tới; yêu cái viễn cảnh hơn cái đang có, dễ hụt khi thực tế không như phim.",
+  "hoc_hanh": "Được mời tham gia một khoá, một nhóm học nghe rất hay; xem nội dung có thật như lời giới thiệu không trước khi đóng tiền."
+ },
+ "cup_queen": {
+  "tinh_cam": "Người trong mối này thương sâu và hiểu người hỏi trước khi cần nói; vợ hiền, mẹ tốt; ngược thì chìm trong cảm xúc, lấy nước mắt ép người kia.",
+  "cong_viec": "Chỗ làm cần người hiểu người: tư vấn, chăm sóc, nhân sự; đang bận lòng vẫn giữ được việc, đồng nghiệp hay tìm đến tâm sự.",
+  "tien_bac": "Tiền dành cho người thân trước, ít giữ cho mình; biết ai đang khó mà giúp kín, không kể ra; hay mềm lòng nên dễ cho quá tay.",
+  "tam_ly": "Cảm được không khí trong phòng, biết người khác đang nghĩ gì trước khi họ nói, giữ hết trong lòng; dễ mang luôn nỗi buồn của người khác về mình.",
+  "hoc_hanh": "Học tốt các môn cần hiểu người, biết thương người; ngồi học mà lòng để nơi khác vẫn giữ được nhịp; giỏi kèm bạn hơn giỏi thi."
+ },
+ "cup_king": {
+  "tinh_cam": "Bạn đời hoặc người đang tìm hiểu là người điềm đạm, biết nhường khi mình nóng; chuyện nhà có cãi thì người này đứng ra dàn hoà.",
+  "cong_viec": "Nhóm đang mâu thuẫn thì có người điềm đạm đứng ra xử; sếp kiểu này ít nói, nghe hết rồi mới quyết, đồng nghiệp nể mà không sợ.",
+  "tien_bac": "Tiền vào ra có chừng, không hoảng khi hụt, không vung khi dư; là người khuyên chuyện tiền mà người khác nghe được; ngược thì tin nhầm người mà thiệt lớn.",
+  "tam_ly": "Bên trong có sóng nhưng mặt ngoài phẳng, tự giữ mình đứng vững để người khác dựa; ngược thì nén lâu quá, bùng ra lúc không ngờ.",
+  "hoc_hanh": "Làm luận văn hay ôn thi giữ nhịp đều, không cuống trước ngày thi; thầy hướng dẫn điềm đạm, góp ý mềm mà trúng."
+ },
+ "sword_page": {
+  "tinh_cam": "Đang lướt trang cá nhân người ấy, hỏi bạn chung dò xét, đọc lại từng tin nhắn; biết nhiều mà chưa dám nói thẳng, dễ nghi từ chuyện nhỏ.",
+  "cong_viec": "Mới vào chỗ làm, để ý từng người, nghe ngóng chuyện nội bộ; giỏi gom tin nhưng chưa được giao việc lớn, dễ mang tiếng buôn chuyện.",
+  "tien_bac": "Xem đi xem lại sao kê, so giá từng món, dò hỏi lương người khác; nắm nhiều số liệu nhưng chưa quyết chi hay giữ.",
+  "tam_ly": "Đầu chạy liên tục, để ý từng dấu hiệu, nghi ngờ rồi lại tự bác; hỏi nhiều người mà chẳng tin ai hoàn toàn.",
+  "hoc_hanh": "Tò mò học đủ thứ, đọc rộng, hỏi nhiều, gom tài liệu chưa dùng; giỏi tranh luận trên lớp nhưng ôn thi thiếu tập trung một mối."
+ },
+ "sword_knight": {
+  "tinh_cam": "Tỏ tình hoặc nói chia tay ngay trong cơn nóng, cãi thắng lý nhưng làm người kia đau; người đến nhanh, đi cũng phũ.",
+  "cong_viec": "Xử việc tồn đọng dứt điểm, đấu thẳng với sếp về cách làm, đòi thay đổi ngay; thắng lý mà mất đồng nghiệp, đổi việc trong cơn giận.",
+  "tien_bac": "Quyết chuyện tiền trong một buổi: cắt khoản này, đòi nợ kia, đóng tài khoản nọ; nhanh gọn nhưng dễ tính ẩu vì gấp.",
+  "tam_ly": "Đầu chỉ có một hướng, phải làm cho rõ ngay, không chờ nổi; lý át cảm, sẵn sàng đối đầu bất cứ ai cản đường.",
+  "hoc_hanh": "Giải đề nhanh, tranh luận thắng, làm bài dứt điểm; hay đọc lướt đề, sai chỗ dễ; thi tốc độ thì hợp, thi kỹ thì hụt."
+ },
+ "sword_queen": {
+  "tinh_cam": "Người từng đổ vỡ, giờ sống một mình rất ổn, đặt điều kiện rõ với người mới; nếu đang yêu, cần khoảng cách hơn lời ngọt.",
+  "cong_viec": "Làm với người đòi hỏi cao, chấm không nể, phản hồi thẳng vào chỗ yếu; người hỏi từng cay ở chỗ cũ nên giờ chọn việc rất kỹ.",
+  "tien_bac": "Tự lo tiền sau khi chia tay hay mất chỗ dựa, chi tiêu tỉnh, không cho vay vì cả nể; tính rõ từng khoản, kể cả với người thân.",
+  "tam_ly": "Đã tỉnh sau tổn thương, không cho mình mơ nữa, nhìn mọi thứ rất rõ nhưng hơi lạnh với chính mình; chuyện cũ nhắc lại vẫn còn gợn.",
+  "hoc_hanh": "Học một mình hiệu quả hơn học nhóm, tự chấm mình nghiêm, không nhận lời khen suông; người hướng dẫn chấm thẳng, không nương tay."
+ },
+ "sword_king": {
+  "tinh_cam": "Chuyện tình được xét như một thoả thuận: rõ ràng, công bằng, ít lãng mạn; hoặc gia đình bên kia có người cha nghiêm, nói một tiếng là xong.",
+  "cong_viec": "Việc cần người có chức ra quyết định: xét duyệt, ký, phân xử tranh chấp trong nhóm; xin việc gặp người phỏng vấn lạnh, hỏi đúng chuyên môn.",
+  "tien_bac": "Chuyện tiền xử theo quy định và giấy tờ: hợp đồng, phân chia rạch ròi từng phần; người cầm quyền quyết chi, không ai xin thêm được.",
+  "tam_ly": "Tự phân đúng sai cho mình bằng lý, không cho cảm xúc chen vào quyết định; nghiêm với mình như với người, không xin và không cho khoan nhượng.",
+  "hoc_hanh": "Thi cử chấm đúng chuẩn, không ưu ái; hợp học luật, logic, khoa học chính xác; thầy nghiêm, chuẩn cao, nói ít mà mỗi lời đều có sức nặng."
+ },
+ "coin_page": {
+  "tinh_cam": "Mối tình mới đi chậm, từ những việc nhỏ như đưa đón, giúp học, sửa đồ; tình cảm còn non nhưng có nền thật, không mơ mộng.",
+  "cong_viec": "Xin được việc đầu tay, học nghề, thực tập; lương chưa cao nhưng đang học thật; có tin về một chỗ làm cụ thể.",
+  "tien_bac": "Khoản tiền đầu tay: lương thử việc, học bổng nhỏ, tiền làm thêm; ít nhưng đang tập giữ, tập ghi chép từng đồng ra vào.",
+  "tam_ly": "Đầu dồn hết vào một thứ cụ thể đang học, quên chuyện xung quanh; chậm nhưng yên, không lo xa, không tự hỏi mình có giỏi không.",
+  "hoc_hanh": "Đúng người học nghề, thực tập, cày từng bài; tiến chậm mà chắc, kết quả chưa thấy ngay; ngược thì bỏ học giữa chừng, lo chơi hơn học."
+ },
+ "coin_knight": {
+  "tinh_cam": "Người này yêu bằng việc làm đều đặn: nhắn mỗi sáng, đến đúng giờ, ít lời lãng mạn; cưới rồi thì bền nhưng dễ tẻ.",
+  "cong_viec": "Làm mỗi ngày đúng phần việc, đúng hạn, không hay ho nhưng chắc; sếp tin vì không cần nhắc; ngược thì chán việc, ì ra không đổi.",
+  "tien_bac": "Lương đều mỗi tháng, để dành đều mỗi tháng, trả nợ đúng hạn; không giàu nhanh nhưng không hụt; ngược thì giậm chân, chán không cải thiện.",
+  "tam_ly": "Trong đầu chỉ có việc phải làm hôm nay, không mơ, không sốt ruột; ngược thì tẻ, ì, thấy ngày nào cũng như ngày nào.",
+  "hoc_hanh": "Ôn thi mỗi ngày một ít, đúng lịch, không cần ai nhắc; luận văn xong vì bền chứ không vì xuất sắc; ngược thì ì ra, để mai."
+ },
+ "coin_queen": {
+  "tinh_cam": "Người bạn đời lo cho người hỏi từ bữa ăn đến chỗ ở, thương bằng cái thực; hai nhà êm vì có người khéo vun vén.",
+  "cong_viec": "Quản được cả ngân sách lẫn người, lo cho nhân viên có đủ; làm riêng thì cửa hàng ổn định; công việc là thứ nuôi cả nhà.",
+  "tien_bac": "Giữ tay hòm chìa khoá cho cả nhà, chi cho ăn ở đủ đầy, luôn có khoản phòng thân; rộng tay với người nhà nhưng không phô ra ngoài.",
+  "tam_ly": "Lo cho người khác đủ ăn đủ ấm trước rồi mới nghĩ tới mình, thấy an khi nhà cửa yên; hễ nhà có gì chưa ổn là thấp thỏm cả đêm.",
+  "hoc_hanh": "Vừa lo việc nhà vừa học thêm, tính toán để học phí không hụt; hợp ngành thực dụng: quản trị, kế toán, chăm sóc."
+ },
+ "coin_king": {
+  "tinh_cam": "Người đàn ông có cơ ngơi, ổn định, đến với lời bảo đảm về đời sống; hôn nhân bền, nhưng chậm đổi và ít khi nói lời yêu.",
+  "cong_viec": "Đứng đầu một cơ ngơi đã vững, ông chủ lão luyện, quyết bằng con số; xin việc vào công ty lớn, lâu năm, nhưng chậm đổi mới.",
+  "tien_bac": "Của cải tích được qua nhiều năm, cơ ngơi vững, tiền đẻ ra từ việc làm ăn ổn định; ngược thì ôm của không buông, hoặc tham đến mức làm ăn gian.",
+  "tam_ly": "Thấy mình đã đứng vững, có gì đó để giữ, không muốn xáo trộn; ngại đổi, ngại mạo hiểm, nghe tới cái mới là thấy phiền.",
+  "hoc_hanh": "Học để giữ và mở rộng nghề đang có: bằng quản lý, kế toán, kỹ thuật; học bài bản, lâu năm, ít chạy theo cái mới."
+ }
+}

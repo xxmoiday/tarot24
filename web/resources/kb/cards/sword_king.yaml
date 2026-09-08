@@ -1,0 +1,58 @@
+id: sword_king
+ten_vi: Vua Kiếm
+ten_en: King of Swords
+arcana: phu
+so: null
+chat: kiem
+hoang_gia: true
+bieu_tuong:
+- Vua ngồi thẳng trên ngai, nhìn thẳng ra ngoài, tay phải cầm kiếm dựng đứng hơi nghiêng, tay trái đặt trên đùi
+- Áo trong màu xanh dương, áo choàng tím đỏ, đội vương miện vàng
+- Lưng ngai chạm hình bướm và trăng lưỡi liềm
+- Hai con chim bay trên trời phía sau ngai
+- Mây thấp, cây cối thưa phía xa
+- Trời xanh nhạt
+cot_loi: 'Xét việc bằng lý và ra quyết định có hiệu lực: luật, lệnh, chuẩn mực, đúng sai rạch ròi. Không bận tâm ai thấy sao. Uy nằm ở đầu óc và chức vị, không ở cảm tình.'
+tu_khoa_xuoi:
+- phân đúng sai
+- ra lệnh
+- người có chức
+- quyết bằng lý
+- không thiên vị
+- lời có trọng lượng
+- chuẩn mực nghiêm
+- đầu lạnh
+tu_khoa_nguoc:
+- lạm quyền
+- tàn nhẫn
+- bẻ cong luật
+- cậy chức ép người
+- mưu hiểm
+- bênh phe mình
+- lệnh không ai theo
+- giận át lý
+canh_bao: Lạm quyền, bẻ luật theo ý mình, dùng chức ép người, bênh phe mình mà vẫn nói là công bằng; giận át lý thì ra lệnh chẳng ai theo. Luật pháp và quyền sinh sát trong lá không được đọc thành kết quả vụ kiện, thắng thua ở toà, hay ai đó sắp bị xử; dừng ở chỗ chuyện này sẽ được xét theo lý, theo giấy tờ. Đừng lấy lá làm cớ phán một mối là không có tình; nó chỉ nói cách xét chuyện đang lạnh.
+nguyen_to: khi
+chiem_tinh_gd: Hoả của Khí — Hiệp Sĩ (Knight); 20° Kim Ngưu – 20° Song Tử
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nặng
+  dong_tinh: tĩnh
+  huong: ngồi phán xuống
+lang_kinh:
+  tinh_cam: 'Chuyện tình được xét như một thoả thuận: rõ ràng, công bằng, ít lãng mạn; hoặc gia đình bên kia có người cha nghiêm, nói một tiếng là xong.'
+  cong_viec: 'Việc cần người có chức ra quyết định: xét duyệt, ký, phân xử tranh chấp trong nhóm; xin việc gặp người phỏng vấn lạnh, hỏi đúng chuyên môn.'
+  tien_bac: 'Chuyện tiền xử theo quy định và giấy tờ: hợp đồng, phân chia rạch ròi từng phần; người cầm quyền quyết chi, không ai xin thêm được.'
+  tam_ly: Tự phân đúng sai cho mình bằng lý, không cho cảm xúc chen vào quyết định; nghiêm với mình như với người, không xin và không cho khoan nhượng.
+  hoc_hanh: Thi cử chấm đúng chuẩn, không ưu ái; hợp học luật, logic, khoa học chính xác; thầy nghiêm, chuẩn cao, nói ít mà mỗi lời đều có sức nặng.
+cach_noi_viet:
+- cầm cân nảy mực
+- quân pháp bất vị thân
+- quân lệnh như sơn
+- nói như đinh đóng cột
+- cậy thế cậy quyền
+- phép vua thua lệ làng
+ba_cach_doc:
+  la_nguoi: 'Có chức và có cái đầu lạnh: giám đốc xét duyệt, ông bố nghiêm nói một tiếng là xong, người phỏng vấn chỉ hỏi chuyên môn, cán bộ làm việc đúng quy định. Không thiên vị, không cảm tình, lời nói có trọng lượng. Phụ nữ ngồi ghế quyết cũng thế.'
+  la_nang_luong: Xét bằng lý, quyết rồi là có hiệu lực, ai thấy sao cũng mặc. Đặt chuẩn ra, đọc kỹ giấy tờ, phân đúng sai cho rạch ròi, không xin ai và cũng không cho ai khoan nhượng. Chỉ phải giữ cho lý không bị cơn giận át, không thì lệnh đưa ra chẳng ai theo.
+  la_tinh_huong: 'Chuyện này sẽ được xét theo lý, theo quy định, theo giấy tờ: một đợt duyệt, một quyết định từ cấp trên, phân xử tranh chấp trong nhóm hay trong nhà. Hoàn cảnh nghiêm, ít chỗ cho tình. Ngược thì có người cậy chức ép, bẻ luật theo ý mình.'

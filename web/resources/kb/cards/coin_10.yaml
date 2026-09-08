@@ -1,0 +1,55 @@
+id: coin_10
+ten_vi: Mười Tiền
+ten_en: Ten of Pentacles
+arcana: phu
+so: 10
+chat: tien
+hoang_gia: false
+bieu_tuong:
+- Một ông già tóc bạc râu dài ngồi ở tiền cảnh, khoác áo choàng dày thêu hoa văn chùm nho, tay đưa ra vuốt đầu một con chó
+- Hai con chó trắng đứng quanh ông, một con ngẩng lên nhìn ông
+- Phía sau, dưới một vòm cổng đá, một người đàn ông cầm giáo và một phụ nữ đứng cạnh nhau, đang nói chuyện
+- Một đứa trẻ nhỏ nắm vạt áo người phụ nữ, quay đầu nhìn về phía con chó
+- Mười đồng tiền rải khắp mặt lá bài, xếp thành sơ đồ cây có nhiều tầng đè lên cả cảnh vật
+- Trên vòm cổng treo cờ hiệu gia tộc, trong đó có hình cái cân và hình toà tháp
+- Qua cổng thấy bên trong là sân, tường và ngôi nhà lớn, nền trời xám nhạt
+cot_loi: 'Của cải thành nền nhà, thành thứ truyền được qua nhiều đời. Cái vững ở đây không của riêng một người: gia đình, dòng họ, tài sản lâu dài, nhận từ đời trước và để lại cho đời sau.'
+tu_khoa_xuoi:
+- của để đời
+- cơ ngơi
+- an cư
+- gia đình nhiều đời
+- giàu bền
+- gốc gác
+- thừa kế
+- nếp nhà
+tu_khoa_nguoc:
+- tranh của trong nhà
+- gia sản sa sút
+- của bay
+- gánh nợ dòng họ
+- may rủi
+- mất gốc
+- lộc bất ngờ
+- rạn nếp
+canh_bao: Của để đời thành cái phải giữ chứ không được hưởng, nếp nhà đè lên người trong nhà; ngược thì chính gia sản ấy là cớ anh em tranh nhau. Không hứa hẹn giàu có hay đoán số tài sản, lá nói về nền lâu dài, không nói bao nhiêu, bao giờ. Ông già trong hình không phải người thân sắp mất để lại thừa kế, đứa trẻ không phải tin sắp có con hay mang thai; cả nhà hiện ra để nói gốc gác, không nói sinh nở, tang ma.
+nguyen_to: tho
+chiem_tinh_gd: Sao Thuỷ ở Xử Nữ
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nhẹ
+  dong_tinh: tĩnh
+  huong: bám rễ nhiều đời
+lang_kinh:
+  tinh_cam: Chuyện hai người đã thành chuyện hai nhà, tính cưới, tính ở đâu, gia đình hai bên chấp thuận; ngược thì rạn từ trong họ hàng.
+  cong_viec: Công ty gia đình, chỗ làm ổn định lâu năm, được thừa hưởng vị trí hay mối làm ăn đời trước để lại.
+  tien_bac: Tài sản lớn và bền, cơ ngơi tổ tiên, của để đời; ngược thì tranh của trong nhà, gánh nợ dòng họ.
+  tam_ly: An tâm vì có gốc, có chỗ về, biết mình là một mắt xích trong dòng họ; đôi khi nặng vì phải giữ nếp nhà.
+  hoc_hanh: Được nhà lo cho học đến nơi đến chốn, ngành học gắn với nghề ông cha; học để về giữ cơ nghiệp hơn là để tự đi.
+cach_noi_viet:
+- an cư lạc nghiệp
+- cha truyền con nối
+- cây có cội, nước có nguồn
+- con hơn cha là nhà có phúc
+- trong ấm ngoài êm
+- miệng ăn núi lở

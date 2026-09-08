@@ -1,0 +1,162 @@
+{
+ "wand_page": [
+  "tin xấu chuyện đang làm",
+  "hứng lên rồi xẹp",
+  "hăng được ba bữa",
+  "lưỡng lự chưa dám",
+  "nay thích mai chán",
+  "chuyện phiếm",
+  "ý hay bị dập",
+  "nói trước hụt sau"
+ ],
+ "wand_knight": [
+  "chuyến đi bị hoãn",
+  "đứt gánh giữa đường",
+  "nóng máu gây gổ",
+  "chia năm xẻ bảy",
+  "liều hơn gan",
+  "hùng hục rồi bỏ",
+  "hết lửa, nằm im",
+  "đi rồi không về"
+ ],
+ "wand_queen": [
+  "ghen bóng ghen gió",
+  "gắt gỏng, hơn thua",
+  "tự ti giấu đi",
+  "sân si chuyện người",
+  "hai lòng",
+  "chèn ép người dưới",
+  "làm màu quá tay",
+  "kín tiếng, chịu khó"
+ ],
+ "wand_king": [
+  "chỉ mình được nói",
+  "nóng nảy quát tháo",
+  "khắt khe với người",
+  "hứa mà không giữ",
+  "ôm hết không giao",
+  "sếp mất uy",
+  "vẽ to làm nhỏ",
+  "nghiêm mà không hẹp"
+ ],
+ "cup_page": [
+  "giấu lòng",
+  "dụ dỗ ngọt nhạt",
+  "mê nhầm người",
+  "dỗi trẻ con",
+  "mộng át việc thật",
+  "tin tình không vui",
+  "bám dính",
+  "nói dối cho êm"
+ ],
+ "cup_knight": [
+  "hứa suông",
+  "dẻo mồm",
+  "lừa tình",
+  "lời mời rút lại",
+  "đội lốt tử tế",
+  "cả thèm chóng chán",
+  "yêu như phim",
+  "hờn dỗi thất thường"
+ ],
+ "cup_queen": [
+  "chìm trong cảm xúc",
+  "khóc thầm",
+  "lo người quên mình",
+  "dựa dẫm",
+  "lấy nước mắt ép",
+  "ngoài dịu trong khác",
+  "chai lì",
+  "mít ướt"
+ ],
+ "cup_king": [
+  "nén rồi bùng",
+  "hai mang",
+  "lạnh tanh, đóng cửa",
+  "bê bối lộ ra",
+  "thao túng khéo",
+  "ngoài hoà trong hận",
+  "tin nhầm, thiệt lớn",
+  "sa vào bê tha"
+ ],
+ "sword_page": [
+  "buôn chuyện",
+  "nói hớ",
+  "trở tay không kịp",
+  "đa nghi",
+  "nói nhiều làm ít",
+  "rình mò",
+  "cãi cùn",
+  "tin vịt"
+ ],
+ "sword_knight": [
+  "cãi cho bằng thắng",
+  "át giọng người",
+  "lao đầu vào tường",
+  "lỡ lời gây hoạ",
+  "tính ẩu vì gấp",
+  "to mồm, nhát tay",
+  "chạy đâu không rõ",
+  "phá hơn xây"
+ ],
+ "sword_queen": [
+  "cay nghiệt",
+  "trả đũa",
+  "ôm hận cũ",
+  "cố chấp, hẹp hòi",
+  "kiểu cách, giả nghiêm",
+  "mềm lòng sai chỗ",
+  "đẩy hết người đi",
+  "lạnh quá hoá độc"
+ ],
+ "sword_king": [
+  "lạm quyền",
+  "tàn nhẫn",
+  "bẻ cong luật",
+  "cậy chức ép người",
+  "mưu hiểm",
+  "bênh phe mình",
+  "lệnh không ai theo",
+  "giận át lý"
+ ],
+ "coin_page": [
+  "tiêu hoang",
+  "bỏ học giữa chừng",
+  "lười, để mai",
+  "tin việc không hay",
+  "lo chơi hơn học",
+  "học không tới nơi",
+  "mộng lớn tay trắng",
+  "vuột việc nhỏ"
+ ],
+ "coin_knight": [
+  "ì ra, giậm chân",
+  "chán việc",
+  "làm cho có",
+  "cày quá mà đuối",
+  "khư khư lối cũ",
+  "nản, buông tay",
+  "lỡ hẹn liên miên",
+  "tẻ nhạt ngày ngày"
+ ],
+ "coin_queen": [
+  "ngờ vực người nhà",
+  "lo tiền mất ngủ",
+  "đo người bằng của",
+  "bao bọc quá tay",
+  "lo xa thành sợ",
+  "nhà cửa bừa bộn",
+  "thấp thỏm chuyện tiền",
+  "bủn xỉn với nhà"
+ ],
+ "coin_king": [
+  "ôm của không buông",
+  "tham không đáy",
+  "cứng nhắc, cũ kỹ",
+  "cơ ngơi lung lay",
+  "làm ăn gian",
+  "cậy tiền ép người",
+  "yếu thế, bị lấn",
+  "ham ăn chơi"
+ ]
+}

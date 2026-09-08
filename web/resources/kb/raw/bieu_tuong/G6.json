@@ -1,0 +1,132 @@
+{
+  "wand_page": [
+    "Một thanh niên đứng một mình, hai tay nắm cây gậy dài cao hơn đầu, gậy còn mọc lá non, mặt ngẩng lên nhìn ngọn gậy",
+    "Áo chẽn vàng in hình kỳ nhông đen, khoác áo choàng ngắn màu cam đỏ, đi ủng cao",
+    "Mũ nhỏ cắm chùm lông vũ đỏ",
+    "Đứng trên nền đất cát khô, không có cỏ cây",
+    "Phía xa có mấy kim tự tháp nhỏ nhô lên khỏi đường chân trời",
+    "Trời vàng đều, không mây"
+  ],
+  "wand_knight": [
+    "Kỵ sĩ mặc giáp cưỡi con ngựa nâu đỏ đang chồm hai chân trước lên cao",
+    "Tay phải giơ cây gậy mọc lá, tay trái ghì cương",
+    "Ngoài lớp giáp khoác áo vàng in hình kỳ nhông, mũ giáp có chùm lông đỏ dài",
+    "Bờm và đuôi ngựa tua ra như ngọn lửa, yên cương có tua rua vàng",
+    "Nền đất cát khô, mấy kim tự tháp phía xa",
+    "Trời vàng đều"
+  ],
+  "wand_queen": [
+    "Nữ hoàng đội vương miện ngồi thẳng trên ngai, nhìn thẳng ra ngoài, tay phải cầm gậy mọc lá dựng đứng, tay trái cầm một bông hướng dương lớn",
+    "Con mèo đen ngồi dưới chân ngai, quay mặt ra phía người xem",
+    "Áo dài màu vàng, khoác áo choàng màu nhạt, hai đầu gối mở rộng, ngồi vững",
+    "Tay vịn ngai tạc hình sư tử, lưng ngai chạm hình sư tử và hoa hướng dương",
+    "Phía sau ngai là đồng đất khô và mấy kim tự tháp nhỏ",
+    "Trời vàng"
+  ],
+  "wand_king": [
+    "Vua ngồi trên ngai nhưng xoay nghiêng người sang một bên, tay phải cầm cây gậy mọc lá chống xuống đất cạnh ngai",
+    "Dưới vương miện đội một chiếc mũ đỏ lót trong, áo trong màu đỏ, áo choàng vàng cam in hình kỳ nhông cắn đuôi thành vòng tròn",
+    "Một con kỳ nhông nhỏ bò trên nền đất ngay cạnh chân ngai",
+    "Lưng ngai và bệ ngai chạm hình sư tử và kỳ nhông",
+    "Ngai đặt trên nền đất khô, không cây cối",
+    "Trời vàng"
+  ],
+  "cup_page": [
+    "Chàng trai trẻ đứng một mình, tay phải nâng chiếc cốc, từ trong cốc một con cá ló đầu ra nhìn về phía anh ta",
+    "Tay trái chống hông, đầu hơi nghiêng nhìn con cá",
+    "Áo chẽn xanh dương in hoa màu hồng đỏ, mũ xanh có dải khăn dài buông xuống vai",
+    "Đứng trên bờ đất ngay sát mép nước",
+    "Sau lưng là mặt biển gợn sóng lăn tăn",
+    "Trời sáng, nhạt màu"
+  ],
+  "cup_knight": [
+    "Kỵ sĩ mặc giáp cưỡi ngựa xám trắng đi bước chậm, tay phải giơ chiếc cốc ra phía trước ngang tầm mắt",
+    "Mũ giáp gắn cánh, gót giày cũng gắn cánh",
+    "Ngoài giáp khoác áo in hình cá đỏ",
+    "Ngựa cúi đầu, bước từ tốn, không phi",
+    "Trước mặt là con sông chảy ngang, bên kia sông là vách đá và mấy cây thưa",
+    "Trời sáng, ít mây"
+  ],
+  "cup_queen": [
+    "Nữ hoàng ngồi trên ngai sát mép nước, hai tay nâng chiếc cốc có nắp đậy kín, mắt chăm chú nhìn vào cốc",
+    "Chiếc cốc có hai quai tạc hình thiên thần, trên đỉnh nắp có một cây thánh giá nhỏ",
+    "Ngai đá tạc vỏ sò lớn phía sau đầu và những đứa trẻ có đuôi cá ở hai bên",
+    "Áo trắng xanh nhạt, đội vương miện vàng, áo choàng vằn sóng chảy dài xuống hoà vào mặt nước dưới chân",
+    "Dưới chân là sỏi nhiều màu, nước lan tới sát ngai",
+    "Phía xa là vách đá và mặt biển xanh, trời trong"
+  ],
+  "cup_king": [
+    "Vua ngồi trên ngai đá nổi giữa biển, tay phải cầm chiếc cốc lớn, tay trái cầm cây trượng ngắn",
+    "Áo dài xanh dương, khoác áo choàng vàng cam, cổ đeo dây chuyền có mặt hình con cá",
+    "Đội vương miện vàng, mặt nhìn thẳng, ngồi bất động",
+    "Một bên là con tàu buồm đang đi, bên kia là con cá heo nhảy lên khỏi mặt nước",
+    "Sóng biển xám xanh dập dềnh quanh bệ ngai, không thấy bờ",
+    "Trời nhạt màu"
+  ],
+  "sword_page": [
+    "Người trẻ đứng trên gò đất cao, hai tay nắm thanh kiếm dựng đứng, thân xoay một hướng mà đầu ngoái nhìn hướng khác",
+    "Tóc bị gió thổi bạt về sau, mặc áo chẽn màu tím",
+    "Trên trời mây trắng cuộn thành từng xoáy, có một đàn chim nhỏ bay xa",
+    "Cây cối phía xa nghiêng theo chiều gió",
+    "Chân đứng trên đất gồ ghề có cỏ xanh, phía sau là những ngọn đồi",
+    "Trời xanh nhạt, nhiều mây"
+  ],
+  "sword_knight": [
+    "Kỵ sĩ giáp trụ phi ngựa trắng lao thẳng về phía trước, kiếm giơ cao quá đầu",
+    "Ngựa vươn cổ, chân duỗi hết cỡ, miệng há",
+    "Áo choàng đỏ bay ngược ra sau, mũ giáp có chùm lông đỏ",
+    "Yên cương ngựa trang trí hình bướm và chim",
+    "Mây xám kéo thành vệt dài ngang trời, cây cối phía xa ngả rạp theo gió, vài con chim bay",
+    "Nền đất trống, không có chướng ngại phía trước"
+  ],
+  "sword_queen": [
+    "Nữ hoàng ngồi nghiêng trên ngai đá, tay phải giơ kiếm dựng thẳng đứng, chuôi kiếm tì lên tay vịn ngai",
+    "Tay trái đưa ra phía trước, lòng bàn tay ngửa như đang ra hiệu",
+    "Vương miện chạm hình bướm, ngai tạc hình bướm, mặt thiên thần nhỏ và trăng lưỡi liềm",
+    "Áo choàng màu xám in hình mây, một dải tua đỏ buông từ cổ tay",
+    "Mây trắng thấp phủ quanh chân ngai như thể ngai đặt trên tầng mây",
+    "Một con chim đơn độc bay trên cao",
+    "Phía xa cây cối thưa, trời xanh nhạt"
+  ],
+  "sword_king": [
+    "Vua ngồi thẳng trên ngai, nhìn thẳng ra ngoài, tay phải cầm kiếm dựng đứng hơi nghiêng, tay trái đặt trên đùi",
+    "Áo trong màu xanh dương, áo choàng tím đỏ, đội vương miện vàng",
+    "Lưng ngai chạm hình bướm và trăng lưỡi liềm",
+    "Hai con chim bay trên trời phía sau ngai",
+    "Mây thấp, cây cối thưa phía xa",
+    "Trời xanh nhạt"
+  ],
+  "coin_page": [
+    "Chàng trai trẻ đứng giữa đồng cỏ, hai tay nâng đồng tiền vàng lên ngang mặt, mắt dán vào đồng tiền",
+    "Áo dài xanh lá, mũ đỏ quấn quanh đầu, ủng nâu",
+    "Chân bước chậm, mắt không nhìn đường",
+    "Cỏ dưới chân xanh mướt, điểm hoa nhỏ",
+    "Phía sau là thửa ruộng đã cày màu nâu và một lùm cây, xa hơn có núi",
+    "Trời vàng"
+  ],
+  "coin_knight": [
+    "Kỵ sĩ mặc giáp ngồi trên con ngựa đen to nặng đứng yên cả bốn chân, tay phải giơ đồng tiền ra trước mặt nhưng mắt nhìn thẳng qua đồng tiền",
+    "Mũ giáp cắm nhánh lá sồi xanh, đầu ngựa cũng gắn lá sồi",
+    "Ngoài giáp có áo đỏ, cương ngựa màu đỏ",
+    "Phía sau là những thửa ruộng đã cày, luống thẳng, đất nâu đỏ",
+    "Đồng trống, không có người",
+    "Trời vàng"
+  ],
+  "coin_queen": [
+    "Nữ hoàng ngồi trên ngai, đầu cúi xuống, hai tay ôm đồng tiền đặt trên đùi",
+    "Tay vịn ngai tạc đầu dê, thân ngai chạm những chùm quả, trên đầu là vòm hoa hồng đỏ leo",
+    "Áo đỏ, áo choàng xanh lá, khăn trắng trùm dưới vương miện vàng",
+    "Một con thỏ nâu ở góc dưới bên phải, gần chân ngai",
+    "Đất dưới chân đầy hoa cỏ, phía xa có núi và đồng xanh",
+    "Trời vàng"
+  ],
+  "coin_king": [
+    "Vua ngồi trên ngai, tay phải cầm quyền trượng có quả cầu, tay trái đặt lên đồng tiền lớn dựng trên đầu gối",
+    "Áo dài in đầy hình chùm nho và lá nho",
+    "Vương miện vàng cài hoa đỏ, dưới vạt áo thò ra bàn chân bọc giáp sắt",
+    "Tay vịn và lưng ngai tạc nhiều đầu bò",
+    "Dây nho leo quanh ngai, chùm nho sát chân",
+    "Phía sau là tường thành và toà lâu đài",
+    "Trời vàng"
+  ]
+}

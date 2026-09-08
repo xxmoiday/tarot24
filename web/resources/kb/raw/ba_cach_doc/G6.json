@@ -1,0 +1,82 @@
+{
+ "wand_page": {
+  "la_nguoi": "Lính mới hăng, trẻ tuổi hoặc trẻ tính, gặp gì cũng thấy hay và muốn kể ngay. Đứa em vừa ra trường, nhân viên mới hôm nào cũng có ý tưởng, hay chính người hỏi đang nổi hứng với một thứ vừa nghe. Nói nhiều hơn làm, nhưng cái háo hức ấy thật.",
+  "la_nang_luong": "Chuyện này làm bằng cái háo hức của người mới: bắt được ý là thử luôn, dám hỏi, dám sai, chưa có gì để mất. Chưa cần tính đủ, thử cho biết rồi tính tiếp. Khó nhất là giữ lửa qua tuần thứ ba, lúc hứng ban đầu bắt đầu xẹp.",
+  "la_tinh_huong": "Một tin bất ngờ, hơi lạ, thường từ người quen hay trong nhà: một lời rủ, một ý gợi mở, một khởi đầu còn thô. Chưa phải cơ hội chắc, chỉ là mồi lửa; chuyện này mới ở khúc mở đầu, chưa biết dẫn đi đâu, đừng dựng thành sự kiện lớn."
+ },
+ "wand_knight": {
+  "la_nguoi": "Kiểu người đến đâu nóng đó: hẹn hò dồn dập, làm việc cháy hết mình, rồi đùng một cái chuyển chỗ, đi công tác, đi xa. Anh bạn hay đổi việc, người yêu hay vắng nhà, đứa em lúc nào cũng có kế hoạch đi đâu đó. Gan, vui, cuốn hút, nhưng khó giữ lâu.",
+  "la_nang_luong": "Với chuyện này thì làm trước tính sau, quyết trong một buổi, có cớ là lên đường. Sức nóng chứ không phải sức bền: nhanh, dứt khoát, dám rời chỗ cũ, nhưng hết hứng là khó ở lại. Hợp lúc cần bứt ra, không hợp lúc cần xây.",
+  "la_tinh_huong": "Một chuyến đi, một lần đổi chỗ ở, chuyển chi nhánh, hay ai đó trong chuyện này sắp rời đi. Việc đang chuyển động gấp, có lửa, không giữ nguyên như cũ được nữa. Ngược thì chuyến đi hoãn, chuyện dở dang giữa đường, có người bỏ ngang trong cơn nóng."
+ },
+ "wand_queen": {
+  "la_nguoi": "Tự tin, ấm, nói thẳng mà không làm ai mất lòng; đi đâu cũng có người mến, quen biết rộng, buôn bán mát tay. Chị chủ tiệm, cô đồng nghiệp kéo cả phòng đi ăn, bà mẹ lo trong ngoài mà vẫn đẹp. Đàn ông có sức hút kiểu này cũng ra lá này.",
+  "la_nang_luong": "Cứ tin mình xứng đáng, nói rõ mình muốn gì, đừng tự thu mình lại cho vừa lòng ai. Lửa giữ trong người rồi toả ra, không cần ra lệnh mà người ta vẫn theo. Lo nhiều đầu việc cùng lúc mà vẫn còn sức cười, còn để ý được người quanh mình.",
+  "la_tinh_huong": "Đang là lúc người hỏi được để ý, được mến, được sếp tin giao thêm; chỗ buôn bán đông khách quen, trong việc có người vừa lo được nhà vừa kéo được người theo mình. Hoàn cảnh ấm và sôi nổi, đông người, không phải kiểu yên ắng. Ngược thì có ghen tuông, so bì len vào."
+ },
+ "wand_king": {
+  "la_nguoi": "Ông chủ, sếp mảng, trưởng họ, người bố quyết chuyện nhà: ai đang cầm trịch một việc lớn và kéo người khác theo bằng tầm nhìn chứ không bằng ép. Thẳng, nói là làm, giữ lời, nhưng nóng khi ai làm chậm. Phụ nữ làm chủ cũng mang dáng này, không cứ là đàn ông.",
+  "la_nang_luong": "Đặt hướng rồi giao xuống, không ôm hết mà làm một mình. Là người chịu trách nhiệm cuối cùng: nhìn xa, quyết nhanh, nói rõ ai làm gì, hỏng thì đứng ra chịu. Phải nén được cơn nóng lúc việc không chạy như ý, kẻo uy thành quát.",
+  "la_tinh_huong": "Chuyện này cần một người có uy đứng ra quyết và đội phía dưới làm theo; hoặc người hỏi vừa được giao đứng đầu một mảng. Cũng có thể là một việc lớn trong nhà, trong họ cần người đứng ra cầm trịch. Hoàn cảnh ổn nhưng đòi hỏi cao."
+ },
+ "cup_page": {
+  "la_nguoi": "Trẻ tuổi hoặc trẻ lòng, dịu, hơi mơ, sẵn lòng giúp mà không tính toán. Cậu em hay nhắn hỏi thăm, cô bạn hay tặng quà nhỏ, đứa con hay kể chuyện cảm xúc, người mới quen chưa dám ngỏ. Cảm nhiều hơn nói, dễ dỗi, dễ rung, thật lòng nhưng chưa chắc tay.",
+  "la_nang_luong": "Gặp chuyện này cứ để lòng mềm ra, nghe linh cảm trước rồi mới nghe lý lẽ. Lòng có gì lạ thì để ý, chưa vội gọi tên, chưa vội đòi kết quả. Cái hay là thật với cảm giác của mình; cái yếu là mộng át mất việc thật.",
+  "la_tinh_huong": "Tin về tình cảm đến bất ngờ: một tin nhắn, lời hỏi thăm, tấm ảnh cũ, lời tỏ ý kín đáo. Chuyện này mới ở mức để ý nhau, có cảm tình, nhú lên mà chưa rõ là gì, chưa đủ để gọi là mối. Ngược thì tin tình không vui, hoặc có lời ngọt đang dụ cần soi lại."
+ },
+ "cup_knight": {
+  "la_nguoi": "Hào hoa, lịch sự, nói năng có duyên, biết cách làm người khác thấy mình được trân trọng. Anh chàng tán tỉnh đúng bài, đối tác chào hàng rất đẹp, người bạn lúc nào cũng có lời hay để nói. Đẹp ở cách tỏ ra; phải xem phần làm có bằng phần nói không.",
+  "la_nang_luong": "Tiến tới từ tốn, có lễ, đi theo cái lòng mình thích nhưng không xông. Chủ động ngỏ lời, tỏ ý cho đẹp, với người cũng như với việc. Có điều lời ngỏ phải có việc thật đi kèm, không thì chỉ còn câu chữ hay và hình ảnh đẹp trong đầu.",
+  "la_tinh_huong": "Sắp có lời mời, lời ngỏ, đề nghị hợp tác, lời rủ về ra mắt, hay một người mang tin tình cảm tới. Chuyện đang tiến đến nhẹ nhàng, mới là bước mở lời, chưa phải chốt. Ngược thì lời mời rút lại, hứa suông, vẻ tử tế bên ngoài che một ý khác."
+ },
+ "cup_queen": {
+  "la_nguoi": "Hiểu người khác trước khi họ nói, giữ hết trong lòng, thương mà không phô ra. Bà mẹ ít lời nhưng biết con đang buồn, người vợ dịu mà chắc, cô bạn ai cũng tìm đến tâm sự, ông anh kín tiếng nhìn thấu lòng người. Ngược thì mít ướt, lấy nước mắt ép.",
+  "la_nang_luong": "Cảm cho hết rồi mới làm, và lòng có rối cũng không bỏ dở việc. Nghe cho sâu, đọc được cái người kia chưa nói ra, rồi giữ cho mình chứ không đem đi kể. Thương thì thương, nhưng phải có chừng, kẻo tan hết vào người ta.",
+  "la_tinh_huong": "Có người thương sâu và lo kín đang đứng sau chuyện này, hoặc chuyện đang ở một chỗ cần thấu hiểu: tư vấn, chăm sóc, chuyện nhà cần người chịu nghe. Êm nhờ tình, không nhờ lý. Ngược thì cảm xúc lan tràn, nỗi buồn của người khác thành nỗi buồn mình."
+ },
+ "cup_king": {
+  "la_nguoi": "Điềm đạm, nghe hết rồi mới nói, có học có nghề: thầy giáo cũ, người anh làm nghề tư vấn, ông sếp ít lời mà ai cũng nể. Trong nhà là người dàn hoà khi ai cũng nóng. Cảm được hết nhưng không để lộ; đôi khi khó biết trong đầu người ấy thật sự nghĩ gì.",
+  "la_nang_luong": "Nhận hết cảm xúc vào, nhưng quyết bằng cái đầu yên, cảm mà không loạn. Trong chuyện này là người giữ hoà khí: nhịn được, khuyên được, ai nóng cũng không lên giọng theo. Chỉ coi chừng nén lâu quá, đến lúc bùng thì chẳng ai ngờ.",
+  "la_tinh_huong": "Chuyện đang có sóng nhưng có người đứng vững ở giữa để xử: hoà giải trong nhà, mâu thuẫn nhóm có người đứng ra, một lời khuyên chín đến đúng lúc. Hoàn cảnh ổn nhờ chừng mực. Ngược thì có kẻ hai mang, chuyện kín lộ ra, tin nhầm người mà thiệt."
+ },
+ "sword_page": {
+  "la_nguoi": "Lanh, mắt tinh tai thính, hỏi tới nơi, biết chuyện gì cũng trước cả phòng. Đứa em suốt ngày lướt mạng dò tin, đồng nghiệp mới để ý từng người, đứa cháu cãi lý không thua ai. Nói nhanh, nói không ngại, nhưng chưa biết lúc nào nên im; dễ mang tiếng buôn chuyện.",
+  "la_nang_luong": "Nghe ngóng trước, dò cho kỹ rồi hãy ra mặt. Đọc kỹ, hỏi kỹ, canh đủ mọi hướng, để ý từng dấu hiệu nhỏ, cần thì nói thẳng. Được cái khó bị lừa; dở cái gom tin mãi mà chưa dùng, rồi sinh nghi từ chuyện không đáng.",
+  "la_tinh_huong": "Có tin đang lan: lời đồn, tin nội bộ, một câu nghe lỏm, tin nhắn bị đọc trộm. Chuyện này đang ở giai đoạn thăm dò, chưa ai nói thẳng với ai. Ngược thì tin vịt, nói hớ gây hoạ, hoặc một việc ập tới lúc chưa kịp chuẩn bị gì."
+ },
+ "sword_knight": {
+  "la_nguoi": "Nói toạc, làm gấp, cãi bằng lý và phải thắng. Ông sếp vào phòng là hỏi tiến độ, người yêu tỏ tình hôm trước rồi đòi chia tay ngay sau trận cãi, đứa bạn bênh mình rất dữ mà cũng va chạm rất nhanh. Giỏi, gan, nhưng cuốn phăng cả người đứng cạnh.",
+  "la_nang_luong": "Vào việc này thì lý phải sắc, đã quyết là không quay đầu: xông thẳng, dứt điểm ngay, không vòng vo, không chờ ai gật. Việc tồn đọng cần chặt thì đúng bài; việc cần giữ người thì hỏng. Tính lại một lần trước khi chém, vì chém rồi không nối lại được.",
+  "la_tinh_huong": "Sự việc đang lao tới rất nhanh: một cuộc đối đầu, một quyết định bị ép ra trong cơn nóng, thay đổi gấp, cãi nhau to. Chuyện này không còn chỗ cho chậm rãi. Ngược thì lao đầu vào tường, tính ẩu vì gấp, to mồm rồi chẳng làm gì."
+ },
+ "sword_queen": {
+  "la_nguoi": "Từng đau nên giờ nhìn rất rõ, nói thẳng, lạnh, không nương tay và không cần ai bênh. Bà mẹ chồng đặt điều kiện rõ, cô sếp chấm không nể, người bạn sau đổ vỡ sống một mình rất ổn. Không ác, chỉ không có chỗ cho ảo tưởng; đàn ông đã trải cũng vậy.",
+  "la_nang_luong": "Với chuyện này, giữ khoảng cách và nói điều kiện ngay từ đầu: cái gì được, cái gì không, nói cho xong. Cắt gọn, gọi đúng tên sự việc, không cho mình mơ. Chuyện cũ đã trải là vốn chứ không phải vết; chỉ đừng lạnh lâu quá mà hoá độc với cả chính mình.",
+  "la_tinh_huong": "Hoàn cảnh sau một chia cắt hoặc mất mát: ở một mình, tự lo, xa người thân, một giai đoạn đã khép. Chuyện này cần lời thẳng hơn lời ngọt, cần nhìn rõ hơn hy vọng. Ngược thì có người cay nghiệt, trả đũa, ôm hận cũ chen vào."
+ },
+ "sword_king": {
+  "la_nguoi": "Có chức và có cái đầu lạnh: giám đốc xét duyệt, ông bố nghiêm nói một tiếng là xong, người phỏng vấn chỉ hỏi chuyên môn, cán bộ làm việc đúng quy định. Không thiên vị, không cảm tình, lời nói có trọng lượng. Phụ nữ ngồi ghế quyết cũng thế.",
+  "la_nang_luong": "Xét bằng lý, quyết rồi là có hiệu lực, ai thấy sao cũng mặc. Đặt chuẩn ra, đọc kỹ giấy tờ, phân đúng sai cho rạch ròi, không xin ai và cũng không cho ai khoan nhượng. Chỉ phải giữ cho lý không bị cơn giận át, không thì lệnh đưa ra chẳng ai theo.",
+  "la_tinh_huong": "Chuyện này sẽ được xét theo lý, theo quy định, theo giấy tờ: một đợt duyệt, một quyết định từ cấp trên, phân xử tranh chấp trong nhóm hay trong nhà. Hoàn cảnh nghiêm, ít chỗ cho tình. Ngược thì có người cậy chức ép, bẻ luật theo ý mình."
+ },
+ "coin_page": {
+  "la_nguoi": "Đang học nghề, thực tập, làm việc đầu tay, dán mắt vào một thứ cụ thể mà quên hết xung quanh. Đứa em mới đi làm, cậu học trò cày từng bài, người bốn mươi đi học nghề mới. Chậm, chắc, ít nói, thật thà; ngược thì lười, để mai, tiêu hoang khoản đầu tiên.",
+  "la_nang_luong": "Tập từ đầu, việc nhỏ làm cho ra việc nhỏ, chưa nghĩ tới chuyện kiếm. Chăm như người đi học: ghi chép, làm lại, hỏi thầy, không xấu hổ vì mình mới. Chậm nhưng có nền; cái phải nhịn là mộng lớn khi tay còn trắng.",
+  "la_tinh_huong": "Tin về một việc làm, một chỗ thực tập, một khoá học, một khoản nhỏ đầu tay. Chuyện này là cơ hội thực, nhỏ, đến ở dạng cụ thể, chưa phải bước ngoặt gì. Ngược thì tin việc không hay, vuột việc nhỏ, bỏ học giữa chừng."
+ },
+ "coin_knight": {
+  "la_nguoi": "Làm đều như trâu cày, đúng hẹn đúng việc, không cần thúc, ít lời. Anh chồng nhắn mỗi sáng, đồng nghiệp năm này qua năm khác xong phần mình đúng hạn, người bố đi làm về đúng giờ. Bền, đáng tin, nhưng dễ tẻ; ngược thì ì ra, làm cho có.",
+  "la_nang_luong": "Chuyện này cày mỗi ngày một ít, không dừng mà cũng không bốc. Nhận phần việc là làm tới cùng, giữ nhịp ngày thường, chẳng cần ai ghi công; làm vì trách nhiệm hơn vì hứng. Coi chừng khư khư lối cũ, và cày đến đuối rồi bỏ dở ngay lúc gần xong.",
+  "la_tinh_huong": "Việc đang đi chậm mà đều: dự án chạy đúng tiến độ, khoản nợ trả dần, mối quan hệ không sóng gió và cũng không bất ngờ. Chuyện này không có gì mới nhưng đang tiến, đừng đọc thành đứng yên. Ngược thì giậm chân, chán, lỡ hẹn liên miên."
+ },
+ "coin_queen": {
+  "la_nguoi": "Tay hòm chìa khoá của cả nhà: lo từ bữa ăn đến tiền học, rộng tay với người thân mà kín với người ngoài. Bà chủ tiệm nuôi cả nhà, người vợ khéo vun vén, ông chú đứng sau lo tiền cho cháu ăn học. Thương bằng cái thực, ít khi nói lời ngọt.",
+  "la_nang_luong": "Lo cho người quanh mình đủ ăn đủ ấm trước đã, rồi mới tính chuyện khác. Vun vén cho thực: tính từng khoản ra vào, làm chỗ dựa, cho người ta yên tâm bằng cái thật chứ không bằng lời hứa. Đừng bao bọc quá tay, cũng đừng lo xa đến thành sợ.",
+  "la_tinh_huong": "Hoàn cảnh no ấm, nhà cửa yên, có khoản phòng thân, có người đứng sau lo chuyện vật chất. Chuyện này đang được nuôi chắc, có nền để xây tiếp, không cần vội. Ngược thì thấp thỏm chuyện tiền, ngờ vực người nhà, đo người bằng của."
+ },
+ "coin_king": {
+  "la_nguoi": "Đã xây xong cơ ngơi và đang giữ: ông chủ lâu năm, người bố có nhà có xe có tiếng, sếp lớn quyết bằng con số, bà chủ đất kỳ cựu. Chắc tay, ít nói lời yêu, chậm đổi mới, ngại mạo hiểm; ngược thì cậy tiền ép người, ôm của không buông.",
+  "la_nang_luong": "Tính cho chắc rồi mới làm, giữ cái đã có trước, mở thêm tính sau. Nhìn con số, xem cái nền, lấy kinh nghiệm lão luyện mà quyết chứ không theo hứng, không chạy theo cái mới nghe hay. Có điều phải cởi bớt cứng nhắc, vững quá thì hoá cũ kỹ.",
+  "la_tinh_huong": "Chuyện này đặt trên một nền đã vững: công ty lâu năm, cơ ngơi gia đình, mối quan hệ có bảo đảm về đời sống. Có người thành đạt đứng ra quyết, hoặc chính người hỏi đang ở thế giữ chứ không phải thế gây dựng. Ngược thì cơ ngơi lung lay, làm ăn gian, bị lấn."
+ }
+}

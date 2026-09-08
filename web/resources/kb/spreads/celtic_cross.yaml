@@ -1,0 +1,120 @@
+id: celtic_cross
+ten_vi: Thập tự Celtic
+ten_en: Celtic Cross
+nhom: co_ban
+so_la: 10
+mo_ta: Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài. Mất thời gian hơn nhưng thấy đủ mọi phía.
+hop_voi:
+- Cả chuyện tình cảm này của mình, nhìn toàn cảnh
+- Con đường sự nghiệp của mình đang thế nào, nên hiểu sao cho đúng
+- Năm nay mình cứ lận đận, nhìn giúp mình toàn bộ chuyện này
+- Mình đang định đổi hẳn cách sống, chuyện đó ra sao
+khong_hop_voi:
+- Hôm nay có nên nhắn cho người đó không
+- Câu hỏi nhanh có hoặc không
+- Chọn A hay B
+cach_rut: Rút mười lá theo thứ tự; lá một đặt giữa, lá hai đặt nằm ngang chéo lên lá một, lá ba dưới, lá bốn bên trái, lá năm trên, lá sáu bên phải, rồi bốn lá còn lại xếp thành cột dọc bên phải từ dưới lên.
+vi_tri:
+- stt: 1
+  ten: Hoàn cảnh
+  cau_hoi: Tâm điểm của chuyện này là gì, người hỏi đang đứng giữa cái gì
+  goi_y_doc: Đọc cot_loi và hạ xuống lăng kính theo câu hỏi; đây là lá đặt tên cho cả bài. Lá nặng thì chuyện đang nặng thật, lá nhẹ thì cái nặng nằm ở chỗ khác trong bàn. Lá ngược thiên về hoàn cảnh đang kẹt hoặc người hỏi chưa nhìn đúng nó. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Cái cắt ngang
+  cau_hoi: Cái gì đang cắt ngang hoàn cảnh, giúp hay cản, mạnh tới đâu
+  goi_y_doc: Lá này luôn đọc xuôi kể cả khi rút ra ngược, vì đặt nằm ngang nên không có chiều. Lá nặng là cái cản rõ; lá nhẹ vẫn đọc là thứ đang chen vào hoàn cảnh, có thể là cái tốt tới không đúng lúc hoặc làm rối. Ưu tiên phần đầu của canh_bao khi lá nặng, ưu tiên cot_loi khi lá nhẹ. Nối chặt với lá một, hai lá này là một cặp.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Gốc rễ
+  cau_hoi: Nền của chuyện này nằm ở đâu, cái gì bên dưới đã tạo ra hoàn cảnh hiện tại
+  goi_y_doc: Đọc lá ở tầng sâu, ưu tiên lăng kính tam_ly rồi mới chạm lĩnh vực của câu hỏi. Lá nặng là cái vết cũ hoặc thói quen đang làm nền; lá nhẹ là cái vốn thật người hỏi đang đứng trên. Lá ngược thiên về gốc mà người hỏi chưa tự thấy hoặc đang chối.
+  lang_kinh_uu_tien: tam_ly
+- stt: 4
+  ten: Quá khứ gần
+  cau_hoi: Chuyện gì vừa qua và đang lùi lại, nhưng còn để dấu lên hiện tại
+  goi_y_doc: Kể ở thì đã qua, gọn, như một chuyện vừa khép. Lá nặng là cái vừa đau, lá nhẹ là cái vừa được, cả hai đều đang lùi. Lá ngược thiên về chuyện cũ chưa dứt hẳn. Không đọc lá này kỹ hơn lá một, chỉ nhắc một hai câu.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 5
+  ten: Trên đầu
+  cau_hoi: Khả năng tốt nhất của chuyện này là gì, hoặc điều người hỏi đang nghĩ tới và đang nhắm tới
+  goi_y_doc: Chọn một trong hai cách đọc theo lá và câu hỏi. Lá nhẹ đọc là đích tốt nhất chuyện này có thể chạm tới. Lá nặng đọc là điều đang chiếm đầu người hỏi, cái đang được nghĩ tới nhiều nhất, không phải điều sắp xảy ra. Lá ngược thiên về người hỏi đang nhắm sai chỗ hoặc đang nghĩ tới một thứ ngoài tầm. So với lá bảy và lá chín để thấy đầu và lòng có khớp nhau không.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 6
+  ten: Tương lai gần
+  cau_hoi: Nếu giữ đà hiện tại, vài tuần tới chuyện này chuyển sang đâu
+  goi_y_doc: Đọc như hướng đang mở, nói bằng "nếu giữ đà này", kèm khoảng "vài tuần tới", không mốc ngày. Lá nặng là chỗ nên chuẩn bị, lá nhẹ là chỗ có thể chạm tới. Lá ngược thiên về hướng đó đến chậm hoặc đến theo cách khác. Đây là lá then chốt thứ hai sau lá một, và đọc trước lá mười để hai lá không dẫm nhau.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 7
+  ten: Bản thân người hỏi
+  cau_hoi: Người hỏi đang mang tâm thế gì vào chuyện này, đang tự thấy mình ra sao
+  goi_y_doc: Ưu tiên lăng kính tam_ly. Lá nặng là người hỏi đang mệt, đang phòng thủ hoặc đang tự đè mình; lá nhẹ là đang vững hoặc đang tự tin, có khi hơi chủ quan. Lá ngược thiên về người hỏi đang tự thấy mình khác với thực tế bàn bài. Lá hoàng gia đọc theo la_nang_luong.
+  lang_kinh_uu_tien: tam_ly
+- stt: 8
+  ten: Xung quanh
+  cau_hoi: Người khác và hoàn cảnh bên ngoài đang tác động thế nào lên chuyện này
+  goi_y_doc: Đọc thành người, nhà, chỗ làm, dư luận, tuỳ câu hỏi. Lá nặng là bên ngoài đang ép hoặc không đỡ; lá nhẹ là có chỗ dựa hoặc bên ngoài đang thuận. Lá ngược thiên về bên ngoài đang lặng nhưng người hỏi tưởng đang ép, hoặc ngược lại. Lá hoàng gia đọc theo la_nguoi, nói bằng "có vẻ", không gán tên và không phán về người vắng mặt.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 9
+  ten: Hy vọng và nỗi sợ
+  cau_hoi: Người hỏi đang mong gì và đang sợ gì ở chuyện này, hai thứ đó có phải là một không
+  goi_y_doc: Lá này thường vừa là mong vừa là sợ, nói cả hai mặt bằng cot_loi và canh_bao. Lá nhẹ là điều đang mong nhưng sợ không giữ được; lá nặng là điều đang sợ nhưng trong đó có phần đang muốn xảy ra để xong. Lá ngược thiên về nỗi sợ đang lấn phần mong. Không đọc thành dự báo.
+  lang_kinh_uu_tien: tam_ly
+- stt: 10
+  ten: Kết cục nếu giữ đà
+  cau_hoi: Nếu mọi thứ giữ nguyên như bàn bài này, chuyện đi tới đâu
+  goi_y_doc: Đọc như điểm đến của đà hiện tại, không phải số phận; luôn nói bằng "nếu giữ đà này thì". Lá nhẹ là đích đang mở, lá nặng là chỗ cần rẽ trước khi tới. Lá ngược thiên về kết cục đến chậm, đến dở dang hoặc khác kỳ vọng. Nối với lá một và lá sáu để bài khép lại thành một đường.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Không đi qua mười lá lần lượt; gom thành ba bốn cụm để vừa 450–550 chữ. Cụm một là lá một và lá hai, tâm điểm và cái cắt ngang. Cụm hai là lá ba, lá bốn, lá năm và lá sáu, đường đi từ gốc qua quá khứ tới đoạn sắp tới. Cụm ba là lá bảy, lá tám và lá chín, trong người hỏi và quanh người hỏi. Lá mười là kết, hoặc ghép chung với lá sáu thành cụm bốn khi hai lá đó cùng chiều.
+- Lá một, lá hai, lá sáu và lá mười là then chốt, mỗi lá đáng hai ba câu; sáu lá còn lại mỗi lá một câu, lá nào không thêm gì mới thì gộp vào câu của lá bên cạnh.
+- Lá hai luôn đọc xuôi; các lá khác ngược đọc theo mục 3 của system prompt.
+- Nhìn cả bàn trước khi viết và nói bằng một câu ở đầu bài nếu rõ, ví dụ nhiều Ẩn Chính, nhiều Kiếm, nhiều lá ngược.
+- Đối chiếu lá năm với lá chín, lá bảy với lá tám; nếu chúng vênh nhau thì đó là chỗ đáng nói nhất về người hỏi, nói một câu.
+- Lá sáu và lá mười phải khác vai, lá sáu là chặng gần, lá mười là điểm đến nếu giữ đà; không đọc lá mười thành số phận và không cho mốc ngày.
+- Kết bằng câu trả lời thẳng câu hỏi lấy từ lá mười đối chiếu lá một, cộng một việc cụ thể lấy từ lá bảy hoặc lá năm.
+do_dai:
+  min: 450
+  max: 550
+vi_du:
+- cau_hoi: Công việc chán, tình cảm lửng lơ, năm tới mình nên dồn sức vào đâu
+  linh_vuc: chung
+  la:
+  - vi_tri: 1
+    id: cup_03
+    nguoc: false
+  - vi_tri: 2
+    id: sword_king
+    nguoc: false
+  - vi_tri: 3
+    id: cup_01
+    nguoc: false
+  - vi_tri: 4
+    id: major_10
+    nguoc: false
+  - vi_tri: 5
+    id: coin_04
+    nguoc: false
+  - vi_tri: 6
+    id: coin_king
+    nguoc: true
+  - vi_tri: 7
+    id: wand_04
+    nguoc: false
+  - vi_tri: 8
+    id: coin_01
+    nguoc: false
+  - vi_tri: 9
+    id: wand_page
+    nguoc: false
+  - vi_tri: 10
+    id: wand_07
+    nguoc: true
+  bai_luan: |-
+    Nhìn cả bàn thì Gậy và Tiền chiếm sáu trong mười lá, hai Át nằm ở gốc và ở xung quanh, ba lá hoàng gia, hai lá ngược. Bài không nặng; bạn đang đứng trên nền khá ổn với hai hạt giống mới, còn cái chán, cái lửng lơ là do tay bận ôm cái cũ. Tâm điểm là Ba Cốc, ba cô gái nâng cốc chạm nhau giữa vườn đầy quả. Hoàn cảnh của bạn thật ra không tệ, có người quanh mình, có đồng nghiệp ghi nhận. Cắt ngang cái vui đó là Vua Kiếm, một cái đầu lạnh chen vào, xét mọi thứ bằng lý. Có thể là một người ở chỗ làm, có thể chính bạn đang đem thước đo cả việc lẫn tình, mà đo bằng thước thì cái gì cũng thiếu.
+
+    Gốc rễ là Át Cốc, lòng bạn đang đầy, muốn cho đi mà chưa biết cho ai. Chữ lửng lơ mọc từ đây, không phải thiếu tình mà chưa có chỗ đổ. Quá khứ gần là Bánh Xe Số Phận, một vòng xoay ngoài tay bạn vừa qua. Trên đầu là Bốn Tiền, cái chiếm đầu bạn là giữ ghế, giữ nếp, sợ mất nhiều hơn muốn được. Tương lai gần là Vua Tiền ngược, nếu giữ đà này thì vài tuần tới cái nền bạn tưởng vững cho thấy chỗ lung lay, hoặc bạn thấy mình đang cứng và cũ hơn mình muốn. Đường từ gốc tới đây rõ, lòng đầy, đời xoay, mà tay vẫn ôm.
+
+    Bản thân bạn là Bốn Gậy, thấy yên, có chỗ để về, muốn nghỉ tay mừng cái vừa dựng xong; nền có thật nhưng bạn hơi coi nó là đích. Xung quanh là Át Tiền, bên ngoài đang đưa tới một cơ hội cầm được, một lời mời hay một nguồn thu. Hai lá khớp nhau, có chỗ đứng và có hạt. Hy vọng và nỗi sợ là Tiểu Đồng Gậy, bạn mong được nổi hứng lại, và sợ đúng cái đó, hứng lên ba hôm rồi xẹp. So với Bốn Tiền trên đầu thì thấy chỗ vênh đáng nói nhất, đầu nhắm vào giữ, lòng đòi cái mới, và cái vênh ấy làm bạn mệt.
+
+    Kết cục là Bảy Gậy ngược. Nếu giữ đà này thì bạn đi tới chỗ chùn tay, chỗ đứng bị lấn dần mà không muốn đứng lên giữ, hoặc cố thủ ở một chỗ đã chán; đường này đi từ vui chung, qua nền lung lay, tới buông chỗ đứng. Năm tới đừng dồn sức vào giữ ghế, cũng đừng dồn vào đi tìm một người; dồn vào cái Át Tiền đang tới tay, một việc mới cầm được, và đổ cái lòng đang đầy vào người quanh mình thay vì để dành cho ai chưa thấy. Tuần này viết ra ba thứ bạn đang giữ vì sợ mất chứ không vì còn muốn, rồi chọn một thứ nới tay ngay.

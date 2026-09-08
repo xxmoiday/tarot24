@@ -1,0 +1,57 @@
+id: wand_page
+ten_vi: Tiểu Đồng Gậy
+ten_en: Page of Wands
+arcana: phu
+so: null
+chat: gay
+hoang_gia: true
+bieu_tuong:
+- Một thanh niên đứng một mình, hai tay nắm cây gậy dài cao hơn đầu, gậy còn mọc lá non, mặt ngẩng lên nhìn ngọn gậy
+- Áo chẽn vàng in hình kỳ nhông đen, khoác áo choàng ngắn màu cam đỏ, đi ủng cao
+- Mũ nhỏ cắm chùm lông vũ đỏ
+- Đứng trên nền đất cát khô, không có cỏ cây
+- Phía xa có mấy kim tự tháp nhỏ nhô lên khỏi đường chân trời
+- Trời vàng đều, không mây
+cot_loi: Người mới toanh vừa bắt được một ý, một tin, một hứng và muốn bắt đầu ngay. Sức nằm ở chỗ háo hức, chưa nằm ở chỗ làm được gì; tin đến thường lạ và chưa rõ dẫn đi đâu.
+tu_khoa_xuoi:
+- tin lạ mới tới
+- nổi hứng
+- muốn thử ngay
+- người đưa tin
+- lính mới hăng
+- tin trong nhà
+- một ý loé lên
+- chưa biết dẫn đâu
+tu_khoa_nguoc:
+- tin xấu chuyện đang làm
+- hứng lên rồi xẹp
+- hăng được ba bữa
+- lưỡng lự chưa dám
+- nay thích mai chán
+- chuyện phiếm
+- ý hay bị dập
+- nói trước hụt sau
+canh_bao: Hứng nổi lên nhanh, khoe khắp nơi, ba hôm sau xẹp; tin mang tới thì lạ mà chưa có gì để bám, người nghe đã bỏ dở việc đang làm để chạy theo. Không nên đọc lá này thành cơ hội chắc chắn hay bước ngoặt, cũng đừng biến tin sắp tới thành một sự kiện cụ thể; đây là tin còn thô, hứng còn non. Tránh mặc định lá là một chàng trai ngoài đời, thường nó là chính người hỏi đang nổi hứng.
+nguyen_to: hoa
+chiem_tinh_gd: Thổ của Hoả — Công Chúa (Princess); góc phần tư Cự Giải – Sư Tử – Xử Nữ
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nhẹ
+  dong_tinh: động vừa
+  huong: ngẩng nhìn ý mới
+lang_kinh:
+  tinh_cam: Vừa có tin nhắn, lời rủ đi chơi từ một người mới, hứng lên rất nhanh; mối này mới ở mức tò mò, chưa biết có đi tới đâu.
+  cong_viec: Nghe tin về một vị trí mới, một dự án vừa nhen, hăng lên muốn nhận ngay; lính mới nhiệt tình nhưng chưa hình dung việc này dẫn đi đâu.
+  tien_bac: Có tin về một khoản nhỏ, một cách kiếm thêm mới nghe qua; chi tiêu theo ý vừa loé lên, tiền thật thì chưa thấy về.
+  tam_ly: Trong đầu có một ý vừa loé, háo hức đến bồn chồn, muốn kể cho ai đó ngay; chưa biết sẽ làm gì với nó, chỉ biết đang hứng.
+  hoc_hanh: Mới đăng ký khoá học, mới nghe về một ngành hay, hăng đọc được mấy hôm; cần giữ lửa qua tuần thứ ba, vì hứng kiểu này dễ xẹp.
+cach_noi_viet:
+- ngựa non háu đá
+- chân ướt chân ráo
+- hứng lên là làm
+- chưa học bò đã lo học chạy
+- cả thèm chóng chán
+ba_cach_doc:
+  la_nguoi: Lính mới hăng, trẻ tuổi hoặc trẻ tính, gặp gì cũng thấy hay và muốn kể ngay. Đứa em vừa ra trường, nhân viên mới hôm nào cũng có ý tưởng, hay chính người hỏi đang nổi hứng với một thứ vừa nghe. Nói nhiều hơn làm, nhưng cái háo hức ấy thật.
+  la_nang_luong: 'Chuyện này làm bằng cái háo hức của người mới: bắt được ý là thử luôn, dám hỏi, dám sai, chưa có gì để mất. Chưa cần tính đủ, thử cho biết rồi tính tiếp. Khó nhất là giữ lửa qua tuần thứ ba, lúc hứng ban đầu bắt đầu xẹp.'
+  la_tinh_huong: 'Một tin bất ngờ, hơi lạ, thường từ người quen hay trong nhà: một lời rủ, một ý gợi mở, một khởi đầu còn thô. Chưa phải cơ hội chắc, chỉ là mồi lửa; chuyện này mới ở khúc mở đầu, chưa biết dẫn đi đâu, đừng dựng thành sự kiện lớn.'

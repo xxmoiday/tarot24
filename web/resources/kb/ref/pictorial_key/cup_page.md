@@ -1,0 +1,9 @@
+# cup_page — Page of Cups
+Source: https://sacred-texts.com/tarot/pkt/pktcupa.htm
+
+## Description
+"A fair, pleasing, somewhat effeminate page, of studious and intent aspect, contemplates a fish rising from a cup to look at him. It is the pictures of the mind taking form."
+
+## Divinatory meanings
+Upright: "Fair young man, one impelled to render service and with whom the Querent will be connected; a studious youth; news, message; application, reflection, meditation; also these things directed to business."
+Reversed: "Taste, inclination, attachment, seduction, deception, artifice."

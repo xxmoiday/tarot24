@@ -1,0 +1,392 @@
+{
+ "major_00": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "bước tới mép vực"
+ },
+ "major_01": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "kéo trên xuống dưới"
+ },
+ "major_02": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "ngồi giữ cửa"
+ },
+ "major_03": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "toả ra xung quanh"
+ },
+ "major_04": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "ngồi trấn giữ"
+ },
+ "major_05": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "truyền xuống dưới"
+ },
+ "major_06": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "hướng vào nhau"
+ },
+ "major_07": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động mạnh",
+  "huong": "về phía trước"
+ },
+ "major_08": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "cúi xuống dỗ"
+ },
+ "major_09": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "quay vào trong"
+ },
+ "major_10": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động đột ngột",
+  "huong": "xoay vòng"
+ },
+ "major_11": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "cân hai bên"
+ },
+ "major_12": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "lộn ngược tại chỗ"
+ },
+ "major_13": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "động mạnh",
+  "huong": "tiến chậm không lùi"
+ },
+ "major_14": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "chảy qua lại"
+ },
+ "major_15": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "ghì xuống"
+ },
+ "major_16": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "động đột ngột",
+  "huong": "rơi xuống"
+ },
+ "major_17": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "rót ra ngoài"
+ },
+ "major_18": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động vừa",
+  "huong": "đi vào sương"
+ },
+ "major_19": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động mạnh",
+  "huong": "toả sáng khắp"
+ },
+ "major_20": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động đột ngột",
+  "huong": "đứng dậy đi lên"
+ },
+ "major_21": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "khép vòng tròn"
+ },
+ "wand_01": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "vươn lên"
+ },
+ "wand_02": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "nhìn ra xa"
+ },
+ "wand_03": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "dõi theo phía xa"
+ },
+ "wand_04": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "về nhà tụ lại"
+ },
+ "wand_05": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động mạnh",
+  "huong": "chen vào nhau"
+ },
+ "wand_06": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "tiến vào đám đông"
+ },
+ "wand_07": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động mạnh",
+  "huong": "đứng chặn từ trên"
+ },
+ "wand_08": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động đột ngột",
+  "huong": "lao thẳng tới đích"
+ },
+ "wand_09": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "đứng giữ"
+ },
+ "wand_10": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động mạnh",
+  "huong": "lê về phía trước"
+ },
+ "cup_01": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "tràn ra"
+ },
+ "cup_02": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "chảy hai chiều"
+ },
+ "cup_03": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "nâng lên cùng nhau"
+ },
+ "cup_04": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "khoanh tay ngó lơ"
+ },
+ "cup_05": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "cúi nhìn cái đổ"
+ },
+ "cup_06": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "nhìn về quá khứ"
+ },
+ "cup_07": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "ngước lên mây"
+ },
+ "cup_08": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động vừa",
+  "huong": "đi lên núi xa"
+ },
+ "cup_09": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "ngồi hưởng"
+ },
+ "cup_10": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "gom lại dưới mái"
+ },
+ "sword_01": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động đột ngột",
+  "huong": "cắt xuống"
+ },
+ "sword_02": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "đứng chắn ngang"
+ },
+ "sword_03": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "động mạnh",
+  "huong": "đâm xuyên vào"
+ },
+ "sword_04": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "nằm yên"
+ },
+ "sword_05": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động mạnh",
+  "huong": "gom về một mình"
+ },
+ "sword_06": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động vừa",
+  "huong": "sang bờ bên kia"
+ },
+ "sword_07": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động vừa",
+  "huong": "lẻn ra ngoài"
+ },
+ "sword_08": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "giậm chân tại chỗ"
+ },
+ "sword_09": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "xoáy trong đầu"
+ },
+ "sword_10": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "đã chạm đáy"
+ },
+ "coin_01": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "đặt xuống đất"
+ },
+ "coin_02": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "tung hứng lên xuống"
+ },
+ "coin_03": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "cùng xây lên"
+ },
+ "coin_04": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "ôm chặt vào"
+ },
+ "coin_05": {
+  "trong_luong": "rất nặng",
+  "dong_tinh": "động vừa",
+  "huong": "lê ngang cửa"
+ },
+ "coin_06": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "rót từ trên xuống"
+ },
+ "coin_07": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "dừng tay ngắm"
+ },
+ "coin_08": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "gõ đều một chỗ"
+ },
+ "coin_09": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "đứng giữa vườn"
+ },
+ "coin_10": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "bám rễ nhiều đời"
+ },
+ "wand_page": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "ngẩng nhìn ý mới"
+ },
+ "wand_knight": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động đột ngột",
+  "huong": "phóng đi xa"
+ },
+ "wand_queen": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "toả ấm ra"
+ },
+ "wand_king": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "vạch hướng phía trước"
+ },
+ "cup_page": {
+  "trong_luong": "rất nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "lắng nhìn cốc"
+ },
+ "cup_knight": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "động vừa",
+  "huong": "tiến tới từ tốn"
+ },
+ "cup_queen": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "nhìn sâu vào cốc"
+ },
+ "cup_king": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "vững giữa sóng"
+ },
+ "sword_page": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "ngó quanh canh chừng"
+ },
+ "sword_knight": {
+  "trong_luong": "nặng",
+  "dong_tinh": "động đột ngột",
+  "huong": "xông thẳng vào"
+ },
+ "sword_queen": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "nhìn thẳng cắt gọn"
+ },
+ "sword_king": {
+  "trong_luong": "nặng",
+  "dong_tinh": "tĩnh",
+  "huong": "ngồi phán xuống"
+ },
+ "coin_page": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "cúi nhìn đồng tiền"
+ },
+ "coin_knight": {
+  "trong_luong": "vừa",
+  "dong_tinh": "động vừa",
+  "huong": "đi chậm không dừng"
+ },
+ "coin_queen": {
+  "trong_luong": "nhẹ",
+  "dong_tinh": "tĩnh",
+  "huong": "vun vào lòng"
+ },
+ "coin_king": {
+  "trong_luong": "vừa",
+  "dong_tinh": "tĩnh",
+  "huong": "ngồi giữ cơ ngơi"
+ }
+}

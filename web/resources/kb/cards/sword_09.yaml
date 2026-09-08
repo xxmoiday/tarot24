@@ -1,0 +1,55 @@
+id: sword_09
+ten_vi: Chín Kiếm
+ten_en: Nine of Swords
+arcana: phu
+so: 9
+chat: kiem
+hoang_gia: false
+bieu_tuong:
+- Một người phụ nữ ngồi bật dậy trên giường, hai bàn tay úp lên mặt, đầu cúi gục vào hai tay
+- Cô mặc áo ngủ trắng dài, tóc dài xoã, ngồi giữa giường, chăn phủ đến ngang hông
+- Chín thanh kiếm nằm ngang song song nhau trên bức tường đen phía sau và phía trên đầu cô, xếp từ dưới lên trên
+- Chăn trên giường chia ô vuông, xen kẽ hoa hồng đỏ và các ký hiệu chiêm tinh trên nền vàng và xanh
+- Thành giường bằng gỗ chạm hình hai người đang giằng co, một người tấn công người kia
+- Nền hoàn toàn đen, cảnh ban đêm trong phòng, không cửa sổ, không ánh sáng nào ngoài mảng trắng của áo và tường giường
+- 'Tông màu chủ đạo: đen của nền, trắng của áo ngủ, đỏ và vàng của chăn'
+cot_loi: Lo âu tự nhân lên trong đêm, dằn vặt vì điều đã qua hoặc chưa tới. Chẳng ai hại mình ngoài chính cái đầu mình, và nỗi sợ trong đầu thường nặng hơn chuyện thật ngoài đời rất nhiều.
+tu_khoa_xuoi:
+- mất ngủ vì lo
+- thức trắng
+- ác mộng
+- dằn vặt
+- sợ điều chưa tới
+- tiếc chuyện đã qua
+- tự dày vò
+- lo to hơn thật
+tu_khoa_nguoc:
+- sáng ra thấy nhẹ
+- kể hết nỗi lo
+- nỗi sợ tan dần
+- ngủ lại được
+- lo đến hoảng
+- ôm lo một mình
+- xấu hổ giấu kín
+- nghi ngờ đủ thứ
+canh_bao: 'Lo mà không kể với ai, ôm một mình đến hoảng, nghi ngờ đủ thứ rồi xấu hổ giấu kín thì nỗi sợ càng nhân lên. Waite liệt kê ở lá này cả cái chết và sẩy thai, người luận không được nhắc lại: không tiên đoán chết chóc, không nói tới thai sản, không kết luận trầm cảm hay bệnh tâm lý. Nội dung để nói là nỗi sợ trong đầu đang lớn hơn sự việc thật, chứ không phải điều đáng sợ sắp xảy ra.'
+nguyen_to: khi
+chiem_tinh_gd: Sao Hoả ở Song Tử
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: rất nặng
+  dong_tinh: tĩnh
+  huong: xoáy trong đầu
+lang_kinh:
+  tinh_cam: Nằm đêm dựng lên đủ kịch bản người kia đổi lòng, xem điện thoại từng chút; chuyện ngoài đời thường nhẹ hơn nhiều so với cái đầu đang lo.
+  cong_viec: Deadline, sếp khó, hay một sai sót nhỏ mà thổi thành ác mộng, đêm nào cũng nhẩm lại; sáng lên công ty mọi chuyện nhỏ hơn hẳn.
+  tien_bac: Đêm nằm cộng nợ, lo tiền học cho con, lo lương tháng không đủ; con số thực khi ngồi ghi ra thường nhỏ hơn con số ám trong đầu.
+  tam_ly: Lo âu dồn về đêm, một nỗi sợ nhân thành mười, tự dày vò vì điều đã qua hay chưa tới; kể ra với một người là đã nhẹ đi nửa.
+  hoc_hanh: Đêm trước kỳ thi không ngủ, tưởng tượng trượt, tưởng tượng bố mẹ thất vọng; sáng vào phòng thi đề thường vừa sức hơn nỗi sợ đêm qua.
+cach_noi_viet:
+- lo bò trắng răng
+- ăn không ngon ngủ không yên
+- đêm dài lắm mộng
+- sợ bóng sợ gió
+- chuyện bé xé ra to
+- lo sốt vó

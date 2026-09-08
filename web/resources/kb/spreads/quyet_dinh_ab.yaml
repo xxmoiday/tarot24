@@ -1,0 +1,76 @@
+id: quyet_dinh_ab
+ten_vi: Năm lá chọn giữa hai hướng
+ten_en: Five Card Two Paths Decision
+nhom: chuyen_de
+so_la: 5
+mo_ta: Khi đang phân vân giữa hai hướng. Năm lá nhìn gốc của phân vân, rồi mỗi hướng một cặp lá cho thấy nó là gì và dẫn tới đâu.
+hop_voi:
+- Có nên nhận offer bên kia không, hay ở lại chỗ cũ
+- Về quê hay ở lại thành phố
+- Nói thẳng với người đó hay im để yên chuyện
+- Học tiếp lên cao hay đi làm luôn
+khong_hop_voi:
+- Nên mua nhà bây giờ hay chờ giá xuống
+- Nên bán cổ phiếu hay giữ
+- Nên chọn bệnh viện nào để chữa
+cach_rut: Định rõ trong đầu hướng A và hướng B, xào bài, rút năm lá; lá một đặt giữa, lá hai và lá ba xếp dọc bên trái cho hướng A, lá bốn và lá năm xếp dọc bên phải cho hướng B.
+vi_tri:
+- stt: 1
+  ten: Gốc của phân vân
+  cau_hoi: Người hỏi đang đứng ở đâu và cái gì thật sự làm chuyện này khó chọn
+  goi_y_doc: Lấy tam_ly làm nền, hạ xuống lĩnh vực của câu hỏi. Lá nặng là phân vân đến từ nỗi sợ hoặc một vết cũ; lá nhẹ là hai hướng đều có cái được nên khó bỏ. Lá ngược thiên về người hỏi đang phân vân vì chưa tự hỏi mình muốn gì. Không đọc lá này nghiêng về A hay B.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Hướng A
+  cau_hoi: Chọn hướng A thì người hỏi đang bước vào cái gì, được gì và phải mang gì
+  goi_y_doc: Đọc theo lăng kính của câu hỏi, gọi tên hướng này bằng cot_loi. Lá nặng là hướng này đòi cái giá rõ, nói giá đó là gì; lá nhẹ là hướng này đang thuận, nói cái được là gì. Lá ngược thiên về hướng này đến chậm hoặc không như người hỏi hình dung. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Hướng A dẫn tới đâu
+  cau_hoi: Nếu đi hướng A và giữ đà thì vài tháng tới nó dẫn tới đâu
+  goi_y_doc: Đọc như điểm đến của hướng A, nói bằng "nếu đi hướng này thì", theo khoảng thời gian, không mốc ngày. Lá nhẹ là đích đang mở, lá nặng là chỗ phải qua hoặc cái mất kèm theo. Lá ngược thiên về đích đến dở dang. So thẳng với lá năm khi viết.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 4
+  ten: Hướng B
+  cau_hoi: Chọn hướng B thì người hỏi đang bước vào cái gì, được gì và phải mang gì
+  goi_y_doc: Đọc cùng cách với lá hai để hai hướng được cân bằng nhau. Lá nặng là hướng này đòi cái giá rõ; lá nhẹ là hướng này đang thuận. Lá ngược thiên về hướng này đến chậm hoặc không như hình dung. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 5
+  ten: Hướng B dẫn tới đâu
+  cau_hoi: Nếu đi hướng B và giữ đà thì vài tháng tới nó dẫn tới đâu
+  goi_y_doc: Đọc cùng cách với lá ba, nói bằng "nếu đi hướng này thì", không mốc ngày. Lá nhẹ là đích đang mở, lá nặng là chỗ phải qua hoặc cái mất kèm theo. Lá ngược thiên về đích đến dở dang. So thẳng với lá ba khi viết.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Không quyết thay người hỏi. Bài so hai nhánh rồi nói nhánh nào bài đang nghiêng về và cái giá của nhánh đó; nhánh còn lại cũng phải được nói cái được và cái mất, không dìm một bên cho dễ kết.
+- Thứ tự viết là lá một, rồi cặp lá hai và ba thành một đoạn cho hướng A, cặp lá bốn và năm thành một đoạn cho hướng B, rồi kết bằng so sánh. Cặp lá ba và lá năm là then chốt, hai lá đầu mỗi nhánh chỉ cần một hai câu.
+- Nghiêng về nhánh nào thì nhìn cặp lá đích, so trong_luong và huong trong sac_thai của lá ba với lá năm. Hướng đi ra ngoài, tiến tới, đứng giữ thì hơn hướng ngồi yên, ngó lơ, rơi xuống, kể cả khi lá đó nặng hơn; trọng lượng chỉ quyết khi hai hướng cùng loại. Hai lá đích ngang nhau cả hai mặt thì nói bài chưa nghiêng và quay về lá một để nói cái người hỏi cần rõ trước khi chọn.
+- Nếu hướng A hoặc hướng B là mua, bán, giữ, vay để đầu tư, hay chọn cách chữa bệnh, chọn cách kiện, thì chuyển hướng theo mục 5 của system prompt ngay đầu bài, không so sánh hai nhánh; chỉ đọc lá một về tâm thế và cái người hỏi cần làm rõ với người có chuyên môn.
+- Không dùng "sẽ", không nói hướng nào "chắc ăn"; việc cụ thể ở cuối là việc giúp người hỏi nhìn rõ hơn trước khi chọn, ví dụ hỏi thêm một người, thử một bước nhỏ ở nhánh đang nghiêng.
+do_dai:
+  min: 280
+  max: 380
+vi_du:
+- cau_hoi: Nhận offer công ty lớn hay ở lại startup đang làm
+  linh_vuc: cong_viec
+  la:
+  - vi_tri: 1
+    id: major_01
+    nguoc: false
+  - vi_tri: 2
+    id: cup_05
+    nguoc: false
+  - vi_tri: 3
+    id: wand_07
+    nguoc: false
+  - vi_tri: 4
+    id: major_16
+    nguoc: false
+  - vi_tri: 5
+    id: cup_04
+    nguoc: false
+  bai_luan: |-
+    Bàn này nặng, ba lá nặng trong năm, hai Ẩn Chính ở gốc và nhánh B. Gốc của phân vân là Pháp Sư, bạn không thiếu gì, đủ đồ nghề trên bàn, đi hướng nào cũng có tay nghề. Khó chọn không phải vì thiếu, mà vì bạn đang trình bày hai phương án trong đầu hay hơn là ra tay với một.
+
+    Nhánh A, nhận offer công ty lớn, mở bằng Năm Cốc, một đoạn tiếc. Ba cốc đổ là cái bạn đang xây ở startup; mắt bạn dễ dán vào đó những tháng đầu ở chỗ mới, dù hai cốc sau lưng vẫn đứng. Đi hướng này và giữ đà thì vài tháng tới dẫn tới Bảy Gậy, bạn có một chỗ đứng thật, ở thế trên, nhưng phải giữ nó trước nhiều phía chất vấn, bị soi, bị thử; mệt của người có chỗ. Nhánh B, ở lại startup, mở bằng Toà Tháp, lá rất nặng, ở lại là ở trong một thứ có chỗ mỏng, và nếu vỡ thì vỡ trong một cú. Bài không nói vỡ lúc nào, chỉ nói cái đổ là cái đã mỏng sẵn; cái được là biết rõ nền mình đứng. Giữ đà thì vài tháng tới dẫn tới Bốn Cốc, không mất gì, mà ngồi lì vì ngán, lời mời khác chìa ra cũng không ngó.
+
+    So hai đích thì Bảy Gậy nặng hơn nhưng là đứng và chống đỡ, có chỗ để giữ; Bốn Cốc nhẹ hơn nhưng là ngồi và ngó lơ. Bài nghiêng về nhánh A, với cái giá là một đoạn tiếc và những tháng đầu chống đỡ liên tục. Nhánh B không sai, chỉ đòi bạn nhìn thẳng vào chỗ mỏng thay vì chờ nó tự vỡ. Không ai chọn thay bạn được, vì lá gốc nói bạn đủ tay nghề cho cả hai. Tuần này tìm một người đang làm đúng chỗ ấy ở công ty lớn, hỏi họ tháng đầu phải chống đỡ những gì; câu trả lời cho bạn biết mình có muốn cầm cây gậy đó không.

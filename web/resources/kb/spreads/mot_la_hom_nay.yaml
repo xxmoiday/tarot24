@@ -1,0 +1,43 @@
+id: mot_la_hom_nay
+ten_vi: Một lá cho hôm nay
+ten_en: One Card Daily
+nhom: co_ban
+so_la: 1
+mo_ta: Rút một lá cho ngày hôm nay hoặc cho một chuyện đang vướng trong đầu. Nhanh, gọn, đủ để biết mình đang đứng ở đâu.
+hop_voi:
+- Hôm nay mình nên để ý chuyện gì
+- Dạo này mình đang bị kẹt ở đâu
+- Chuyện với người đó, mình đang ở chỗ nào
+- Tuần này đi làm cần giữ cái gì
+khong_hop_voi:
+- Có nên nhận offer bên kia không, hay ở lại
+- Anh ấy có đang nghĩ đến mình không
+- Tháng sau tiền nong có ổn không
+cach_rut: Xào bài, nghĩ tới hôm nay hoặc chuyện đang vướng, rút một lá và đặt ngửa trước mặt.
+vi_tri:
+- stt: 1
+  ten: Lá hôm nay
+  cau_hoi: Hôm nay, hoặc trong chuyện đang hỏi, cái gì đang chi phối và người hỏi nên để ý điều gì
+  goi_y_doc: Đọc cot_loi trước, rồi hạ xuống lăng kính theo câu hỏi; câu hỏi mở thì lấy tam_ly làm nền. Lá nặng là tâm điểm cần giữ sức trong ngày, không phải điềm xấu; lá nhẹ là chỗ có thể tận dụng, không phải lời hứa. Lá ngược thiên về nghĩa xuôi đang bị chặn hoặc đang dịu đi, chọn theo câu hỏi. Lá hoàng gia ở đây đọc theo la_nang_luong trừ khi câu hỏi có một người cụ thể.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Chỉ có một lá nên không có gì để nối; đi thẳng vào cot_loi rồi dừng ở một hai ý, không kể hết tu_khoa.
+- Mở bằng một câu gọi tên cái lá này đang nói, rồi kể nó hạ xuống chuyện của người hỏi ra sao, rồi kết bằng một việc làm được trong ngày.
+- Câu hỏi mở kiểu "hôm nay thế nào" thì không bịa sự kiện; nói về tâm thế và chỗ cần để ý, không nói chuyện gì sắp xảy ra.
+- Lá này không trả lời có/không và không so sánh hai hướng; nếu câu hỏi đòi hai thứ đó, đọc lá theo tâm thế người hỏi rồi gợi ý trải kiểu khác.
+do_dai:
+  min: 120
+  max: 180
+vi_du:
+- cau_hoi: Hôm nay của mình thế nào
+  linh_vuc: chung
+  la:
+  - vi_tri: 1
+    id: sword_10
+    nguoc: false
+  bai_luan: |-
+    Mười Kiếm cho hôm nay, một lá rất nặng, nhưng không phải điềm gở. Lá này nói về một chuyện đã đến tận cùng, không còn gì để mất thêm, và không báo chuyện dữ gì ngoài đời.
+
+    Hạ xuống ngày của bạn, có vẻ đang có một chuyện, một mối hay một kế hoạch bạn cố kéo lâu rồi mà trong lòng biết là hết đường. Hôm nay dễ là ngày bạn thôi vờ như chưa biết. Đau, nhưng sau cái đau ấy người thường nhẹ đi. Trong hình người nằm sấp dưới mười thanh kiếm, mà sát chân trời vẫn có một dải vàng đang ló. Chỉ đừng ngồi than, đừng cố vớt cái đã xong.
+
+    Hôm nay của bạn là tâm thế khép một chuyện cho hẳn. Việc trong ngày là chọn đúng một thứ bạn vẫn cố vá dù biết là hỏng, rồi không đụng vào nó nữa, kể cả mở lên xem.

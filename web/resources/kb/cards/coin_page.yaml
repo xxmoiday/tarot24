@@ -1,0 +1,58 @@
+id: coin_page
+ten_vi: Tiểu Đồng Tiền
+ten_en: Page of Pentacles
+arcana: phu
+so: null
+chat: tien
+hoang_gia: true
+bieu_tuong:
+- Chàng trai trẻ đứng giữa đồng cỏ, hai tay nâng đồng tiền vàng lên ngang mặt, mắt dán vào đồng tiền
+- Áo dài xanh lá, mũ đỏ quấn quanh đầu, ủng nâu
+- Chân bước chậm, mắt không nhìn đường
+- Cỏ dưới chân xanh mướt, điểm hoa nhỏ
+- Phía sau là thửa ruộng đã cày màu nâu và một lùm cây, xa hơn có núi
+- Trời vàng
+cot_loi: 'Chăm chú học một thứ cụ thể đến mức quên cả xung quanh. Cơ hội đến ở dạng thực: một việc, một chỗ, một khoản nhỏ. Còn đang học chứ chưa kiếm được, nhưng học cho chắc.'
+tu_khoa_xuoi:
+- học nghề
+- chăm chú một thứ
+- việc nhỏ đầu tay
+- tin về việc làm
+- tập tành từ đầu
+- còn học chưa kiếm
+- mê đến quên đường
+- chậm mà chắc
+tu_khoa_nguoc:
+- tiêu hoang
+- bỏ học giữa chừng
+- lười, để mai
+- tin việc không hay
+- lo chơi hơn học
+- học không tới nơi
+- mộng lớn tay trắng
+- vuột việc nhỏ
+canh_bao: Học không tới nơi, mê chơi hơn mê nghề, tiêu hoang khoản tiền đầu tay, mộng lớn mà tay trắng; tin về việc làm tới thì không như mong. Lá này là học và cơ hội nhỏ, nên đừng phóng lên thành sắp giàu, sắp thăng chức; cũng không lái cơ hội thực thành gợi ý bỏ tiền vào thứ gì. Tuổi trong lá là tuổi nghề, không phải tuổi đời; người bốn mươi đi học nghề mới vẫn ra lá này.
+nguyen_to: tho
+chiem_tinh_gd: Thổ của Thổ — Công Chúa (Princess); góc phần tư Bạch Dương – Kim Ngưu – Song Tử
+chiem_tinh_hd: null
+sac_thai:
+  trong_luong: nhẹ
+  dong_tinh: tĩnh
+  huong: cúi nhìn đồng tiền
+lang_kinh:
+  tinh_cam: Mối tình mới đi chậm, từ những việc nhỏ như đưa đón, giúp học, sửa đồ; tình cảm còn non nhưng có nền thật, không mơ mộng.
+  cong_viec: Xin được việc đầu tay, học nghề, thực tập; lương chưa cao nhưng đang học thật; có tin về một chỗ làm cụ thể.
+  tien_bac: 'Khoản tiền đầu tay: lương thử việc, học bổng nhỏ, tiền làm thêm; ít nhưng đang tập giữ, tập ghi chép từng đồng ra vào.'
+  tam_ly: Đầu dồn hết vào một thứ cụ thể đang học, quên chuyện xung quanh; chậm nhưng yên, không lo xa, không tự hỏi mình có giỏi không.
+  hoc_hanh: Đúng người học nghề, thực tập, cày từng bài; tiến chậm mà chắc, kết quả chưa thấy ngay; ngược thì bỏ học giữa chừng, lo chơi hơn học.
+cach_noi_viet:
+- vạn sự khởi đầu nan
+- trăm hay không bằng tay quen
+- một nghề cho chín còn hơn chín nghề
+- học ăn, học nói, học gói, học mở
+- học không hay, cày không biết
+- vung tay quá trán
+ba_cach_doc:
+  la_nguoi: Đang học nghề, thực tập, làm việc đầu tay, dán mắt vào một thứ cụ thể mà quên hết xung quanh. Đứa em mới đi làm, cậu học trò cày từng bài, người bốn mươi đi học nghề mới. Chậm, chắc, ít nói, thật thà; ngược thì lười, để mai, tiêu hoang khoản đầu tiên.
+  la_nang_luong: 'Tập từ đầu, việc nhỏ làm cho ra việc nhỏ, chưa nghĩ tới chuyện kiếm. Chăm như người đi học: ghi chép, làm lại, hỏi thầy, không xấu hổ vì mình mới. Chậm nhưng có nền; cái phải nhịn là mộng lớn khi tay còn trắng.'
+  la_tinh_huong: Tin về một việc làm, một chỗ thực tập, một khoá học, một khoản nhỏ đầu tay. Chuyện này là cơ hội thực, nhỏ, đến ở dạng cụ thể, chưa phải bước ngoặt gì. Ngược thì tin việc không hay, vuột việc nhỏ, bỏ học giữa chừng.
