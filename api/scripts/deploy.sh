@@ -35,6 +35,7 @@ if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
   echo "  ! cây làm việc còn thay đổi chưa commit, sẽ đẩy nguyên trạng đĩa lên"
 fi
 
+npm run sync:kb >/dev/null
 npm run check:kb >/dev/null && xong "dữ liệu KB khớp"
 
 # Build ở đây trước để lỗi biên dịch lộ ra khi VPS còn chưa bị đụng tới.

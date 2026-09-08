@@ -1,5 +1,5 @@
 # .gitignore gốc của monorepo tarot24.
-# api/ và web/ vẫn giữ .gitignore riêng; file này chỉ lo phần dùng chung
+# api/ và web/ vẫn giữ .gitignore riêng; file này lo phần dùng chung
 # và bịt các lỗ hổng mà 2 file kia bỏ sót.
 
 # Dependencies
@@ -38,8 +38,19 @@ Thumbs.db
 *.swp
 *.swo
 
+# ─────────── Dữ liệu KB sinh ra, xem web/resources/kb/README.md ───────────
+# Người sửa ở: web/resources/kb/{cards,spreads}/*.yaml
+#              web/resources/kb/prompts/system_luan_bai.md
+# Bản JSON duy nhất được commit: web/data/*.source.json
+# Mọi thứ dưới đây đều sinh lại được bằng `npm run kb:sync` (web)
+# hoặc `npm run sync:kb` (api), nên không commit.
+/web/resources/kb/build/
+/web/data/system_luan_bai.md
+/api/data/
+
 # CỐ Ý KHÔNG ignore ở đây:
-#   build/, dist/, .next/, out/  -> đã được api/.gitignore và web/.gitignore
-#     xử lý với đúng phạm vi. Đặt "build/" ở gốc sẽ nuốt luôn
-#     web/resources/kb/build/ vốn là dữ liệu thật cần commit.
-#   .claude/  -> api/.claude/skills/ đang được track có chủ đích.
+#   build/, dist/, .next/, out/ dạng không neo -> api/.gitignore và
+#     web/.gitignore đã xử lý đúng phạm vi của chúng rồi.
+#   web/data/*.source.json -> bản JSON duy nhất được commit, để app build
+#     được mà không cần chạy pipeline Python.
+#   .claude/ -> api/.claude/skills/ đang được track có chủ đích.

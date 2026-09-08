@@ -35,6 +35,25 @@ python3 merge.py && python3 reports/dup_check.py && python3 validate.py && pytho
 ```
 Sửa nội dung: sửa thẳng `cards/*.yaml` rồi chạy `validate.py` + `build.py` (đừng chạy lại `merge.py`, nó ghi đè cards/ từ raw/). Nếu muốn giữ raw/ đồng bộ thì sửa raw/ rồi merge.
 
+## Đường dữ liệu ra app
+
+`build/` **không được commit**. Bản JSON duy nhất vào git là `web/data/*.source.json`,
+để web và api build được mà không cần chạy Python.
+
+```
+cards/*.yaml, spreads/*.yaml    nguồn người sửa             commit
+   │  build.py, build_spreads.py
+build/cards.json, spreads.json  bản build                   KHÔNG commit
+   │  web: npm run kb:sync
+web/data/*.source.json          bản JSON duy nhất vào git   commit
+   │  api: npm run sync:kb
+api/data/*                      bản cho backend             KHÔNG commit
+```
+
+`prompts/system_luan_bai.md` là bản duy nhất được commit; `web/data/` và `api/data/`
+đều sinh từ nó. Web tự chạy `kb:prompt` trước `dev`/`build`, api tự chạy `sync:kb`
+trước `build`/`test`, nên chỉ bước `kb:sync` (sau khi build lại KB) là làm tay.
+
 ## Trạng thái nghiệm thu
 - 78 YAML, validate PASS; build/cards.json sinh được
 - Báo cáo A/B/C: 0 cờ đỏ sau vòng hai

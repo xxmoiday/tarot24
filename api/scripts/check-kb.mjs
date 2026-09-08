@@ -1,15 +1,29 @@
-// Báo động nếu dữ liệu KB của api lệch với bản gốc bên web.
+// Báo động nếu dữ liệu KB của api lệch với nguồn bên web.
+// Cùng bảng nguồn với sync-kb.mjs; lệch thì chạy `npm run sync:kb`.
 import { readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
-const files = ["cards.source.json", "spreads.source.json", "system_luan_bai.md"];
-const sum = async (p) => createHash("sha256").update(await readFile(p)).digest("hex").slice(0, 12);
-let bad = 0;
-for (const f of files) {
-  const a = await sum(new URL(`../data/${f}`, import.meta.url));
-  const b = await sum(new URL(`../../web/data/${f}`, import.meta.url));
-  const ok = a === b;
-  if (!ok) bad++;
-  console.log(`  ${ok ? "khớp" : "LỆCH"}  ${f}  api=${a} web=${b}`);
+
+const here = new URL("./", import.meta.url);
+const nguon = {
+  "cards.source.json": new URL("../../web/data/cards.source.json", here),
+  "spreads.source.json": new URL("../../web/data/spreads.source.json", here),
+  "system_luan_bai.md": new URL("../../web/resources/kb/prompts/system_luan_bai.md", here),
+};
+
+if (!existsSync(fileURLToPath(Object.values(nguon)[0]))) {
+  console.log("  bỏ qua check:kb — không thấy web/ để đối chiếu");
+  process.exit(0);
 }
-console.log(bad ? `\n${bad} tệp lệch, chạy npm run sync:kb` : "\nKB của api khớp bản gốc bên web");
-if (bad) process.exitCode = 1;
+
+const tom = async (p) => createHash("sha256").update(await readFile(p)).digest("hex").slice(0, 12);
+let lech = 0;
+for (const [ten, tu] of Object.entries(nguon)) {
+  const a = await tom(new URL(`../data/${ten}`, here));
+  const b = await tom(tu);
+  if (a !== b) lech++;
+  console.log(`  ${a === b ? "khớp" : "LỆCH"}  ${ten}  api=${a} web=${b}`);
+}
+console.log(lech ? `\n${lech} tệp lệch, chạy npm run sync:kb` : "\nKB của api khớp nguồn bên web");
+if (lech) process.exitCode = 1;
