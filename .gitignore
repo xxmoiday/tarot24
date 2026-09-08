@@ -1,0 +1,45 @@
+# .gitignore gốc của monorepo tarot24.
+# api/ và web/ vẫn giữ .gitignore riêng; file này chỉ lo phần dùng chung
+# và bịt các lỗ hổng mà 2 file kia bỏ sót.
+
+# Dependencies
+node_modules/
+
+# Cache build của TypeScript
+*.tsbuildinfo
+
+# Env & secrets (giữ lại file mẫu)
+.env
+.env.*
+!.env.example
+
+# Khoá, chứng chỉ
+*.pem
+*.key
+*.p12
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Test coverage
+coverage/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+*.swp
+*.swo
+
+# CỐ Ý KHÔNG ignore ở đây:
+#   build/, dist/, .next/, out/  -> đã được api/.gitignore và web/.gitignore
+#     xử lý với đúng phạm vi. Đặt "build/" ở gốc sẽ nuốt luôn
+#     web/resources/kb/build/ vốn là dữ liệu thật cần commit.
+#   .claude/  -> api/.claude/skills/ đang được track có chủ đích.
