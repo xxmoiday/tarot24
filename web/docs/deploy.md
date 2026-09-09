@@ -1,7 +1,7 @@
 # Đưa Tarot24 lên www.tarot24.online
 
 Web chạy trên Vercel, backend chạy trên VPS Vultr. Mac Mini không còn phục vụ
-gì cho production — xem mục 5 nếu tunnel cũ vẫn còn.
+gì cho production — tunnel và tiến trình web ở đó đã gỡ, xem mục 5.
 
 | Thành phần | Ở đâu | Tên miền |
 |---|---|---|
@@ -90,38 +90,26 @@ Canonical, `Sitemap:` trong robots và `<loc>` trong sitemap đều phải là
 
 ## 5. Dọn tên miền cũ tarrot24.online
 
-Tên miền gõ nhầm, đã ngừng dùng. Web từng chạy trên Mac Mini qua Cloudflare
-Tunnel; backend từng đứng sau `api.tarrot24.online`. Cả hai đã chuyển xong.
+Tên miền gõ nhầm, chưa từng quảng bá nên không có gì để giữ cho SEO.
 
-Trước khi xoá, cân nhắc trỏ 301 sang tên miền mới một thời gian: thêm
-`tarrot24.online` vào Vercel dưới dạng **Redirect to** `www.tarot24.online`,
-sửa hai bản ghi gốc và `www` trong zone Cloudflare thành giá trị Vercel và
-**tắt proxy (DNS only)**. Giữ được phần Google đã index mà vẫn tắt được tunnel.
+**Đã dọn xong ở Mac Mini (09/09/2026):**
 
-Dọn trên Mac Mini:
+- `pm2 delete tarot24 tarot24-tunnel`, và gỡ khỏi `~/.pm2/dump.pm2` bằng cách
+  sửa thẳng tệp (30 → 28 app). **Không chạy `pm2 save`** — máy này có app đang
+  tắt chủ đích, lệnh đó ghi đè từ trạng thái đang chạy nên sẽ xoá mất chúng.
+  Sao lưu: `~/.pm2/dump.pm2.truoc-don-web`
+- `cloudflared tunnel delete tarot24` (id `15808c1b-…`), xoá
+  `config-tarot24.yml` và tệp credential. Sao lưu:
+  `~/.cloudflared/luu-tarot24-cu/`
+- Bốn tunnel còn lại (hocvuiai, openclaw-gateway, taohinhanh, thuchiai) không
+  đụng tới
 
-```bash
-# 1. Tắt hai tiến trình
-pm2 delete tarot24 tarot24-tunnel
+`https://tarrot24.online` giờ trả 530 — đúng, bản ghi Cloudflare còn trỏ vào
+tunnel đã xoá.
 
-# 2. Gỡ khỏi danh sách khởi động lại. KHÔNG chạy `pm2 save` —
-#    máy này có app đang tắt chủ đích, pm2 save sẽ xoá mất.
-cp ~/.pm2/dump.pm2 ~/.pm2/dump.pm2.truoc-don-web
-node -e '
-const fs=require("fs"), p=process.env.HOME+"/.pm2/dump.pm2";
-const l=JSON.parse(fs.readFileSync(p,"utf8"));
-const n=l.filter(a=>!["tarot24","tarot24-tunnel"].includes(a.name));
-fs.writeFileSync(p,JSON.stringify(n));
-console.log(l.length+" -> "+n.length+" app");
-'
+**Còn lại, làm lúc nào cũng được:**
 
-# 3. Xoá tunnel và cấu hình của nó
-cloudflared tunnel delete tarot24
-rm -f ~/.cloudflared/config-tarot24.yml
-rm -f ~/.cloudflared/15808c1b-eb5e-49d6-9cdd-57e64af7a2c1.json
-```
-
-Trên VPS, sau khi chắc không còn ai gọi tên miền cũ:
+Trên VPS, gỡ nginx site và cert của tên miền cũ:
 
 ```bash
 rm /etc/nginx/sites-enabled/api.tarrot24.online
@@ -129,6 +117,11 @@ rm /etc/nginx/sites-available/api.tarrot24.online
 certbot delete --cert-name api.tarrot24.online
 nginx -t && systemctl reload nginx
 ```
+
+Rồi xoá zone `tarrot24.online` ở Cloudflare và thôi gia hạn tên miền.
+
+`web/ecosystem.config.cjs` là cấu hình PM2 hồi web còn chạy ở Mac Mini (cổng
+3111). Không còn dùng nữa, xoá được.
 
 Giữ lại kho mã ở `~/Projects/tarrot24` (thư mục vẫn mang tên cũ, không sao) để
 còn dev và để chạy `npm run deploy:vps` cho backend.
