@@ -1,3 +1,5 @@
+import { deaccent } from "./text";
+
 export type GuardKind = "health" | "death" | "pregnancy" | "legal" | "finance";
 
 export interface Guard {
@@ -78,15 +80,6 @@ const PATTERNS: Partial<Record<GuardKind, RegExp[]>> = {
   ],
   legal: [/\b(kien|thang|thua)\b[^?!.]{0,16}\b(kien|toa|vu an)\b/],
 };
-
-function deaccent(s: string) {
-  return s
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/đ/g, "d")
-    .replace(/Đ/g, "D")
-    .toLowerCase();
-}
 
 /**
  * Dò câu hỏi xem có rơi vào nhóm bài không trả lời không.

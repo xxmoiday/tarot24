@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -29,6 +30,7 @@ export async function generateMetadata({
       title: spread.seo.title,
       description: spread.seo.description,
       url: absoluteUrl(`/kieu-trai/${spread.slug}`),
+      images: spread.coverImage ? [absoluteUrl(spread.coverImage.src)] : undefined,
     },
   };
 }
@@ -42,6 +44,7 @@ export default async function SpreadPage({
   const spread = getSpread(slug);
   if (!spread) notFound();
 
+  const coverImage = spread.coverImage;
   const others = SPREADS.filter((s) => s.slug !== spread.slug).slice(0, 3);
 
   const jsonLd = {
@@ -88,22 +91,60 @@ export default async function SpreadPage({
           <span>{spread.name}</span>
         </nav>
 
-        <div className="flex flex-col gap-2.5">
-          <Eyebrow>{spread.count} lá</Eyebrow>
-          <h1 className="font-serif text-[27px]/[1.2] text-balance text-ink md:text-[46px]/[1.05]">
-            {spread.name}
-          </h1>
-          <p className="max-w-[62ch] text-sm/[1.65] text-pretty text-muted md:text-[17px]">
-            {spread.about}
-          </p>
-        </div>
+        {coverImage ? (
+          <section className="relative overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
+            <Image
+              src={coverImage.src}
+              alt={coverImage.alt}
+              fill
+              priority
+              unoptimized
+              sizes="(max-width: 768px) 100vw, 1100px"
+              className="object-cover"
+              style={{ objectPosition: coverImage.position ?? "center" }}
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,15,26,0.92)_0%,rgba(11,15,26,0.74)_34%,rgba(11,15,26,0.2)_74%,rgba(11,15,26,0.06)_100%)]" />
+            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(11,15,26,0.74)_0%,rgba(11,15,26,0)_54%)]" />
+            <div className="relative flex min-h-[430px] flex-col justify-end gap-2.5 px-5 py-7 md:min-h-[520px] md:px-8 md:py-9">
+              <Eyebrow>{spread.count} lá</Eyebrow>
+              <h1 className="max-w-[680px] font-serif text-[31px]/[1.12] text-balance text-ink md:text-[54px]/[1.02]">
+                {spread.name}
+              </h1>
+              <p className="max-w-[58ch] text-sm/[1.65] text-pretty text-muted md:text-[17px]">
+                {spread.about}
+              </p>
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
+                  Rút bài ngay
+                </ButtonLink>
+                <span className="text-[13px] text-muted">
+                  Miễn phí, không cần đăng nhập
+                </span>
+              </div>
+            </div>
+          </section>
+        ) : (
+          <>
+            <div className="flex flex-col gap-2.5">
+              <Eyebrow>{spread.count} lá</Eyebrow>
+              <h1 className="font-serif text-[27px]/[1.2] text-balance text-ink md:text-[46px]/[1.05]">
+                {spread.name}
+              </h1>
+              <p className="max-w-[62ch] text-sm/[1.65] text-pretty text-muted md:text-[17px]">
+                {spread.about}
+              </p>
+            </div>
 
-        <div className="mt-7 flex flex-wrap items-center gap-3">
-          <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
-            Rút bài ngay
-          </ButtonLink>
-          <span className="text-[13px] text-muted">Miễn phí, không cần đăng nhập</span>
-        </div>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
+                Rút bài ngay
+              </ButtonLink>
+              <span className="text-[13px] text-muted">
+                Miễn phí, không cần đăng nhập
+              </span>
+            </div>
+          </>
+        )}
 
         <section className="mt-11 md:mt-16">
           <h2 className="font-serif text-xl text-gold md:text-[22px]">Các vị trí trong trải</h2>

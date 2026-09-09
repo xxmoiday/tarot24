@@ -73,6 +73,14 @@ export function slugOf(tenVi: string) {
     .replace(/^-|-$/g, "");
 }
 
+/**
+ * Người rút có quyền không đặt câu hỏi. Trước đây chỗ này mượn tạm câu mẫu của
+ * vị trí đầu tiên, tức là tự nghĩ hộ một câu hỏi rồi trả lời nó; nói thẳng là
+ * không có câu hỏi thì mô hình đọc bàn bài chứ không đoán mò ý người ta.
+ */
+const KHONG_CAU_HOI =
+  "Mình không có câu hỏi cụ thể. Cứ đọc bàn bài này và nói thẳng nó đang nói chuyện gì.";
+
 export interface ReadingRequest {
   spreadSlug: string;
   question: string;
@@ -173,7 +181,7 @@ export class KbService {
       linh_vuc: KB_TOPIC[req.topic],
       ...(req.guard ? { chu_de_cam: true } : {}),
       la,
-      cau_hoi: req.question,
+      cau_hoi: req.question || null,
     };
 
     const giua = Math.round((spread.do_dai.min + spread.do_dai.max) / 2);
@@ -197,7 +205,7 @@ export class KbService {
       }
     }
 
-    messages.push({ role: "user", content: req.question || spread.vi_tri[0].cau_hoi });
+    messages.push({ role: "user", content: req.question || KHONG_CAU_HOI });
     return messages;
   }
 

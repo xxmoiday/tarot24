@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ButtonLink, Eyebrow } from "./ui";
+import { ButtonLink, buttonClass, Eyebrow } from "./ui";
 
 /** Ba ảnh chạy vòng ở hero. Thay tệp trong `public/hero/` là đổi được cả trang chủ. */
 const HERO_IMAGES = [
@@ -114,9 +114,20 @@ export function HeroBanner({
           </p>
           {/* Trên máy hẹp hai nút xếp dọc và bằng nhau, khỏi so le bề ngang. */}
           <div className="mt-1 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center md:mt-2 md:gap-4">
-            <ButtonLink href="/kieu-trai" size="lg" className="w-full sm:w-auto">
-              Rút bài ngay
-            </ButtonLink>
+            {/*
+              Dẫn xuống ô hỏi ngay dưới hero: câu hỏi có trước, kiểu trải được
+              gợi ý ra sau, chứ không bắt chọn trải trước.
+
+              Thẻ a trần chứ không phải Link: đây là neo trong cùng một trang,
+              không phải chuyển trang, nên để trình duyệt nhảy tới neo theo cách
+              của nó thay vì đi qua bộ định tuyến.
+            */}
+            <a
+              href="#cau-hoi"
+              className={buttonClass("primary", "lg", "w-full sm:w-auto")}
+            >
+              Bắt đầu từ câu hỏi
+            </a>
             <ButtonLink
               href="/la-bai"
               size="lg"

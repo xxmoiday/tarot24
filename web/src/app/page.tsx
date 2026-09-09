@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { HeroBanner } from "@/components/HeroBanner";
+import { QuestionIntake } from "@/components/QuestionIntake";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SpreadCard } from "@/components/SpreadCard";
@@ -71,6 +72,14 @@ export default function HomePage() {
         </div>
 
         <div className="mx-auto max-w-[1440px]">
+          {/* Hỏi trước, chọn trải sau */}
+          <section
+            id="cau-hoi"
+            className="scroll-mt-4 px-5 pt-8.5 md:px-[60px] md:pt-20"
+          >
+            <QuestionIntake />
+          </section>
+
           {/* Lá hôm nay */}
           <section className="px-5 pt-8.5 md:px-[60px] md:pt-24">
             <div className="flex flex-col gap-3.5 rounded-2xl border border-line bg-surface p-[18px] md:flex-row md:items-center md:gap-10 md:rounded-[14px] md:p-[32px_40px]">

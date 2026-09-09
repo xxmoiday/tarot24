@@ -50,6 +50,8 @@ export interface Spread {
   layout: LayoutKind;
   /** Một câu ngắn cho thẻ kiểu trải ở trang chủ */
   blurb: string;
+  /** Ảnh cover riêng cho trang chi tiết kiểu trải */
+  coverImage?: { src: string; alt: string; position?: string };
   /** Đoạn mô tả đầy đủ cho trang kiểu trải */
   about: string;
   /** Cách rút và cách bày lá */
@@ -257,6 +259,11 @@ export const SPREADS: Spread[] = [
     layout: "love",
     blurb:
       "Cho một mối đang có hoặc đang tìm hiểu. Năm lá nhìn phía mình, phía người kia, cái đang nối, cái đang cản và hướng mối này đang đi.",
+    coverImage: {
+      src: "/spreads/nam-la-tinh-cam-cover.webp",
+      alt: "Năm lá tarot tình cảm trên bàn gỗ trong ánh nắng ấm",
+      position: "64% 52%",
+    },
     about:
       "Cho một mối đang có hoặc đang tìm hiểu. Năm lá nhìn phía mình, phía người kia, cái đang nối, cái đang cản và hướng mối này đang đi.",
     how: "Xào bài, rút năm lá; hai lá đầu đặt cạnh nhau như hai người đối diện, lá ba đặt giữa, lá bốn đặt dưới, lá năm đặt trên cùng.",

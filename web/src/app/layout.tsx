@@ -57,7 +57,13 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="vi" className={`${serif.variable} ${beVietnam.variable}`}>
+    /* html đang để scroll-behavior: smooth; khai báo ra để Next biết là cố ý
+       và tự xử lý phần cuộn khi chuyển trang, kể cả khi đi tới một neo. */
+    <html
+      lang="vi"
+      data-scroll-behavior="smooth"
+      className={`${serif.variable} ${beVietnam.variable}`}
+    >
       <body>
         <a
           href="#noi-dung"

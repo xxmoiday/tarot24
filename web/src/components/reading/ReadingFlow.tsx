@@ -1,11 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TarotCardFace, TarotCardSlot } from "@/components/TarotCardFace";
 import { buttonClass, Disclaimer, Eyebrow } from "@/components/ui";
 import { getCard } from "@/lib/cards";
 import { detectGuard } from "@/lib/guard";
+import { betterSpread, detectVague } from "@/lib/question";
 import {
   applyUprightOnly,
   makeSeed,
@@ -44,6 +46,8 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const router = useRouter();
   const params = useSearchParams();
   const restored = params.get("r");
+  /** Câu hỏi mang sang từ ô hỏi ở trang chủ, đã gõ rồi thì khỏi gõ lại. */
+  const carried = params.get("q") ?? "";
 
   /** Bài đọc có sẵn trong đường dẫn: mở thẳng ở bước kết quả, tải lại trang không mất. */
   const initial = useMemo(() => {
@@ -52,7 +56,11 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   }, [restored, spread.slug]);
 
   const [step, setStep] = useState<Step>(initial ? "result" : "ask");
-  const [question, setQuestion] = useState(initial?.question ?? "");
+  /* Khởi tạo lười: câu mang sang chỉ đọc một lần lúc dựng, và React Compiler
+     giữ được phần ghi nhớ thủ công của cả khối này. */
+  const [question, setQuestion] = useState(
+    () => initial?.question ?? carried.slice(0, MAX_QUESTION),
+  );
   const [topic, setTopic] = useState<TopicKey>(
     initial?.topic ?? spread.defaultTopic,
   );
@@ -204,6 +212,9 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   }, [router, spread.slug]);
 
   const guard = useMemo(() => detectGuard(question), [question]);
+  const vague = useMemo(() => detectVague(question), [question]);
+  /** Kiểu trải khác hợp câu này hơn hẳn kiểu đang mở; không có thì null. */
+  const other = useMemo(() => betterSpread(question, spread), [question, spread]);
 
   /* ---------- Bước 1 · đặt câu hỏi ---------- */
   if (step === "ask") {
@@ -258,6 +269,37 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           </div>
         ) : null}
 
+        {/*
+          Câu hỏi mơ hồ thì nhắc chứ không chặn, y như người đọc ngoài đời gặng
+          lại một câu rồi vẫn rút. Đã có cảnh báo chủ đề cấm thì thôi, đừng dồn
+          hai ô cảnh báo chồng lên nhau.
+        */}
+        {!guard && vague ? (
+          <div className="mt-1 flex flex-col gap-1.5 rounded-xl border border-gold/40 bg-gold/6 p-3.5">
+            <p className="label-eyebrow text-gold">{vague.label}</p>
+            <p className="text-[13.5px]/[1.6] text-pretty text-ink">
+              {vague.hint}
+            </p>
+          </div>
+        ) : null}
+
+        {/* Câu hỏi hợp kiểu trải khác hơn hẳn thì mời đổi, mang theo câu đã gõ. */}
+        {other ? (
+          <Link
+            href={`/rut-bai/${other.spread.slug}?q=${encodeURIComponent(question.trim())}`}
+            className="mt-1 flex flex-col gap-1.5 rounded-xl border border-line bg-surface p-3.5 transition-colors hover:border-gold/50"
+          >
+            <p className="text-[13.5px]/[1.6] text-pretty text-ink">
+              Câu này hợp{" "}
+              <span className="font-semibold text-gold">{other.spread.name}</span>{" "}
+              hơn. {other.reason}
+            </p>
+            <span className="text-[13px] font-medium text-gold">
+              Đổi sang trải đó →
+            </span>
+          </Link>
+        ) : null}
+
         <div className="mt-2 flex flex-col gap-2.5">
           <Eyebrow>Lĩnh vực</Eyebrow>
           <div className="flex flex-wrap gap-2">
@@ -286,14 +328,29 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           {spread.how}
         </p>
 
+        {/*
+          Không có câu hỏi thì bài luận chẳng biết bám vào đâu, nên nút chính
+          đóng lại. Vẫn chừa một lối đi cho người chỉ muốn xem bàn bài, nhưng
+          bắt họ chọn lấy chứ không để trôi qua như mặc định.
+        */}
         <div className="mt-5 flex flex-col gap-3">
           <button
             type="button"
             onClick={startShuffle}
+            disabled={!question.trim()}
             className={buttonClass("primary", "block")}
           >
             Xào bài
           </button>
+          {!question.trim() ? (
+            <button
+              type="button"
+              onClick={startShuffle}
+              className="self-center text-[13.5px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi"
+            >
+              Rút không có câu hỏi cụ thể
+            </button>
+          ) : null}
           <Disclaimer />
         </div>
       </div>
