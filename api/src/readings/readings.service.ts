@@ -99,8 +99,10 @@ export class ReadingsService {
       const messages = this.kb.buildMessages(req);
       const first = await this.llm.chat(messages, budget);
 
+      const soat = { question: req.question, guard: !!req.guard };
+
       let best = { ...this.shape(first.text), provider: first.provider, model: first.model };
-      let worst = this.faults(best, spread.do_dai);
+      let worst = this.faults(best, spread.do_dai, soat);
 
       if (worst.length) {
         const retry = await this.llm.chat(
@@ -116,7 +118,7 @@ export class ReadingsService {
           provider: retry.provider,
           model: retry.model,
         };
-        const after = this.faults(shaped, spread.do_dai);
+        const after = this.faults(shaped, spread.do_dai, soat);
         if (after.length < worst.length) {
           best = shaped;
           worst = after;
@@ -161,8 +163,9 @@ export class ReadingsService {
   private faults(
     shaped: { parts: ReadingParts | null; essay: string },
     length: { min: number; max: number },
+    soat: { question: string; guard: boolean },
   ) {
-    const out = checkEssay(shaped.essay, length);
+    const out = checkEssay(shaped.essay, length, { ...soat, parts: shaped.parts });
     if (!shaped.parts) {
       out.push({
         rule: "khuôn",

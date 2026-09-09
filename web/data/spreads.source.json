@@ -359,7 +359,7 @@
     "Nhìn lá một và lá hai cạnh nhau trước, gọi tên chỗ hai bên đang lệch hay đang khớp; đây là cặp then chốt của kiểu trải này.",
     "Nói theo thứ tự một, hai, ba, bốn, năm; gom lá ba và lá bốn thành một đoạn \"cái giữ và cái kéo\", rồi lá năm là câu trả lời.",
     "Không phán về người kia như sự thật ở bất kỳ đoạn nào; không dùng lá nặng ở lá hai hay lá bốn để nói người đó lừa dối, có người khác, hết yêu. Chỉ nói bài cho thấy phía đó đang thế nào trong mối này.",
-    "Không quyết thay người hỏi chuyện tiếp tục hay dừng; nói bài nghiêng về đâu và cái giá của mỗi phía, việc cụ thể ở cuối phải là việc người hỏi làm được một mình, không phụ thuộc người kia.",
+    "Câu hỏi tiếp tục hay dừng thì đoạn kết vẫn phải nghiêng rõ về một phía kèm một điều kiện nếu... thì để lật lại, theo luật 1 và luật 7 ở mục 10; cái giá của phía còn lại nói gọn một câu. Việc cụ thể ở cuối phải là việc người hỏi làm được một mình, không phụ thuộc người kia.",
     "Người hỏi đang tìm hiểu, chưa thành đôi, thì lá ba đọc là cái đang kéo hai người lại gần, lá năm đọc là chuyện có đi tiếp thành gì hay không, cùng một luật nói theo đà."
    ],
    "do_dai": {
@@ -397,7 +397,33 @@
        "nguoc": false
       }
      ],
-     "bai_luan": "Bàn này nhẹ nhiều hơn nặng, hai Tiểu Đồng và một Ngôi Sao; mối hai năm này chưa hỏng, nó phải bắt đầu lại theo cách khác, cần làm mới hơn là cứu.\n\nBạn là Bảy Gậy, người đứng trên gò cao, tay nắm gậy chống đỡ sáu cây gậy dựng lên từ dưới. Bạn đang bảo vệ mối này trước lời ra tiếng vào của nhà, của bạn bè, hay của chính câu hỏi trong đầu mình; căng, nhưng chưa đuối. Người kia là Vua Tiền ngược, đang ngồi giữ cái an toàn của mình, ít nói lời yêu, chậm đổi, và vì ngược nên có vẻ cái nền người ấy dựa vào đang lung lay, hoặc người ấy cứng lại vì kẹt chứ không phải vì hết lòng. Chỗ lệch nằm ngay đây, một người gồng đứng chống đỡ, một người ngồi im ôm ghế; bạn tưởng lạnh, thật ra là hai nhịp không gặp nhau.\n\nCái giữ hai người là Ngôi Sao, tin tốt nhất bàn này, sợi dây có gốc, còn tin, đang lành dần sau một đoạn khó, không ai phòng thủ ai. Cái kéo ra xa là Tiểu Đồng Tiền, một lá nhẹ đang bị dùng quá tay, có vẻ một trong hai, hay cả hai, dán mắt vào một thứ cụ thể, việc làm, khoá học, khoản tiền đầu tay, chăm tới mức quên đường về; mối này bị xếp sau, không ai cố ý.\n\nHướng đi là Tiểu Đồng Gậy. Nếu giữ đà này thì mối này nghiêng về có một mồi lửa mới, một hứng vừa loé, chưa biết dẫn đi đâu nhưng có sức của người mới; cái khó là giữ lửa qua tuần thứ ba. Mối này đi tiếp được, dây còn chắc, nhưng nó không tự đi, nó đi nếu có ai châm lửa. Tuần tới nghỉ chống đỡ, không giải thích mối này với ai, rồi rủ người ấy một chuyện hai đứa chưa từng làm, nhỏ thôi, và không hỏi câu nào về tương lai."
+     "bai_luan": "Bàn này nhẹ nhiều hơn nặng, hai Tiểu Đồng và một Ngôi Sao, chuyện đang chuyển chứ không đứng yên.\n\nBạn là Bảy Gậy, người đứng trên gò cao, tay nắm gậy chống đỡ sáu cây gậy dựng lên từ dưới. Bạn đang bảo vệ mối này trước lời ra tiếng vào của nhà và của bạn bè; căng, nhưng chưa đuối.\n\nNgười kia là Vua Tiền ngược, đang ngồi giữ cái an toàn của mình, ít nói lời yêu, chậm đổi, và vì ngược nên có vẻ người ấy cứng lại vì kẹt chứ không phải vì hết lòng. Chỗ lệch nằm ngay đây, một người gồng đứng chống đỡ, một người ngồi im ôm ghế; bạn tưởng lạnh, thật ra là hai nhịp không gặp nhau.\n\nCái giữ hai người là Ngôi Sao, tin tốt nhất bàn này, sợi dây có gốc, còn tin, đang lành dần sau một đoạn khó, không ai phòng thủ ai.\n\nCái kéo ra xa là Tiểu Đồng Tiền, một lá nhẹ đang bị dùng quá tay, có vẻ một trong hai, hay cả hai, dán mắt vào một thứ cụ thể, việc làm, khoản tiền đầu tay, chăm tới mức quên đường về; mối này bị xếp sau, không ai cố ý.\n\nHướng đi là Tiểu Đồng Gậy. Nếu giữ đà này thì mối này nghiêng về có một mồi lửa mới, một hứng vừa loé, chưa biết dẫn đi đâu nhưng có sức của người mới; cái khó là giữ lửa qua tuần thứ ba.\n\nNghiêng về đi tiếp được, dây còn chắc, nhưng nó không tự đi, nó đi nếu có người châm lửa. Tuần tới nghỉ chống đỡ, không giải thích mối này với ai, rồi rủ người ấy một chuyện hai đứa chưa từng làm, nhỏ thôi, và không hỏi câu nào về tương lai. Nếu người ấy nhận lời và buổi đó dễ thở, cứ giữ nhịp châm lửa kiểu đó; nếu bị từ chối hay vẫn lạnh y như cũ, thôi gồng một mình và nói thẳng chuyện lạnh nhạt này ra.",
+     "parts": {
+      "toan_canh": "Bàn này nhẹ nhiều hơn nặng, hai Tiểu Đồng và một Ngôi Sao, chuyện đang chuyển chứ không đứng yên.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Bạn là Bảy Gậy, người đứng trên gò cao, tay nắm gậy chống đỡ sáu cây gậy dựng lên từ dưới. Bạn đang bảo vệ mối này trước lời ra tiếng vào của nhà và của bạn bè; căng, nhưng chưa đuối."
+       },
+       {
+        "stt": 2,
+        "doan": "Người kia là Vua Tiền ngược, đang ngồi giữ cái an toàn của mình, ít nói lời yêu, chậm đổi, và vì ngược nên có vẻ người ấy cứng lại vì kẹt chứ không phải vì hết lòng. Chỗ lệch nằm ngay đây, một người gồng đứng chống đỡ, một người ngồi im ôm ghế; bạn tưởng lạnh, thật ra là hai nhịp không gặp nhau."
+       },
+       {
+        "stt": 3,
+        "doan": "Cái giữ hai người là Ngôi Sao, tin tốt nhất bàn này, sợi dây có gốc, còn tin, đang lành dần sau một đoạn khó, không ai phòng thủ ai."
+       },
+       {
+        "stt": 4,
+        "doan": "Cái kéo ra xa là Tiểu Đồng Tiền, một lá nhẹ đang bị dùng quá tay, có vẻ một trong hai, hay cả hai, dán mắt vào một thứ cụ thể, việc làm, khoản tiền đầu tay, chăm tới mức quên đường về; mối này bị xếp sau, không ai cố ý."
+       },
+       {
+        "stt": 5,
+        "doan": "Hướng đi là Tiểu Đồng Gậy. Nếu giữ đà này thì mối này nghiêng về có một mồi lửa mới, một hứng vừa loé, chưa biết dẫn đi đâu nhưng có sức của người mới; cái khó là giữ lửa qua tuần thứ ba."
+       }
+      ],
+      "ket": "Nghiêng về đi tiếp được, dây còn chắc, nhưng nó không tự đi, nó đi nếu có người châm lửa. Tuần tới nghỉ chống đỡ, không giải thích mối này với ai, rồi rủ người ấy một chuyện hai đứa chưa từng làm, nhỏ thôi, và không hỏi câu nào về tương lai. Nếu người ấy nhận lời và buổi đó dễ thở, cứ giữ nhịp châm lửa kiểu đó; nếu bị từ chối hay vẫn lạnh y như cũ, thôi gồng một mình và nói thẳng chuyện lạnh nhạt này ra."
+     }
     },
     {
      "cau_hoi": "Anh ấy có đang có người khác không",
@@ -429,8 +455,34 @@
        "nguoc": false
       }
      ],
-     "bai_luan": "Bài không nhìn được vào người vắng mặt, nên năm lá này không trả lời anh ấy có ai hay không, mình không khẳng định cũng không phủ định. Bài chỉ cho thấy bạn đang đứng thế nào, phía anh ấy ra sao, cái gì đang nối, đang kéo. Bàn có hai Ẩn Chính, một đổ một tròn, chuyện đang chuyển nhanh.\n\nBạn là Tám Gậy, tám cây gậy bay chéo trên trời, không ai cầm. Bạn đang lao, nhắn dồn, đầu chạy nhanh hơn người, muốn câu trả lời ngay. Người kia là Toà Tháp, lá nặng, và nó nói phía anh ấy đang khó, có vẻ một chỗ đứng nào đó của anh ấy vừa sụp, việc, nhà, hay niềm tin về mình. Lá không nói anh ấy giấu người; nó nói anh ấy đang rơi. Chỗ lệch là đây, bạn phóng tới, anh ấy mất đất dưới chân, nên cái lạnh bạn thấy có thể là cái sốc chứ chưa hẳn là hướng về ai khác.\n\nCái giữ hai người là Tiểu Đồng Cốc, một sợi dây mỏng, cảm tình mới ở mức xao xuyến, chưa thành nền. Cái kéo ra xa là Tám Cốc ngược, và nó nằm trong bạn, chân trong chân ngoài, muốn rời mà không dám dứt, ở lại rồi nghi. Chưa quyết được mình muốn ở hay đi thì nhìn đâu cũng thấy bóng.\n\nHướng đi là Thế Giới. Nếu giữ đà này thì vài tuần tới mối này khép một chặng cho tròn, hoặc hai người rõ với nhau và sang vòng mới, hoặc xong hẳn; lá không cam đoan bên nào, chỉ nói nó không lơ lửng mãi. Bài không nói được anh ấy có người khác không, nhưng nói được bạn đang nhắn quá nhanh vào một người có vẻ đang chao, và cái nghi mọc từ chỗ bạn chưa biết mình muốn gì. Tuần này ngưng dồn tin ba ngày, rồi hỏi anh ấy đúng một câu, dạo này có chuyện gì nặng không, và không hỏi về ai khác.",
-     "ghi_chu": "Câu hỏi đòi phán về người vắng mặt: mẫu không khẳng định, đọc theo phía người hỏi và mối quan hệ"
+     "bai_luan": "Bài không nhìn được vào người vắng mặt, nên năm lá này không trả lời anh ấy có ai hay không, mình không khẳng định cũng không phủ định. Bàn có hai Ẩn Chính, một đổ một tròn, chuyện đang chuyển nhanh.\n\nBạn là Tám Gậy, tám cây gậy bay chéo trên trời, không ai cầm. Bạn đang lao, nhắn dồn, đầu chạy nhanh hơn người, muốn câu trả lời ngay.\n\nNgười kia là Toà Tháp, lá nặng, và nó nói phía anh ấy đang khó, có vẻ một chỗ đứng nào đó của anh ấy vừa sụp, việc, nhà, hay niềm tin về mình. Lá không nói anh ấy giấu người, nó nói anh ấy đang rơi. Chỗ lệch là đây, bạn phóng tới, anh ấy mất đất dưới chân, nên cái lạnh bạn thấy có thể là cái sốc chứ chưa hẳn là hướng về ai khác.\n\nCái giữ hai người là Tiểu Đồng Cốc, một sợi dây mỏng, cảm tình mới ở mức xao xuyến, chưa thành nền.\n\nCái kéo ra xa là Tám Cốc ngược, và nó nằm trong bạn, chân trong chân ngoài, muốn rời mà không dám dứt, ở lại rồi nghi. Chưa quyết được mình muốn ở hay đi thì nhìn đâu cũng thấy bóng.\n\nHướng đi là Thế Giới. Nếu giữ đà này thì vài tuần tới mối này khép một chặng cho tròn, hoặc hai người rõ với nhau và sang vòng mới, hoặc xong hẳn; lá không cam đoan bên nào, chỉ nói nó không lơ lửng mãi.\n\nNghiêng về việc bạn lùi lại và hỏi thẳng một câu, chứ không phải đi tìm bằng chứng. Tuần này ngưng dồn tin ba ngày, rồi hỏi anh ấy đúng một câu, dạo này có chuyện gì nặng không, và không hỏi về ai khác. Nếu anh ấy nói ra được chuyện đang sụp bên phía mình, cái lạnh kia là cái chao chứ không phải cái quay lưng, cứ đi tiếp theo hướng đó; nếu anh ấy vẫn im sau khi bạn đã lùi và đã hỏi tử tế, thì cái phải quyết là bạn muốn ở hay đi.",
+     "ghi_chu": "Câu hỏi đòi phán về người vắng mặt: mẫu không khẳng định, đọc theo phía người hỏi và mối quan hệ",
+     "parts": {
+      "toan_canh": "Bài không nhìn được vào người vắng mặt, nên năm lá này không trả lời anh ấy có ai hay không, mình không khẳng định cũng không phủ định. Bàn có hai Ẩn Chính, một đổ một tròn, chuyện đang chuyển nhanh.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Bạn là Tám Gậy, tám cây gậy bay chéo trên trời, không ai cầm. Bạn đang lao, nhắn dồn, đầu chạy nhanh hơn người, muốn câu trả lời ngay."
+       },
+       {
+        "stt": 2,
+        "doan": "Người kia là Toà Tháp, lá nặng, và nó nói phía anh ấy đang khó, có vẻ một chỗ đứng nào đó của anh ấy vừa sụp, việc, nhà, hay niềm tin về mình. Lá không nói anh ấy giấu người, nó nói anh ấy đang rơi. Chỗ lệch là đây, bạn phóng tới, anh ấy mất đất dưới chân, nên cái lạnh bạn thấy có thể là cái sốc chứ chưa hẳn là hướng về ai khác."
+       },
+       {
+        "stt": 3,
+        "doan": "Cái giữ hai người là Tiểu Đồng Cốc, một sợi dây mỏng, cảm tình mới ở mức xao xuyến, chưa thành nền."
+       },
+       {
+        "stt": 4,
+        "doan": "Cái kéo ra xa là Tám Cốc ngược, và nó nằm trong bạn, chân trong chân ngoài, muốn rời mà không dám dứt, ở lại rồi nghi. Chưa quyết được mình muốn ở hay đi thì nhìn đâu cũng thấy bóng."
+       },
+       {
+        "stt": 5,
+        "doan": "Hướng đi là Thế Giới. Nếu giữ đà này thì vài tuần tới mối này khép một chặng cho tròn, hoặc hai người rõ với nhau và sang vòng mới, hoặc xong hẳn; lá không cam đoan bên nào, chỉ nói nó không lơ lửng mãi."
+       }
+      ],
+      "ket": "Nghiêng về việc bạn lùi lại và hỏi thẳng một câu, chứ không phải đi tìm bằng chứng. Tuần này ngưng dồn tin ba ngày, rồi hỏi anh ấy đúng một câu, dạo này có chuyện gì nặng không, và không hỏi về ai khác. Nếu anh ấy nói ra được chuyện đang sụp bên phía mình, cái lạnh kia là cái chao chứ không phải cái quay lưng, cứ đi tiếp theo hướng đó; nếu anh ấy vẫn im sau khi bạn đã lùi và đã hỏi tử tế, thì cái phải quyết là bạn muốn ở hay đi."
+     }
     }
    ]
   },
@@ -784,7 +836,7 @@
    "luat_doc": [
     "Lá một và lá ba là cặp then chốt; nói được chỗ đứng và cái cản rõ thì bài mới có nghĩa, lá năm phải trả lời đúng cái cản đó.",
     "Nói theo thứ tự một, hai, ba, bốn, năm; gom lá hai và lá ba thành một đoạn \"cái đang có và cái đang giữ chân\", lá bốn nhắc một câu, lá năm là kết.",
-    "Câu hỏi nghỉ hay ở lại thì không quyết thay người hỏi; nói bài nghiêng về đâu và cái giá của mỗi phía, việc cụ thể ở cuối là việc làm được ngay tại chỗ hiện tại.",
+    "Câu hỏi nghỉ hay ở lại, làm tiếp hay dừng, thì đoạn kết phải nghiêng rõ về một phía kèm một điều kiện nếu... thì để lật lại, theo luật 1 và luật 7 ở mục 10; cái giá của phía còn lại nói gọn một câu. Việc cụ thể ở cuối là việc làm được ngay tại chỗ hiện tại.",
     "Không nói về lương thưởng, thu nhập như con số hay mốc thời gian; không đoán ai được lên, ai bị cho nghỉ như sự kiện.",
     "Câu hỏi chạm góp vốn, mở công ty, đầu tư thì chuyển hướng theo mục 5 của system prompt và chỉ đọc phần tay nghề, sức bền, chỗ đứng."
    ],
@@ -794,36 +846,62 @@
    },
    "vi_du": [
     {
-     "cau_hoi": "Sếp mới về, mình nên bám lại công ty hay tìm chỗ khác",
+     "cau_hoi": "Bận đi làm trở lại, bận chăm con, có nên dạy thêm tại nhà nữa không",
      "linh_vuc": "cong_viec",
      "la": [
       {
        "vi_tri": 1,
-       "id": "major_13",
-       "nguoc": false
+       "id": "coin_03",
+       "nguoc": true
       },
       {
        "vi_tri": 2,
-       "id": "coin_01",
-       "nguoc": false
-      },
-      {
-       "vi_tri": 3,
-       "id": "wand_01",
-       "nguoc": false
-      },
-      {
-       "vi_tri": 4,
        "id": "cup_07",
        "nguoc": false
       },
       {
-       "vi_tri": 5,
+       "vi_tri": 3,
+       "id": "major_12",
+       "nguoc": false
+      },
+      {
+       "vi_tri": 4,
        "id": "cup_06",
        "nguoc": false
+      },
+      {
+       "vi_tri": 5,
+       "id": "major_18",
+       "nguoc": true
       }
      ],
-     "bai_luan": "Bàn này nặng và đang chuyển, một Ẩn Chính rất nặng ngay chỗ đứng, hai lá Át kẹp hai bên cho thấy cái mới đang nhú. Thần Chết nói thẳng rằng vai trò bạn từng có ở công ty này, cái nếp làm việc thời sếp cũ, đã hết đời của nó. Sếp mới về không phải nguyên nhân, chỉ là cú chốt. Ván đã đóng thuyền, cái mất là thật, dù bạn ở hay đi; nhưng trên lá mặt trời vẫn mọc ở chân trời xa, khép chỗ này mở chỗ khác.\n\nCái bạn đang có là Át Tiền, một cái vốn cầm được, tay nghề thật và nền chắc để gây dựng lại, hạt giống chứ chưa phải mùa. Cái đang giữ chân bạn là Át Gậy, lá đẹp nhưng nằm ở chỗ cản thì đang bị dùng quá tay. Cái hứng muốn bứt đi, muốn làm khác, đang bốc rất thật nhưng còn thô; bạn đang để một cơn hứng đứng thay cho một quyết định, mà lửa kiểu này hôm nay rực, tuần sau dễ nguội, nhảy việc theo nó thì dễ đầu voi đuôi chuột. Bên ngoài là Bảy Cốc, chỗ khác nhìn từ đây cái nào cũng lấp lánh mà chưa cái nào sờ được, kể cả sếp mới cũng còn là một cái cốc trên mây.\n\nHướng đi rơi vào Sáu Cốc, và bài nghiêng về hai điều. Một, đường ra nếu có thì đi qua người cũ, quan hệ cũ trong nghề, không qua cái lấp lánh ngoài kia. Hai, bạn đang so sếp mới với sếp cũ, và cái ngọt của ngày cũ đang níu bạn lại. Bài không quyết thay bạn. Ở lại thì giá là chấp nhận vai trò cũ đã hết hẳn, làm lại từ nền với sếp mới như với người lạ. Đi thì giá là phải biến cơn hứng thành kế hoạch trước, kẻo rơi vào cốc mây. Tuần này viết ra ba thứ bạn cầm được thật ở đây, rồi nhắn hỏi thăm một người quen cũ trong nghề."
+     "parts": {
+      "toan_canh": "Bàn này nặng vừa và đang chuyển, hai Ẩn Chính và hai lá ngược. Câu hỏi là giữ tiếp hay dừng một lớp đã dạy rồi, không phải nhận việc mới.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Ba Tiền xuôi là mỗi người một việc và ăn khớp nhau; ngược lại là công sức chia ra quá nhiều đầu mối, chưa đầu nào được ghi nhận đúng mức. Bạn vừa đi làm lại, vừa chăm con, vừa còn lớp dạy thêm, mà không ai chia lịch giúp bạn cả."
+       },
+       {
+        "stt": 2,
+        "doan": "Cái vốn của bạn là chưa bị dồn vào một cửa duy nhất. Việc dạy còn nhiều dạng, giữ tại nhà, giảm số buổi, gom thành nhóm thay vì kèm riêng. Người khác mất chỗ làm là hết, bạn thì đổi được hình thức. Cẩn thận là bảy cái cốc bày cùng lúc phần lớn còn là hình dung, tay bạn cầm nổi một."
+       },
+       {
+        "stt": 3,
+        "doan": "Cái cản không phải lớp dạy, mà là sự nửa vời quanh nó: không dẹp hẳn, cũng không nhận thêm. Treo vậy để khỏi mất cửa, nhưng treo lâu thì tốn hơn cả hai lựa chọn kia, phụ huynh không dám gắn bó, bạn không dám nghỉ mà cũng không dám nhận."
+       },
+       {
+        "stt": 4,
+        "doan": "Chữ nữa trong câu hỏi cho thấy đây là lớp cũ, phụ huynh cũ. Sức ép đến từ tình nghĩa, người ta nhờ vì tin bạn, bạn khó từ chối vì từng gắn bó. Nhưng đã quen rồi không giữ nổi lịch của bạn năm nay."
+       },
+       {
+        "stt": 5,
+        "doan": "Mặt Trăng ngược là sương đang tan chứ không dày thêm, chuyện này sắp tự rõ. Mấy nỗi sợ đang đẩy bạn, sợ mất khoản thu, sợ phụ lòng người quen, sợ khó quay lại nghề, đang lớn hơn thực tế. Hướng đi là thu về một hình thức nhỏ nhất bạn kham được."
+       }
+      ],
+      "ket": "Nghiêng về giảm mạnh chứ không bỏ hẳn. Trong bảy ngày tới, kẻ ra lịch thật của một tuần và tìm một khung giờ cố định duy nhất còn trống sau giờ làm và sau giờ con cần bạn. Nếu tìm được một khung, giữ đúng khung đó, một lớp, nói rõ với phụ huynh. Nếu không tìm ra khung nào, dừng, và báo thẳng thay vì hẹn lần lữa."
+     },
+     "bai_luan": "Bàn này nặng vừa và đang chuyển, hai Ẩn Chính và hai lá ngược. Câu hỏi là giữ tiếp hay dừng một lớp đã dạy rồi, không phải nhận việc mới.\n\nBa Tiền xuôi là mỗi người một việc và ăn khớp nhau; ngược lại là công sức chia ra quá nhiều đầu mối, chưa đầu nào được ghi nhận đúng mức. Bạn vừa đi làm lại, vừa chăm con, vừa còn lớp dạy thêm, mà không ai chia lịch giúp bạn cả.\n\nCái vốn của bạn là chưa bị dồn vào một cửa duy nhất. Việc dạy còn nhiều dạng, giữ tại nhà, giảm số buổi, gom thành nhóm thay vì kèm riêng. Người khác mất chỗ làm là hết, bạn thì đổi được hình thức. Cẩn thận là bảy cái cốc bày cùng lúc phần lớn còn là hình dung, tay bạn cầm nổi một.\n\nCái cản không phải lớp dạy, mà là sự nửa vời quanh nó: không dẹp hẳn, cũng không nhận thêm. Treo vậy để khỏi mất cửa, nhưng treo lâu thì tốn hơn cả hai lựa chọn kia, phụ huynh không dám gắn bó, bạn không dám nghỉ mà cũng không dám nhận.\n\nChữ nữa trong câu hỏi cho thấy đây là lớp cũ, phụ huynh cũ. Sức ép đến từ tình nghĩa, người ta nhờ vì tin bạn, bạn khó từ chối vì từng gắn bó. Nhưng đã quen rồi không giữ nổi lịch của bạn năm nay.\n\nMặt Trăng ngược là sương đang tan chứ không dày thêm, chuyện này sắp tự rõ. Mấy nỗi sợ đang đẩy bạn, sợ mất khoản thu, sợ phụ lòng người quen, sợ khó quay lại nghề, đang lớn hơn thực tế. Hướng đi là thu về một hình thức nhỏ nhất bạn kham được.\n\nNghiêng về giảm mạnh chứ không bỏ hẳn. Trong bảy ngày tới, kẻ ra lịch thật của một tuần và tìm một khung giờ cố định duy nhất còn trống sau giờ làm và sau giờ con cần bạn. Nếu tìm được một khung, giữ đúng khung đó, một lớp, nói rõ với phụ huynh. Nếu không tìm ra khung nào, dừng, và báo thẳng thay vì hẹn lần lữa."
     }
    ]
   },
@@ -914,7 +992,29 @@
        "nguoc": true
       }
      ],
-     "bai_luan": "Hai Ẩn Chính đứng cạnh nhau, một lá treo yên, một lá lao tới; chuyện tiền của bạn không phải chuyện thiếu, mà là chuyện chưa nhìn. Tình hình hiện tại là Người Treo Ngược, tiền không hụt hẳn, cũng không dư, cứ lơ lửng; cuối tháng như có một khoản bị đem hy sinh mà bạn chưa gọi tên. Người trên lá mặt bình thản, mắt mở; cái treo này bạn chịu được, chỉ chưa chịu nhìn từ chiều ngược.\n\nNếp tạo ra nó là Cỗ Xe, chỗ đáng nói nhất. Bạn xoay tiền bằng ý chí, đầu tháng đặt mục tiêu con số, tin mình cầm lái được, nên không ghi chép, cứ lao tới. Hai con nhân sư trước xe không có dây cương; hai lực trong bạn, muốn giữ và muốn tiêu, được ghìm bằng quyết tâm chứ chưa hoà giải, nên đầu tháng ý chí thắng, cuối tháng ý chí đuối. Nếp tốt, chỉ bị dùng quá tay. Cái nên giữ và nên bỏ rơi vào Tiểu Đồng Kiếm, đọc như một cách làm. Giữ lại con mắt canh chừng, thói xem lại sao kê, để ý từng khoản nhỏ, đúng cái Cỗ Xe đang thiếu. Bỏ phần dở, dò hỏi lương người này, so giá với người kia, gom số mà không dùng để quyết.\n\nHướng đi là Hai Gậy ngược. Người trên lá đứng trên tường thành nhìn ra biển; ngược thì kế hoạch lớn nằm giấy, cái nhìn xa làm bạn quên cái gần, là ví mình. Giữ nếp cũ thì vài tháng tới tiền nghiêng về đứng yên, không thủng nhưng không lên; sửa theo Tiểu Đồng Kiếm thì đà lên chậm, nhưng là đà thật. Bạn không sai ở lương, sai ở chỗ chạy mà không nhìn, để tiền tự trôi thay vì tự tay cất nó. Ngay ngày lương về, tách một khoản cố định sang chỗ khác trước khi tiêu, rồi ghi từng khoản chi trong hai tuần, cuối mỗi tuần khoanh những khoản tiêu để thấy mình đang tiến chứ không vì cần."
+     "bai_luan": "Hai Ẩn Chính đứng cạnh nhau, một lá treo yên, một lá lao tới; bàn này nặng vừa và đang chạy nhanh hơn người cầm nó.\n\nTình hình hiện tại là Người Treo Ngược, tiền không hụt hẳn, cũng không dư, cứ lơ lửng; cuối tháng như có một khoản bị đem hy sinh mà bạn chưa gọi tên. Người trên lá mặt bình thản, mắt mở; cái treo này bạn chịu được, chỉ chưa chịu nhìn từ chiều ngược.\n\nNếp tạo ra nó là Cỗ Xe. Bạn xoay tiền bằng ý chí, đầu tháng đặt mục tiêu con số, tin mình cầm lái được, nên không ghi chép, cứ lao tới. Hai con nhân sư trước xe không có dây cương; hai lực trong bạn, muốn giữ và muốn tiêu, được ghìm bằng quyết tâm chứ chưa hoà giải, nên đầu tháng ý chí thắng, cuối tháng ý chí đuối. Nếp tốt, chỉ bị dùng quá tay.\n\nCái nên giữ và nên bỏ rơi vào Tiểu Đồng Kiếm, đọc như một cách làm. Giữ lại con mắt canh chừng, thói xem lại sao kê, để ý từng khoản nhỏ, đúng cái Cỗ Xe đang thiếu. Bỏ phần dở, dò hỏi lương người này, so giá với người kia, gom số mà không dùng để quyết.\n\nHướng đi là Hai Gậy ngược. Người trên lá đứng trên tường thành nhìn ra biển; ngược thì kế hoạch lớn nằm giấy, cái nhìn xa làm bạn quên cái gần, là ví mình. Giữ nếp cũ thì vài tháng tới tiền nghiêng về đứng yên, không thủng nhưng không lên; sửa theo Tiểu Đồng Kiếm thì đà lên chậm, nhưng là đà thật.\n\nChỗ sai không nằm ở lương, nó nằm ở chỗ bạn chạy mà không nhìn, để tiền tự trôi thay vì tự tay cất nó. Ngay ngày lương về, tách một khoản cố định sang chỗ khác trước khi tiêu, rồi ghi từng khoản chi trong hai tuần.",
+     "parts": {
+      "toan_canh": "Hai Ẩn Chính đứng cạnh nhau, một lá treo yên, một lá lao tới; bàn này nặng vừa và đang chạy nhanh hơn người cầm nó.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Tình hình hiện tại là Người Treo Ngược, tiền không hụt hẳn, cũng không dư, cứ lơ lửng; cuối tháng như có một khoản bị đem hy sinh mà bạn chưa gọi tên. Người trên lá mặt bình thản, mắt mở; cái treo này bạn chịu được, chỉ chưa chịu nhìn từ chiều ngược."
+       },
+       {
+        "stt": 2,
+        "doan": "Nếp tạo ra nó là Cỗ Xe. Bạn xoay tiền bằng ý chí, đầu tháng đặt mục tiêu con số, tin mình cầm lái được, nên không ghi chép, cứ lao tới. Hai con nhân sư trước xe không có dây cương; hai lực trong bạn, muốn giữ và muốn tiêu, được ghìm bằng quyết tâm chứ chưa hoà giải, nên đầu tháng ý chí thắng, cuối tháng ý chí đuối. Nếp tốt, chỉ bị dùng quá tay."
+       },
+       {
+        "stt": 3,
+        "doan": "Cái nên giữ và nên bỏ rơi vào Tiểu Đồng Kiếm, đọc như một cách làm. Giữ lại con mắt canh chừng, thói xem lại sao kê, để ý từng khoản nhỏ, đúng cái Cỗ Xe đang thiếu. Bỏ phần dở, dò hỏi lương người này, so giá với người kia, gom số mà không dùng để quyết."
+       },
+       {
+        "stt": 4,
+        "doan": "Hướng đi là Hai Gậy ngược. Người trên lá đứng trên tường thành nhìn ra biển; ngược thì kế hoạch lớn nằm giấy, cái nhìn xa làm bạn quên cái gần, là ví mình. Giữ nếp cũ thì vài tháng tới tiền nghiêng về đứng yên, không thủng nhưng không lên; sửa theo Tiểu Đồng Kiếm thì đà lên chậm, nhưng là đà thật."
+       }
+      ],
+      "ket": "Chỗ sai không nằm ở lương, nó nằm ở chỗ bạn chạy mà không nhìn, để tiền tự trôi thay vì tự tay cất nó. Ngay ngày lương về, tách một khoản cố định sang chỗ khác trước khi tiêu, rồi ghi từng khoản chi trong hai tuần."
+     }
     }
    ]
   },
@@ -963,7 +1063,7 @@
    "luat_doc": [
     "Đặt lá một và lá hai cạnh nhau trước, gọi tên chỗ hai bên đang khớp hay đang lệch; lá ba giải thích vì sao có chỗ lệch đó. Lá ba là then chốt.",
     "Nói theo thứ tự một, hai, ba; câu trả lời cho \"người ấy đang nghĩ gì\" nằm ở lá hai nhưng phải luôn ở dạng bài cho thấy phía đó đang thế nào trong mối này, không kết luận về ý nghĩ thật của người đó.",
-    "Không dùng lá nặng ở lá hai hay lá ba để nói người kia lừa dối, có người khác, hết yêu; không quyết thay người hỏi chuyện tiếp tục hay dừng.",
+    "Không dùng lá nặng ở lá hai hay lá ba để nói người kia lừa dối, có người khác, hết yêu. Câu hỏi tiếp tục hay dừng thì vẫn phải nghiêng rõ về một phía kèm điều kiện nếu... thì, theo luật 1 ở mục 10; cái nghiêng đó nói về việc người hỏi nên làm gì, không nói thay lòng người kia.",
     "Việc cụ thể ở cuối là việc người hỏi làm được một mình, ví dụ nói một câu rõ, ngừng đoán, cho khoảng cách; không phải việc trông chờ người kia làm.",
     "Không dùng kiểu trải này cho người hỏi đang muốn biết một người vắng mặt lâu có quay lại hay không; nói rõ bài chỉ nhìn được khoảng giữa hiện tại và gợi ý trải ba lá thời gian nếu muốn nhìn hướng."
    ],
@@ -1053,9 +1153,9 @@
     }
    ],
    "luat_doc": [
-    "Không quyết thay người hỏi. Bài so hai nhánh rồi nói nhánh nào bài đang nghiêng về và cái giá của nhánh đó; nhánh còn lại cũng phải được nói cái được và cái mất, không dìm một bên cho dễ kết.",
+    "Bài so hai nhánh rồi nói rõ nhánh nào đang nghiêng về và cái giá của nhánh đó; nhánh còn lại cũng phải được nói cái được và cái mất, không dìm một bên cho dễ kết. Nghiêng về một nhánh là khuyến nghị có điều kiện chứ không phải ra lệnh, nhưng bắt buộc phải có, theo luật 1 ở mục 10.",
     "Thứ tự viết là lá một, rồi cặp lá hai và ba thành một đoạn cho hướng A, cặp lá bốn và năm thành một đoạn cho hướng B, rồi kết bằng so sánh. Cặp lá ba và lá năm là then chốt, hai lá đầu mỗi nhánh chỉ cần một hai câu.",
-    "Nghiêng về nhánh nào thì nhìn cặp lá đích, so trong_luong và huong trong sac_thai của lá ba với lá năm. Hướng đi ra ngoài, tiến tới, đứng giữ thì hơn hướng ngồi yên, ngó lơ, rơi xuống, kể cả khi lá đó nặng hơn; trọng lượng chỉ quyết khi hai hướng cùng loại. Hai lá đích ngang nhau cả hai mặt thì nói bài chưa nghiêng và quay về lá một để nói cái người hỏi cần rõ trước khi chọn.",
+    "Nghiêng về nhánh nào thì nhìn cặp lá đích, so trong_luong và huong trong sac_thai của lá ba với lá năm. Hướng đi ra ngoài, tiến tới, đứng giữ thì hơn hướng ngồi yên, ngó lơ, rơi xuống, kể cả khi lá đó nặng hơn; trọng lượng chỉ quyết khi hai hướng cùng loại. Hai lá đích ngang nhau cả hai mặt thì lấy lá một làm cán cân: nghiêng về nhánh gỡ được đúng cái mà lá một gọi tên là gốc của phân vân, rồi nói điều kiện nếu... thì. Không dừng bài ở câu bài chưa nghiêng về đâu.",
     "Nếu hướng A hoặc hướng B là mua, bán, giữ, vay để đầu tư, hay chọn cách chữa bệnh, chọn cách kiện, thì chuyển hướng theo mục 5 của system prompt ngay đầu bài, không so sánh hai nhánh; chỉ đọc lá một về tâm thế và cái người hỏi cần làm rõ với người có chuyên môn.",
     "Không dùng \"sẽ\", không nói hướng nào \"chắc ăn\"; việc cụ thể ở cuối là việc giúp người hỏi nhìn rõ hơn trước khi chọn, ví dụ hỏi thêm một người, thử một bước nhỏ ở nhánh đang nghiêng."
    ],
@@ -1094,7 +1194,33 @@
        "nguoc": false
       }
      ],
-     "bai_luan": "Bàn này nặng, ba lá nặng trong năm, hai Ẩn Chính ở gốc và nhánh B. Gốc của phân vân là Pháp Sư, bạn không thiếu gì, đủ đồ nghề trên bàn, đi hướng nào cũng có tay nghề. Khó chọn không phải vì thiếu, mà vì bạn đang trình bày hai phương án trong đầu hay hơn là ra tay với một.\n\nNhánh A, nhận offer công ty lớn, mở bằng Năm Cốc, một đoạn tiếc. Ba cốc đổ là cái bạn đang xây ở startup; mắt bạn dễ dán vào đó những tháng đầu ở chỗ mới, dù hai cốc sau lưng vẫn đứng. Đi hướng này và giữ đà thì vài tháng tới dẫn tới Bảy Gậy, bạn có một chỗ đứng thật, ở thế trên, nhưng phải giữ nó trước nhiều phía chất vấn, bị soi, bị thử; mệt của người có chỗ. Nhánh B, ở lại startup, mở bằng Toà Tháp, lá rất nặng, ở lại là ở trong một thứ có chỗ mỏng, và nếu vỡ thì vỡ trong một cú. Bài không nói vỡ lúc nào, chỉ nói cái đổ là cái đã mỏng sẵn; cái được là biết rõ nền mình đứng. Giữ đà thì vài tháng tới dẫn tới Bốn Cốc, không mất gì, mà ngồi lì vì ngán, lời mời khác chìa ra cũng không ngó.\n\nSo hai đích thì Bảy Gậy nặng hơn nhưng là đứng và chống đỡ, có chỗ để giữ; Bốn Cốc nhẹ hơn nhưng là ngồi và ngó lơ. Bài nghiêng về nhánh A, với cái giá là một đoạn tiếc và những tháng đầu chống đỡ liên tục. Nhánh B không sai, chỉ đòi bạn nhìn thẳng vào chỗ mỏng thay vì chờ nó tự vỡ. Không ai chọn thay bạn được, vì lá gốc nói bạn đủ tay nghề cho cả hai. Tuần này tìm một người đang làm đúng chỗ ấy ở công ty lớn, hỏi họ tháng đầu phải chống đỡ những gì; câu trả lời cho bạn biết mình có muốn cầm cây gậy đó không."
+     "bai_luan": "Bàn này nặng, ba lá nặng trong năm, hai Ẩn Chính ở gốc và ở nhánh B.\n\nGốc của phân vân là Pháp Sư, bạn không thiếu gì, đủ đồ nghề trên bàn, đi hướng nào cũng có tay nghề. Khó chọn không phải vì thiếu, mà vì bạn đang trình bày hai phương án trong đầu hay hơn là ra tay với một.\n\nNhánh A, nhận offer công ty lớn, mở bằng Năm Cốc, một đoạn tiếc. Ba cốc đổ là cái bạn đang xây ở startup; mắt bạn dễ dán vào đó những tháng đầu ở chỗ mới, dù hai cốc sau lưng vẫn đứng.\n\nĐi hướng này và giữ đà thì vài tháng tới dẫn tới Bảy Gậy, bạn có một chỗ đứng thật, ở thế trên, nhưng phải giữ nó trước nhiều phía chất vấn, bị soi, bị thử; mệt của người có chỗ.\n\nNhánh B, ở lại startup, mở bằng Toà Tháp, lá rất nặng, ở lại là ở trong một thứ có chỗ mỏng, và nếu vỡ thì vỡ trong một cú. Bài không nói vỡ lúc nào, chỉ nói cái đổ là cái đã mỏng sẵn; cái được là biết rõ nền mình đứng.\n\nGiữ đà thì vài tháng tới dẫn tới Bốn Cốc, không mất gì, mà ngồi lì vì ngán, lời mời khác chìa ra cũng không ngó. So hai đích thì Bảy Gậy nặng hơn nhưng là đứng và chống đỡ, có chỗ để giữ; Bốn Cốc nhẹ hơn nhưng là ngồi và ngó lơ.\n\nNghiêng về nhánh A, với cái giá là một đoạn tiếc và những tháng đầu phải chống đỡ liên tục. Tuần này tìm một người đang làm đúng chỗ ấy ở công ty lớn, hỏi họ tháng đầu phải chống đỡ những gì. Nếu nghe xong bạn thấy đó là cái mệt mình chịu được, nhận offer; nếu nghe xong chỉ thấy ngán, ở lại và nhìn thẳng vào chỗ mỏng của startup thay vì chờ nó tự vỡ.",
+     "parts": {
+      "toan_canh": "Bàn này nặng, ba lá nặng trong năm, hai Ẩn Chính ở gốc và ở nhánh B.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Gốc của phân vân là Pháp Sư, bạn không thiếu gì, đủ đồ nghề trên bàn, đi hướng nào cũng có tay nghề. Khó chọn không phải vì thiếu, mà vì bạn đang trình bày hai phương án trong đầu hay hơn là ra tay với một."
+       },
+       {
+        "stt": 2,
+        "doan": "Nhánh A, nhận offer công ty lớn, mở bằng Năm Cốc, một đoạn tiếc. Ba cốc đổ là cái bạn đang xây ở startup; mắt bạn dễ dán vào đó những tháng đầu ở chỗ mới, dù hai cốc sau lưng vẫn đứng."
+       },
+       {
+        "stt": 3,
+        "doan": "Đi hướng này và giữ đà thì vài tháng tới dẫn tới Bảy Gậy, bạn có một chỗ đứng thật, ở thế trên, nhưng phải giữ nó trước nhiều phía chất vấn, bị soi, bị thử; mệt của người có chỗ."
+       },
+       {
+        "stt": 4,
+        "doan": "Nhánh B, ở lại startup, mở bằng Toà Tháp, lá rất nặng, ở lại là ở trong một thứ có chỗ mỏng, và nếu vỡ thì vỡ trong một cú. Bài không nói vỡ lúc nào, chỉ nói cái đổ là cái đã mỏng sẵn; cái được là biết rõ nền mình đứng."
+       },
+       {
+        "stt": 5,
+        "doan": "Giữ đà thì vài tháng tới dẫn tới Bốn Cốc, không mất gì, mà ngồi lì vì ngán, lời mời khác chìa ra cũng không ngó. So hai đích thì Bảy Gậy nặng hơn nhưng là đứng và chống đỡ, có chỗ để giữ; Bốn Cốc nhẹ hơn nhưng là ngồi và ngó lơ."
+       }
+      ],
+      "ket": "Nghiêng về nhánh A, với cái giá là một đoạn tiếc và những tháng đầu phải chống đỡ liên tục. Tuần này tìm một người đang làm đúng chỗ ấy ở công ty lớn, hỏi họ tháng đầu phải chống đỡ những gì. Nếu nghe xong bạn thấy đó là cái mệt mình chịu được, nhận offer; nếu nghe xong chỉ thấy ngán, ở lại và nhìn thẳng vào chỗ mỏng của startup thay vì chờ nó tự vỡ."
+     }
     }
    ]
   },
@@ -1400,7 +1526,33 @@
        "nguoc": false
       }
      ],
-     "bai_luan": "Chủ đề của tháng là Tiết Chế, một tháng học rót cho vừa. Thiên thần trên lá rót nước từ cốc này sang cốc kia; cả tháng xoay quanh liều lượng, thừa thì tràn, thiếu thì lạnh, và bốn tuần dưới đây có cả hai chỗ đó. Bàn có ba Ẩn Chính, chuyện tháng này không nằm hết trong tay bạn.\n\nĐầu tháng là Át Cốc, lòng đầy đến tràn, dễ xúc động, muốn cho đi mà chưa rõ cho ai. Đoạn này có đà, nhưng là đà của cảm xúc, chưa phải của việc; đừng hứa gì lớn lúc cốc đang tràn. Giữa tháng là Mười Cốc, lá ngược, và đà chững lại đúng ở chỗ nhà, cái tràn của tuần đầu đổ vào người thân mà gặp lạnh; ngoài nhìn vẫn êm, trong thì mỗi người một hướng. Đoạn này kẹt, nên giữ sức, đừng cố rót thêm cho ấm, vì rót thêm là quá liều. Nửa sau tháng là Nữ Hoàng, tuần đáng dồn sức nhất vì nó cùng nhịp với cả tháng, cái gì được chăm đúng nhịp thì lớn, việc, tiền, tình đều dễ chịu hơn, ruộng lúa trên lá đang chín. Đây là đỉnh của tháng, dồn theo kiểu chăm cho lớn, không ép, và nhớ chăm cả mình. Cuối tháng là Ác Quỷ, đáy của tháng, và tháng khép còn dở ở chỗ này, một thói quen, một cái thích, hay một nỗi sợ được nuôi suốt tháng đang thành cái trói. Xích trên lá rộng và lỏng, lối ra có, chỉ là bạn chưa muốn bước. Đà mang sang tháng sau là cái trói đó, nếu bạn không nhìn ra trước khi tháng hết.\n\nTháng tới đi lên ở nửa sau và ghì xuống ở cuối, không phải tháng xấu, là tháng có một liều lượng phải học. Việc giữ cả tháng là chọn đúng một thứ bạn hay làm quá tay, ví dụ tiêu cho người khác, đặt cho nó một mức mỗi tuần và giữ suốt bốn tuần, kể cả tuần dễ chịu nhất."
+     "bai_luan": "Bàn có ba Ẩn Chính, chuyện tháng này không nằm hết trong tay bạn, và bốn tuần dưới đây không đi cùng một nhịp.\n\nĐầu tháng là Át Cốc, lòng đầy đến tràn, dễ xúc động, muốn cho đi mà chưa rõ cho ai. Đoạn này có đà, nhưng là đà của cảm xúc, chưa phải của việc; đừng hứa gì lớn lúc cốc đang tràn.\n\nGiữa tháng là Mười Cốc ngược, đà chững lại đúng ở chỗ nhà, cái tràn của tuần đầu đổ vào người thân mà gặp lạnh; ngoài nhìn vẫn êm, trong thì mỗi người một hướng. Đoạn này kẹt, nên giữ sức, đừng cố rót thêm cho ấm, vì rót thêm là quá liều.\n\nNửa sau tháng là Nữ Hoàng, tuần đáng dồn sức nhất vì nó cùng nhịp với cả tháng; cái gì được chăm đúng nhịp thì lớn, ruộng lúa trên lá đang chín. Đây là đỉnh của tháng, dồn theo kiểu chăm cho lớn, không ép, và nhớ chăm cả mình.\n\nCuối tháng là Ác Quỷ, đáy của tháng, và tháng khép còn dở ở chỗ này: một thói quen, một cái thích, hay một nỗi sợ được nuôi suốt tháng đang thành cái trói. Xích trên lá rộng và lỏng, lối ra có, chỉ là bạn chưa muốn bước.\n\nChủ đề của tháng là Tiết Chế, một tháng học rót cho vừa. Thiên thần trên lá rót nước từ cốc này sang cốc kia; cả tháng xoay quanh liều lượng, thừa thì tràn, thiếu thì lạnh, và bốn tuần trên có cả hai chỗ đó.\n\nTháng tới đi lên ở nửa sau và ghì xuống ở cuối, không phải tháng xấu, là tháng có một liều lượng phải học. Việc giữ cả tháng là chọn đúng một thứ bạn hay làm quá tay, ví dụ tiêu cho người khác, đặt cho nó một mức mỗi tuần và giữ suốt bốn tuần, kể cả tuần dễ chịu nhất.",
+     "parts": {
+      "toan_canh": "Bàn có ba Ẩn Chính, chuyện tháng này không nằm hết trong tay bạn, và bốn tuần dưới đây không đi cùng một nhịp.",
+      "theo_vi_tri": [
+       {
+        "stt": 1,
+        "doan": "Đầu tháng là Át Cốc, lòng đầy đến tràn, dễ xúc động, muốn cho đi mà chưa rõ cho ai. Đoạn này có đà, nhưng là đà của cảm xúc, chưa phải của việc; đừng hứa gì lớn lúc cốc đang tràn."
+       },
+       {
+        "stt": 2,
+        "doan": "Giữa tháng là Mười Cốc ngược, đà chững lại đúng ở chỗ nhà, cái tràn của tuần đầu đổ vào người thân mà gặp lạnh; ngoài nhìn vẫn êm, trong thì mỗi người một hướng. Đoạn này kẹt, nên giữ sức, đừng cố rót thêm cho ấm, vì rót thêm là quá liều."
+       },
+       {
+        "stt": 3,
+        "doan": "Nửa sau tháng là Nữ Hoàng, tuần đáng dồn sức nhất vì nó cùng nhịp với cả tháng; cái gì được chăm đúng nhịp thì lớn, ruộng lúa trên lá đang chín. Đây là đỉnh của tháng, dồn theo kiểu chăm cho lớn, không ép, và nhớ chăm cả mình."
+       },
+       {
+        "stt": 4,
+        "doan": "Cuối tháng là Ác Quỷ, đáy của tháng, và tháng khép còn dở ở chỗ này: một thói quen, một cái thích, hay một nỗi sợ được nuôi suốt tháng đang thành cái trói. Xích trên lá rộng và lỏng, lối ra có, chỉ là bạn chưa muốn bước."
+       },
+       {
+        "stt": 5,
+        "doan": "Chủ đề của tháng là Tiết Chế, một tháng học rót cho vừa. Thiên thần trên lá rót nước từ cốc này sang cốc kia; cả tháng xoay quanh liều lượng, thừa thì tràn, thiếu thì lạnh, và bốn tuần trên có cả hai chỗ đó."
+       }
+      ],
+      "ket": "Tháng tới đi lên ở nửa sau và ghì xuống ở cuối, không phải tháng xấu, là tháng có một liều lượng phải học. Việc giữ cả tháng là chọn đúng một thứ bạn hay làm quá tay, ví dụ tiêu cho người khác, đặt cho nó một mức mỗi tuần và giữ suốt bốn tuần, kể cả tuần dễ chịu nhất."
+     }
     }
    ]
   },

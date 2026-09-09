@@ -30,7 +30,24 @@ interface RawSpread {
   }[];
   luat_doc: string[];
   do_dai: { min: number; max: number };
-  vi_du?: { cau_hoi: string; bai_luan: string; ghi_chu?: string }[];
+  vi_du?: ViDu[];
+}
+
+/**
+ * Bài mẫu của một kiểu trải. `bai_luan` là bản văn xuôi để người đọc file này
+ * xem; `parts` là chính bài đó tách theo vị trí, đúng khuôn đầu ra mà mô hình
+ * phải trả. Mẫu nào có `parts` thì mới đem làm few-shot được, vì few-shot văn
+ * xuôi dạy mô hình phá khuôn JSON.
+ */
+interface ViDu {
+  cau_hoi: string;
+  bai_luan: string;
+  ghi_chu?: string;
+  parts?: {
+    toan_canh: string;
+    theo_vi_tri: { stt: number; doan: string }[];
+    ket: string;
+  };
 }
 
 /** Mã lĩnh vực của KB, khác mã dùng trong ứng dụng. */
@@ -197,16 +214,50 @@ export class KbService {
       },
     ];
 
-    if (req.guard) {
-      const sample = spread.vi_du?.find((v) => v.ghi_chu) ?? spread.vi_du?.[0];
-      if (sample) {
-        messages.push({ role: "user", content: sample.cau_hoi });
-        messages.push({ role: "assistant", content: sample.bai_luan });
-      }
-    }
+    for (const m of this.mauLamGuong(spread, !!req.guard)) messages.push(m);
 
     messages.push({ role: "user", content: req.question || KHONG_CAU_HOI });
     return messages;
+  }
+
+  /**
+   * Bài mẫu đặt trước câu hỏi thật. Dặn suông thì mô hình vẫn né câu hỏi đóng
+   * và vẫn để bốn vị trí nói cùng một ý; một bài đã viết đúng dạy nhanh hơn
+   * mọi luật viết ra chữ.
+   *
+   * Chỉ đẩy cho trải bốn tới năm lá: đó là chỗ hay hỏng nhất, còn bắt mọi lượt
+   * cõng thêm ba trăm tiếng bài mẫu thì không đáng. Câu chạm chủ đề cấm thì
+   * luôn đẩy, vì ở đó mẫu chuyển hướng đáng giá hơn tiền token.
+   */
+  private mauLamGuong(spread: RawSpread, guard: boolean): ChatMessage[] {
+    const soViTri = spread.vi_tri.length;
+    if (!guard && (soViTri < 4 || soViTri > 5)) return [];
+
+    const list = spread.vi_du ?? [];
+    /* Mẫu có ghi_chu là mẫu chuyển hướng, chỉ đúng khi câu hỏi chạm chủ đề cấm. */
+    const sample = guard
+      ? (list.find((v) => v.ghi_chu) ?? list[0])
+      : list.find((v) => !v.ghi_chu);
+    if (!sample) return [];
+
+    /* Mẫu chưa tách theo vị trí thì đưa vào như một bài để tham khảo giọng,
+       chứ không đặt vào lượt của trợ lý: làm thế là dạy trả văn xuôi. */
+    if (!sample.parts) {
+      return [
+        {
+          role: "system",
+          content:
+            `Một bài mẫu của kiểu trải này, cho câu hỏi "${sample.cau_hoi}":\n\n` +
+            `${sample.bai_luan}\n\n` +
+            "Lấy giọng và cách đọc của bài mẫu; đầu ra của bạn vẫn phải là khối JSON đúng khuôn trên.",
+        },
+      ];
+    }
+
+    return [
+      { role: "user", content: sample.cau_hoi },
+      { role: "assistant", content: JSON.stringify(sample.parts) },
+    ];
   }
 
   /**
@@ -219,9 +270,9 @@ export class KbService {
       "Trả về đúng một khối JSON, không kèm chữ nào ngoài nó, theo khuôn:",
       '{"toan_canh": "…", "theo_vi_tri": [{"stt": 1, "doan": "…"}], "ket": "…"}',
       "",
-      "toan_canh: một câu mở nói bài này đang nói chuyện gì, nặng hay nhẹ, đang đứng hay đang chuyển.",
-      `theo_vi_tri: đúng ${soViTri} phần tử, đúng thứ tự vị trí của kiểu trải, stt là số thứ tự vị trí đó. Mỗi đoạn nối vào đoạn trước chứ không luận rời từng lá; vị trí nào chỉ đáng một câu thì một câu.`,
-      "ket: đoạn cuối, trả lời thẳng câu hỏi cộng một việc cụ thể làm được trong tuần tới.",
+      "toan_canh: một câu mở, đặt lại bối cảnh câu hỏi và nói bàn bài nặng hay nhẹ, đang đứng hay đang chuyển. Không tóm tắt trước kết luận của các vị trí phía dưới, không nói trước hướng đi.",
+      `theo_vi_tri: đúng ${soViTri} phần tử, đúng thứ tự vị trí của kiểu trải, stt là số thứ tự vị trí đó. Mỗi đoạn nối vào đoạn trước chứ không luận rời từng lá; vị trí nào chỉ đáng một câu thì một câu. Vị trí sau phải nói một điều mà vị trí trước chưa nói, theo luật 2 ở mục 10.`,
+      "ket: đoạn cuối. Câu hỏi đóng thì mở bằng một câu nghiêng rõ về một phía, rồi một việc làm được trong bảy ngày tới, rồi một điều kiện nếu... thì để lật lại lựa chọn đó. Câu hỏi mở thì trả lời thẳng câu hỏi cộng một việc cụ thể. Không lời chúc, không nhắc lại tên các lá đã đi qua.",
       "",
       "Chữ trong từng trường là văn xuôi thuần: không tiêu đề, không gạch đầu dòng, không nhãn hai chấm đầu đoạn, không nhắc số thứ tự vị trí ra thành chữ.",
     ].join("\n");
