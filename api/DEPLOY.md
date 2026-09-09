@@ -9,11 +9,11 @@ Backend là tiến trình Node thường, không cần gì đặc biệt ngoài 
 - ma nguon `/var/www/tarot24-backend`
 - PM2 ten `tarot24-backend`, chay `dist/main.js`, fork mode
 - database `tarot24`, user `tarot24`, chi nghe qua 127.0.0.1
-- nginx site `api.tarrot24.online`, chuyen tiep ve cong 3210
-- DNS A `api.tarrot24.online` -> 45.76.161.193, DNS-only (khong bat proxy)
+- nginx site `api.tarot24.online`, chuyen tiep ve cong 3210
+- DNS A `api.tarot24.online` -> 45.76.161.193, DNS-only (khong bat proxy)
 - TLS Let's Encrypt da cap, HTTP 301 sang HTTPS, `certbot renew` dry-run dat
 
-Web tren Mac Mini goi thang vao `https://api.tarrot24.online`. Backend chay
+Web tren Mac Mini goi thang vao `https://api.tarot24.online`. Backend chay
 tren Mac Mini (`tarot24-api`) da go khoi PM2 va khoi `~/.pm2/dump.pm2`
 (ban sao: `~/.pm2/dump.pm2.truoc-doi-sang-vps`).
 
@@ -83,7 +83,7 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | Biến | Ghi chú |
 |---|---|
 | `API_KEY` | khoá dùng chung, phải khớp `API_KEY` bên web. Chưa đặt thì backend **chặn hết** |
-| `CORS_ORIGINS` | `https://tarrot24.online,https://www.tarrot24.online` |
+| `CORS_ORIGINS` | `https://tarot24.online,https://www.tarot24.online` |
 | `DATABASE_URL` | `postgres://tarot24:...@localhost:5432/tarot24` |
 | `DEEPSEEK_API_KEY` | khoá mô hình, chỉ nằm ở đây chứ không lên Vercel |
 | `RATE_PER_HOUR` | mặc định 30 lượt mỗi người mỗi giờ. Web phải gửi kèm header `x-client-ip`, không thì backend chỉ thấy IP của máy chạy web và con số này thành trần của **cả website** |
@@ -92,11 +92,11 @@ Sinh khoá: `openssl rand -base64url 24`
 
 ## 5. Nginx và TLS
 
-Đặt backend sau tên miền riêng, ví dụ `api.tarrot24.online`.
+Đặt backend sau tên miền riêng, ví dụ `api.tarot24.online`.
 
 ```nginx
 server {
-  server_name api.tarrot24.online;
+  server_name api.tarot24.online;
   location / {
     proxy_pass http://127.0.0.1:3210;
     proxy_set_header Host $host;
@@ -108,7 +108,7 @@ server {
 ```
 
 ```bash
-sudo certbot --nginx -d api.tarrot24.online
+sudo certbot --nginx -d api.tarot24.online
 ```
 
 `X-Forwarded-For` là bắt buộc, không có thì RateLimitGuard thấy mọi request
@@ -128,7 +128,7 @@ Postgres chỉ nghe localhost.
 Bên web đặt:
 
 ```
-API_BASE_URL=https://api.tarrot24.online
+API_BASE_URL=https://api.tarot24.online
 API_KEY=<đúng khoá ở mục 4>
 ```
 
@@ -137,10 +137,10 @@ Trên Vercel thì đặt hai biến này trong Project Settings, không commit.
 ## 8. Kiểm
 
 ```bash
-curl -s https://api.tarrot24.online/api/health
+curl -s https://api.tarot24.online/api/health
 # {"ok":true,"database":true,"llm":true,"spread":true}
 
-curl -s -o /dev/null -w '%{http_code}\n' -X POST https://api.tarrot24.online/api/readings \
+curl -s -o /dev/null -w '%{http_code}\n' -X POST https://api.tarot24.online/api/readings \
   -H 'content-type: application/json' -d '{"id":"x"}'
 # 403 vì thiếu x-api-key, đúng là đang chặn
 ```

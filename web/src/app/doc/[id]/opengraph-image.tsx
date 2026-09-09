@@ -110,7 +110,7 @@ export default async function ReadingOgImage({
             paddingBottom: 8,
           }}
         >
-          tarrot24.online
+          tarot24.online
         </div>
       </div>
     </div>,

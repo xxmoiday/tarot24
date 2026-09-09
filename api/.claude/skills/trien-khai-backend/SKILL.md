@@ -28,7 +28,7 @@ npm run deploy:vps -- --thu
 3. Trên VPS: sao lưu `dist` thành `dist.truoc`, `npm install`, `npm run build`
 4. `pm2 restart tarot24-backend --update-env`
 5. Soát `http://127.0.0.1:3210/api/health` trong 40 giây
-6. Soát `https://api.tarrot24.online/api/health` và soát `POST /api/readings` không kèm `x-api-key` phải trả 403
+6. Soát `https://api.tarot24.online/api/health` và soát `POST /api/readings` không kèm `x-api-key` phải trả 403
 
 Bước 5 hỏng thì script tự trả `dist` cũ về, khởi động lại và thoát khác 0.
 Đường lùi này đã thử thật, backend sống lại được.

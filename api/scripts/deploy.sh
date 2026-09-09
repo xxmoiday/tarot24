@@ -14,7 +14,7 @@ VPS_USER=${VPS_USER:-root}
 VPS_KEY=${VPS_KEY:-$HOME/.ssh/tarot24_vps}
 VPS_DIR=${VPS_DIR:-/var/www/tarot24-backend}
 PM2_NAME=${PM2_NAME:-tarot24-backend}
-HEALTH_URL=${HEALTH_URL:-https://api.tarrot24.online/api/health}
+HEALTH_URL=${HEALTH_URL:-https://api.tarot24.online/api/health}
 
 DRY=""
 [[ "${1:-}" == "--thu" || "${1:-}" == "--dry-run" ]] && DRY=1

@@ -1,224 +1,104 @@
-# Đưa Tarot24 lên tarrot24.online
+# Đưa Tarot24 lên www.tarot24.online
 
-Máy chủ là Mac Mini, ra ngoài bằng Cloudflare Tunnel, tiến trình do PM2 giữ.
-Kho bài đọc ghi ra tệp nên **phải chạy một máy duy nhất**; muốn chạy nhiều nơi
-thì đổi `src/lib/store.ts` sang Postgres trước.
+Web chạy trên Vercel, backend chạy trên VPS Vultr. Mac Mini không còn phục vụ
+gì cho production — xem mục 5 nếu tunnel cũ vẫn còn.
 
-## 1. Ứng dụng
+| Thành phần | Ở đâu | Tên miền |
+|---|---|---|
+| Web (Next.js) | Vercel, root directory `web/` | `www.tarot24.online` (chính), `tarot24.online` → 308 sang www |
+| Backend (NestJS) | VPS Vultr `45.76.161.193`, PM2 `tarot24-backend` | `api.tarot24.online` |
+| DNS | Namecheap BasicDNS (`dns1/dns2.registrar-servers.com`) | zone `tarot24.online` |
 
-```bash
-cd ~/Projects/tarrot24/web
-npm ci
-npm run build
-pm2 start ecosystem.config.cjs      # cổng 3111
-```
+Trình duyệt **không bao giờ** gọi thẳng backend: `src/lib/api.ts` là
+`server-only`, mọi lượt đi qua route handler của Next rồi mới sang VPS. Vì vậy
+`CORS_ORIGINS` bên backend không nằm trên đường đi thật — nó chỉ là hàng rào
+phòng khi có ai gọi từ trình duyệt.
 
-Bí mật đọc từ `.env.local`, không commit:
+## 1. DNS ở Namecheap
 
-```
-LLM_PROVIDERS=deepseek
-DEEPSEEK_API_KEY=...
-DEEPSEEK_MODEL=deepseek-chat
-NEXT_PUBLIC_SITE_URL=https://tarrot24.online
-```
+Domain List → Manage → **Advanced DNS**:
 
-`NEXT_PUBLIC_SITE_URL` được nướng vào lúc `next build`, nên đổi tên miền là
-phải build lại chứ không chỉ restart.
+| Type | Host | Value | Ghi chú |
+|---|---|---|---|
+| A | `@` | giá trị Vercel hiện ra | Vercel đang cấp `216.150.1.1` |
+| CNAME | `www` | giá trị Vercel hiện ra | dạng `<hash>.vercel-dns-016.com` |
+| A | `api` | `45.76.161.193` | trỏ thẳng nginx trên VPS |
 
-## 2. DNS
+Dùng đúng giá trị Vercel hiện trong **Settings → Domains**, đừng chép cứng ở
+đây — Vercel có đổi IP anycast theo thời gian.
 
-Tên miền mua ở Namecheap, phải chuyển nameserver sang Cloudflare thì
-`cloudflared tunnel route dns` mới chạy được.
+## 2. Biến môi trường trên Vercel
 
-- Cloudflare → Add a site → `tarrot24.online` → gói Free
-- Namecheap → Domain List → Manage → Nameservers → **Custom DNS**
-- Dán đúng hai nameserver Cloudflare hiện cho zone đó
-- Kiểm: `dig +short NS tarrot24.online` phải ra `*.ns.cloudflare.com`
+> **Chưa đặt biến nào (09/09/2026).** Rút bài ngoài production hiện không
+> ra bài luận. Xem [`viec-can-lam-vercel.md`](./viec-can-lam-vercel.md).
 
-## 3. Tunnel riêng cho Tarot24
-
-Không dùng chung tunnel `hocvuiai` để hai dự án không kéo nhau xuống khi restart.
-
-Tunnel đã tạo sẵn:
-
-- tên `tarot24`, id `15808c1b-eb5e-49d6-9cdd-57e64af7a2c1`
-- config `~/.cloudflared/config-tarot24.yml`, ingress trỏ `localhost:3111`
-- chạy dưới PM2 tên `tarot24-tunnel`
-
-### Cạm bẫy: cert.pem chỉ có phạm vi một zone
-
-`~/.cloudflared/cert.pem` hiện chỉ cấp quyền cho zone `taohinhanh.online`
-(zoneID `52c6f601…`). Vì vậy **không chạy được**:
-
-```bash
-cloudflared tunnel route dns tarot24 tarrot24.online   # SAI
-```
-
-Lệnh đó không báo lỗi mà lặng lẽ tạo bản ghi
-`tarrot24.online.taohinhanh.online` trong zone taohinhanh. Muốn dùng lệnh này
-cho zone mới thì phải `cloudflared tunnel login` lại và chọn zone đó.
-
-### Cách trỏ DNS không cần đăng nhập lại
-
-Vào Cloudflare dashboard, zone `tarrot24.online` → DNS → Records:
-
-| Type  | Name | Target                                                   | Proxy |
-|-------|------|----------------------------------------------------------|-------|
-| CNAME | `@`  | `15808c1b-eb5e-49d6-9cdd-57e64af7a2c1.cfargotunnel.com`   | bật   |
-| CNAME | `www`| `15808c1b-eb5e-49d6-9cdd-57e64af7a2c1.cfargotunnel.com`   | bật   |
-
-Xoá trước bản ghi `A` mà Cloudflare nhập từ Namecheap (trỏ `192.64.119.189`),
-nếu không sẽ ra lỗi 522.
-
-## 4. Giữ sau khi khởi động lại máy
-
-`tarot24` và `tarot24-tunnel` đã được thêm thẳng vào `~/.pm2/dump.pm2`, giữ
-nguyên 9 app đang dừng thay vì chạy `pm2 save` (lệnh đó ghi đè từ trạng thái
-đang chạy nên sẽ bỏ mất chúng). Bản sao lưu trước khi sửa nằm ở
-`~/.pm2/dump.pm2.truoc-tarot24`.
-
-Đã kiểm bằng cách xoá tiến trình rồi `pm2 resurrect`: app lên lại và trả 200.
-
-## 5. Kiểm sau khi lên
-
-```bash
-curl -sI https://tarrot24.online | head -1
-curl -s https://tarrot24.online/robots.txt
-curl -s https://tarrot24.online/sitemap.xml | head -3
-```
-
-Rồi dán một link `/doc/<id>` vào Zalo xem ảnh OG có hiện đúng mấy lá không.
-
-
----
-
-# Việc còn lại
-
-Ghi ngày 08/09/2026. Backend đã lên VPS xong, chỉ còn ba việc dưới đây.
-Thứ tự quan trọng: **A làm được ngay**, **B rồi mới tới C** — dọn Mac Mini
-trước khi Vercel phục vụ được là web chết.
-
-## A. Bật Always Use HTTPS ở Cloudflare
-
-`http://tarrot24.online` hiện trả thẳng 200 chứ không chuyển hướng. Trình
-duyệt Chrome tự nâng lên HTTPS nên nhìn thì tưởng xong, nhưng máy khách khác
-(curl, bot, app trong máy) vẫn đi HTTP trần.
-
-Đường đi trong dashboard:
-
-1. <https://dash.cloudflare.com> → chọn tài khoản → chọn tên miền
-   **tarrot24.online**
-2. Thanh bên trái → **SSL/TLS** → **Edge Certificates**
-3. Kéo tới **Always Use HTTPS** → gạt sang **On**
-
-Nhân tiện ở **SSL/TLS → Overview**, đặt chế độ mã hoá là **Full (strict)**.
-Không hại gì: `tarrot24.online` đi qua tunnel nên chế độ này không đụng tới
-nó, còn `api.tarrot24.online` là bản ghi DNS-only trỏ thẳng vào nginx đang
-có chứng chỉ Let's Encrypt thật.
-
-Soát lại, phải thấy `301` và `location: https://...`:
-
-```bash
-curl -sI http://tarrot24.online/ | head -3
-```
-
-## B. Đưa web lên Vercel
-
-### B1. Chỗ duy nhất còn vướng trong mã
-
-`src/lib/rate-limit.ts` đếm lượt trong bộ nhớ tiến trình. Vercel chạy nhiều
-instance nên mỗi cái đếm riêng, giới hạn thành ra nhân lên theo số instance
-mà **không báo lỗi gì** — rất dễ bỏ sót. Thay bằng Upstash Redis:
-
-```bash
-vercel integration add upstash          # cần đăng nhập tài khoản, chủ dự án tự chạy
-npm i @upstash/redis @upstash/ratelimit
-```
-
-Rồi viết lại `rateLimit()` bằng `Ratelimit.slidingWindow`. Giữ nguyên chữ ký
-hàm (`key, max, windowMs` → `{ ok, retryAfter }`) thì hai route gọi nó
-không phải sửa gì.
-
-Kho bài đọc thì **không còn là vấn đề** — đã nằm ở Postgres trên VPS, web chỉ
-gọi API. `src/lib/store.ts` ngày trước ghi tệp đã xoá rồi.
-
-Hai chỗ từng hỏng trên Vercel đã sửa xong, đừng bỏ khi refactor:
-
-- `outputFileTracingIncludes` trong `next.config.ts` — không khai thì
-  `data/system_luan_bai.md` và cả ba ảnh OG không được đóng gói vào function
-- ảnh OG đọc `data/og-cards/*.jpg` dựng sẵn, **không** đọc `public/cards/*.webp`
-  lúc chạy, vì `public` do CDN phục vụ chứ không nằm trong bundle
-
-### B2. Dựng project
-
-```bash
-npm i -g vercel                 # máy chưa có
-vercel login
-cd /Users/ddyuh/Projects/tarrot24/web
-vercel link
-```
-
-Root directory của project là `web/`, không phải gốc kho.
-
-### B3. Biến môi trường (Project Settings → Environment Variables, Production)
+Project Settings → Environment Variables, môi trường **Production**:
 
 | Biến | Giá trị |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | `https://tarrot24.online` |
-| `API_BASE_URL` | `https://api.tarrot24.online` |
-| `API_KEY` | **đúng khoá** đang nằm trong `/var/www/tarot24-backend/.env` trên VPS |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.tarot24.online` |
+| `API_BASE_URL` | `https://api.tarot24.online` |
+| `API_KEY` | đúng khoá trong `/var/www/tarot24-backend/.env` trên VPS |
 | `REVIEW_USER` / `REVIEW_PASS` | chặn trang `/soat`; **không đặt là `/soat` trả 404**, đúng ý đồ |
 | `RATE_READINGS_PER_HOUR` | tuỳ, mặc định 12 |
-| `RATE_FOLLOWUPS_PER_HOUR` | tuỳ |
+| `RATE_FOLLOWUPS_PER_HOUR` | tuỳ, mặc định 30 |
 | `API_TIMEOUT_MS` | tuỳ, một lượt luận bài mất 6–15 giây |
 
-Lấy giá trị từ `web/.env.local` ở Mac Mini. Tệp đó gitignore, đừng commit.
+`NEXT_PUBLIC_SITE_URL` được **nướng vào lúc build**. Đổi biến xong mà không
+deploy lại thì canonical, `og:url` và sitemap vẫn giữ giá trị cũ — đã dính một
+lần rồi. Chưa đặt biến thì mã rơi về mặc định cứng ở `src/lib/site.ts`.
 
-### B4. Deploy thử rồi mới đổi DNS
+Lấy giá trị từ `web/.env.local`. Tệp đó gitignore, đừng commit.
+
+## 3. Deploy
 
 ```bash
-vercel                          # bản preview, ra link *.vercel.app
+npm i -g vercel
+vercel login
+cd /Users/ddyuh/Projects/tarrot24/web
+vercel link            # root directory là web/, không phải gốc kho
+vercel                 # bản preview, ra link *.vercel.app
 ```
 
-Trên link preview phải soát đủ:
+Trên link preview soát đủ trước khi `vercel --prod`:
 
 - rút một bài thật, xem có ra bài luận không (đây là đường đi qua backend VPS)
 - hỏi thêm một câu
 - mở một trang `/la-bai/<slug>` và `/doc/<id>`, xem **ảnh OG** có hiện không
 - `/soat` phải hỏi mật khẩu
 
-Xanh hết thì `vercel --prod`.
+### Hai chỗ từng hỏng trên Vercel, đừng bỏ khi refactor
 
-### B5. Đổi DNS sang Vercel
+- `outputFileTracingIncludes` trong `next.config.ts` — không khai thì
+  `data/system_luan_bai.md` và cả ba ảnh OG không được đóng gói vào function
+- ảnh OG đọc `data/og-cards/*.jpg` dựng sẵn, **không** đọc `public/cards/*.webp`
+  lúc chạy, vì `public` do CDN phục vụ chứ không nằm trong bundle
 
-Nameserver đang ở Cloudflare, và `api.tarrot24.online` cũng nằm trong zone đó,
-nên **cứ giữ DNS ở Cloudflare** cho đỡ phải dựng lại bản ghi api.
-
-Trong Vercel: Project → **Settings → Domains** → thêm `tarrot24.online` và
-`www.tarrot24.online`. Vercel sẽ hiện đúng bản ghi cần đặt (thường là A
-`76.76.21.21` cho gốc và CNAME `cname.vercel-dns.com` cho `www`) — **dùng giá
-trị Vercel hiện ra**, đừng chép cứng ở đây.
-
-Sang Cloudflare → **DNS → Records**, sửa hai bản ghi `tarrot24.online` và
-`www` (đang là CNAME trỏ vào `<id>.cfargotunnel.com`) thành giá trị Vercel,
-và **tắt proxy — đám mây phải xám (DNS only)**. Bật proxy thì Vercel không
-cấp được chứng chỉ, lại thành hai lớp CDN chồng nhau.
-
-Giữ nguyên `api.tarrot24.online` — không đụng.
-
-Chờ Vercel báo domain **Valid Configuration** và cấp xong chứng chỉ, rồi mới
-sang mục C.
-
-## C. Dọn frontend ở Mac Mini
-
-**Chỉ làm sau khi `https://tarrot24.online` đã do Vercel phục vụ.** Kiểm bằng
-header, Vercel sẽ có `x-vercel-id`:
+## 4. Kiểm sau khi lên
 
 ```bash
-curl -sI https://tarrot24.online/ | grep -i 'server\|x-vercel-id'
+curl -sI https://www.tarot24.online/ | head -1
+curl -s  https://www.tarot24.online/ | grep -o 'rel="canonical" href="[^"]*"'
+curl -s  https://www.tarot24.online/robots.txt
+curl -s  https://www.tarot24.online/sitemap.xml | head -3
+curl -s  https://api.tarot24.online/api/health
 ```
 
-Rồi mới dọn:
+Canonical, `Sitemap:` trong robots và `<loc>` trong sitemap đều phải là
+`www.tarot24.online`. Rồi dán một link `/doc/<id>` vào Zalo xem ảnh OG có hiện
+đúng mấy lá không.
+
+## 5. Dọn tên miền cũ tarrot24.online
+
+Tên miền gõ nhầm, đã ngừng dùng. Web từng chạy trên Mac Mini qua Cloudflare
+Tunnel; backend từng đứng sau `api.tarrot24.online`. Cả hai đã chuyển xong.
+
+Trước khi xoá, cân nhắc trỏ 301 sang tên miền mới một thời gian: thêm
+`tarrot24.online` vào Vercel dưới dạng **Redirect to** `www.tarot24.online`,
+sửa hai bản ghi gốc và `www` trong zone Cloudflare thành giá trị Vercel và
+**tắt proxy (DNS only)**. Giữ được phần Google đã index mà vẫn tắt được tunnel.
+
+Dọn trên Mac Mini:
 
 ```bash
 # 1. Tắt hai tiến trình
@@ -241,16 +121,37 @@ rm -f ~/.cloudflared/config-tarot24.yml
 rm -f ~/.cloudflared/15808c1b-eb5e-49d6-9cdd-57e64af7a2c1.json
 ```
 
-Giữ lại kho mã ở `~/Projects/tarrot24` để còn dev và để chạy
-`npm run deploy:vps` cho backend.
+Trên VPS, sau khi chắc không còn ai gọi tên miền cũ:
 
-## D. Linh tinh, làm lúc nào cũng được
+```bash
+rm /etc/nginx/sites-enabled/api.tarrot24.online
+rm /etc/nginx/sites-available/api.tarrot24.online
+certbot delete --cert-name api.tarrot24.online
+nginx -t && systemctl reload nginx
+```
 
+Giữ lại kho mã ở `~/Projects/tarrot24` (thư mục vẫn mang tên cũ, không sao) để
+còn dev và để chạy `npm run deploy:vps` cho backend.
+
+## 6. Việc còn lại
+
+- **`src/lib/rate-limit.ts` đếm trong bộ nhớ tiến trình.** Vercel chạy nhiều
+  instance nên mỗi cái đếm riêng, giới hạn thành ra nhân lên theo số instance
+  mà **không báo lỗi gì**. Hàng rào thật hiện là `RATE_PER_HOUR` bên backend
+  (đếm theo `x-client-ip`), nhưng nên thay bằng Upstash Redis:
+
+  ```bash
+  vercel integration add upstash
+  npm i @upstash/redis @upstash/ratelimit
+  ```
+
+  Viết lại `rateLimit()` bằng `Ratelimit.slidingWindow`, giữ nguyên chữ ký hàm
+  (`key, max, windowMs` → `{ ok, retryAfter }`) thì hai route gọi nó không phải
+  sửa gì.
 - Xoá hai bản ghi rác trong zone **taohinhanh.online**:
   `tarrot24.online.taohinhanh.online` và `www.tarrot24.online.taohinhanh.online`
   (tạo nhầm hôm dựng tunnel, vì `cert.pem` chỉ có phạm vi zone đó)
 - Soát nội dung ở `/soat` trước khi quảng bá
 - Xoay khoá DeepSeek và đổi mật khẩu root VPS — cả hai từng gõ trong chat
-- Google Search Console: thêm tài sản, nộp sitemap
-- Mua `tarot24.online` (một chữ r) rồi trỏ 301 về `tarrot24.online`
+- Google Search Console: thêm tài sản `www.tarot24.online`, nộp sitemap
 - Ảnh lưng lá `back.webp`
