@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import type { ChatMessage } from "../kb/kb.service.js";
+import { LlmBudgetService } from "./budget.service.js";
 
 interface ProviderConfig {
   name: string;
@@ -13,6 +14,8 @@ interface ProviderConfig {
 export class LlmService {
   private readonly log = new Logger(LlmService.name);
   private readonly timeout = Number(process.env.LLM_TIMEOUT_MS ?? 60_000);
+
+  constructor(private readonly budget: LlmBudgetService) {}
 
   /**
    * Đọc cấu hình nhà cung cấp từ env. Thứ tự trong LLM_PROVIDERS là thứ tự
@@ -115,7 +118,11 @@ export class LlmService {
     const errors: string[] = [];
     for (const p of list) {
       try {
-        return { text: await this.callOne(p, messages, maxTokens), provider: p.name, model: p.model };
+        const text = await this.callOne(p, messages, maxTokens);
+        /* Đếm sau khi có bài, tức đếm đúng lượt phải trả tiền; nhà lỗi rồi rơi
+           sang nhà kế thì chỉ tính một lượt. */
+        this.budget.ghiNhan();
+        return { text, provider: p.name, model: p.model };
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
         this.log.warn(`${p.name} lỗi: ${msg.slice(0, 200)}`);

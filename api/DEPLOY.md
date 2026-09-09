@@ -89,6 +89,8 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | `CORS_ORIGINS` | `https://tarot24.online,https://www.tarot24.online` |
 | `DATABASE_URL` | `postgres://tarot24:...@localhost:5432/tarot24` |
 | `DEEPSEEK_API_KEY` | khoá mô hình, chỉ nằm ở đây chứ không lên Vercel |
+| `LLM_CALLS_PER_DAY` | trần tổng lượt gọi mô hình mỗi ngày, mặc định 1000, tính cả lượt gọi lại. Chạm trần thì ba endpoint trả 429 kèm `reason: over-budget`. Đặt 0 là tắt. Xem `/api/health` để biết đã dùng bao nhiêu |
+| `LLM_BUDGET_FILE` | nơi ghi sổ đếm, mặc định trong thư mục tạm. Đặt ra ngoài `/var/www/tarot24-backend` vì rsync lúc deploy chạy kèm `--delete` |
 | `RATE_PER_HOUR` | mặc định 30 lượt mỗi người mỗi giờ. Web phải gửi kèm header `x-client-ip`, không thì backend chỉ thấy IP của máy chạy web và con số này thành trần của **cả website** |
 
 Sinh khoá: `openssl rand -base64url 24`

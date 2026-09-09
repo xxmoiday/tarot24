@@ -1,6 +1,7 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { KbService, type ChatMessage, type ReadingRequest } from "../kb/kb.service.js";
 import { detectGuard } from "../llm/guard.js";
+import { LlmBudgetService } from "../llm/budget.service.js";
 import { LlmService } from "../llm/llm.service.js";
 import { flatten, parseParts, type ReadingParts } from "../llm/parse.js";
 import {
@@ -20,12 +21,14 @@ export const MAX_FOLLOW_UPS = 3;
 export const MAX_CLARIFIERS = 2;
 
 export type ReadingOutcome =
+  | { kind: "over-budget" }
   | { kind: "ok"; reading: StoredReading; cached: boolean }
   | { kind: "bad-id" }
   | { kind: "no-provider" }
   | { kind: "error"; message: string };
 
 export type FollowUpOutcome =
+  | { kind: "over-budget" }
   | { kind: "ok"; reading: StoredReading }
   | { kind: "bad-id" }
   | { kind: "not-found" }
@@ -34,6 +37,7 @@ export type FollowUpOutcome =
   | { kind: "error"; message: string };
 
 export type ClarifyOutcome =
+  | { kind: "over-budget" }
   | { kind: "ok"; reading: StoredReading }
   | { kind: "bad-id" }
   | { kind: "bad-card" }
@@ -49,6 +53,7 @@ export class ReadingsService {
   constructor(
     private readonly kb: KbService,
     private readonly llm: LlmService,
+    private readonly budget: LlmBudgetService,
     private readonly repo: ReadingsRepository,
   ) {}
 
@@ -97,6 +102,7 @@ export class ReadingsService {
     if (cached) return { kind: "ok", reading: cached, cached: true };
 
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
+    if (!this.budget.con()) return { kind: "over-budget" };
 
     const spread = this.kb.spread(req.spreadSlug)!;
     /* Khuôn JSON tốn thêm ít token so với văn xuôi trần, chừa sẵn ra. */
@@ -220,6 +226,7 @@ export class ReadingsService {
     if (!stored) return { kind: "not-found" };
     if (stored.followUps.length >= MAX_FOLLOW_UPS) return { kind: "limit" };
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
+    if (!this.budget.con()) return { kind: "over-budget" };
 
     try {
       const messages = this.kb.buildFollowUpMessages(req, stored.essay, question);
@@ -264,6 +271,7 @@ export class ReadingsService {
       return { kind: "limit" };
     }
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
+    if (!this.budget.con()) return { kind: "over-budget" };
 
     try {
       const messages = this.kb.buildClarifierMessages(req, stored.essay, stt, card);

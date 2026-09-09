@@ -37,13 +37,23 @@ export function rateLimit(key: string, max: number, windowMs: number): RateResul
   return { ok: true, retryAfter: 0 };
 }
 
-/** Cloudflare đặt cf-connecting-ip; sau đó mới tới x-forwarded-for. */
+/**
+ * Chỉ đọc header mà hạ tầng ghi đè, không đọc header khách tự khai được.
+ *
+ * Trước đây chỗ này đọc `cf-connecting-ip` đầu tiên, phòng khi đứng sau
+ * Cloudflare. Nhưng tarot24.online đi thẳng vào Vercel, không có Cloudflare ở
+ * giữa, nên header đó do người gọi tự đặt: gửi kèm một giá trị ngẫu nhiên mỗi
+ * lượt là có bucket mới mỗi lượt, tức không còn giới hạn nào. Đã thử trên
+ * production và đúng như vậy. Tệ hơn nữa là giá trị đó được chuyển tiếp xuống
+ * backend qua `x-client-ip`, chỗ backend tin tuyệt đối, nên cả hai tầng đổ
+ * cùng lúc.
+ *
+ * Vercel ghi đè `x-forwarded-for` bằng IP thật của khách, cũng đã thử: gửi
+ * `x-forwarded-for` giả thì lượt gọi vẫn bị tính vào IP thật. Nên dùng đúng nó.
+ * Nếu sau này đặt Cloudflare trước Vercel thì phải xem lại chỗ này, vì lúc đó
+ * `x-forwarded-for` sẽ là IP của Cloudflare chứ không phải của khách.
+ */
 export function clientIp(request: Request) {
   const h = request.headers;
-  return (
-    h.get("cf-connecting-ip") ??
-    h.get("x-forwarded-for")?.split(",")[0]?.trim() ??
-    h.get("x-real-ip") ??
-    "khong-ro"
-  );
+  return h.get("x-forwarded-for")?.split(",")[0]?.trim() || "khong-ro";
 }

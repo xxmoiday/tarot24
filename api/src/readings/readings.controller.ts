@@ -55,6 +55,11 @@ export class ReadingsController {
         throw new BadRequestException("Mã bài đọc không hợp lệ");
       case "no-provider":
         return { essay: null, reason: "no-provider" };
+      case "over-budget":
+        throw new HttpException(
+          { essay: null, reason: "over-budget" },
+          HttpStatus.TOO_MANY_REQUESTS,
+        );
       case "error":
         throw new HttpException(
           { essay: null, reason: "error" },
@@ -86,6 +91,11 @@ export class ReadingsController {
         );
       case "no-provider":
         return { answer: null, reason: "no-provider" };
+      case "over-budget":
+        throw new HttpException(
+          { answer: null, reason: "over-budget" },
+          HttpStatus.TOO_MANY_REQUESTS,
+        );
       case "error":
         throw new HttpException({ answer: null, reason: "error" }, HttpStatus.BAD_GATEWAY);
     }
@@ -122,6 +132,11 @@ export class ReadingsController {
         );
       case "no-provider":
         return { clarifiers: null, reason: "no-provider" };
+      case "over-budget":
+        throw new HttpException(
+          { clarifiers: null, reason: "over-budget" },
+          HttpStatus.TOO_MANY_REQUESTS,
+        );
       case "error":
         throw new HttpException(
           { clarifiers: null, reason: "error" },
