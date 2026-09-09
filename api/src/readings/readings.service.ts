@@ -1,9 +1,16 @@
 import { Injectable, Logger } from "@nestjs/common";
-import { KbService, type ReadingRequest } from "../kb/kb.service.js";
+import { KbService, type ChatMessage, type ReadingRequest } from "../kb/kb.service.js";
 import { detectGuard } from "../llm/guard.js";
 import { LlmService } from "../llm/llm.service.js";
 import { flatten, parseParts, type ReadingParts } from "../llm/parse.js";
-import { checkEssay, countWords, fixPrompt, stripStockLabels } from "../llm/validate.js";
+import {
+  checkEssay,
+  countWords,
+  fixPrompt,
+  fixPromptNgan,
+  stripStockLabels,
+  type KieuBai,
+} from "../llm/validate.js";
 import { decodeReading, type DrawnCard } from "./share.js";
 import { ReadingsRepository, type StoredReading } from "./readings.repository.js";
 
@@ -175,6 +182,35 @@ export class ReadingsService {
     return out;
   }
 
+  /**
+   * Viết một câu trả lời ngắn rồi soát y như bài luận, chỉ khác là không có
+   * khuôn JSON để đòi. Trước đây hai đường này gọi mô hình xong ghi thẳng vào
+   * database, tức mọi luật ở mục 1, 5, 7 và 10 không áp dụng cho chúng: câu
+   * hỏi thêm được phép nói "chắc chắn", được phép phán người hỏi lười.
+   */
+  private async vietNgan(messages: ChatMessage[], kieu: KieuBai, question: string, guard: boolean) {
+    const khung = { min: 60, max: 120 };
+    const soat = (t: string) => checkEssay(t, khung, { question, guard, kieu });
+
+    const first = await this.llm.chat(messages, 600);
+    let best = stripStockLabels(first.text);
+    let worst = soat(best);
+
+    if (worst.length) {
+      const retry = await this.llm.chat(
+        [...messages, { role: "assistant", content: first.text }, { role: "user", content: fixPromptNgan(worst) }],
+        600,
+      );
+      const lai = stripStockLabels(retry.text);
+      const sau = soat(lai);
+      if (sau.length < worst.length) {
+        best = lai;
+        worst = sau;
+      }
+    }
+    return { text: best, faults: worst };
+  }
+
   /** Câu hỏi thêm sau bài, khung 60–120 tiếng theo mục 6. */
   async followUp(id: string, question: string): Promise<FollowUpOutcome> {
     const req = this.request(id);
@@ -187,7 +223,12 @@ export class ReadingsService {
 
     try {
       const messages = this.kb.buildFollowUpMessages(req, stored.essay, question);
-      const { text } = await this.llm.chat(messages, 600);
+      const { text, faults } = await this.vietNgan(messages, "hoi_them", question, !!req.guard);
+      if (faults.length) {
+        this.log.warn(
+          `${id} hỏi thêm còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,
+        );
+      }
       const next = await this.repo.appendFollowUp(id, { question, answer: text });
       return next
         ? { kind: "ok", reading: next }
@@ -226,12 +267,17 @@ export class ReadingsService {
 
     try {
       const messages = this.kb.buildClarifierMessages(req, stored.essay, stt, card);
-      const { text } = await this.llm.chat(messages, 600);
+      const { text, faults } = await this.vietNgan(messages, "lam_ro", req.question, !!req.guard);
+      if (faults.length) {
+        this.log.warn(
+          `${id} lá làm rõ còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,
+        );
+      }
       const next = await this.repo.appendClarifier(id, {
         stt,
         slug: card.slug,
         reversed: card.reversed,
-        answer: stripStockLabels(text),
+        answer: text,
       });
       return next
         ? { kind: "ok", reading: next }

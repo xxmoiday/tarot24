@@ -176,7 +176,7 @@ export class KbService {
    * rồi câu hỏi của người dùng. Câu chạm chủ đề cấm thì kèm ví dụ mẫu của
    * chính kiểu trải đó để mô hình biết cách chuyển hướng.
    */
-  buildMessages(req: ReadingRequest): ChatMessage[] {
+  buildMessages(req: ReadingRequest, kemMau = true): ChatMessage[] {
     const spread = this.spread(req.spreadSlug);
     if (!spread) throw new Error(`Không có kiểu trải ${req.spreadSlug}`);
 
@@ -214,7 +214,9 @@ export class KbService {
       },
     ];
 
-    for (const m of this.mauLamGuong(spread, !!req.guard)) messages.push(m);
+    if (kemMau) {
+      for (const m of this.mauLamGuong(spread, !!req.guard)) messages.push(m);
+    }
 
     messages.push({ role: "user", content: req.question || KHONG_CAU_HOI });
     return messages;
@@ -280,10 +282,17 @@ export class KbService {
     ].join("\n");
   }
 
-  /** Câu hỏi thêm: giữ nguyên ngữ cảnh, thêm bài đã trả rồi tới câu mới. */
+  /**
+   * Câu hỏi thêm: giữ nguyên ngữ cảnh, thêm bài đã trả rồi tới câu mới.
+   *
+   * Không kèm bài mẫu. Chính bài vừa luận đã nằm ngay trên, nó dạy giọng sát
+   * hơn mọi bài mẫu; mà kèm vào thì một bài đọc có ba lượt hỏi thêm và hai lá
+   * làm rõ phải trả tiền cho bài mẫu tới sáu lần. Bài mẫu lại là khối JSON,
+   * đặt ngay trước một lượt đòi văn xuôi thì chỉ tổ làm mô hình phân vân.
+   */
   buildFollowUpMessages(req: ReadingRequest, essay: string, question: string): ChatMessage[] {
     return [
-      ...this.buildMessages(req),
+      ...this.buildMessages(req, false),
       { role: "assistant", content: essay },
       {
         role: "user",
@@ -313,7 +322,7 @@ export class KbService {
     if (!raw) throw new Error(`Không có lá ${card.slug}`);
 
     return [
-      ...this.buildMessages(req),
+      ...this.buildMessages(req, false),
       { role: "assistant", content: essay },
       {
         role: "user",

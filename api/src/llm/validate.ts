@@ -123,6 +123,19 @@ export function laCauHoiDong(question: string) {
   return !!q && CLOSED_QUESTION.some((re) => re.test(q));
 }
 
+/**
+ * Ba thứ mô hình viết ra, chịu chung phần lớn luật nhưng khác nhau vài chỗ:
+ *
+ * - `bai`: bài luận đầy đủ, chịu hết.
+ * - `hoi_them`: câu trả lời 60–120 tiếng cho câu hỏi sau bài. Vẫn phải nghiêng
+ *   về đâu đó, nhưng không bắt kèm điều kiện "nếu... thì" vì bài quá ngắn để
+ *   nhét thêm một mệnh đề. Luật 6 tắt: mục 8 bắt buộc nói rõ khi câu hỏi thêm
+ *   đi ra ngoài phạm vi bàn bài, mà câu đó nhìn y như câu tự bào chữa.
+ * - `lam_ro`: lá rút thêm cho đúng một vị trí. Nó đào sâu một ô chứ không trả
+ *   lời câu hỏi của người rút, nên luật 1 không áp dụng.
+ */
+export type KieuBai = "bai" | "hoi_them" | "lam_ro";
+
 export interface EssayContext {
   /** Câu hỏi của người rút; không có thì bỏ qua luật 1. */
   question?: string;
@@ -130,6 +143,8 @@ export interface EssayContext {
   parts?: ReadingParts | null;
   /** Câu chạm chủ đề cấm: ở đó mục 5 thắng, không đòi bài phải nghiêng về đâu. */
   guard?: boolean;
+  /** Mặc định là bài luận đầy đủ. */
+  kieu?: KieuBai;
 }
 
 export interface Violation {
@@ -226,8 +241,9 @@ export function checkEssay(
       out.push({ rule: "luật 5", detail: `phán về phẩm chất người hỏi "${w}"` });
   }
   /* Câu chạm chủ đề cấm buộc phải nói rõ bài không đọc chuyện đó, mục 5 cho
-     phép; chỗ khác mới là tự bào chữa. */
-  if (!ctx.guard) {
+     phép, và mục 8 bắt câu hỏi thêm ngoài phạm vi cũng phải nói rõ như vậy;
+     chỗ khác mới là tự bào chữa. */
+  if (!ctx.guard && ctx.kieu !== "hoi_them") {
     for (const m of META_PHRASES) {
       if (thuong.includes(m))
         out.push({ rule: "luật 6", detail: `bình luận về chính bài đọc "${m}"` });
@@ -251,7 +267,7 @@ export function checkEssay(
   /* Luật 6, phần không tiết lộ trước. Câu mở nói cái nghiêng, hay nhại lại chữ
      của câu chốt, thì đọc tới cuối không còn gì. Trải một hai lá miễn vì
      luat_doc của nó đặt kết luận ngay câu đầu. */
-  if (ctx.parts && ctx.parts.theoViTri.length >= 3) {
+  if (ctx.kieu !== "hoi_them" && ctx.kieu !== "lam_ro" && ctx.parts && ctx.parts.theoViTri.length >= 3) {
     const mo = ctx.parts.toanCanh;
     const nghieng = LEANING.find((l) => mo.toLowerCase().includes(l));
     if (nghieng) {
@@ -272,11 +288,13 @@ export function checkEssay(
   /* Luật 1 chỉ bật với câu hỏi đóng, và tắt khi câu hỏi chạm chủ đề cấm vì ở
      đó mục 5 cấm kết luận có hay không. Khuôn hỏng thì soát trên cả bài, chứ
      bỏ qua là bài né câu hỏi lọt luôn. */
-  if (!ctx.guard && ctx.question && laCauHoiDong(ctx.question)) {
+  if (!ctx.guard && ctx.kieu !== "lam_ro" && ctx.question && laCauHoiDong(ctx.question)) {
     /* Trải một hai lá đặt kết luận ngay câu đầu theo luat_doc của nó, và ngắn
        tới mức nhét thêm một mệnh đề điều kiện là hỏng bài; ở đó chỉ soát xem
-       bài có nghiêng về đâu không và có kết bỏ lửng không. */
-    const nhieuViTri = (ctx.parts?.theoViTri.length ?? 3) >= 3;
+       bài có nghiêng về đâu không và có kết bỏ lửng không. Câu hỏi thêm cũng
+       ngắn như vậy nên chịu chung cách soát. */
+    const nhieuViTri =
+      ctx.kieu !== "hoi_them" && (ctx.parts?.theoViTri.length ?? 3) >= 3;
     const ket = (ctx.parts?.ket || text).toLowerCase();
     const vungNghieng = nhieuViTri ? ket : text.toLowerCase();
 
@@ -352,4 +370,10 @@ export function stripStockLabels(text: string) {
 export function fixPrompt(violations: Violation[]) {
   const list = violations.map((v) => `- ${v.rule}: ${v.detail}`).join("\n");
   return `Bài vừa rồi vi phạm mấy chỗ sau:\n${list}\n\nViết lại toàn bài theo đúng mục 9 và mục 10, giữ nguyên cách đọc các lá, chỉ sửa những chỗ nêu trên. Chỉ trả về đúng một khối JSON theo khuôn đã dặn, không giải thích, không kèm chữ nào ngoài nó.`;
+}
+
+/** Lời nhắc sửa cho câu hỏi thêm và lá làm rõ: hai chỗ đó trả văn xuôi, không JSON. */
+export function fixPromptNgan(violations: Violation[]) {
+  const list = violations.map((v) => `- ${v.rule}: ${v.detail}`).join("\n");
+  return `Câu trả lời vừa rồi vi phạm mấy chỗ sau:\n${list}\n\nViết lại câu trả lời, giữ nguyên cách đọc các lá, chỉ sửa những chỗ nêu trên. Vẫn là văn xuôi thuần, không JSON, không giải thích gì thêm.`;
 }

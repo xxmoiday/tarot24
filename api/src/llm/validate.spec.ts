@@ -226,3 +226,62 @@ describe("bài mẫu trong KB", () => {
     expect(loi.map((x) => `${x.rule}: ${x.detail}`)).toEqual([]);
   });
 });
+
+describe("câu hỏi thêm và lá làm rõ", () => {
+  const KHUNG = { min: 60, max: 120 };
+  const nen = "Cái này nằm ở lịch của bạn chứ không ở lòng ai. ";
+  const dai = (mo: string) => mo + nen.repeat(6);
+
+  const soatNgan = (t: string, kieu: "hoi_them" | "lam_ro", q: string) =>
+    checkEssay(t, KHUNG, { question: q, kieu });
+
+  it("câu hỏi thêm dạng đóng vẫn phải nghiêng về đâu đó", () => {
+    const v = soatNgan(dai("Chuyện này còn tùy nhiều thứ lắm. "), "hoi_them", "vậy có nên nghỉ hẳn không");
+    expect(v.some((x) => x.rule === "luật 1")).toBe(true);
+  });
+
+  it("nhưng không bắt kèm điều kiện nếu... thì vì bài quá ngắn", () => {
+    const v = soatNgan(
+      dai("Bài nghiêng về giảm bớt chứ không dừng hẳn. "),
+      "hoi_them",
+      "vậy có nên nghỉ hẳn không",
+    );
+    expect(v).toEqual([]);
+  });
+
+  it("câu hỏi thêm được nói bài không bao được chuyện đó, theo mục 8", () => {
+    const v = soatNgan(
+      dai("Bàn bài này nghiêng về chuyện công việc, nó không trả lời được câu hỏi về nhà cửa, muốn rõ thì trải một bàn khác. "),
+      "hoi_them",
+      "thế còn chuyện mua nhà thì sao, có nên không",
+    );
+    expect(v.some((x) => x.rule === "luật 6")).toBe(false);
+  });
+
+  it("lá làm rõ không phải chỗ trả lời câu hỏi, nên luật 1 không áp dụng", () => {
+    const v = soatNgan(
+      dai("Lá làm rõ là Ba Gậy, người đứng nhìn thuyền đã rời bến. "),
+      "lam_ro",
+      "có nên dạy thêm nữa không",
+    );
+    expect(v).toEqual([]);
+  });
+
+  it("lá làm rõ vẫn không được tự bào chữa", () => {
+    const v = soatNgan(
+      dai("Lá bài không cho biết rõ chuyện này ra sao. "),
+      "lam_ro",
+      "có nên dạy thêm nữa không",
+    );
+    expect(v.some((x) => x.rule === "luật 6")).toBe(true);
+  });
+
+  it("cả hai đường vẫn dính luật cũ và luật 5", () => {
+    const v = soatNgan(
+      dai("Bạn nghiêng về chỗ làm qua loa, và chuyện này chắc chắn xong trong tháng. "),
+      "hoi_them",
+      "có nên nghỉ không",
+    );
+    expect(v.map((x) => x.rule).sort()).toEqual(["luật 5", "mục 5"]);
+  });
+});
