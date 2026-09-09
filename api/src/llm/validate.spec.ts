@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import type { ReadingParts } from "./parse.js";
 import rawSpreads from "../../data/spreads.source.json" with { type: "json" };
 import { detectGuard } from "./guard.js";
-import { checkEssay, laCauHoiDong } from "./validate.js";
+import { checkEssay, countWords, laCauHoiDong } from "./validate.js";
 
 interface RawSpread {
   id: string;
@@ -143,6 +143,45 @@ describe("checkEssay, luật 2, 5 và 6", () => {
     const p = bai();
     p.theoViTri[0].doan = "Mười lưỡi kiếm cắm sau lưng người trong lá. " + p.theoViTri[0].doan;
     expect(CO_LUAT(soat(p, "Tháng tới thế nào"), "luật 5")).toBe(false);
+  });
+
+  it("bắt câu mở nói trước chỗ nghiêng", () => {
+    const p = bai();
+    p.toanCanh = "Bàn này nghiêng về phía dừng lại. " + p.toanCanh;
+    const v = soat(p, "Có nên giữ không");
+    expect(v.some((x) => x.rule === "luật 6" && x.detail.includes("tiết lộ"))).toBe(true);
+  });
+
+  it("bắt câu mở nhại lại chữ của câu chốt", () => {
+    const p = bai({
+      ket: "Nghiêng về thu gọn xuống mức tối thiểu chứ không giữ nguyên như cũ. Nếu tìm được khung trống thì giữ, không thì dừng.",
+    });
+    p.toanCanh = "Chuyện này chưa sụp đổ nhưng cũng không thể giữ nguyên như cũ. " + p.toanCanh;
+    const v = soat(p, "Có nên giữ không");
+    expect(v.some((x) => x.rule === "luật 6" && x.detail.includes("giữ nguyên như cũ"))).toBe(true);
+  });
+
+  it("trải một lá được phép nói chỗ nghiêng ngay câu mở", () => {
+    const mot: ReadingParts = {
+      toanCanh: "Bài nghiêng về có. " + "Chuyện này nằm trong tầm tay bạn. ".repeat(6),
+      theoViTri: [{ stt: 1, doan: "Ba Cốc là lúc người ta chịu mở lời. ".repeat(6) }],
+      ket: "Vậy nhắn trước được. Soạn một tin ba dòng rồi gửi lúc bạn đang vui sẵn.",
+    };
+    expect(checkEssay(phang(mot), { min: 120, max: 180 }, {
+      question: "Mình có nên nhắn trước không",
+      parts: mot,
+    })).toEqual([]);
+  });
+
+  it("trần độ dài chỉ nới 5%, bài vượt trần cũ chưa tới thì nay vẫn bị bắt", () => {
+    const p = bai();
+    p.theoViTri[2].doan += "Thêm chữ cho bài dài quá trần. ".repeat(8);
+    /* Nằm giữa trần mới 399 và trần cũ 436, tức ca này chỉ đỏ nhờ lần siết. */
+    const n = countWords(phang(p));
+    expect(n).toBeGreaterThan(380 * 1.05);
+    expect(n).toBeLessThan(380 * 1.15);
+    const v = soat(p, "Tháng tới thế nào");
+    expect(v.some((x) => x.rule === "mục 6" && x.detail.includes("cắt xuống"))).toBe(true);
   });
 
   it("bắt câu bình luận về chính bài đọc", () => {

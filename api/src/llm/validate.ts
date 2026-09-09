@@ -148,6 +148,33 @@ export function countWords(text: string) {
   return text.trim().split(/\s+/).filter(Boolean).length;
 }
 
+/** Chuỗi tiếng đã bỏ dấu câu, để so cụm trùng giữa hai đoạn. */
+function tieng(s: string) {
+  return s
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+}
+
+/**
+ * Cụm `n` tiếng liền nhau có mặt ở cả hai đoạn, hoặc null. Bốn tiếng là đủ hẹp
+ * để không bắt nhầm mấy cụm nối câu, mà vẫn bắt được kiểu câu mở nhại lại câu
+ * chốt: "không thể giữ nguyên như cũ" ở trên, "chứ không giữ nguyên như cũ" ở
+ * dưới, trùng nhau bốn tiếng.
+ */
+function cumTrung(a: string, b: string, n = 4): string | null {
+  const ta = tieng(a);
+  const tb = tieng(b);
+  const co = new Set<string>();
+  for (let i = 0; i + n <= tb.length; i++) co.add(tb.slice(i, i + n).join(" "));
+  for (let i = 0; i + n <= ta.length; i++) {
+    const cum = ta.slice(i, i + n).join(" ");
+    if (co.has(cum)) return cum;
+  }
+  return null;
+}
+
 /**
  * Bộ lọc đầu ra theo mục 9 của system prompt. Trả về danh sách vi phạm để
  * gọi lại một lần với lời nhắc sửa, chứ không tự sửa bài của mô hình.
@@ -221,6 +248,27 @@ export function checkEssay(
     });
   }
 
+  /* Luật 6, phần không tiết lộ trước. Câu mở nói cái nghiêng, hay nhại lại chữ
+     của câu chốt, thì đọc tới cuối không còn gì. Trải một hai lá miễn vì
+     luat_doc của nó đặt kết luận ngay câu đầu. */
+  if (ctx.parts && ctx.parts.theoViTri.length >= 3) {
+    const mo = ctx.parts.toanCanh;
+    const nghieng = LEANING.find((l) => mo.toLowerCase().includes(l));
+    if (nghieng) {
+      out.push({
+        rule: "luật 6",
+        detail: `câu mở đã nói "${nghieng}", tức tiết lộ kết luận trước khi đi qua các vị trí`,
+      });
+    }
+    const trung = cumTrung(mo, ctx.parts.ket);
+    if (trung) {
+      out.push({
+        rule: "luật 6",
+        detail: `câu mở và đoạn kết dùng chung cụm "${trung}", câu mở đang nhại lại câu chốt`,
+      });
+    }
+  }
+
   /* Luật 1 chỉ bật với câu hỏi đóng, và tắt khi câu hỏi chạm chủ đề cấm vì ở
      đó mục 5 cấm kết luận có hay không. Khuôn hỏng thì soát trên cả bài, chứ
      bỏ qua là bài né câu hỏi lọt luôn. */
@@ -252,16 +300,18 @@ export function checkEssay(
     }
   }
 
+  /* Hai đầu nới khác nhau. Bài dài là lỗi hay gặp, và bài mẫu few-shot lại kéo
+     độ dài lên sát trần, nên cận trên chỉ nới 5%. Bài ngắn hiếm hơn và cắt bớt
+     một lượt gọi lại vì thiếu vài tiếng thì không đáng, cận dưới giữ 15%. */
   const words = countWords(text);
-  const slack = 0.15;
-  if (words > length.max * (1 + slack)) {
+  if (words > length.max * 1.05) {
     const target = Math.round((length.min + length.max) / 2);
     out.push({
       rule: "mục 6",
       detail: `bài đang ${words} tiếng, phải cắt xuống còn khoảng ${target} tiếng, tối đa ${length.max}`,
     });
   }
-  if (words < length.min * (1 - slack)) {
+  if (words < length.min * 0.85) {
     out.push({
       rule: "mục 6",
       detail: `ngắn ${words} tiếng, khung là ${length.min}–${length.max}`,

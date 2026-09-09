@@ -275,6 +275,8 @@ export class KbService {
       "ket: đoạn cuối. Câu hỏi đóng thì mở bằng một câu nghiêng rõ về một phía, rồi một việc làm được trong bảy ngày tới, rồi một điều kiện nếu... thì để lật lại lựa chọn đó. Câu hỏi mở thì trả lời thẳng câu hỏi cộng một việc cụ thể. Không lời chúc, không nhắc lại tên các lá đã đi qua.",
       "",
       "Chữ trong từng trường là văn xuôi thuần: không tiêu đề, không gạch đầu dòng, không nhãn hai chấm đầu đoạn, không nhắc số thứ tự vị trí ra thành chữ.",
+      "",
+      "Bài mẫu đặt trước câu hỏi thật là để thấy cách dựng, không phải kho chữ để chép. Hoàn cảnh người hỏi lần này khác, nên đừng lấy lại câu mở, việc cụ thể hay điều kiện của bài mẫu; lá trên bàn quyết định nội dung, bài mẫu chỉ quyết định dáng bài.",
     ].join("\n");
   }
 
