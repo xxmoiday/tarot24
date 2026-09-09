@@ -19,11 +19,7 @@ import { decodeReading, encodeReading } from "@/lib/share";
 import { TOPICS, type Spread, type TopicKey } from "@/lib/spreads";
 import { DeckSpread, GATHER_MS } from "./DeckSpread";
 import { ReadingView, type FollowUp } from "./ReadingView";
-import {
-  ShuffleDeck,
-  SHUFFLE_MS,
-  SHUFFLE_MS_REDUCED,
-} from "./ShuffleDeck";
+import { ShuffleRitual } from "./ShuffleRitual";
 
 type Step = "ask" | "shuffle" | "draw" | "result";
 
@@ -65,6 +61,12 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     initial?.topic ?? spread.defaultTopic,
   );
   const [seed, setSeed] = useState(0);
+  /**
+   * Cỗ bài của lượt này. Nó là trạng thái chứ không phải hàm của seed, vì từ
+   * bước xào trở đi chính người rút mới là người xáo nó: mỗi cú vuốt, rồi nhát
+   * cắt cỗ, đều đổi thật thứ tự mảng này.
+   */
+  const [deck, setDeck] = useState<DrawnCard[]>([]);
   const [picked, setPicked] = useState<number[]>([]);
   const [shareId, setShareId] = useState(initial ? restored! : "");
   const [essay, setEssay] = useState<string | null>(null);
@@ -73,7 +75,6 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const [followUps, setFollowUps] = useState<FollowUp[]>([]);
   const resultRef = useRef<HTMLDivElement>(null);
 
-  const deck = useMemo(() => (seed ? shuffleDeck(seed) : []), [seed]);
   const drawn: DrawnCard[] = useMemo(
     () => applyUprightOnly(spread, picked.map((i) => deck[i]).filter(Boolean)),
     [picked, deck, spread],
@@ -96,24 +97,21 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   }, [step, activeCards, spread.slug, spread.count, question, topic]);
 
   const startShuffle = useCallback(() => {
-    setSeed(makeSeed());
+    const s = makeSeed();
+    setSeed(s);
+    /* Cỗ bài mở ra đúng như nó nằm sau lượt đọc trước, chứ không xếp theo bộ. */
+    setDeck(shuffleDeck(s));
     setPicked([]);
     setStep("shuffle");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  /** Chờ hết hoạt cảnh xào bài rồi mới mở bộ bài cho chạm chọn. */
-  useEffect(() => {
-    if (step !== "shuffle") return;
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const t = setTimeout(
-      () => setStep("draw"),
-      reduced ? SHUFFLE_MS_REDUCED : SHUFFLE_MS,
-    );
-    return () => clearTimeout(t);
-  }, [step]);
+  /** Người rút xào và cắt xong thì nhận lại cỗ bài của họ, rồi mở ra cho chạm chọn. */
+  const finishShuffle = useCallback((shuffled: DrawnCard[]) => {
+    setDeck(shuffled);
+    setStep("draw");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   /**
    * Chọn đủ lá thì thu cỗ bài lại — ngoài đời người đọc cũng vỗ gọn cỗ còn lại
@@ -205,6 +203,7 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     setEssayFor(null);
     setFollowUps([]);
     setPicked([]);
+    setDeck([]);
     setSeed(0);
     setStep("ask");
     router.replace(`/rut-bai/${spread.slug}`, { scroll: false });
@@ -357,9 +356,9 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     );
   }
 
-  /* ---------- Bước 2 · xào bài ---------- */
+  /* ---------- Bước 2 · xào bài và cắt cỗ ---------- */
   if (step === "shuffle") {
-    return <ShuffleDeck seed={seed} />;
+    return <ShuffleRitual deck={deck} seed={seed} onDone={finishShuffle} />;
   }
 
   /* ---------- Bước 3 · chạm chọn lá ---------- */
