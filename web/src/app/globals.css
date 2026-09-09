@@ -1,5 +1,16 @@
 @import "tailwindcss";
 
+/*
+ * Màn thấp. Laptop 13" bật thêm thanh dấu trang là khung nhìn chỉ còn quãng
+ * 650px, mà màn xào bài là một cột dựng đứng không cắt được khúc nào: chữ, cỗ
+ * bài, dòng nhắc, rồi cái nút. Không bóp lại thì dòng nhắc với cái nút rơi
+ * xuống dưới mép màn, người rút nhìn lên tưởng màn này chỉ có mỗi cỗ bài.
+ *
+ * Chỉ tính từ md trở lên: dưới đó trang cuộn được bình thường, có bóp cũng
+ * chẳng để làm gì.
+ */
+@custom-variant man-thap (@media (min-width: 48rem) and (max-height: 45rem));
+
 @theme {
   --color-deep: #080b13;
   --color-bg: #0b0f1a;

@@ -1045,8 +1045,13 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
       min-h chứ không phải h: màn thấp hơn nội dung thì khung tự nở ra, không có
       chuyện canh giữa rồi phần trên trôi khỏi màn mà không kéo tới được.
+
+      Nở ra được nhưng nở ra là hỏng: cả cột này phải nằm gọn trong một khung
+      nhìn, vì cái nút nằm ở đáy cột mà chẳng có gì báo cho người rút biết là
+      dưới đó còn thứ để kéo xuống. Nên máy rộng thì lề trên dưới rút bớt, màn
+      thấp thì rút thêm lần nữa — xem man-thap trong globals.css.
     */
-    <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:min-h-[calc(100svh-77px)] md:justify-center md:px-0">
+    <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:min-h-[calc(100svh-77px)] md:justify-center md:px-0 md:pt-4 md:pb-6 man-thap:pt-3 man-thap:pb-3">
       {/*
         Căn phòng đứng suốt từ đây sang bàn bài nên nó không mờ đi cùng với chữ:
         rời màn xào là rời cái bàn, không phải rời căn phòng. Bàn bài dựng lại
@@ -1106,11 +1111,16 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           giữ một con số riêng, dịch cỗ bài đi một nhịp là phải nhớ sửa cả ba.
           Máy rộng thì hạ cỗ xuống một quãng cho nó ngồi vào giữa bàn chứ không
           dán lên mép trên.
+
+          Bề cao khung là quãng chừa cho cú kéo dọc chứ không phải chỗ trống:
+          kéo hết cỡ thì tệp bài xuống tới 341px dưới chỗ cỗ đứng. Nên hạ trần
+          khung là phải nhấc cỗ lên đúng bấy nhiêu, giữ nguyên quãng ở dưới —
+          khổ nào cũng còn thừa hơn chục px so với chỗ tệp chạm tới.
         */
-        className={`relative mx-auto mt-6 w-full max-w-[360px] touch-none select-none md:max-w-[520px] ${
+        className={`relative mx-auto mt-6 w-full max-w-[360px] touch-none select-none md:mt-4 md:max-w-[520px] man-thap:mt-3 ${
           phase === "auto"
-            ? "h-[384px] [--deck-top:78px] md:h-[432px] md:[--deck-top:104px]"
-            : "h-[352px] [--deck-top:10px] md:h-[400px] md:[--deck-top:36px]"
+            ? "h-[384px] [--deck-top:78px] md:h-[416px] md:[--deck-top:88px] man-thap:h-[400px] man-thap:[--deck-top:72px]"
+            : "h-[352px] [--deck-top:10px] md:h-[376px] md:[--deck-top:20px] man-thap:h-[360px] man-thap:[--deck-top:8px]"
         } ${
           cutting || leaving || phase === "auto"
             ? "cursor-default"
@@ -1291,7 +1301,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           tới hết, mờ đi thì phải mờ ở lớp ngoài chứ đặt lên chính nó thì hoạt
           cảnh đè mất.
         */
-        <div className={`mt-8 self-center ${xoaChu}`}>
+        <div className={`mt-8 self-center md:mt-5 man-thap:mt-3 ${xoaChu}`}>
           <button
             type="button"
             onClick={leave}
@@ -1306,7 +1316,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           type="button"
           onClick={() => setPhase("auto")}
           disabled={cutting > 0}
-          className={`mt-8 self-center text-[13.5px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi disabled:opacity-50 ${xoaChu}`}
+          className={`mt-8 self-center text-[13.5px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi disabled:opacity-50 md:mt-5 man-thap:mt-3 ${xoaChu}`}
         >
           Xào và cắt giúp tôi
         </button>
