@@ -10,6 +10,8 @@ import type { TopicKey } from "@/lib/spreads";
 export interface DrawerCard {
   card: TarotCard;
   reversed: boolean;
+  /** Số thứ tự vị trí, dùng để nhảy tới đúng đoạn bài luận */
+  stt: number;
   positionLabel: string;
 }
 
@@ -17,10 +19,13 @@ export function CardDrawer({
   entry,
   topic,
   onClose,
+  onReadPart,
 }: {
   entry: DrawerCard | null;
   topic: TopicKey;
   onClose: () => void;
+  /** Có bài tách theo vị trí thì mời đọc thẳng đoạn nói về lá này */
+  onReadPart?: (stt: number) => void;
 }) {
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +47,7 @@ export function CardDrawer({
   }, [entry, onClose]);
 
   if (!entry) return null;
-  const { card, reversed, positionLabel } = entry;
+  const { card, reversed, positionLabel, stt } = entry;
   const aspect = topic === "general" ? null : { label: ASPECT_LABEL[topic], text: card.aspects[topic] };
   const keywords = (reversed ? card.reversed : card.upright).slice(0, 4);
 
@@ -122,12 +127,23 @@ export function CardDrawer({
           </div>
         ) : null}
 
-        <Link
-          href={`/la-bai/${card.slug}`}
-          className="text-[15px] font-medium text-gold transition-colors hover:text-gold-hi"
-        >
-          Xem trang lá →
-        </Link>
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
+          {onReadPart ? (
+            <button
+              type="button"
+              onClick={() => onReadPart(stt)}
+              className="text-[15px] font-medium text-gold transition-colors hover:text-gold-hi"
+            >
+              Đọc đoạn về lá này ↓
+            </button>
+          ) : null}
+          <Link
+            href={`/la-bai/${card.slug}`}
+            className="text-[15px] font-medium text-muted transition-colors hover:text-gold-hi"
+          >
+            Xem trang lá →
+          </Link>
+        </div>
       </div>
     </div>
   );

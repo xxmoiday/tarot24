@@ -9,6 +9,8 @@ import { CardDrawer, type DrawerCard } from "./CardDrawer";
 export interface BoardCard {
   card: TarotCard;
   reversed: boolean;
+  /** Số thứ tự vị trí, dùng để nối lá với đoạn bài luận nói về nó */
+  stt: number;
   /** Tên đầy đủ của vị trí, dùng ở chú giải và ngăn chi tiết */
   positionLabel: string;
   /** Nhãn rút gọn hiện ngay dưới lá */
@@ -21,13 +23,32 @@ export function ReadingBoard({
   spread,
   topic,
   size = "md",
+  onReadPart,
 }: {
   cards: BoardCard[];
   spread: Spread;
   topic: TopicKey;
   size?: "md" | "lg";
+  /** Nhảy tới đoạn bài luận nói về vị trí này; không có thì ngăn không mời. */
+  onReadPart?: (stt: number) => void;
 }) {
   const [open, setOpen] = useState<DrawerCard | null>(null);
+
+  const drawer = (
+    <CardDrawer
+      entry={open}
+      topic={topic}
+      onClose={() => setOpen(null)}
+      onReadPart={
+        onReadPart
+          ? (stt) => {
+              setOpen(null);
+              onReadPart(stt);
+            }
+          : undefined
+      }
+    />
+  );
 
   const cardButton = (c: BoardCard, i: number, extra = "", style?: React.CSSProperties) => (
     <button
@@ -78,7 +99,7 @@ export function ReadingBoard({
                     className="absolute -top-1 -left-1 z-5 flex size-[17px] items-center justify-center rounded-full border border-gold bg-bg text-[10px] text-gold"
                     style={{ transform: `rotate(${-(pos.rotate ?? 0)}deg)` }}
                   >
-                    {i + 1}
+                    {c.stt}
                   </span>
                 </div>
               );
@@ -87,13 +108,13 @@ export function ReadingBoard({
           <ol className="mt-6 grid gap-x-4.5 gap-y-2.5 rounded-xl border border-line bg-surface p-4.5 sm:grid-cols-2">
             {cards.map((c, i) => (
               <li key={i} className="flex gap-2 text-[12.5px] text-ink">
-                <span className="w-[15px] shrink-0 text-gold">{i + 1}</span>
+                <span className="w-[15px] shrink-0 text-gold">{c.stt}</span>
                 {c.positionLabel}
               </li>
             ))}
           </ol>
         </div>
-        <CardDrawer entry={open} topic={topic} onClose={() => setOpen(null)} />
+        {drawer}
       </>
     );
   }
@@ -117,7 +138,7 @@ export function ReadingBoard({
             </div>
           ) : null}
         </div>
-        <CardDrawer entry={open} topic={topic} onClose={() => setOpen(null)} />
+        {drawer}
       </>
     );
   }
@@ -137,7 +158,7 @@ export function ReadingBoard({
           </div>
         ))}
       </div>
-      <CardDrawer entry={open} topic={topic} onClose={() => setOpen(null)} />
+      {drawer}
     </>
   );
 }

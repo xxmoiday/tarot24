@@ -13,9 +13,31 @@ export interface FollowUp {
   answer: string;
 }
 
+/** Một đoạn bài luận nói về đúng một vị trí trên bàn. */
+export interface ReadingPart {
+  stt: number;
+  doan: string;
+}
+
+/** Bài luận tách phần; bài cũ không có nên chỗ nào cũng phải chịu được null. */
+export interface ReadingParts {
+  toanCanh: string;
+  theoViTri: ReadingPart[];
+  ket: string;
+}
+
+export interface Clarifier {
+  stt: number;
+  slug: string;
+  reversed: boolean;
+  answer: string;
+}
+
 export interface ApiReading {
   essay: string | null;
+  parts?: ReadingParts | null;
   followUps: FollowUp[];
+  clarifiers?: Clarifier[];
   cached?: boolean;
   reason?: string;
 }
@@ -58,7 +80,12 @@ async function call<T>(path: string, init?: RequestInit, ip?: string): Promise<T
 
 /** Lấy bài đã lưu; không có thì trả null chứ không sinh mới. */
 export function fetchReading(id: string) {
-  return call<{ essay: string; followUps: FollowUp[] }>(`/api/readings/${id}`);
+  return call<{
+    essay: string;
+    parts: ReadingParts | null;
+    followUps: FollowUp[];
+    clarifiers: Clarifier[];
+  }>(`/api/readings/${id}`);
 }
 
 export function createReading(id: string, ip?: string) {
@@ -73,6 +100,19 @@ export function askFollowUp(id: string, question: string, ip?: string) {
   return call<{ answer: string | null; followUps: FollowUp[]; reason?: string }>(
     `/api/readings/${id}/follow-ups`,
     { method: "POST", body: JSON.stringify({ question }) },
+    ip,
+  );
+}
+
+/** Lá làm rõ cho một vị trí; lá do trình duyệt rút rồi gửi kèm. */
+export function askClarifier(
+  id: string,
+  body: { stt: number; slug: string; reversed: boolean },
+  ip?: string,
+) {
+  return call<{ clarifiers: Clarifier[] | null; reason?: string }>(
+    `/api/readings/${id}/clarifiers`,
+    { method: "POST", body: JSON.stringify(body) },
     ip,
   );
 }

@@ -33,15 +33,15 @@ export async function POST(request: Request) {
   if (!id) return NextResponse.json({ error: "Thiếu mã bài đọc" }, { status: 400 });
 
   if (!hasBackend()) {
-    return NextResponse.json({ essay: null, reason: "no-backend" });
+    return NextResponse.json({ essay: null, parts: null, reason: "no-backend" });
   }
 
   try {
     const data = await createReading(id, ip);
-    return NextResponse.json(data ?? { essay: null, reason: "no-backend" });
+    return NextResponse.json(data ?? { essay: null, parts: null, reason: "no-backend" });
   } catch (e) {
     console.error("[luận bài] backend lỗi:", e);
     /* Web vẫn dựng được bài bằng bộ soạn cục bộ nên không chặn người dùng. */
-    return NextResponse.json({ essay: null, reason: "backend-error" });
+    return NextResponse.json({ essay: null, parts: null, reason: "backend-error" });
   }
 }

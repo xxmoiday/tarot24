@@ -5,20 +5,26 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { TarotCardFace, TarotCardSlot } from "@/components/TarotCardFace";
 import { buttonClass, Disclaimer, Eyebrow } from "@/components/ui";
-import { getCard } from "@/lib/cards";
+import { CARDS, getCard } from "@/lib/cards";
 import { detectGuard } from "@/lib/guard";
 import { betterSpread, detectVague } from "@/lib/question";
 import {
   applyUprightOnly,
   makeSeed,
+  mulberry32,
   shuffleDeck,
   type DrawnCard,
 } from "@/lib/draw";
-import { composeReading } from "@/lib/reading";
+import { composeClarifier, composeReading } from "@/lib/reading";
 import { decodeReading, encodeReading } from "@/lib/share";
 import { TOPICS, type Spread, type TopicKey } from "@/lib/spreads";
 import { DeckSpread, GATHER_MS } from "./DeckSpread";
-import { ReadingView, type FollowUp } from "./ReadingView";
+import {
+  ReadingView,
+  type Clarifier,
+  type FollowUp,
+  type ReadingParts,
+} from "./ReadingView";
 import { ShuffleRitual } from "./ShuffleRitual";
 
 type Step = "ask" | "shuffle" | "draw" | "result";
@@ -70,6 +76,8 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const [picked, setPicked] = useState<number[]>([]);
   const [shareId, setShareId] = useState(initial ? restored! : "");
   const [essay, setEssay] = useState<string | null>(null);
+  const [parts, setParts] = useState<ReadingParts | null>(null);
+  const [clarifiers, setClarifiers] = useState<Clarifier[]>([]);
   /** Mã bài đọc mà lượt xin bài luận đã xong, dùng để suy ra trạng thái chờ */
   const [essayFor, setEssayFor] = useState<string | null>(null);
   const [followUps, setFollowUps] = useState<FollowUp[]>([]);
@@ -143,7 +151,9 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     let alive = true;
     void (async () => {
       let text: string | null = null;
+      let shaped: ReadingParts | null = null;
       let list: FollowUp[] = [];
+      let hints: Clarifier[] = [];
       try {
         const res = await fetch("/api/reading", {
           method: "POST",
@@ -153,16 +163,22 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
         });
         const data = (await res.json()) as {
           essay?: string | null;
+          parts?: ReadingParts | null;
           followUps?: FollowUp[];
+          clarifiers?: Clarifier[];
         };
         text = data.essay ?? null;
+        shaped = data.parts ?? null;
         list = data.followUps ?? [];
+        hints = data.clarifiers ?? [];
       } catch {
         /* Mạng hỏng hoặc máy chủ lỗi thì rơi về bản dựng cục bộ. */
       }
       if (!alive) return;
       setEssay(text);
+      setParts(shaped);
       setFollowUps(list);
+      setClarifiers(hints);
       setEssayFor(shareId);
     })();
     return () => {
@@ -197,11 +213,81 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     [shareId, essay],
   );
 
+  /**
+   * Rút một lá làm rõ cho một vị trí.
+   *
+   * Lá lấy từ chỗ cỗ bài đang nằm sau lượt rút, tức là lá trên cùng của phần
+   * chưa ai đụng tới — đúng như ngoài đời người đọc lật thêm một lá đặt cạnh
+   * vị trí đang tối nghĩa. Mở lại bài từ đường dẫn thì không còn cỗ nữa, lúc
+   * đó bốc theo mã bài để cùng một bài đọc luôn ra cùng một lá.
+   */
+  const drawClarifier = useCallback(
+    (stt: number): DrawnCard | null => {
+      const used = new Set([
+        ...activeCards.map((c) => c.slug),
+        ...clarifiers.map((c) => c.slug),
+      ]);
+
+      if (deck.length) {
+        const taken = new Set(picked);
+        for (let i = 0; i < deck.length; i++) {
+          if (!taken.has(i) && !used.has(deck[i].slug)) return deck[i];
+        }
+      }
+
+      const pool = CARDS.filter((c) => !used.has(c.slug));
+      if (!pool.length) return null;
+      let h = stt;
+      for (const ch of shareId) h = (h * 31 + ch.charCodeAt(0)) | 0;
+      const rand = mulberry32(h >>> 0);
+      return { slug: pool[Math.floor(rand() * pool.length)].slug, reversed: rand() < 0.32 };
+    },
+    [activeCards, clarifiers, deck, picked, shareId],
+  );
+
+  const clarify = useCallback(
+    async (stt: number) => {
+      const card = drawClarifier(stt);
+      if (!card) return;
+
+      try {
+        const res = await fetch("/api/reading/lam-ro", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ id: shareId, stt, ...card }),
+        });
+        const data = (await res.json()) as { clarifiers?: Clarifier[] | null };
+        if (data.clarifiers?.length) {
+          setClarifiers(data.clarifiers);
+          return;
+        }
+      } catch {
+        /* Máy chủ im thì vẫn đọc được lá vừa rút bằng bộ soạn cục bộ. */
+      }
+
+      const pos = spread.positions[stt - 1];
+      const tc = getCard(card.slug);
+      if (!pos || !tc) return;
+      setClarifiers((prev) => [
+        ...prev,
+        {
+          stt,
+          slug: card.slug,
+          reversed: card.reversed,
+          answer: composeClarifier(tc, card.reversed, pos, topic),
+        },
+      ]);
+    },
+    [drawClarifier, shareId, spread.positions, topic],
+  );
+
   const redraw = useCallback(() => {
     setShareId("");
     setEssay(null);
+    setParts(null);
     setEssayFor(null);
     setFollowUps([]);
+    setClarifiers([]);
     setPicked([]);
     setDeck([]);
     setSeed(0);
@@ -469,8 +555,11 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
         onRedraw={redraw}
         essay={essay}
         essayState={essayState}
+        parts={parts}
         followUps={followUps}
+        clarifiers={clarifiers}
         onAsk={askServer}
+        onClarify={clarify}
       />
     </div>
   );

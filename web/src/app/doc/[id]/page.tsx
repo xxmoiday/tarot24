@@ -66,7 +66,9 @@ export default async function SharedReadingPage({
           shareUrl={`/doc/${id}`}
           readOnly
           essay={stored?.essay ?? null}
+          parts={stored?.parts ?? null}
           followUps={stored?.followUps ?? []}
+          clarifiers={stored?.clarifiers ?? []}
         />
       </main>
       <SiteFooter />

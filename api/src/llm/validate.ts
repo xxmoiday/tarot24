@@ -154,5 +154,5 @@ export function stripStockLabels(text: string) {
 
 export function fixPrompt(violations: Violation[]) {
   const list = violations.map((v) => `- ${v.rule}: ${v.detail}`).join("\n");
-  return `Bài vừa rồi vi phạm mấy chỗ sau:\n${list}\n\nViết lại toàn bài theo đúng mục 9, giữ nguyên cách đọc các lá, chỉ sửa những chỗ nêu trên. Chỉ trả về bài luận, không giải thích.`;
+  return `Bài vừa rồi vi phạm mấy chỗ sau:\n${list}\n\nViết lại toàn bài theo đúng mục 9, giữ nguyên cách đọc các lá, chỉ sửa những chỗ nêu trên. Chỉ trả về đúng một khối JSON theo khuôn đã dặn, không giải thích, không kèm chữ nào ngoài nó.`;
 }

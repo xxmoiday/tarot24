@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { fetchReading } from "@/lib/api";
 import { CARD_BY_SLUG } from "@/lib/cards";
 import { cardDataUri, ogFonts, trimForOg } from "@/lib/og";
 import { decodeReading } from "@/lib/share";
@@ -19,6 +20,14 @@ export default async function ReadingOgImage({
   const { id } = await params;
   const state = decodeReading(id);
   const spread = state && getSpread(state.spread);
+
+  /*
+    Câu chốt là phần người xem nhớ nhất, nên nó mới là thứ đáng đứng trên ảnh
+    chia sẻ chứ không phải tên kiểu trải. Bài cũ và bài chưa lưu thì không có,
+    lúc đó ảnh về đúng như trước.
+  */
+  const stored = await fetchReading(id).catch(() => null);
+  const closing = stored?.parts?.ket ?? null;
 
   const drawn = (state?.cards ?? []).slice(0, MAX_SHOWN);
   const cards = await Promise.all(
@@ -64,18 +73,25 @@ export default async function ReadingOgImage({
         <div style={{ fontSize: 24, color: "#C9A961", display: "flex" }}>
           Tarot24
         </div>
+        {closing && state?.question ? (
+          <div style={{ fontSize: 21, color: "#9AA3B8", display: "flex" }}>
+            {trimForOg(state.question, 72)}
+          </div>
+        ) : null}
         <div
           style={{
-            fontSize: state?.question ? 38 : 30,
+            fontSize: closing ? 34 : state?.question ? 38 : 30,
             lineHeight: 1.25,
             color: "#EDE6D6",
             display: "flex",
             fontFamily: "Newsreader",
           }}
         >
-          {trimForOg(state?.question ?? "", 96) || spread?.name || "Một bài đọc tarot"}
+          {trimForOg(closing ?? state?.question ?? "", closing ? 150 : 96) ||
+            spread?.name ||
+            "Một bài đọc tarot"}
         </div>
-        {state?.question && spread ? (
+        {!closing && state?.question && spread ? (
           <div style={{ fontSize: 21, color: "#9AA3B8", display: "flex" }}>
             {spread.name}
           </div>

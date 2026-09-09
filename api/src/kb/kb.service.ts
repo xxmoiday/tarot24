@@ -191,9 +191,9 @@ export class KbService {
         role: "system",
         content:
           `Ngữ cảnh lượt này, dạng JSON:\n\n${JSON.stringify(context, null, 1)}\n\n` +
-          `Bài lần này dài ${spread.do_dai.min}–${spread.do_dai.max} tiếng, ` +
-          `nhắm vào giữa khung là khoảng ${giua} tiếng. ` +
-          `Văn xuôi thuần, không tiêu đề, không gạch đầu dòng, không nhãn hai chấm đầu đoạn.`,
+          `Bài lần này dài ${spread.do_dai.min}–${spread.do_dai.max} tiếng tính cả ba ` +
+          `phần cộng lại, nhắm vào giữa khung là khoảng ${giua} tiếng.\n\n` +
+          this.khuonDauRa(spread.vi_tri.length),
       },
     ];
 
@@ -209,6 +209,24 @@ export class KbService {
     return messages;
   }
 
+  /**
+   * Khuôn đầu ra. Mục 7 của system prompt cho phép ứng dụng đòi định dạng
+   * khác, và ở đây cần biết đoạn nào nói lá nào để giao diện nối được lá với
+   * đoạn, còn câu chốt thì tách riêng vì đó là phần người xem nhớ nhất.
+   */
+  private khuonDauRa(soViTri: number) {
+    return [
+      "Trả về đúng một khối JSON, không kèm chữ nào ngoài nó, theo khuôn:",
+      '{"toan_canh": "…", "theo_vi_tri": [{"stt": 1, "doan": "…"}], "ket": "…"}',
+      "",
+      "toan_canh: một câu mở nói bài này đang nói chuyện gì, nặng hay nhẹ, đang đứng hay đang chuyển.",
+      `theo_vi_tri: đúng ${soViTri} phần tử, đúng thứ tự vị trí của kiểu trải, stt là số thứ tự vị trí đó. Mỗi đoạn nối vào đoạn trước chứ không luận rời từng lá; vị trí nào chỉ đáng một câu thì một câu.`,
+      "ket: đoạn cuối, trả lời thẳng câu hỏi cộng một việc cụ thể làm được trong tuần tới.",
+      "",
+      "Chữ trong từng trường là văn xuôi thuần: không tiêu đề, không gạch đầu dòng, không nhãn hai chấm đầu đoạn, không nhắc số thứ tự vị trí ra thành chữ.",
+    ].join("\n");
+  }
+
   /** Câu hỏi thêm: giữ nguyên ngữ cảnh, thêm bài đã trả rồi tới câu mới. */
   buildFollowUpMessages(req: ReadingRequest, essay: string, question: string): ChatMessage[] {
     return [
@@ -216,7 +234,43 @@ export class KbService {
       { role: "assistant", content: essay },
       {
         role: "user",
-        content: `${question}\n\n(Trả lời ngắn 60–120 tiếng, dựa trên chính những lá đã trải, không rút thêm lá.)`,
+        content: `${question}\n\n(Trả lời ngắn 60–120 tiếng bằng văn xuôi thuần, không JSON, dựa trên chính những lá đã trải, không rút thêm lá.)`,
+      },
+    ];
+  }
+
+  /**
+   * Lá làm rõ cho một vị trí. Ngoài đời gặp vị trí ra lá khó hiểu thì người
+   * đọc rút thêm một lá đặt cạnh nó rồi đọc tiếp — mục 8 cho phép đúng việc
+   * này khi ứng dụng gửi lá xuống, nên lá do người rút chọn chứ không do mô
+   * hình bịa ra.
+   */
+  buildClarifierMessages(
+    req: ReadingRequest,
+    essay: string,
+    stt: number,
+    card: DrawnCard,
+  ): ChatMessage[] {
+    const spread = this.spread(req.spreadSlug);
+    if (!spread) throw new Error(`Không có kiểu trải ${req.spreadSlug}`);
+    const pos = spread.vi_tri.find((v) => v.stt === stt);
+    if (!pos) throw new Error(`Kiểu trải ${req.spreadSlug} không có vị trí ${stt}`);
+
+    const raw = this.card(card.slug);
+    if (!raw) throw new Error(`Không có lá ${card.slug}`);
+
+    return [
+      ...this.buildMessages(req),
+      { role: "assistant", content: essay },
+      {
+        role: "user",
+        content:
+          `Người hỏi muốn làm rõ vị trí "${pos.ten}" (${pos.cau_hoi}). ` +
+          `Đã rút thêm một lá làm rõ cho riêng vị trí đó:\n\n` +
+          `${JSON.stringify(this.cardPayload(raw, card.reversed, stt, req.topic), null, 1)}\n\n` +
+          `Đọc lá này cho đúng vị trí đó và nối vào chỗ bài đã nói, ` +
+          `60–120 tiếng bằng văn xuôi thuần, không JSON. ` +
+          `Nói tên lá ra một lần cho người hỏi biết lá làm rõ là lá gì.`,
       },
     ];
   }

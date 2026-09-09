@@ -32,6 +32,21 @@
    * GATHER_MS, SETTLE_MS và OUTRO_MS bên ReadingFlow.
    */
   --animate-step-out: t24-step-out 320ms ease 1440ms both;
+
+  /* Chạm một lá trên bàn thì đoạn nói về lá đó sáng lên một nhịp rồi tắt. */
+  --animate-flash: t24-flash 1.6s ease both;
+}
+
+@keyframes t24-flash {
+  0% {
+    background: rgba(201, 169, 97, 0);
+  }
+  18% {
+    background: rgba(201, 169, 97, 0.14);
+  }
+  100% {
+    background: rgba(201, 169, 97, 0);
+  }
 }
 
 @keyframes t24-fly {

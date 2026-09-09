@@ -583,34 +583,73 @@ export function composeReading(state: ReadingState): Reading | null {
 
 export { LEAN_LABEL };
 
-/** Câu hỏi thêm: rút một lá làm rõ và trả lời gọn trong một đoạn. */
+/** Nửa sau của một câu trả lời: nghĩa lá hạ xuống đúng lĩnh vực đang hỏi. */
+function applyToQuestion(card: TarotCard, reversed: boolean, topic: TopicKey) {
+  return topic === "general"
+    ? `cái đọng lại là ${(reversed ? card.reversed : card.upright).slice(0, 3).join(", ")}.`
+    : lowerFirst(aspectHalf(card, topic, reversed));
+}
+
+const FOLLOW_UP_TAIL = [
+  "Đó là phần bạn nắm được; phần còn lại thì đợi thêm dữ kiện rồi hẵng tính.",
+  "Giữ đúng một việc đó thôi, đừng ôm thêm trong tuần này.",
+  "Nếu chỉ nhớ một câu từ bài này thì nhớ câu vừa rồi.",
+];
+
+/**
+ * Câu hỏi thêm khi chưa cấu hình mô hình.
+ *
+ * Không rút lá mới: hỏi thêm sau bài thì người đọc nói lại từ chính bàn đang
+ * bày. Rút lá chỉ xảy ra khi người hỏi xin làm rõ một vị trí, và đó là việc
+ * riêng của composeClarifier — trước đây hai chuyện này lẫn vào nhau nên bản
+ * cục bộ rút lá còn bản do mô hình viết thì không.
+ */
 export function composeFollowUp(
   question: string,
-  card: TarotCard,
-  reversed: boolean,
+  cards: ReadCard[],
   topic: TopicKey,
 ) {
-  const seed = hash(question + card.slug + (reversed ? "!" : ""));
+  if (!cards.length) return "";
+  const seed = hash(question);
+  const c = cards[seed % cards.length];
+  const { card, reversed, position } = c;
+  const lens: TopicKey = position.lens ?? topic;
+
   const opener = pick(
     [
-      `Cho câu này, bài đưa ra ${card.vi}${reversed ? " ngược" : ""}.`,
-      `Lá làm rõ cho câu này là ${card.vi}${reversed ? " ngược" : ""}.`,
-      `Rút thêm một lá cho câu này thì ra ${card.vi}${reversed ? " ngược" : ""}.`,
+      `Câu này bài trả lời được bằng chính mấy lá đang bày.`,
+      `Không rút thêm lá; câu này đọc lại từ bàn đang có.`,
+      `Vẫn là mấy lá này thôi, đọc chúng cho câu bạn vừa hỏi.`,
     ],
     seed,
   );
+  const head = `Ở ${lowerFirst(position.label)} là ${card.vi}${reversed ? " ngược" : ""}.`;
   const core = firstSentence(reversed ? card.skewed : card.core);
-  const detail =
-    topic === "general"
-      ? `cái đọng lại là ${(reversed ? card.reversed : card.upright).slice(0, 3).join(", ")}.`
-      : lowerFirst(aspectHalf(card, topic, reversed));
+  return `${opener} ${head} ${core} Áp vào câu bạn hỏi: ${applyToQuestion(card, reversed, lens)} ${pick(FOLLOW_UP_TAIL, seed + 7)}`;
+}
+
+/**
+ * Lá làm rõ cho một vị trí, bản dựng cục bộ. Ngoài đời gặp vị trí ra lá tối
+ * nghĩa thì người đọc rút thêm một lá đặt cạnh nó rồi đọc tiếp, nên ở đây lá
+ * mới cũng chỉ nói về đúng vị trí đó chứ không luận lại cả bàn.
+ */
+export function composeClarifier(
+  card: TarotCard,
+  reversed: boolean,
+  position: SpreadPosition,
+  topic: TopicKey,
+) {
+  const seed = hash(position.label + card.slug + (reversed ? "!" : ""));
+  const lens: TopicKey = position.lens ?? topic;
+  const opener = `Lá làm rõ cho ${lowerFirst(position.label)} là ${card.vi}${reversed ? " ngược" : ""}.`;
+  const core = firstSentence(reversed ? card.skewed : card.core);
   const tail = pick(
     [
-      "Đó là phần bạn nắm được; phần còn lại thì đợi thêm dữ kiện rồi hẵng tính.",
-      "Giữ đúng một việc đó thôi, đừng ôm thêm trong tuần này.",
-      "Nếu chỉ nhớ một câu từ bài này thì nhớ câu vừa rồi.",
+      "Đọc chỗ đó cùng lá cũ, đừng tách ra thành một bài khác.",
+      "Nó không đổi cả bàn, chỉ nói rõ thêm đúng chỗ bạn đang vướng.",
+      "Chừng đó đủ cho vị trí này; thêm lá nữa là loãng.",
     ],
-    seed + 7,
+    seed + 3,
   );
-  return `${opener} ${core} Áp vào câu bạn hỏi: ${detail} ${tail}`;
+  return `${opener} ${core} Ở vị trí này nghĩa là ${applyToQuestion(card, reversed, lens)} ${tail}`;
 }

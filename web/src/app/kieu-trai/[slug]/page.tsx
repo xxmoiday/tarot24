@@ -79,170 +79,180 @@ export default async function SpreadPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <SiteHeader back />
-      <main
-        id="noi-dung"
-        className="mx-auto max-w-[1100px] px-5 pt-6 pb-4 md:px-[60px] md:pt-14"
-      >
-        <nav aria-label="Đường dẫn" className="mb-4 text-[13px] text-muted">
-          <Link href="/kieu-trai" className="transition-colors hover:text-gold-hi">
-            Kiểu trải
-          </Link>
-          <span className="px-2 text-line">·</span>
-          <span>{spread.name}</span>
-        </nav>
-
+      <main id="noi-dung" className="relative isolate overflow-hidden pb-4">
+        {/*
+          Ảnh cover chạy tràn hai mép màn hình rồi tan dần vào nền, y như banner
+          ở trang danh sách kiểu trải. Trước nó là một thẻ bo góc nằm gọn trong
+          khung 1100px, tức là ảnh dừng lại giữa chừng trong khi mọi banner khác
+          của trang đều chạy hết bề ngang.
+        */}
         {coverImage ? (
-          <section className="relative overflow-hidden rounded-2xl border border-line bg-surface shadow-[0_24px_90px_rgba(0,0,0,0.28)]">
+          <div className="absolute inset-x-0 top-0 -z-10 h-[520px] md:h-[660px]">
             <Image
               src={coverImage.src}
               alt={coverImage.alt}
               fill
               priority
               unoptimized
-              sizes="(max-width: 768px) 100vw, 1100px"
+              sizes="100vw"
               className="object-cover"
               style={{ objectPosition: coverImage.position ?? "center" }}
             />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,15,26,0.92)_0%,rgba(11,15,26,0.74)_34%,rgba(11,15,26,0.2)_74%,rgba(11,15,26,0.06)_100%)]" />
-            <div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(11,15,26,0.74)_0%,rgba(11,15,26,0)_54%)]" />
-            <div className="relative flex min-h-[430px] flex-col justify-end gap-2.5 px-5 py-7 md:min-h-[520px] md:px-8 md:py-9">
-              <Eyebrow>{spread.count} lá</Eyebrow>
-              <h1 className="max-w-[680px] font-serif text-[31px]/[1.12] text-balance text-ink md:text-[54px]/[1.02]">
-                {spread.name}
-              </h1>
-              <p className="max-w-[58ch] text-sm/[1.65] text-pretty text-muted md:text-[17px]">
-                {spread.about}
-              </p>
-              <div className="mt-5 flex flex-wrap items-center gap-3">
-                <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
-                  Rút bài ngay
-                </ButtonLink>
-                <span className="text-[13px] text-muted">
-                  Miễn phí, không cần đăng nhập
-                </span>
+            {/*
+              Ảnh cover đều là ảnh chụp tối, nên lớp phủ phải giữ tối đúng phần
+              nằm dưới khối chữ rồi nhả ra thật nhanh: phủ đậm tới quãng 52% là
+              hết chỗ đoạn mô tả, từ đó thả gần như trong suốt để nhìn ra được
+              bài trong ảnh. Chữ đã có bóng đổ riêng nên không cần phủ dày.
+            */}
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,15,26,0.94)_0%,rgba(11,15,26,0.84)_30%,rgba(11,15,26,0.52)_52%,rgba(11,15,26,0.12)_78%,rgba(11,15,26,0.03)_100%)]" />
+            {/* Mép trên nối vào thanh điều hướng, mép dưới tan vào nền trang. */}
+            <div className="absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-bg to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-56 bg-gradient-to-t from-bg via-bg/92 to-transparent" />
+          </div>
+        ) : null}
+
+        <div className="mx-auto max-w-[1100px] px-5 pt-6 md:px-[60px] md:pt-14">
+          <nav aria-label="Đường dẫn" className="mb-4 text-[13px] text-muted">
+            <Link href="/kieu-trai" className="transition-colors hover:text-gold-hi">
+              Kiểu trải
+            </Link>
+            <span className="px-2 text-line">·</span>
+            <span>{spread.name}</span>
+          </nav>
+
+          <div
+            className={
+              coverImage
+                ? "flex min-h-[300px] max-w-[680px] flex-col justify-end gap-2.5 pb-3 md:min-h-[380px] md:pb-6"
+                : "flex flex-col gap-2.5"
+            }
+          >
+            <Eyebrow>{spread.count} lá</Eyebrow>
+            <h1
+              className={`font-serif text-balance text-ink ${
+                coverImage
+                  ? "text-[31px]/[1.12] [text-shadow:0_2px_28px_rgba(8,11,19,0.85)] md:text-[54px]/[1.02]"
+                  : "text-[27px]/[1.2] md:text-[46px]/[1.05]"
+              }`}
+            >
+              {spread.name}
+            </h1>
+            <p
+              className={`text-sm/[1.65] text-pretty text-muted md:text-[17px] ${
+                coverImage
+                  ? "max-w-[58ch] [text-shadow:0_1px_18px_rgba(8,11,19,0.85)]"
+                  : "max-w-[62ch]"
+              }`}
+            >
+              {spread.about}
+            </p>
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
+              Rút bài ngay
+            </ButtonLink>
+            <span className="text-[13px] text-muted">Miễn phí, không cần đăng nhập</span>
+          </div>
+
+          <section className="mt-11 md:mt-16">
+            <h2 className="font-serif text-xl text-gold md:text-[22px]">Các vị trí trong trải</h2>
+            <p className="mt-3 max-w-[62ch] border-l border-line pl-3.5 text-[13.5px]/[1.7] text-pretty text-muted md:text-[15px]">
+              {spread.how}
+            </p>
+            <ol className="mt-6 grid gap-2.5 md:grid-cols-2 md:gap-3.5">
+              {spread.positions.map((p, i) => (
+                <li
+                  key={p.label}
+                  className="flex gap-3.5 rounded-xl border border-line bg-surface p-4"
+                >
+                  <span className="mt-0.5 flex size-[22px] shrink-0 items-center justify-center rounded-full border border-gold text-[11px] text-gold">
+                    {i + 1}
+                  </span>
+                  <span className="flex flex-col gap-1">
+                    <span className="text-[15px] font-medium text-ink">{p.label}</span>
+                    <span className="text-[13.5px]/[1.6] text-muted">{p.meaning}</span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          <section className="mt-11 md:mt-16">
+            <h2 className="font-serif text-xl text-gold md:text-[22px]">Hỏi thế nào cho trúng</h2>
+            <div className="mt-5 grid gap-4 md:grid-cols-2 md:gap-6">
+              <div className="flex flex-col gap-3">
+                <Eyebrow>Hợp với</Eyebrow>
+                <ul className="flex flex-col gap-2.5">
+                  {spread.fits.map((q) => (
+                    <li
+                      key={q}
+                      className="flex gap-3 rounded-xl border border-moss/40 bg-moss/6 px-4 py-2.5 text-[13.5px]/[1.5] text-ink md:text-[14.5px]"
+                    >
+                      <span aria-hidden className="mt-[7px] size-[5px] shrink-0 rounded-full bg-moss" />
+                      {q}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-col gap-3">
+                <Eyebrow tone="rust">Không hợp</Eyebrow>
+                <ul className="flex flex-col gap-2.5">
+                  {spread.notFor.map((q) => (
+                    <li
+                      key={q}
+                      className="flex gap-3 rounded-xl border border-rust/40 bg-rust/6 px-4 py-2.5 text-[13.5px]/[1.5] text-muted md:text-[14.5px]"
+                    >
+                      <span aria-hidden className="mt-[7px] size-[5px] shrink-0 rounded-full bg-rust" />
+                      {q}
+                    </li>
+                  ))}
+                </ul>
+                <p className="text-[13px]/[1.6] text-pretty text-muted">
+                  Mấy câu này hỏi bằng kiểu trải khác sẽ ra bài đọc dùng được hơn, hoặc là chuyện
+                  bài không trả lời thay chuyên môn được.
+                </p>
               </div>
             </div>
-          </section>
-        ) : (
-          <>
-            <div className="flex flex-col gap-2.5">
-              <Eyebrow>{spread.count} lá</Eyebrow>
-              <h1 className="font-serif text-[27px]/[1.2] text-balance text-ink md:text-[46px]/[1.05]">
-                {spread.name}
-              </h1>
-              <p className="max-w-[62ch] text-sm/[1.65] text-pretty text-muted md:text-[17px]">
-                {spread.about}
-              </p>
-            </div>
-
-            <div className="mt-7 flex flex-wrap items-center gap-3">
-              <ButtonLink href={`/rut-bai/${spread.slug}`} size="lg">
-                Rút bài ngay
-              </ButtonLink>
-              <span className="text-[13px] text-muted">
-                Miễn phí, không cần đăng nhập
-              </span>
-            </div>
-          </>
-        )}
-
-        <section className="mt-11 md:mt-16">
-          <h2 className="font-serif text-xl text-gold md:text-[22px]">Các vị trí trong trải</h2>
-          <p className="mt-3 max-w-[62ch] border-l border-line pl-3.5 text-[13.5px]/[1.7] text-pretty text-muted md:text-[15px]">
-            {spread.how}
-          </p>
-          <ol className="mt-6 grid gap-2.5 md:grid-cols-2 md:gap-3.5">
-            {spread.positions.map((p, i) => (
-              <li
-                key={p.label}
-                className="flex gap-3.5 rounded-xl border border-line bg-surface p-4"
+            <p className="mt-4 max-w-[62ch] text-[13.5px]/[1.7] text-pretty text-muted">
+              Câu hỏi càng có bạn ở trong đó thì bài đọc càng nói được việc cụ thể. Xem thêm{" "}
+              <Link
+                href="/kien-thuc/cach-dat-cau-hoi-tarot"
+                className="text-gold transition-colors hover:text-gold-hi"
               >
-                <span className="mt-0.5 flex size-[22px] shrink-0 items-center justify-center rounded-full border border-gold text-[11px] text-gold">
-                  {i + 1}
-                </span>
-                <span className="flex flex-col gap-1">
-                  <span className="text-[15px] font-medium text-ink">{p.label}</span>
-                  <span className="text-[13.5px]/[1.6] text-muted">{p.meaning}</span>
-                </span>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section className="mt-11 md:mt-16">
-          <h2 className="font-serif text-xl text-gold md:text-[22px]">Hỏi thế nào cho trúng</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-2 md:gap-6">
-            <div className="flex flex-col gap-3">
-              <Eyebrow>Hợp với</Eyebrow>
-              <ul className="flex flex-col gap-2.5">
-                {spread.fits.map((q) => (
-                  <li
-                    key={q}
-                    className="flex gap-3 rounded-xl border border-moss/40 bg-moss/6 px-4 py-2.5 text-[13.5px]/[1.5] text-ink md:text-[14.5px]"
-                  >
-                    <span aria-hidden className="mt-[7px] size-[5px] shrink-0 rounded-full bg-moss" />
-                    {q}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div className="flex flex-col gap-3">
-              <Eyebrow tone="rust">Không hợp</Eyebrow>
-              <ul className="flex flex-col gap-2.5">
-                {spread.notFor.map((q) => (
-                  <li
-                    key={q}
-                    className="flex gap-3 rounded-xl border border-rust/40 bg-rust/6 px-4 py-2.5 text-[13.5px]/[1.5] text-muted md:text-[14.5px]"
-                  >
-                    <span aria-hidden className="mt-[7px] size-[5px] shrink-0 rounded-full bg-rust" />
-                    {q}
-                  </li>
-                ))}
-              </ul>
-              <p className="text-[13px]/[1.6] text-pretty text-muted">
-                Mấy câu này hỏi bằng kiểu trải khác sẽ ra bài đọc dùng được hơn, hoặc là chuyện
-                bài không trả lời thay chuyên môn được.
-              </p>
-            </div>
-          </div>
-          <p className="mt-4 max-w-[62ch] text-[13.5px]/[1.7] text-pretty text-muted">
-            Câu hỏi càng có bạn ở trong đó thì bài đọc càng nói được việc cụ thể. Xem thêm{" "}
-            <Link
-              href="/kien-thuc/cach-dat-cau-hoi-tarot"
-              className="text-gold transition-colors hover:text-gold-hi"
-            >
-              cách đặt câu hỏi cho một lần rút bài
-            </Link>
-            .
-          </p>
-        </section>
-
-        <section className="mt-11 flex items-center gap-5 rounded-2xl border border-line bg-surface p-5 md:mt-16 md:p-8">
-          <div className="flex shrink-0 gap-2">
-            {Array.from({ length: Math.min(3, spread.count) }).map((_, i) => (
-              <TarotCardFace key={i} face="down" className="w-[52px] md:w-[64px]" />
-            ))}
-          </div>
-          <div className="flex flex-col gap-3">
-            <p className="font-serif text-[17px]/[1.6] text-pretty text-ink md:text-xl">
-              Sẵn sàng rồi thì xào bài thôi.
+                cách đặt câu hỏi cho một lần rút bài
+              </Link>
+              .
             </p>
-            <ButtonLink href={`/rut-bai/${spread.slug}`} variant="outline" size="sm">
-              Bắt đầu {spread.name.toLowerCase()}
-            </ButtonLink>
-          </div>
-        </section>
+          </section>
 
-        <section className="mt-11 md:mt-16">
-          <h2 className="font-serif text-xl text-gold md:text-[22px]">Kiểu trải khác</h2>
-          <div className="mt-4 grid gap-2.5 md:grid-cols-3 md:gap-4.5">
-            {others.map((s) => (
-              <SpreadCard key={s.slug} spread={s} />
-            ))}
-          </div>
-        </section>
+          <section className="mt-11 flex items-center gap-5 rounded-2xl border border-line bg-surface p-5 md:mt-16 md:p-8">
+            <div className="flex shrink-0 gap-2">
+              {Array.from({ length: Math.min(3, spread.count) }).map((_, i) => (
+                <TarotCardFace key={i} face="down" className="w-[52px] md:w-[64px]" />
+              ))}
+            </div>
+            <div className="flex flex-col gap-3">
+              <p className="font-serif text-[17px]/[1.6] text-pretty text-ink md:text-xl">
+                Sẵn sàng rồi thì xào bài thôi.
+              </p>
+              <ButtonLink href={`/rut-bai/${spread.slug}`} variant="outline" size="sm">
+                Bắt đầu {spread.name.toLowerCase()}
+              </ButtonLink>
+            </div>
+          </section>
 
-        <Disclaimer className="mt-10 border-t border-line pt-6" />
+          <section className="mt-11 md:mt-16">
+            <h2 className="font-serif text-xl text-gold md:text-[22px]">Kiểu trải khác</h2>
+            <div className="mt-4 grid gap-2.5 md:grid-cols-3 md:gap-4.5">
+              {others.map((s) => (
+                <SpreadCard key={s.slug} spread={s} />
+              ))}
+            </div>
+          </section>
+
+          <Disclaimer className="mt-10 border-t border-line pt-6" />
+        </div>
       </main>
       <SiteFooter />
     </>

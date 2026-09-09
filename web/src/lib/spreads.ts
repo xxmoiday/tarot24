@@ -84,6 +84,11 @@ export const SPREADS: Spread[] = [
     layout: "single",
     blurb:
       "Rút một lá cho ngày hôm nay hoặc cho một chuyện đang vướng trong đầu. Nhanh, gọn, đủ để biết mình đang đứng ở đâu.",
+    coverImage: {
+      src: "/spreads/mot-la-hom-nay-cover.webp",
+      alt: "Một lá tarot cho hôm nay trên bàn gỗ trong ánh sáng buổi sáng",
+      position: "66% 50%",
+    },
     about:
       "Rút một lá cho ngày hôm nay hoặc cho một chuyện đang vướng trong đầu. Nhanh, gọn, đủ để biết mình đang đứng ở đâu.",
     how: "Xào bài, nghĩ tới hôm nay hoặc chuyện đang vướng, rút một lá và đặt ngửa trước mặt.",
@@ -125,6 +130,11 @@ export const SPREADS: Spread[] = [
     yesNo: true,
     blurb:
       "Một câu hỏi có hoặc không, một lá trả lời. Bài chỉ nói đang nghiêng về phía nào và vì sao, không hứa chắc.",
+    coverImage: {
+      src: "/spreads/mot-la-hom-nay-cover.webp",
+      alt: "Một lá tarot trên bàn gỗ trong ánh sáng buổi sáng",
+      position: "66% 50%",
+    },
     about:
       "Một câu hỏi có hoặc không, một lá trả lời. Bài chỉ nói đang nghiêng về phía nào và vì sao, không hứa chắc.",
     how: "Đặt câu hỏi ở dạng có hoặc không thật rõ trong đầu, xào bài, rút một lá và đặt ngửa.",
@@ -166,6 +176,11 @@ export const SPREADS: Spread[] = [
     layout: "row",
     blurb:
       "Ba lá xếp theo dòng thời gian của một chuyện, để thấy nó từ đâu tới, đang ở đâu và nếu giữ đà thì đi về đâu.",
+    coverImage: {
+      src: "/spreads/ba-la-thoi-gian-cover.webp",
+      alt: "Ba lá tarot quá khứ hiện tại tương lai trong ánh nắng ấm",
+      position: "64% 50%",
+    },
     about:
       "Ba lá xếp theo dòng thời gian của một chuyện, để thấy nó từ đâu tới, đang ở đâu và nếu giữ đà thì đi về đâu.",
     how: "Xào bài, rút ba lá và đặt thành hàng ngang từ trái sang phải theo thứ tự quá khứ, hiện tại, tương lai gần.",
@@ -213,6 +228,11 @@ export const SPREADS: Spread[] = [
     group: "basic",
     layout: "row",
     blurb: "Cho một chuyện đang kẹt và muốn biết kẹt ở đâu.",
+    coverImage: {
+      src: "/spreads/ba-la-tinh-huong-cover.webp",
+      alt: "Ba lá tarot tình huống trở ngại lời khuyên trên bàn gỗ trong ánh nến",
+      position: "66% 52%",
+    },
     about:
       "Cho một chuyện đang kẹt và muốn biết kẹt ở đâu. Ba lá gọi tên tình huống, chỉ cái đang cản và đưa một hướng gỡ.",
     how: "Xào bài, rút ba lá đặt hàng ngang từ trái sang phải theo thứ tự tình huống, trở ngại, lời khuyên.",
@@ -330,6 +350,11 @@ export const SPREADS: Spread[] = [
     layout: "horseshoe",
     blurb:
       "Bảy lá xếp thành vòng cung, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic.",
+    coverImage: {
+      src: "/spreads/bay-la-mong-ngua-cover.webp",
+      alt: "Bảy lá tarot xếp thành vòng móng ngựa trên nền vải tối",
+      position: "66% 52%",
+    },
     about:
       "Bảy lá xếp thành vòng cung như hình móng ngựa, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic. Nhìn được cả gốc, cả chỗ đang cản, cả cái còn khuất và người xung quanh.",
     how: "Xào bài, rút bảy lá và đặt thành một vòng cung mở lên như hình móng ngựa, từ trái sang phải theo thứ tự một tới bảy.",
@@ -400,6 +425,11 @@ export const SPREADS: Spread[] = [
     uprightOnly: [1],
     blurb:
       "Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài.",
+    coverImage: {
+      src: "/spreads/thap-tu-celtic-cover.webp",
+      alt: "Mười lá tarot xếp theo bố cục Thập tự Celtic trong ánh nến ấm",
+      position: "65% 50%",
+    },
     about:
       "Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài. Mất thời gian hơn nhưng thấy đủ mọi phía.",
     how: "Rút mười lá theo thứ tự; lá một đặt giữa, lá hai đặt nằm ngang chéo lên lá một, lá ba dưới, lá bốn bên trái, lá năm trên, lá sáu bên phải, rồi bốn lá còn lại xếp thành cột dọc bên phải từ dưới lên.",
@@ -550,6 +580,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "row",
     blurb: "Cho chuyện tiền nong hằng ngày, thu, chi, giữ.",
+    coverImage: {
+      src: "/spreads/bon-la-tien-bac-cover.webp",
+      alt: "Bốn lá tarot tiền bạc trên bàn tròn trắng cạnh tách cà phê và tinh thể vàng",
+      position: "66% 52%",
+    },
     about:
       "Cho chuyện tiền nong hằng ngày, thu, chi, giữ. Bốn lá nhìn tình hình hiện tại, nếp đang tạo ra nó, cái nên giữ hay bỏ và hướng đi. Không phải chỗ hỏi mua bán, đầu tư.",
     how: "Xào bài, rút bốn lá và đặt hàng ngang từ trái sang phải theo thứ tự tình hình, nguyên nhân, giữ hay bỏ, hướng đi.",
