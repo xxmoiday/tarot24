@@ -365,44 +365,29 @@
 }
 
 /*
- * Một cú vuốt của người rút, chạy trên cỗ bài đang nằm nghiêng trên mặt bàn.
- * Cỗ tách đôi theo chiều vuốt, hai nửa trượt ra rồi đan lại — gói trong bốn
- * phần mười giây để vuốt liền tay vẫn kịp.
+ * Chồng bài vừa được đẩy trở lại cỗ. Cỗ lún xuống một nhịp rồi nảy lại, mấy lá
+ * xô nhẹ sang hai bên như lúc một tệp giấy rơi vào chồng chưa kịp vỗ gọn.
  *
- * --dir là chiều vuốt do nơi gọi đặt, --s là nửa trái hay nửa phải của cỗ, --z
- * là chỗ đứng của lá theo bề dày cỗ. Mọi khung đều phải mang lại --z, vì đây là
- * không gian ba chiều: bỏ đi là lá rơi tụt xuống mặt bàn.
+ * --s là nửa trái hay nửa phải của cỗ, --z là chỗ đứng của lá theo bề dày cỗ.
+ * Mọi khung đều phải mang lại --z, vì đây là không gian ba chiều: bỏ đi là lá
+ * rơi tụt xuống mặt bàn.
  *
  * Cố ý không có fill-mode: chạy xong thì lá trả về đúng transform trong style,
- * nhờ vậy ngay sau đó người rút kéo cắt cỗ là chồng bài đi theo tay được.
+ * nhờ vậy người rút kéo tách chồng tiếp là bài đi theo tay được ngay.
  */
-@keyframes t24-deck-riffle {
+@keyframes t24-deck-merge {
   0% {
     transform: translate3d(0, 0, var(--z));
-    animation-timing-function: cubic-bezier(0.3, 0.9, 0.4, 1);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.4, 1);
   }
-  24% {
-    transform: translate3d(
-        calc(var(--dir) * var(--s) * 74px),
-        calc(var(--s) * -7px),
-        calc(var(--z) + 12px)
-      )
-      rotate(calc(var(--dir) * var(--s) * 7deg));
-    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  28% {
+    transform: translate3d(calc(var(--s) * 5px), 3px, calc(var(--z) * 0.8))
+      rotate(calc(var(--s) * 0.9deg));
+    animation-timing-function: cubic-bezier(0.4, 0, 0.3, 1.5);
   }
-  56% {
-    transform: translate3d(
-        calc(var(--dir) * var(--s) * 40px),
-        0,
-        calc(var(--z) + 18px)
-      )
-      rotate(calc(var(--dir) * var(--s) * 4deg));
-    /* Quá đà một nhịp cho giống lúc hai nửa búng vào nhau. */
-    animation-timing-function: cubic-bezier(0.75, 0, 0.45, 1.4);
-  }
-  84% {
-    transform: translate3d(calc(var(--dir) * var(--s) * -8px), 0, var(--z))
-      rotate(calc(var(--dir) * var(--s) * -1.5deg));
+  62% {
+    transform: translate3d(calc(var(--s) * -3px), -1px, calc(var(--z) * 1.08))
+      rotate(calc(var(--s) * -0.5deg));
   }
   100% {
     transform: translate3d(0, 0, var(--z));

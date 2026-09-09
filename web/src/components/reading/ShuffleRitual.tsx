@@ -58,14 +58,14 @@ const PULL_DRIFT = 0.45;
 /** Kéo chưa tới đây thì coi như chưa cắt, chồng bài trượt về chỗ cũ. */
 const PULL_MIN = 26;
 
-/** Vuốt ngang được ngần này px thì tính một lượt xào. */
-const SWIPE_STEP = 44;
-
-/** Tay phải đi được ngần này mới biết là vuốt ngang hay kéo dọc. */
+/** Ngón tay phải đi được ngần này mới coi là đang kéo, chứ không phải chạm hụt. */
 const LOCK_SLOP = 10;
 
-/** Một lượt xào chạy trong bấy nhiêu; vuốt liền tay thì lượt sau cắt lượt trước. */
-const PASS_MS = 440;
+/** Đẩy chồng bài về sát cỗ tới ngần này là coi như đã nhập xong vào cỗ. */
+const BACK_PX = 8;
+
+/** Nhịp cỗ lún xuống rồi nảy lại lúc chồng bài nhập vào. */
+const PASS_MS = 340;
 
 /** Xào ít hơn ngần này lượt thì chưa cho cắt cỗ. */
 const MIN_PASSES = 3;
@@ -114,13 +114,19 @@ export interface ShuffleRitualProps {
  * Nghi thức xào bài: cỗ bài nằm nghiêng trên mặt bàn, người rút thao tác thẳng
  * lên nó, không qua nút nào.
  *
- * Vuốt ngang là xào — mỗi cú vuốt chạy một lượt chẻ bài hoặc tráo dồn thật trên
- * chính mảng 78 lá, entropy lấy từ quãng vuốt, chỗ ngón tay đặt và thời điểm
- * vuốt. Kéo cỗ xuống phía mình là cắt — kéo càng xa thì chồng nhấc lên càng
- * dày, thả tay ra là phần còn lại chồng lên trên nó rồi cỗ mở ra cho rút.
+ * Cả bước này chỉ có một cử động, đúng động tác tráo dồn ngoài đời. Kéo cỗ
+ * xuống phía mình là bốc một chồng ra — kéo càng sâu thì chồng càng dày. Đẩy nó
+ * lên nhập lại vào cỗ là xong một lượt xào: một lượt chẻ bài hoặc tráo dồn thật
+ * chạy trên chính mảng 78 lá, entropy lấy từ độ sâu vừa bốc, chỗ ngón tay đặt
+ * và thời điểm. Một lần giữ tay làm được mấy vòng liền.
+ *
+ * Chỗ rẽ giữa xào và cắt cũng chính là chỗ rẽ ngoài đời: bỏ chồng lại vào cỗ
+ * thì là xào, còn đặt nó xuống bàn thì là cắt. Nên thả tay lúc chồng bài vẫn
+ * đang tách ra là cắt ở đúng chỗ đó.
  *
  * Kéo chuột và chạm ngón tay đi chung một đường qua Pointer Events. Ai không
- * kéo được thì có phím mũi tên, hoặc lối "xào giúp tôi" ở cuối màn.
+ * kéo được thì có phím mũi tên đi đúng đường đó — xuống là bốc ra, lên là nhập
+ * lại, Enter là đặt xuống — hoặc lối "xào giúp tôi" ở cuối màn.
  */
 export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   const [phase, setPhase] = useState<"hand" | "auto">("hand");
@@ -146,7 +152,10 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   const entropyRef = useRef(seed);
 
   const planeRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const startRef = useRef<HTMLButtonElement>(null);
+  /** Quãng kéo bằng bàn phím, px — bản sao có thể đọc ngay của `pull`. */
+  const kb = useRef(0);
 
   /*
     Cắt xong thì đưa tiêu điểm sang nút. Vùng chạm vừa rời khỏi vòng tab, ai
@@ -157,43 +166,61 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   }, [ready]);
 
   const total = deck.length;
-  /* Chưa kéo qua ngưỡng thì chưa có chỗ cắt nào cả — thả tay ra là bài về chỗ cũ. */
-  const cutAt = pull !== null && pull >= PULL_MIN ? cutAtFor(pull, total) : 0;
-  const packet = cutAt ? packetFor(cutAt, total) : 0;
+  /** Đang cầm bao nhiêu lá trên tay — hễ nhấc là có, dù mới nhấc một tí. */
+  const held = pull === null ? 0 : cutAtFor(pull, total);
+  const packet = held ? packetFor(held, total) : 0;
+  /* Nhưng chưa kéo qua ngưỡng thì thả tay ra bài về chỗ cũ, chưa cắt được. */
+  const cutAt = pull !== null && pull >= PULL_MIN ? held : 0;
 
   /* ---------- Xào ---------- */
 
-  /** Chạy lại hoạt cảnh trên chính những lá đang có, khỏi dựng lại cả chồng. */
-  const play = useCallback((dir: 1 | -1) => {
+  /** Đang có hoạt cảnh chạy trên cỗ bài hay không. */
+  const anim = useRef(false);
+
+  /**
+   * Gắn hoặc gỡ hoạt cảnh trên chính những lá đang có, khỏi dựng lại cả chồng.
+   * Gỡ đi là chuyện bắt buộc chứ không phải dọn dẹp: hoạt cảnh đè lên transform
+   * trong style, còn đang chạy mà người rút tách chồng tiếp thì bài không đi
+   * theo tay được.
+   */
+  const setAnim = useCallback((value: string | null) => {
     const plane = planeRef.current;
     if (!plane) return;
-    plane.style.setProperty("--dir", String(dir));
     const cards = Array.from(plane.querySelectorAll<HTMLElement>(`.${CARD}`));
     for (const c of cards) c.style.animation = "none";
+    anim.current = false;
+    if (!value) return;
     /*
       Đọc một thuộc tính bố cục để trình duyệt chốt lại khung "không hoạt cảnh".
       Không có nhịp này thì gán lại đúng tên hoạt cảnh cũ sẽ không chạy lại, nên
-      vuốt cú thứ hai trở đi cỗ bài đứng im.
+      vòng thứ hai trở đi cỗ bài đứng im.
     */
     void plane.offsetWidth;
-    for (const c of cards) c.style.animation = `t24-deck-riffle ${PASS_MS}ms`;
+    for (const c of cards) c.style.animation = value;
+    anim.current = true;
   }, []);
 
-  /** Một lượt xào: chẻ bài, thi thoảng tráo dồn cho khỏi một màu. */
+  /**
+   * Một lượt xào, tính khi chồng bài vừa được đẩy trở lại cỗ.
+   *
+   * Nghiêng về tráo dồn vì đó đúng là động tác vừa làm — bốc một tệp ra rồi
+   * chồng lại; thi thoảng chen một lượt chẻ bài cho cỗ khỏi trộn mãi một kiểu.
+   * `deep` là chồng vừa rồi nhấc sâu bao nhiêu, đi thẳng vào entropy.
+   */
   const runPass = useCallback(
-    (dir: 1 | -1, dist: number, y: number) => {
-      const next = mixSeed(entropyRef.current, dist, y, performance.now());
+    (deep: number, x: number) => {
+      const next = mixSeed(entropyRef.current, deep, x, performance.now());
       entropyRef.current = next;
       const rand = mulberry32(next);
       deckRef.current =
-        rand() < 0.34
+        rand() < 0.65
           ? overhand(deckRef.current, rand)
           : riffle(deckRef.current, rand, rand() < 0.5);
       setPasses((n) => n + 1);
       setTooSoon(false);
-      play(dir);
+      setAnim(`t24-deck-merge ${PASS_MS}ms`);
     },
-    [play],
+    [setAnim],
   );
 
   /* ---------- Cắt ---------- */
@@ -204,6 +231,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
    * là một nhịp của nghi thức, phải cho người rút nhìn thấy nó xong đã.
    */
   const commitCut = useCallback((at: number) => {
+    kb.current = 0;
     setCutting(true);
     const wait = prefersReduced() ? REDUCED_MS : CUT_MS + 140;
     setTimeout(() => {
@@ -218,6 +246,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   /** Kéo hụt: trả chồng bài về chỗ cũ rồi xoá dấu vết cú kéo. */
   const cancelPull = useCallback(() => {
+    kb.current = 0;
     setSnapping(true);
     setPull(null);
     setTimeout(() => setSnapping(false), SNAP_MS);
@@ -227,81 +256,87 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const drag = useRef<{
     id: number;
-    x0: number;
     y0: number;
-    lastX: number;
-    mode: "chua" | "xao" | "cat" | "chan";
+    /** Vòng này đã nhấc chồng bài xa nhất tới đâu. */
+    deep: number;
+    /** Đã kéo đủ xa để coi là có nhấc, hay mới chỉ rung tay. */
+    keo: boolean;
   } | null>(null);
 
   const onPointerDown = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
       if (cutting || ready) return;
       e.currentTarget.setPointerCapture(e.pointerId);
-      drag.current = {
-        id: e.pointerId,
-        x0: e.clientX,
-        y0: e.clientY,
-        lastX: e.clientX,
-        mode: "chua",
-      };
+      kb.current = 0;
+      drag.current = { id: e.pointerId, y0: e.clientY, deep: 0, keo: false };
     },
     [cutting, ready],
   );
 
+  /**
+   * Một lần giữ tay có thể làm mấy vòng liền: kéo xuống tách chồng ra, đẩy lên
+   * nhập vào là xong một lượt, rồi lại kéo xuống. Mốc đo neo ở chỗ đặt tay ban
+   * đầu suốt cả lần giữ, nên chồng bài luôn nằm đúng nơi ngón tay đang ở.
+   */
   const onPointerMove = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
       const d = drag.current;
       if (!d || d.id !== e.pointerId) return;
-      const dx = e.clientX - d.x0;
       const dy = e.clientY - d.y0;
-
-      /*
-        Chốt hướng ngay từ đoạn đầu rồi giữ nguyên tới lúc nhả tay. Không chốt
-        thì một cú kéo chéo vừa xào vừa cắt, mà cắt xong là sang màn khác.
-      */
-      if (d.mode === "chua") {
-        if (Math.abs(dx) > LOCK_SLOP && Math.abs(dx) >= Math.abs(dy)) {
-          d.mode = "xao";
-        } else if (dy > LOCK_SLOP && Math.abs(dy) > Math.abs(dx)) {
-          /* Cỗ chưa xào mấy mà đã đòi cắt thì nhắc một câu chứ không cắt. */
-          d.mode = passes >= MIN_PASSES ? "cat" : "chan";
-          if (d.mode === "chan") setTooSoon(true);
-        } else {
-          return;
-        }
+      if (!d.keo) {
+        if (dy <= LOCK_SLOP) return;
+        d.keo = true;
       }
 
-      if (d.mode === "xao") {
-        const step = e.clientX - d.lastX;
-        if (Math.abs(step) < SWIPE_STEP) return;
-        d.lastX = e.clientX;
-        runPass(step > 0 ? 1 : -1, Math.abs(step), e.clientY);
-        return;
-      }
+      const p = clamp(dy - LOCK_SLOP, 0, PULL_MAX);
+      /* Nhịp nhập vào của vòng trước còn đang chạy thì gỡ, kẻo bài không theo tay. */
+      if (p > 0 && anim.current) setAnim(null);
+      setSnapping(false);
+      /* Về sát cỗ thì coi như không cầm gì nữa — số 0 và "không cầm" là hai
+         chuyện khác nhau, dòng nhắc với chồng bài trên tay đều đọc chỗ này. */
+      setPull(p > 0 ? p : null);
+      d.deep = Math.max(d.deep, p);
 
-      if (d.mode === "cat") {
-        setSnapping(false);
-        setPull(clamp(dy - LOCK_SLOP, 0, PULL_MAX));
+      /* Nhấc đủ sâu rồi đẩy về sát cỗ: chồng bài đã nhập vào, xong một lượt. */
+      if (d.deep >= PULL_MIN && p <= BACK_PX) {
+        const deep = d.deep;
+        d.deep = 0;
+        setPull(null);
+        runPass(deep, e.clientX);
       }
     },
-    [passes, runPass],
+    [runPass, setAnim],
   );
 
+  /**
+   * Thả tay lúc chồng bài còn tách khỏi cỗ tức là đặt nó xuống bàn — đó là cắt.
+   * Đẩy nó về nhập vào cỗ rồi mới thả thì chẳng có gì xảy ra, vì lượt xào đã
+   * tính xong ngay lúc nhập vào.
+   */
   const onPointerUp = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
       const d = drag.current;
       if (!d || d.id !== e.pointerId) return;
       drag.current = null;
 
-      if (d.mode === "cat") {
-        const dy = clamp(e.clientY - d.y0 - LOCK_SLOP, 0, PULL_MAX);
-        if (dy >= PULL_MIN) commitCut(cutAtFor(dy, total));
-        else cancelPull();
+      /* Chạm một cái mà không kéo đi đâu cũng là một lượt, cho ai quen gõ hơn kéo. */
+      if (!d.keo) {
+        runPass(PULL_MIN, e.clientX);
         return;
       }
-      /* Chạm một cái mà không đi đâu cũng là một lượt — có người quen gõ hơn vuốt. */
-      if (d.mode === "chua") runPass(passes % 2 ? -1 : 1, SWIPE_STEP, e.clientY);
-      if (d.mode === "chan") setPull(null);
+
+      const p = clamp(e.clientY - d.y0 - LOCK_SLOP, 0, PULL_MAX);
+      if (p < PULL_MIN) {
+        cancelPull();
+        return;
+      }
+      /* Cỗ chưa xào mấy mà đã đòi cắt thì nhắc một câu chứ không cắt. */
+      if (passes < MIN_PASSES) {
+        setTooSoon(true);
+        cancelPull();
+        return;
+      }
+      commitCut(cutAtFor(p, total));
     },
     [cancelPull, commitCut, passes, runPass, total],
   );
@@ -310,43 +345,53 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
     (e: ReactKeyboardEvent<HTMLElement>) => {
       if (cutting || ready) return;
       const k = e.key;
-      /* Mũi tên dọc thay cho cú kéo: mỗi nhịp lấy thêm hoặc bớt đi mấy lá. */
+      /*
+        Mũi tên dọc đi đúng đường ngón tay đi: xuống là tách chồng ra, lên là
+        đẩy nhập lại, một vòng như thế là một lượt. Quãng kéo giữ trong ref chứ
+        không đọc từ state — giữ phím thì mấy nhịp liền nhau rơi vào cùng một
+        lượt dựng, đọc từ state là nhịp sau đè nhịp trước, bấm mười cái vẫn đứng
+        yên một chỗ.
+      */
       if (k === "ArrowDown" || k === "ArrowUp") {
         e.preventDefault();
+        const step = (k === "ArrowDown" ? 1 : -1) * (PULL_MAX / 12);
+        /*
+          Nhịp đầu nhảy thẳng tới ngưỡng. Nhích từng tí từ 0 lên thì có lúc chỗ
+          cắt đã hiện trên màn mà Enter lại chưa cắt được, vì quãng kéo chưa qua
+          ngưỡng.
+        */
+        let next =
+          kb.current === 0
+            ? k === "ArrowDown"
+              ? PULL_MIN
+              : 0
+            : clamp(kb.current + step, 0, PULL_MAX);
+        if (next < PULL_MIN) next = 0;
+        const daTach = kb.current >= PULL_MIN;
+        kb.current = next;
+        setSnapping(false);
+        setPull(next > 0 ? next : null);
+        /* Đẩy về sát cỗ sau khi đã tách ra: chồng bài nhập vào, xong một lượt. */
+        if (daTach && next === 0) runPass(PULL_MIN, 0);
+        return;
+      }
+      if (k === "Enter" && kb.current >= PULL_MIN) {
+        e.preventDefault();
+        /* Cỗ chưa xào mấy mà đã đòi cắt thì nhắc một câu chứ không cắt. */
         if (passes < MIN_PASSES) {
           setTooSoon(true);
+          cancelPull();
           return;
         }
-        const step = (k === "ArrowDown" ? 1 : -1) * (PULL_MAX / 12);
-        setSnapping(false);
-        /*
-          Cộng dồn trên giá trị hiện có chứ không trên giá trị đọc được lúc dựng
-          màn: giữ phím thì mấy nhịp liền nhau rơi vào cùng một lượt dựng, đọc
-          kiểu kia là nhịp sau đè lên nhịp trước, bấm mười cái vẫn đứng yên một chỗ.
-        */
-        setPull((prev) => {
-          /*
-            Nhịp đầu nhảy thẳng tới ngưỡng cắt. Nhích từng tí một từ 0 lên thì
-            có lúc chỗ cắt đã hiện trên màn mà Enter lại rơi vào nhánh xào, vì
-            quãng kéo vẫn chưa qua ngưỡng.
-          */
-          if (prev === null) return k === "ArrowDown" ? PULL_MIN : null;
-          const next = clamp(prev + step, 0, PULL_MAX);
-          return next >= PULL_MIN ? next : null;
-        });
+        commitCut(cutAtFor(kb.current, total));
         return;
       }
-      if (k === "Enter" && pull !== null && pull >= PULL_MIN) {
+      if (k === "Enter" || k === " ") {
         e.preventDefault();
-        commitCut(cutAtFor(pull, total));
-        return;
-      }
-      if (k === "Enter" || k === " " || k === "ArrowLeft" || k === "ArrowRight") {
-        e.preventDefault();
-        runPass(k === "ArrowLeft" ? -1 : 1, SWIPE_STEP, 0);
+        runPass(PULL_MIN, 0);
       }
     },
-    [commitCut, cutting, passes, pull, ready, runPass, total],
+    [cancelPull, commitCut, cutting, passes, ready, runPass, total],
   );
 
   /* ---------- Xào hộ ---------- */
@@ -395,37 +440,47 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const moving = cutting || snapping || settling;
   const moveMs = cutting ? CUT_MS : settling ? SETTLE_MS : SNAP_MS;
+  /*
+    Lúc chồng bài đang trên tay thì câu nhắc phải nói cả hai lối ra, vì đẩy lên
+    hay thả tay đều là một quyết định thật: đẩy lên là xào thêm một lượt, thả
+    tay là đặt chồng xuống, tức là cắt.
+  */
   const hint = ready
     ? "Cỗ bài đã xào và cắt xong"
     : cutting
       ? "Đang cắt cỗ…"
       : cutAt
-        ? `Cắt ở lá thứ ${cutAt} · thả tay ra là xong`
+        ? `Đẩy lên để nhập lại · thả tay ra là cắt ở lá thứ ${cutAt}`
         : pull !== null
-          ? "Kéo thêm chút nữa để cắt cỗ"
+          ? passes < MIN_PASSES
+            ? "Đẩy lên để nhập lại · một vòng là một lượt xào"
+            : "Đẩy lên để nhập lại · kéo sâu thêm mới cắt được"
           : tooSoon
             ? "Xào thêm vài lượt rồi hãy cắt"
             : passes === 0
-              ? "Vuốt ngang qua cỗ bài để xào"
+              ? "Kéo cỗ bài xuống phía bạn để tách một chồng ra"
               : passes < MIN_PASSES
-                ? `Đã xào ${passes} lượt · vuốt thêm ${MIN_PASSES - passes} lượt nữa`
-                : `Đã xào ${passes} lượt · kéo cỗ bài xuống để cắt`;
+                ? `Đã xào ${passes} lượt · làm thêm ${MIN_PASSES - passes} vòng nữa`
+                : `Đã xào ${passes} lượt · thả tay khi bài còn tách ra là cắt`;
 
   return (
     <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:px-0">
       <h1 className="font-serif text-xl text-ink md:text-2xl">Xào bài</h1>
       <p className="mt-1.5 text-[13.5px]/[1.65] text-pretty text-muted">
-        Giữ câu hỏi trong đầu rồi vuốt ngang qua cỗ bài. Thấy đủ thì kéo cỗ
-        xuống phía mình để cắt — cỗ bài này do tay bạn xào.
+        Giữ câu hỏi trong đầu rồi kéo cỗ bài xuống phía bạn để tách một chồng
+        ra, đẩy lên cho nhập lại vào cỗ — một vòng như thế là một lượt xào. Thấy
+        đủ thì thả tay lúc bài còn đang tách ra, đó là nhát cắt.
       </p>
 
       <div
+        ref={boxRef}
         role="button"
         tabIndex={cutting || ready ? -1 : 0}
         aria-label={
           ready
             ? "Cỗ bài đã xào và cắt xong."
-            : `Cỗ bài. Vuốt ngang để xào, kéo xuống để cắt cỗ. Đã xào ${passes} lượt.`
+            : /* Nhãn kể cả đường bàn phím, vì dòng nhắc dưới màn chỉ nói tới ngón tay. */
+              `Cỗ bài. Kéo xuống rồi đẩy lên là một lượt xào, thả tay lúc bài còn tách ra là cắt cỗ. Bằng bàn phím: mũi tên xuống bốc chồng ra, mũi tên lên nhập lại, Enter để cắt. Đã xào ${passes} lượt.`
         }
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
@@ -539,14 +594,31 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         người rút tự bấm khi thấy sẵn sàng.
       */}
       {ready ? (
-        <button
-          ref={startRef}
-          type="button"
-          onClick={() => onDone(deckRef.current)}
-          className={buttonClass("primary", "md", "mt-8 animate-rise self-center")}
-        >
-          Bắt đầu rút bài
-        </button>
+        <>
+          <button
+            ref={startRef}
+            type="button"
+            onClick={() => onDone(deckRef.current)}
+            className={buttonClass("primary", "md", "mt-8 animate-rise self-center")}
+          >
+            Bắt đầu rút bài
+          </button>
+          {/*
+            Lỡ tay thả sớm thì nhát cắt đã xuống rồi. Cắt sớm chẳng hỏng gì cỗ
+            bài, nhưng phải có đường quay lại bàn xào, kẻo người rút mắc kẹt ở
+            một cỗ mình chưa thấy ưng.
+          */}
+          <button
+            type="button"
+            onClick={() => {
+              setReady(false);
+              boxRef.current?.focus();
+            }}
+            className="mt-3.5 self-center text-[13px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi"
+          >
+            Xào thêm
+          </button>
+        </>
       ) : (
         <button
           type="button"
