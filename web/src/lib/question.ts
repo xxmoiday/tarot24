@@ -207,11 +207,17 @@ const TOPIC_HINTS: Record<Exclude<TopicKey, "general">, RegExp> = {
   study: /\b(hoc|thi|truong|luan van|du hoc|chuyen nganh|tot nghiep|bai vo)\b/,
 };
 
-function detectTopic(q: string): TopicKey {
+/**
+ * Đoán lĩnh vực từ chính câu hỏi. Ngoài đời không ai hỏi "bạn muốn xem mảng
+ * nào", người đọc nghe chuyện rồi tự biết. Không đọc ra gì thì trả null để
+ * chỗ gọi giữ mặc định của kiểu trải chứ đừng đoán bừa.
+ */
+export function detectTopic(question: string): Exclude<TopicKey, "general"> | null {
+  const q = deaccent(question);
   for (const [key, re] of Object.entries(TOPIC_HINTS)) {
-    if (re.test(q)) return key as TopicKey;
+    if (re.test(q)) return key as Exclude<TopicKey, "general">;
   }
-  return "general";
+  return null;
 }
 
 /**
@@ -259,7 +265,7 @@ const REASON_CHUNG = "Hợp với cỡ câu hỏi bạn vừa gõ.";
 function scoreAll(question: string, khungOnly = false): Map<string, Score> {
   const q = deaccent(question.trim());
   const qt = tokens(q);
-  const topic = detectTopic(q);
+  const topic = detectTopic(question);
   const words = question.trim().split(/\s+/).filter(Boolean).length;
 
   const out = new Map<string, Score>();
@@ -289,7 +295,7 @@ function scoreAll(question: string, khungOnly = false): Map<string, Score> {
       const minus = overlap(qt, lex.notFor) * LEX_EACH;
       if (plus) bump(s.slug, plus);
       if (minus) bump(s.slug, -minus);
-      if (topic !== "general" && s.defaultTopic === topic) bump(s.slug, 1.5);
+      if (topic && s.defaultTopic === topic) bump(s.slug, 1.5);
     }
     /* Cỡ câu hỏi cũng là khung: câu cụt thì đừng đẩy sang trải bảy mười lá. */
     if (words >= CAU_DAI && s.count >= 7) bump(s.slug, 1);

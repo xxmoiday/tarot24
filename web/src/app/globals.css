@@ -27,11 +27,12 @@
   --animate-fade: t24-fade 0.6s ease both;
   --animate-hero-fade: t24-hero-fade 21s ease-in-out infinite both;
   /*
-   * Độ trễ nằm sẵn trong token: 1040ms thu bài xong, nghỉ thêm 400ms cho người
-   * rút kịp nhìn chồng bài, rồi màn rút bài mới mờ đi. Đổi số ở đây thì sửa cả
-   * GATHER_MS, SETTLE_MS và OUTRO_MS bên ReadingFlow.
+   * Độ trễ nằm sẵn trong token: 1580ms cho lá cuối bay tới ô, nằm im rồi lật
+   * ngửa xong — thu bài chạy song song và xong sớm hơn — rồi nghỉ thêm 320ms
+   * cho người rút kịp nhìn cả bàn, màn rút bài mới mờ đi. Đổi số ở đây thì sửa
+   * cả REVEAL_MS bên BoardCard và HOLD_MS, OUTRO_MS bên ReadingFlow.
    */
-  --animate-step-out: t24-step-out 320ms ease 1440ms both;
+  --animate-step-out: t24-step-out 320ms ease 1900ms both;
 
   /* Chạm một lá trên bàn thì đoạn nói về lá đó sáng lên một nhịp rồi tắt. */
   --animate-flash: t24-flash 1.6s ease both;
@@ -99,6 +100,55 @@
   100% {
     transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0);
     rotate: 0deg;
+  }
+}
+
+/*
+ * Xoè bài: ngược hẳn với thu bài. Cả cỗ khởi đi từ mép trái khung — đúng chỗ
+ * chồng bài vừa nằm — rồi từng lá trải ra chỗ của nó, lá gần trước lá xa sau,
+ * nên nhìn thành một nhát xoè chạy dọc dải bài chứ không phải cả dải hiện ra
+ * cùng lúc. --fx và --fy do JS đo lúc bắt đầu xoè.
+ */
+@keyframes t24-deck-fan {
+  0% {
+    transform: translate3d(var(--fx, 0px), var(--fy, 0px), 0);
+    rotate: 0deg;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/*
+ * Lá vừa rút bay từ cỗ về ô của nó, vẫn úp. Chỗ xuất phát (--fx, --fy, --fs) do
+ * JS đo, vì lá đi từ đúng chỗ ngón tay vừa chạm — chồng bài ở góc hay một lá
+ * nằm giữa dải bài đều được. Nghiêng đi một chút lúc rời cỗ rồi nằm thẳng lại
+ * khi đặt xuống, như lá được nhấc lên bằng đầu ngón tay.
+ */
+@keyframes t24-card-fly {
+  0% {
+    transform: translate3d(var(--fx, 0px), var(--fy, 0px), 0) scale(var(--fs, 1))
+      rotate(-5deg);
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0.2, 1);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+/*
+ * Cỗ bài rời bàn xào về góc trái bàn bài: vừa đi vừa nằm phẳng lại và co về
+ * đúng khổ của bàn bài. Chỗ xuất phát (--lx, --ly, --ls) do JS đo, vì nó là chỗ
+ * cỗ bài đang đứng thật trên màn xào chứ không phải một điểm đoán sẵn.
+ */
+@keyframes t24-deck-land {
+  0% {
+    transform: translate3d(var(--lx, 0px), var(--ly, 0px), 0)
+      scale(var(--ls, 1)) perspective(1100px) rotateX(52deg);
+  }
+  100% {
+    transform: none;
   }
 }
 

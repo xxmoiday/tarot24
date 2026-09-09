@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { TarotCardFace, TarotCardSlot } from "@/components/TarotCardFace";
+import { TarotCardSlot } from "@/components/TarotCardFace";
 import { buttonClass, Disclaimer, Eyebrow } from "@/components/ui";
 import { CARDS, getCard } from "@/lib/cards";
 import { detectGuard } from "@/lib/guard";
-import { betterSpread, detectVague } from "@/lib/question";
+import { betterSpread, detectTopic, detectVague } from "@/lib/question";
 import {
   applyUprightOnly,
   makeSeed,
@@ -18,7 +18,10 @@ import {
 import { composeClarifier, composeReading } from "@/lib/reading";
 import { decodeReading, encodeReading } from "@/lib/share";
 import { TOPICS, type Spread, type TopicKey } from "@/lib/spreads";
+import { BoardCard, REVEAL_MS } from "./BoardCard";
+import { DeckPile } from "./DeckPile";
 import { DeckSpread, GATHER_MS } from "./DeckSpread";
+import type { DeckSpot } from "./deck-spot";
 import {
   ReadingView,
   type Clarifier,
@@ -31,15 +34,16 @@ type Step = "ask" | "shuffle" | "draw" | "result";
 
 const MAX_QUESTION = 200;
 
-/** Thu xong thì để chồng bài nằm yên một nhịp, đừng cắt cảnh ngay. */
-const SETTLE_MS = 400;
+/** Xong hết rồi thì để cả bàn nằm yên một nhịp, đừng cắt cảnh ngay. */
+const HOLD_MS = 320;
 
 /**
- * Cả đoạn kết màn rút bài: thu bài, nghỉ, rồi mờ đi. Phải khớp với
- * --animate-step-out trong globals.css, ở đó độ trễ đúng bằng GATHER_MS +
- * SETTLE_MS và thời lượng đúng bằng 320ms.
+ * Cả đoạn kết màn rút bài. Hai việc chạy song song: lá cuối bay về ô rồi lật
+ * ngửa, và cỗ bài còn lại được thu về — cái nào xong sau thì đợi cái đó, rồi
+ * nghỉ một nhịp mới mờ đi. Phải khớp với --animate-step-out trong globals.css,
+ * ở đó độ trễ đúng bằng đoạn chờ ấy và thời lượng đúng bằng 320ms.
  */
-const OUTRO_MS = GATHER_MS + SETTLE_MS + 320;
+const OUTRO_MS = Math.max(REVEAL_MS, GATHER_MS) + HOLD_MS + 320;
 
 /** Tắt hiệu ứng chuyển động thì chỉ giữ lại một nhịp cho đỡ giật màn. */
 const OUTRO_MS_REDUCED = 220;
@@ -63,9 +67,16 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const [question, setQuestion] = useState(
     () => initial?.question ?? carried.slice(0, MAX_QUESTION),
   );
-  const [topic, setTopic] = useState<TopicKey>(
-    initial?.topic ?? spread.defaultTopic,
+  /**
+   * Lĩnh vực người rút tự chọn. Chưa chọn thì để null và đoán từ câu hỏi —
+   * ngoài đời người đọc nghe chuyện rồi tự biết đang xem mảng nào, không bắt
+   * khách khai. Bài mở lại từ đường dẫn thì lĩnh vực đã chốt rồi, giữ nguyên.
+   */
+  const [pickedTopic, setPickedTopic] = useState<TopicKey | null>(
+    initial?.topic ?? null,
   );
+  const guessedTopic = useMemo(() => detectTopic(question), [question]);
+  const topic: TopicKey = pickedTopic ?? guessedTopic ?? spread.defaultTopic;
   const [seed, setSeed] = useState(0);
   /**
    * Cỗ bài của lượt này. Nó là trạng thái chứ không phải hàm của seed, vì từ
@@ -73,7 +84,22 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
    * cắt cỗ, đều đổi thật thứ tự mảng này.
    */
   const [deck, setDeck] = useState<DrawnCard[]>([]);
-  const [picked, setPicked] = useState<number[]>([]);
+  /**
+   * Những lá đã rút, theo đúng thứ tự rút: `at` là chỗ nó nằm trong cỗ, `from`
+   * là chỗ trên màn nó vừa rời đi. Hai thứ đi chung một chỗ vì chúng sinh ra
+   * cùng một lúc — tách làm hai danh sách thì có ngày lệch nhau một nhịp và lá
+   * bay đi từ chỗ của lá khác.
+   */
+  const [taken, setTaken] = useState<{ at: number; from: DeckSpot }[]>([]);
+  const picked = useMemo(() => taken.map((t) => t.at), [taken]);
+  /**
+   * Cỗ đã xoè ra thành dải bài hay chưa. Mở màn rút bài thì chưa: cỗ nằm úp ở
+   * góc trái, chạm vào là rút lá trên cùng. Xoè hay không là việc của người
+   * rút, kéo cỗ sang phải thì nó mới trải ra.
+   */
+  const [fanned, setFanned] = useState(false);
+  /** Chỗ cỗ bài vừa đứng ở màn xào, để bàn bài đón nó từ đúng đó. */
+  const [deckFrom, setDeckFrom] = useState<DeckSpot | null>(null);
   const [shareId, setShareId] = useState(initial ? restored! : "");
   const [essay, setEssay] = useState<string | null>(null);
   const [parts, setParts] = useState<ReadingParts | null>(null);
@@ -109,17 +135,56 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     setSeed(s);
     /* Cỗ bài mở ra đúng như nó nằm sau lượt đọc trước, chứ không xếp theo bộ. */
     setDeck(shuffleDeck(s));
-    setPicked([]);
+    setTaken([]);
+    setFanned(false);
+    setDeckFrom(null);
     setStep("shuffle");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  /** Người rút xào và cắt xong thì nhận lại cỗ bài của họ, rồi mở ra cho chạm chọn. */
-  const finishShuffle = useCallback((shuffled: DrawnCard[]) => {
-    setDeck(shuffled);
-    setStep("draw");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  /**
+   * Người rút xào và cắt xong thì nhận lại cỗ bài của họ. Cỗ sang bàn bài vẫn
+   * nằm úp nguyên chồng — `from` là chỗ nó vừa đứng ở màn xào, để nó bay từ đó
+   * về góc trái bàn chứ không hiện ra ở chỗ khác.
+   */
+  const finishShuffle = useCallback(
+    (shuffled: DrawnCard[], from: DeckSpot | null) => {
+      setDeck(shuffled);
+      setDeckFrom(from);
+      setStep("draw");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    },
+    [],
+  );
+
+  /** Nhận một lá vào bàn, nhớ luôn chỗ nó vừa rời đi để nó bay từ đúng đó. */
+  const takeCard = useCallback(
+    (at: number, from: DeckSpot) => {
+      setTaken((t) =>
+        t.length >= spread.count || t.some((x) => x.at === at)
+          ? t
+          : [...t, { at, from }],
+      );
+    },
+    [spread.count],
+  );
+
+  /**
+   * Chạm vào cỗ úp: rút lá trên cùng. Cỗ nằm theo thứ tự vừa xào, lá đầu mảng
+   * là lá trên cùng — đúng lá mà người đọc lật lên nếu không trải cả bộ ra.
+   */
+  const drawTop = useCallback(
+    (from: DeckSpot) => {
+      setTaken((t) => {
+        if (t.length >= spread.count) return t;
+        for (let i = 0; i < deck.length; i++) {
+          if (!t.some((x) => x.at === i)) return [...t, { at: i, from }];
+        }
+        return t;
+      });
+    },
+    [deck.length, spread.count],
+  );
 
   /**
    * Chọn đủ lá thì thu cỗ bài lại — ngoài đời người đọc cũng vỗ gọn cỗ còn lại
@@ -288,9 +353,12 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     setEssayFor(null);
     setFollowUps([]);
     setClarifiers([]);
-    setPicked([]);
+    setTaken([]);
+    setFanned(false);
+    setDeckFrom(null);
     setDeck([]);
     setSeed(0);
+    setPickedTopic(null);
     setStep("ask");
     router.replace(`/rut-bai/${spread.slug}`, { scroll: false });
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -386,7 +454,14 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
         ) : null}
 
         <div className="mt-2 flex flex-col gap-2.5">
-          <Eyebrow>Lĩnh vực</Eyebrow>
+          <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+            <Eyebrow>Lĩnh vực</Eyebrow>
+            {!pickedTopic && guessedTopic ? (
+              <span className="text-[12.5px] text-muted">
+                đoán từ câu hỏi, đổi được
+              </span>
+            ) : null}
+          </div>
           <div className="flex flex-wrap gap-2">
             {TOPICS.map((t) => {
               const active = t.key === topic;
@@ -395,7 +470,7 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
                   key={t.key}
                   type="button"
                   aria-pressed={active}
-                  onClick={() => setTopic(t.key)}
+                  onClick={() => setPickedTopic(t.key)}
                   className={`rounded-full border px-4 py-2 text-[13.5px] transition-colors ${
                     active
                       ? "border-gold bg-gold font-semibold text-bg"
@@ -447,17 +522,21 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     return <ShuffleRitual deck={deck} seed={seed} onDone={finishShuffle} />;
   }
 
-  /* ---------- Bước 3 · chạm chọn lá ---------- */
+  /* ---------- Bước 3 · rút lá ---------- */
   if (step === "draw") {
     const slotCols = Math.min(spread.count, 5);
     return (
       <div
         className={`flex flex-col pb-8 ${gathering ? "animate-step-out" : ""}`}
       >
-        <div className="mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
-          <div className="flex items-baseline justify-between">
+        {/*
+          Bàn nằm trên cỗ bài một lớp: lá vừa rút bay lên từ dưới, phải thấy nó
+          nhấc khỏi mặt cỗ chứ không phải chui ra từ sau lưng cỗ.
+        */}
+        <div className="relative z-10 mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
+          <div className="flex animate-rise items-baseline justify-between">
             <h1 className="font-serif text-xl text-ink md:text-2xl">
-              Chạm chọn {spread.count} lá
+              Rút {spread.count} lá
             </h1>
             <span className="text-[13px] font-medium text-gold">
               {picked.length} / {spread.count}
@@ -480,17 +559,21 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
               const card = drawn[i] ? getCard(drawn[i].slug) : undefined;
               const isNext = i === picked.length;
               return (
+                /*
+                  Bàn bày ra từng ô một, trái sang phải, như người đọc đặt tay
+                  xuống chỉ chỗ cho từng vị trí trước khi rút.
+                */
                 <div
                   key={pos.label}
-                  className="flex flex-col items-center gap-2"
+                  className="flex animate-rise flex-col items-center gap-2"
+                  style={{ animationDelay: `${90 + i * 70}ms` }}
                 >
                   {card ? (
-                    <TarotCardFace
+                    <BoardCard
                       imageId={card.id}
                       title={card.vi}
-                      face="up"
                       reversed={drawn[i].reversed}
-                      className="w-full animate-fly"
+                      from={taken[i]?.from ?? null}
                     />
                   ) : (
                     <TarotCardSlot
@@ -514,15 +597,32 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           Trước đây chỗ này còn một chồng bài úp để trang trí. Nó vẽ lại đúng
           hình ảnh bộ bài nằm ngay bên dưới mà lại đẩy chỗ chạm chọn xuống dưới
           nếp gấp, nên chỉ giữ lại quầng sáng và đưa xuống sau lưng bộ bài thật.
+
+          Cỗ mở màn ở dạng úp nguyên chồng. Xoè cả bộ ra là một lựa chọn của
+          người rút chứ không phải mặc định: kéo cỗ sang phải thì nó mới trải
+          thành dải bài, còn không thì chạm vào cỗ là rút lá trên cùng.
         */}
         <div className="mt-8">
-          <DeckSpread
-            total={deck.length}
-            picked={picked}
-            locked={picked.length >= spread.count}
-            gathering={gathering}
-            onPick={(i) => setPicked((p) => (p.includes(i) ? p : [...p, i]))}
-          />
+          {fanned ? (
+            <DeckSpread
+              total={deck.length}
+              picked={picked}
+              locked={picked.length >= spread.count}
+              gathering={gathering}
+              fanning
+              onPick={takeCard}
+            />
+          ) : (
+            <DeckPile
+              total={deck.length}
+              taken={picked.length}
+              locked={picked.length >= spread.count}
+              from={deckFrom}
+              aside={gathering}
+              onFan={() => setFanned(true)}
+              onDraw={drawTop}
+            />
+          )}
         </div>
       </div>
     );

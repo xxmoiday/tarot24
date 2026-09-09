@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { TarotCardFace } from "@/components/TarotCardFace";
+import { spotOf, type DeckSpot } from "./deck-spot";
 
 /** Kéo quá ngần này px thì coi là kéo dải bài, không tính là chạm chọn lá. */
 const DRAG_SLOP = 6;
@@ -16,6 +17,12 @@ const GATHER_STAGGER_MS = 220;
 /** Cả cỗ thu xong sau chừng này, tính cả lá về trễ nhất. */
 export const GATHER_MS = GATHER_EACH_MS + GATHER_STAGGER_MS;
 
+/** Một lá mất bấy nhiêu để trải ra chỗ của nó lúc xoè cỗ. */
+const FAN_EACH_MS = 620;
+
+/** Lá càng xa mép trái càng ra trễ, nhưng trễ nhất cũng chỉ tới đây. */
+const FAN_STAGGER_MS = 420;
+
 export interface DeckSpreadProps {
   /** Số lá đang trải, thường là cả bộ 78. */
   total: number;
@@ -25,7 +32,10 @@ export interface DeckSpreadProps {
   locked: boolean;
   /** Rút xong lá cuối: thu cả dải bài về một chồng, như vỗ bài lại ngoài đời. */
   gathering?: boolean;
-  onPick: (index: number) => void;
+  /** Dải bài này vừa xoè ra từ chồng bài ở góc trái, nên có nhát xoè mở màn. */
+  fanning?: boolean;
+  /** `from` là chỗ chính lá vừa chạm, để nó bay đi từ đúng đó chứ không đâu khác. */
+  onPick: (index: number, from: DeckSpot) => void;
 }
 
 /**
@@ -40,6 +50,7 @@ export function DeckSpread({
   picked,
   locked,
   gathering = false,
+  fanning = false,
   onPick,
 }: DeckSpreadProps) {
   const boxRef = useRef<HTMLDivElement>(null);
@@ -60,6 +71,32 @@ export function DeckSpread({
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  /*
+    Xoè bài, ngược hẳn với thu bài ở dưới: cả cỗ khởi đi từ mép trái khung —
+    đúng chỗ chồng bài vừa đứng — rồi từng lá trải ra chỗ của nó, lá gần trước
+    lá xa sau. Cũng đo rồi gắn thẳng lên từng nút vì cùng một lẽ: chỗ đứng của
+    lá phụ thuộc chỗ đang cuộn của dải bài, chỉ lúc này mới biết.
+  */
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!fanning || !el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Mép trái đang thấy được: chồng bài nằm ngay đó trước khi xoè. */
+    const edge = el.scrollLeft;
+    const cards = el.querySelectorAll<HTMLElement>("button");
+    let far = 1;
+    cards.forEach((c) => {
+      far = Math.max(far, Math.abs(edge - c.offsetLeft));
+    });
+    cards.forEach((c) => {
+      const dx = edge - c.offsetLeft;
+      c.style.setProperty("--fx", `${Math.round(dx)}px`);
+      c.style.setProperty("--fy", `${Math.round(14 - c.offsetTop)}px`);
+      const delay = Math.round((Math.abs(dx) / far) * FAN_STAGGER_MS);
+      c.style.animation = `t24-deck-fan ${FAN_EACH_MS}ms ${delay}ms both`;
+    });
+  }, [fanning]);
 
   /*
     Thu bài. Quãng đường của từng lá chỉ biết được lúc này, vì nó phụ thuộc chỗ
@@ -184,9 +221,9 @@ export function DeckSpread({
                   type="button"
                   disabled={used || locked}
                   aria-label={`Chọn lá thứ ${i + 1}`}
-                  onClick={() => {
+                  onClick={(e) => {
                     if (draggedRef.current) return;
-                    onPick(i);
+                    onPick(i, spotOf(e.currentTarget));
                   }}
                   /*
                     Chỉ lá đã rút mới biến mất. Trước đây khoá cả dải là mọi lá
