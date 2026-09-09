@@ -10,3 +10,21 @@ export const SITE = {
 export function absoluteUrl(path = "/") {
   return new URL(path, SITE.url).toString();
 }
+
+/**
+ * BreadcrumbList cho các trang con. Google dùng nó để in đường dẫn thay cho URL
+ * trong kết quả tìm kiếm, nên mọi trang chi tiết đều nên có.
+ */
+export function breadcrumbLd(trail: { name: string; path?: string }[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: [{ name: "Trang chủ", path: "/" }, ...trail].map(
+      (item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        ...(item.path ? { item: absoluteUrl(item.path) } : {}),
+      }),
+    ),
+  };
+}

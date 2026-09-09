@@ -14,8 +14,8 @@ build.py               PHA 5: cards/ -> build/cards.json
 validate.py            PHA 5: fail nếu sai schema / thiếu lá / cot_loi quá giống
 raw/<field>/<G>.json   output thô từng pha sinh (theo trường × nhóm)
 reports/               A_du_kien, B_trung_lap, C_an_toan_giong_van, D_cho_khong_chac, E_top20_cot_loi, F_kiem_trai_bai_va_prompt
-spreads/<id>.yaml      11 kiểu trải bài (vị trí, câu hỏi, gợi ý đọc, luật đọc, ví dụ minh hoạ) — NGƯỜI SỬA Ở ĐÂY
-spreads/TRAI_BAI.md    bản đọc cho người của 11 kiểu trải + 14 bài luận mẫu
+spreads/<id>.yaml      15 kiểu trải bài (vị trí, câu hỏi, gợi ý đọc, luật đọc, ví dụ minh hoạ) — NGƯỜI SỬA Ở ĐÂY
+spreads/TRAI_BAI.md    bản đọc cho người của 15 kiểu trải + 18 bài luận mẫu
 spreads/schema.json    schema trải bài; spreads/raw_vi_du/ là lá rút sẵn + bài mẫu (nguồn của vi_du)
 build/spreads.json     bản build trải bài (build_spreads.py sinh)
 build_spreads.py       validate + build trải bài; --merge để đổ raw_vi_du vào YAML
@@ -61,3 +61,5 @@ trước `build`/`test`, nên chỉ bước `kb:sync` (sau khi build lại KB) l
 - D_cho_khong_chac.md: chỗ cần reader cầm bộ bài thật soát + các lựa chọn nghĩa Waite/phổ thông đã chọn + hạn chế kỹ thuật (embedding TF-IDF thay vì đa ngữ)
 
 Lần chạy 2 đã thêm: 11 kiểu trải bài + 14 bài luận mẫu (rút ngẫu nhiên) + system prompt. Còn ngoài phạm vi: bảng luật tổ hợp cặp lá (chưa làm).
+
+Lần chạy 3 đã thêm 4 kiểu trải nữa, thành 15: móng ngựa 7 lá, nhìn lại mình 3 lá, tuần này 7 lá, năm tới 12 lá. Bàn bài của 4 ví dụ này dựng theo tay chứ không rút seed.

@@ -3,7 +3,7 @@ import { CardLibrary } from "@/components/CardLibrary";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { CARDS } from "@/lib/cards";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, breadcrumbLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Thư viện 78 lá bài tarot",
@@ -15,16 +15,21 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  name: "Thư viện 78 lá bài tarot",
-  url: absoluteUrl("/la-bai"),
-  inLanguage: "vi-VN",
-  isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
-  hasPart: CARDS.slice(0, 78).map((c) => ({
-    "@type": "Article",
-    name: `${c.vi} · ${c.en}`,
-    url: absoluteUrl(`/la-bai/${c.slug}`),
-  })),
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      name: "Thư viện 78 lá bài tarot",
+      url: absoluteUrl("/la-bai"),
+      inLanguage: "vi-VN",
+      isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+      hasPart: CARDS.slice(0, 78).map((c) => ({
+        "@type": "Article",
+        name: `${c.vi} · ${c.en}`,
+        url: absoluteUrl(`/la-bai/${c.slug}`),
+      })),
+    },
+    breadcrumbLd([{ name: "Thư viện 78 lá" }]),
+  ],
 };
 
 export default function LibraryPage() {

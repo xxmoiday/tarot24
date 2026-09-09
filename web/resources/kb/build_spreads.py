@@ -68,8 +68,8 @@ def validate_and_build():
         for e in errs:
             print(" -", e)
         return 1
-    order = {k: i for i, k in enumerate(["mot_la_hom_nay", "mot_la_co_khong", "ba_la_thoi_gian", "ba_la_tinh_huong", "nam_la_tinh_cam", "celtic_cross",
-                                          "cong_viec_5", "tien_bac_4", "hai_nguoi", "quyet_dinh_ab", "thang_toi"])}
+    order = {k: i for i, k in enumerate(["mot_la_hom_nay", "mot_la_co_khong", "ba_la_thoi_gian", "ba_la_tinh_huong", "nam_la_tinh_cam", "mong_ngua_7", "celtic_cross",
+                                          "cong_viec_5", "tien_bac_4", "hai_nguoi", "quyet_dinh_ab", "ban_than_3", "tuan_nay_7", "thang_toi", "nam_toi_12"])}
     spreads.sort(key=lambda d: order.get(d["id"], 99))
     os.makedirs(os.path.join(ROOT, "build"), exist_ok=True)
     out = os.path.join(ROOT, "build", "spreads.json")

@@ -416,6 +416,27 @@ const BODY_PLAN: Record<string, { g: number[]; brief?: number[] }[]> = {
   ],
   // Lá hai và lá ba là cặp then chốt, đi chung một đoạn
   "bon-la-tien-bac": [{ g: [0] }, { g: [1, 2] }, { g: [3] }],
+  // Móng ngựa: quá khứ nhắc một câu, cái khuất và cái cản đi chung, kết cục đứng riêng
+  "bay-la-mong-ngua": [
+    { g: [0, 1], brief: [0] },
+    { g: [2, 3], brief: [2] },
+    { g: [4, 5], brief: [4] },
+    { g: [6] },
+  ],
+  // Bảy ngày gom thành đầu tuần, giữa tuần, nửa sau và ngày khép
+  "bay-la-tuan-nay": [
+    { g: [0, 1, 2], brief: [1, 2] },
+    { g: [3] },
+    { g: [4, 5], brief: [4] },
+    { g: [6] },
+  ],
+  // Mười hai tháng gom thành bốn quý, mỗi quý nói kỹ tháng lệch nhất
+  "muoi-hai-la-nam-toi": [
+    { g: [0, 1, 2], brief: [1] },
+    { g: [3, 4, 5], brief: [3, 4] },
+    { g: [6, 7, 8], brief: [7, 8] },
+    { g: [9, 10, 11], brief: [9, 10] },
+  ],
 };
 
 function runPlan(

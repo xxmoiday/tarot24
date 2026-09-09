@@ -1,0 +1,96 @@
+id: mong_ngua_7
+ten_vi: Bảy lá móng ngựa
+ten_en: Seven Card Horseshoe
+nhom: co_ban
+so_la: 7
+mo_ta: Bảy lá xếp thành vòng cung như hình móng ngựa, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic. Nhìn được cả gốc, cả chỗ đang cản, cả cái còn khuất và người xung quanh.
+hop_voi:
+- Chuyện ở chỗ làm của mình đang thế nào
+- Mối này đang vướng ở đâu, nhìn giúp mình một lượt
+- Mình đang kẹt mà chưa biết kẹt chỗ nào
+- Chuyện này còn gì mình chưa nhìn ra không
+khong_hop_voi:
+- Nên chọn bên này hay bên kia
+- Hôm nay có nên nhắn cho người đó không
+- Bao giờ chuyện này xong
+cach_rut: Xào bài, rút bảy lá và đặt thành một vòng cung mở lên như hình móng ngựa, từ trái sang phải theo thứ tự một tới bảy.
+vi_tri:
+- stt: 1
+  ten: Quá khứ
+  cau_hoi: Chuyện này từ đâu mà ra, cái gì đã xảy ra và còn để dấu lên hôm nay
+  goi_y_doc: Đọc ở thì đã qua, kể như chuyện đã xảy ra rồi. Lá nặng là cái vết còn kéo theo, lá nhẹ là cái vốn còn dùng được. Lá ngược thiên về chuyện cũ chưa dứt hẳn. Nói gọn một hai câu, đừng dừng lâu ở đây.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Hiện tại
+  cau_hoi: Ngay lúc này chuyện đang ở đâu và cái gì đang chi phối người hỏi
+  goi_y_doc: Đây là lá đọc kỹ nhất bàn, dùng sac_thai của nó để cân giọng cả bài. Nối thẳng với lá một, nói cho ra cái hiện tại này sinh từ quá khứ kia thế nào. Lá hoàng gia đọc theo la_nang_luong trừ khi câu hỏi có một người cụ thể.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Cái còn khuất
+  cau_hoi: Cái gì đang tác động vào chuyện này mà người hỏi chưa nhìn ra
+  goi_y_doc: Đọc như một thứ đang chạy dưới mặt, chưa lộ. Lá ngược ở đây thiên về cái khuất đang lộ dần. Không phán về người vắng mặt như sự thật, chỉ nói cái đang cho thấy từ phía người hỏi. Đọc nối liền với lá bốn, hai lá này là một cặp.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 4
+  ten: Cái đang cản
+  cau_hoi: Cái gì đang chặn chuyện này lại, và nó chặn bằng cách nào
+  goi_y_doc: Lá tốt ở đây vẫn là trở ngại, dùng phần đầu của canh_bao để nói mặt cản của nó. Nối với lá ba để phân biệt cái khuất và cái cản, một cái chưa thấy, một cái thấy rồi mà chưa gỡ. Lá ngược thiên về cái cản đang yếu đi hoặc đang tự vỡ.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 5
+  ten: Người và hoàn cảnh xung quanh
+  cau_hoi: Người khác và hoàn cảnh bên ngoài đang đẩy chuyện này theo hướng nào
+  goi_y_doc: Nói cái người hỏi gặp phải từ bên ngoài, không đoán bụng dạ ai. Lá hoàng gia ở đây đọc theo la_nguoi nếu câu hỏi có một người cụ thể, còn không thì đọc theo la_tinh_huong. Lá nặng là ngoại cảnh đang ép, lá nhẹ là chỗ có người đỡ.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 6
+  ten: Việc nên làm
+  cau_hoi: Với bàn bài này, người hỏi nên làm gì
+  goi_y_doc: Lá này phải ra được một việc cụ thể, không nói chung chung. Đọc theo cot_loi rồi hạ thẳng xuống hành động; lá nặng ở đây là việc khó phải làm, không phải lời cấm. Lá ngược thiên về nên làm ngược thói quen của người hỏi.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 7
+  ten: Kết cục nếu giữ đà
+  cau_hoi: Nếu mọi thứ giữ nguyên như bàn bài này thì chuyện đi tới đâu
+  goi_y_doc: Đọc như một hướng đang mở ra, không phải sự kiện đã định. Nói bằng nếu giữ đà này thì, không hứa kết quả và không đưa mốc ngày. Dùng huong trong sac_thai để nói chuyện đang đi lên, đi xuống hay đứng yên.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Bảy lá là nhiều nên không luận rời từng lá; đi theo thứ tự một tới bảy nhưng chỉ nói kỹ ba lá là hiện tại, cái đang cản và việc nên làm, các lá còn lại mỗi lá một hai câu.
+- Lá ba và lá bốn luôn đọc thành một cặp, phân cho rõ cái người hỏi chưa thấy và cái người hỏi thấy rồi mà chưa gỡ; gộp hai lá này thành một đoạn.
+- Lá năm nói về ngoại cảnh và người xung quanh, không dùng để phán bụng dạ người vắng mặt; nếu lá gợi ra chuyện ai đó gian dối thì nói ở mức cái người hỏi đang gặp, không kết luận hộ.
+- Đoạn cuối luôn quay về lá sáu và lá bảy cùng nhau, nói rõ nếu làm việc kia thì cái đà ở lá bảy đổi theo hướng nào.
+- Mở bài bằng một câu nhìn cả bàn, chất nào nhiều, nặng hay nhẹ, đứng hay chuyển, rồi mới vào lá một.
+do_dai:
+  min: 380
+  max: 460
+vi_du:
+- cau_hoi: Công việc ở chỗ hiện tại của mình đang thế nào
+  linh_vuc: cong_viec
+  la:
+  - vi_tri: 1
+    id: coin_08
+    nguoc: false
+  - vi_tri: 2
+    id: wand_10
+    nguoc: false
+  - vi_tri: 3
+    id: sword_07
+    nguoc: true
+  - vi_tri: 4
+    id: coin_04
+    nguoc: false
+  - vi_tri: 5
+    id: sword_king
+    nguoc: false
+  - vi_tri: 6
+    id: coin_03
+    nguoc: false
+  - vi_tri: 7
+    id: sword_04
+    nguoc: false
+  bai_luan: |-
+    Ba lá Tiền và ba lá Kiếm chia đôi bàn này, việc làm và đầu óc, không có Ẩn Chính nào nên chuyện ở chỗ làm của bạn phần lớn còn nằm trong tay bạn. Phần lớn lá đứng yên, nghĩa là nó không tự chuyển, có chuyển là do bạn động.
+
+    Quá khứ là Tám Tiền, mấy năm bạn cắm cúi làm cho quen tay, từng cái một, không màng ai nhìn. Nghề vào tay bạn từ đoạn đó. Hiện tại là Mười Gậy, và cái nặng bây giờ do chính đoạn đó sinh ra, làm được nên việc gì cũng dồn về bạn, bạn nhận hết vì không tin ai làm thay. Trong lá, bó gậy ôm trước ngực xoè ra che kín cả mặt, lưng khom mà đích thì ở ngay trước. Đây là chỗ nặng nhất bàn, việc chưa hỏng, chỉ là bạn đang gánh một mình.
+
+    Cái còn khuất là Bảy Kiếm ngược. Có một lối tắt ai đó đi vòng qua phần việc của bạn, hoặc chính bạn đang né một cuộc nói thẳng, và lá ngược nên chuyện đó đang lộ dần chứ không giấu được lâu nữa. Nối liền với nó, cái đang cản là Bốn Tiền, bạn ôm chặt chỗ đang có, giữ ghế, giữ phần việc, vì sợ mất nhiều hơn muốn được. Tay bận ôm thì không rảnh nhận cái khác, mà cũng không rảnh giao bớt. Chỗ kẹt là cái ôm đó, không phải khối lượng việc.
+
+    Xung quanh là Vua Kiếm, người quyết ở trên xét mọi thứ bằng lý, theo việc và theo giấy tờ, không theo chuyện bạn mệt hay không mệt. Chờ người đó tự nhìn ra rồi thương thì không tới. Việc nên làm là Ba Tiền, đưa phần việc ra thành việc chung, chia rõ ai làm gì, để tay nghề của bạn có người thấy thay vì chìm trong đống bạn ôm. Còn nếu giữ nguyên đà này, Bốn Kiếm ở cuối bàn nói bạn phải gác kiếm nằm nghỉ một dạo, không phải vì việc hỏng mà vì hết sức.
+
+    Vậy chỗ làm của bạn đang ổn phần nghề và kẹt phần gánh. Trong tuần này, liệt kê những việc bạn đang giữ, khoanh hai việc người khác làm được, rồi mang đúng hai việc đó đi giao, nói bằng phần việc và bằng lý chứ không nói bằng chuyện bạn đang mệt.

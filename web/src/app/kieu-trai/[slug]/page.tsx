@@ -6,7 +6,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SpreadCard } from "@/components/SpreadCard";
 import { TarotCardFace } from "@/components/TarotCardFace";
 import { ButtonLink, Disclaimer, Eyebrow } from "@/components/ui";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, breadcrumbLd } from "@/lib/site";
 import { SPREADS, getSpread } from "@/lib/spreads";
 
 export function generateStaticParams() {
@@ -46,17 +46,27 @@ export default async function SpreadPage({
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: spread.name,
-    alternateName: spread.nameEn,
-    description: spread.about,
-    totalTime: "PT5M",
-    step: spread.positions.map((p, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name: p.label,
-      text: `Lá thứ ${i + 1} nói về ${p.meaning}.`,
-    })),
+    "@graph": [
+      {
+        "@type": "HowTo",
+        name: spread.name,
+        alternateName: spread.nameEn,
+        description: spread.about,
+        inLanguage: "vi-VN",
+        mainEntityOfPage: absoluteUrl(`/kieu-trai/${spread.slug}`),
+        totalTime: "PT5M",
+        step: spread.positions.map((p, i) => ({
+          "@type": "HowToStep",
+          position: i + 1,
+          name: p.label,
+          text: `Lá thứ ${i + 1} nói về ${p.meaning}.`,
+        })),
+      },
+      breadcrumbLd([
+        { name: "Kiểu trải", path: "/kieu-trai" },
+        { name: spread.name },
+      ]),
+    ],
   };
 
   return (

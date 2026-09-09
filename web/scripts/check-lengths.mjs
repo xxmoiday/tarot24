@@ -13,6 +13,11 @@ const CARDS = {
   "bon-la-tien-bac":["nguoi-treo-nguoc","co-xe","tieu-dong-kiem","hai-gay!"],
   "nam-la-chon-huong":["phap-su","nam-coc","bay-gay","toa-thap","bon-coc"],
   "nam-la-thang-toi":["at-coc","muoi-coc!","nu-hoang","ac-quy","tiet-che"],
+  "ba-la-nhin-lai-minh":["hai-kiem!","nam-coc","hai-gay"],
+  "bay-la-mong-ngua":["tam-tien","muoi-gay","bay-kiem!","bon-tien","vua-kiem","ba-tien","bon-kiem"],
+  "bay-la-tuan-nay":["tam-gay","bay-coc","hai-tien","chin-kiem!","ba-coc","bon-coc","ngoi-sao"],
+  "muoi-hai-la-nam-toi":["tieu-dong-tien","ba-gay!","tam-kiem","hai-coc","bay-tien","banh-xe-so-phan",
+                         "sau-kiem","bon-gay","nam-tien!","an-si","chin-coc","muoi-tien"],
   "thap-tu-celtic":["ba-coc","vua-kiem","at-coc","banh-xe-so-phan","bon-tien","vua-tien!","bon-gay","at-tien","tieu-dong-gay","bay-gay!"],
 };
 let bad = 0;

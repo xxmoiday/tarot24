@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Disclaimer } from "./ui";
+import { SiteLogo } from "./SiteLogo";
 import { LEGAL_DOCS } from "@/lib/legal";
 
 const LINKS = [
@@ -19,7 +20,7 @@ export function SiteFooter() {
     <footer className="mt-16 border-t border-line md:mt-[60px]">
       <div className="mx-auto max-w-[1440px] px-5 py-9 md:flex md:items-start md:justify-between md:gap-15 md:px-[60px] md:py-[70px]">
         <div className="flex flex-col gap-3">
-          <div className="font-serif text-xl text-gold">Tarot24</div>
+          <SiteLogo markClassName="h-7 w-7" textClassName="text-xl md:text-xl" />
           <Disclaimer className="max-w-[52ch]" />
           <p className="text-[13.5px]/[1.6] text-muted">
             Xem thêm bói Lenormand tại{" "}

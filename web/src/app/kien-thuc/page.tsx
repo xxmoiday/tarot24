@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { ARTICLES } from "@/lib/articles";
-import { absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, breadcrumbLd } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Kiến thức tarot",
@@ -13,9 +13,34 @@ export const metadata: Metadata = {
   openGraph: { url: absoluteUrl("/kien-thuc"), title: "Kiến thức tarot" },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      name: "Kiến thức tarot",
+      url: absoluteUrl("/kien-thuc"),
+      inLanguage: "vi-VN",
+      isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+      hasPart: ARTICLES.map((a) => ({
+        "@type": "Article",
+        headline: a.title,
+        description: a.excerpt,
+        dateModified: a.updated,
+        url: absoluteUrl(`/kien-thuc/${a.slug}`),
+      })),
+    },
+    breadcrumbLd([{ name: "Kiến thức" }]),
+  ],
+};
+
 export default function KnowledgeIndex() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <SiteHeader back />
       <main id="noi-dung" className="mx-auto max-w-[900px] px-5 pt-7 pb-4 md:px-[60px] md:pt-14">
         <div className="flex flex-col gap-3">

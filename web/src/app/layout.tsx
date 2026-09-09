@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Newsreader } from "next/font/google";
+import { ScrollTopOnRoute } from "@/components/ScrollTopOnRoute";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Tới nội dung chính
         </a>
+        <ScrollTopOnRoute />
         {children}
       </body>
     </html>

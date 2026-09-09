@@ -1,0 +1,96 @@
+id: tuan_nay_7
+ten_vi: Bảy lá tuần này
+ten_en: Seven Card Week Ahead
+nhom: chuyen_de
+so_la: 7
+mo_ta: Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch. Để biết tuần này dồn ở đoạn nào, thưa ở đoạn nào, ngày nào nên dồn sức và ngày nào nên giữ sức.
+hop_voi:
+- Tuần này của mình thế nào
+- Tuần này đi làm có căng không
+- Mấy hôm tới mình nên để ý chuyện gì
+- Tuần này nên dồn sức vào đoạn nào
+khong_hop_voi:
+- Thứ mấy thì nên ký hợp đồng
+- Tuần này có gặp chuyện gì xui không
+- Tuần này người đó có nhắn cho mình không
+cach_rut: Xào bài, rút bảy lá và đặt thành hàng ngang từ trái sang phải, mỗi lá một ngày, lá đầu tiên là ngày hôm nay.
+vi_tri:
+- stt: 1
+  ten: Ngày đầu
+  cau_hoi: Ngày mở tuần, cái gì đang chi phối và người hỏi nên để ý điều gì
+  goi_y_doc: Đọc theo lăng kính của câu hỏi, câu hỏi chung thì lấy tam_ly làm nền. Lá nặng là ngày nên giữ sức, lá nhẹ là ngày có đà. Lá ngược thiên về ngày này chậm hoặc chưa rõ. Lá hoàng gia đọc theo la_tinh_huong.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 2
+  ten: Ngày hai
+  cau_hoi: Sang ngày sau, nhịp chuyển sang đâu so với ngày mở tuần
+  goi_y_doc: Đọc nối với lá một, không đọc rời. Lá nặng sau lá nhẹ là chỗ đà chững lại, lá nhẹ sau lá nặng là chỗ dễ thở hơn. Nếu hai lá cùng chất thì gộp hai ngày thành một câu.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 3
+  ten: Ngày ba
+  cau_hoi: Đoạn đầu tuần khép lại thế nào, cái gì nổi lên ở đây
+  goi_y_doc: Đọc như điểm khép của đoạn đầu tuần. Lá nặng là chỗ nên chuẩn bị trước, lá nhẹ là chỗ nên tận dụng ngay. Lá ngược thiên về đoạn này cần làm khác thói quen.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 4
+  ten: Ngày bốn
+  cau_hoi: Giữa tuần, đà đang lên hay đang chững
+  goi_y_doc: Đây là lá bản lề của tuần, đọc kỹ hơn các ngày khác và dùng sac_thai của nó để cân giọng cả bài. Lá nặng ở giữa tuần là chỗ tuần chững lại, nói gọn cái đang ghì rồi chỉ chỗ làm được.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 5
+  ten: Ngày năm
+  cau_hoi: Sang nửa sau tuần, cái gì mở ra hoặc đòi người hỏi làm gì
+  goi_y_doc: Đọc nối với lá bốn, nói cho ra nửa sau khác nửa đầu chỗ nào. Lá nhẹ ở đây là ngày dễ thở nhất tuần, nói rõ nên dùng nó vào việc gì thay vì chỉ khen là ngày vui.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 6
+  ten: Ngày sáu
+  cau_hoi: Gần cuối tuần, cái gì dễ bị bỏ lỡ hoặc dễ hỏng
+  goi_y_doc: Đọc như chỗ hụt của tuần, dùng phần đầu của canh_bao khi lá nặng hoặc lá ngược. Lá nhẹ ở đây thì nói cái đang đưa tới mà người hỏi dễ không để ý.
+  lang_kinh_uu_tien: theo_cau_hoi
+- stt: 7
+  ten: Ngày cuối
+  cau_hoi: Tuần khép lại thế nào, đà nào mang sang tuần sau
+  goi_y_doc: Đọc như điểm khép, nói bằng cuối tuần chứ không gọi tên thứ. Lá nhẹ là tuần khép êm, lá nặng là tuần khép còn dở, nói gọn cái dở đó. Dùng huong trong sac_thai để nói tuần đi lên hay đi xuống.
+  lang_kinh_uu_tien: theo_cau_hoi
+luat_doc:
+- Bảy ngày không nói đều bảy đoạn; gộp những ngày cùng nhịp thành một câu và chỉ nói kỹ hai ba ngày lệch hẳn khỏi phần còn lại.
+- Gọi bằng ngày đầu, đầu tuần, giữa tuần, nửa sau, ngày cuối; không gọi tên thứ, không nói ngày dương lịch, vì bảy lá này tính từ hôm rút chứ không theo lịch.
+- Không hứa sự kiện cho ngày nào; mỗi ngày nói về nhịp, tâm thế và chỗ nên dồn sức hay giữ sức, không nói hôm đó có tin, hôm đó gặp người.
+- Lá nặng trong tuần là ngày nên giữ sức chứ không phải ngày xấu, và bài này không có ngày xui; câu hỏi hỏi thẳng chuyện xui rủi, tai nạn hay bệnh trong tuần thì chuyển hướng theo mục 5 của system prompt.
+- Mở bằng một câu về nhịp cả tuần, dồn hay thưa, đi lên hay đi xuống, rồi mới vào ngày đầu; kết bằng một việc làm được và nói rõ nên làm nó vào đoạn nào của tuần.
+do_dai:
+  min: 380
+  max: 460
+vi_du:
+- cau_hoi: Tuần này của mình thế nào
+  linh_vuc: chung
+  la:
+  - vi_tri: 1
+    id: wand_08
+    nguoc: false
+  - vi_tri: 2
+    id: cup_07
+    nguoc: false
+  - vi_tri: 3
+    id: coin_02
+    nguoc: false
+  - vi_tri: 4
+    id: sword_09
+    nguoc: true
+  - vi_tri: 5
+    id: cup_03
+    nguoc: false
+  - vi_tri: 6
+    id: cup_04
+    nguoc: false
+  - vi_tri: 7
+    id: major_17
+    nguoc: false
+  bai_luan: |-
+    Tuần này dồn ở đầu rồi lắng dần về cuối. Ba lá Cốc trong bảy, nên nhịp của tuần nằm ở lòng dạ và ở người quanh bạn nhiều hơn ở việc, và chỉ một Ẩn Chính, nghĩa là phần lớn tuần này nằm trong tay bạn.
+
+    Ngày đầu là Tám Gậy, mọi thứ tới cùng một lúc, tin nhắn, việc, mấy chuyện chờ lâu bỗng chạy hết trong một hôm. Tám cây gậy bay chéo trên không mà không ai cầm, nên đừng cố sắp cho gọn, theo kịp là đủ; chỗ dễ hỏng là gửi vội và hứa vội. Ngày hai là Bảy Cốc, bày ra nhiều ngả mà chưa ngả nào có thật, bạn dễ ngồi cả buổi so đo cái nào hay hơn rồi không động tay vào cái nào. Ngày ba là Hai Tiền, xoay giữa hai đầu, chưa rơi quả nào nhưng cũng chưa được ngồi yên một phút. Ba ngày đầu tuần là một mạch, nhanh, hoa mắt, rồi xoay xở.
+
+    Giữa tuần chững lại ở Chín Kiếm ngược. Có một nỗi lo bạn ôm mấy hôm nay, và lá ngược nên nó đang tan bớt, sáng ra thấy nhẹ hơn tối qua. Cái làm nó nhẹ là kể ra với một người, không phải nghĩ thêm một mình. Nỗi sợ trong đầu vẫn đang to hơn chuyện thật ngoài đời, nên đừng lấy ngày này ra quyết chuyện lớn, để nó cho việc tay chân và cho một giấc ngủ đủ. Đây là ngày nên giữ sức, không phải ngày xấu.
+
+    Nửa sau tuần mở ở Ba Cốc, ngày dễ thở nhất, có người cùng chia, việc gì xong thì mừng cho xong với đúng những người đã cùng làm. Nhưng ngay sau đó là Bốn Cốc, hết hứng, ngồi khoanh tay thấy cái gì cũng nhạt, và có một cốc đưa tới ngang tầm mắt mà bạn không buồn ngước lên. Đây là chỗ dễ bỏ lỡ nhất cả tuần, mà bỏ lỡ vì chán chứ không vì thiếu. Ngày cuối là Ngôi Sao, lặng và trong, không có gì ồn, lòng lắng lại và hướng đi hiện ra ở xa, chưa tới nhưng có thật.
+
+    Tuần này của bạn không nặng, chỉ dồn không đều. Việc làm được là chọn đúng một thứ trong đống chạy tới ở đầu tuần rồi làm cho xong nó trước lúc tuần chững, và tới cái ngày bạn thấy chán nhất thì nhận lời mời gần nhất thay vì khoanh tay ngó lơ.

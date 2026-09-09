@@ -40,7 +40,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
       {
         heading: "Tarot24 là gì",
         paragraphs: [
-          "Tarot24 là một trang web rút bài tarot bằng tiếng Việt. Bạn đặt một câu hỏi, chọn kiểu trải, rút bài, và nhận một bài luận. Trang còn có thư viện nghĩa 78 lá, mô tả 11 kiểu trải và một mục kiến thức.",
+          "Tarot24 là một trang web rút bài tarot bằng tiếng Việt. Bạn đặt một câu hỏi, chọn kiểu trải, rút bài, và nhận một bài luận. Trang còn có thư viện nghĩa 78 lá, mô tả 15 kiểu trải và một mục kiến thức.",
           "Bài luận do một mô hình ngôn ngữ viết ra, không phải do người xem bài viết. Đọc thêm ở trang Miễn trừ trách nhiệm.",
           "Dịch vụ hiện miễn phí, không cần đăng ký, không cần tài khoản. Chúng tôi không hứa nó sẽ miễn phí mãi, nhưng nếu đổi thì sẽ báo trước trên trang.",
         ],

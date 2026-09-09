@@ -50,12 +50,16 @@ const SPREAD_ID: Record<string, string> = {
   "ba-la-thoi-gian": "ba_la_thoi_gian",
   "ba-la-tinh-huong": "ba_la_tinh_huong",
   "nam-la-tinh-cam": "nam_la_tinh_cam",
+  "bay-la-mong-ngua": "mong_ngua_7",
   "thap-tu-celtic": "celtic_cross",
   "nam-la-cong-viec": "cong_viec_5",
   "bon-la-tien-bac": "tien_bac_4",
   "ba-la-giua-hai-nguoi": "hai_nguoi",
   "nam-la-chon-huong": "quyet_dinh_ab",
+  "ba-la-nhin-lai-minh": "ban_than_3",
+  "bay-la-tuan-nay": "tuan_nay_7",
   "nam-la-thang-toi": "thang_toi",
+  "muoi-hai-la-nam-toi": "nam_toi_12",
 };
 
 /** Sinh đường dẫn từ tên lá, đúng cùng quy tắc mà web đang dùng. */

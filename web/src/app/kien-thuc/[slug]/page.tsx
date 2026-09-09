@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Disclaimer, Eyebrow } from "@/components/ui";
 import { ARTICLES, getArticle } from "@/lib/articles";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, breadcrumbLd } from "@/lib/site";
 
 export function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.slug }));
@@ -63,6 +63,10 @@ export default async function ArticlePage({
           acceptedAnswer: { "@type": "Answer", text: f.a },
         })),
       },
+      breadcrumbLd([
+        { name: "Kiến thức", path: "/kien-thuc" },
+        { name: article.title },
+      ]),
     ],
   };
 

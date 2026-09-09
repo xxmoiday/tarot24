@@ -351,12 +351,17 @@ export function getCard(slug: string) {
   return CARD_BY_SLUG.get(slug);
 }
 
-export function cardSubtitle(c: TarotCard) {
+/**
+ * Dòng phụ dưới tên lá. Bỏ tên tiếng Anh ở chỗ nào mà h1 đã mang sẵn nó,
+ * để hai dòng liền nhau không lặp lại cùng một chữ.
+ */
+export function cardSubtitle(c: TarotCard, withEn = true) {
+  const dau = withEn ? `${c.en} · ` : "";
   if (c.arcana === "major") {
-    return `${c.en} · Ẩn Chính · Số ${c.num} · Nguyên tố ${c.element}`;
+    return `${dau}Ẩn Chính · Số ${c.num} · Nguyên tố ${c.element}`;
   }
   const rank = c.court ? rankName(c.num) : `Số ${c.num}`;
-  return `${c.en} · ${SUIT_LABEL[c.suit!]} · ${rank} · Nguyên tố ${c.element}`;
+  return `${dau}${SUIT_LABEL[c.suit!]} · ${rank} · Nguyên tố ${c.element}`;
 }
 
 export function neighbours(slug: string) {

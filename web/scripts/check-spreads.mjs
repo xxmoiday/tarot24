@@ -6,10 +6,12 @@ const j = JSON.parse(readFileSync(new URL("../data/spreads.source.json", import.
 const MAP = {
   mot_la_hom_nay:"mot-la-hom-nay", mot_la_co_khong:"co-hay-khong",
   ba_la_thoi_gian:"ba-la-thoi-gian", ba_la_tinh_huong:"ba-la-tinh-huong",
-  nam_la_tinh_cam:"nam-la-tinh-cam", celtic_cross:"thap-tu-celtic",
+  nam_la_tinh_cam:"nam-la-tinh-cam", mong_ngua_7:"bay-la-mong-ngua",
+  celtic_cross:"thap-tu-celtic",
   cong_viec_5:"nam-la-cong-viec", tien_bac_4:"bon-la-tien-bac",
   hai_nguoi:"ba-la-giua-hai-nguoi", quyet_dinh_ab:"nam-la-chon-huong",
-  thang_toi:"nam-la-thang-toi",
+  ban_than_3:"ba-la-nhin-lai-minh", tuan_nay_7:"bay-la-tuan-nay",
+  thang_toi:"nam-la-thang-toi", nam_toi_12:"muoi-hai-la-nam-toi",
 };
 const norm = (s) => (s ?? "").replace(/\s+/g," ").trim();
 // Web xưng "bạn" thay vì "người hỏi", và thêm "thì" cho câu điều kiện đọc trôi.

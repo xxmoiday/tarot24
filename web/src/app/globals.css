@@ -25,6 +25,13 @@
   --animate-fly: t24-fly 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-rise: t24-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-fade: t24-fade 0.6s ease both;
+  --animate-hero-fade: t24-hero-fade 21s ease-in-out infinite both;
+  /*
+   * Độ trễ nằm sẵn trong token: 1040ms thu bài xong, nghỉ thêm 400ms cho người
+   * rút kịp nhìn chồng bài, rồi màn rút bài mới mờ đi. Đổi số ở đây thì sửa cả
+   * GATHER_MS, SETTLE_MS và OUTRO_MS bên ReadingFlow.
+   */
+  --animate-step-out: t24-step-out 320ms ease 1440ms both;
 }
 
 @keyframes t24-fly {
@@ -53,6 +60,307 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+/*
+ * Thu bài: mỗi lá trượt về giữa tầm nhìn rồi nằm thẳng lại thành một chồng.
+ * --dx và --dy do JS đo lúc bắt đầu thu, vì chỗ đứng của từng lá phụ thuộc chỗ
+ * đang cuộn của dải bài. Góc nghiêng nằm ở thuộc tính `rotate` riêng nên khung
+ * 0% không cần khai, trình duyệt tự lấy góc hiện tại của lá làm điểm xuất phát.
+ */
+@keyframes t24-deck-gather {
+  0% {
+    transform: translate3d(0, 0, 0);
+    animation-timing-function: cubic-bezier(0.32, 0.72, 0.2, 1);
+  }
+  55% {
+    transform: translate3d(
+      calc(var(--dx, 0px) * 0.55),
+      calc(var(--dy, 0px) * 0.55 - 16px),
+      0
+    );
+  }
+  100% {
+    transform: translate3d(var(--dx, 0px), var(--dy, 0px), 0);
+    rotate: 0deg;
+  }
+}
+
+/** Màn rút bài lùi lại rồi mờ đi, nhường chỗ cho bài luận. */
+@keyframes t24-step-out {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.985);
+  }
+}
+
+/*
+ * Ảnh hero thay phiên nhau. Ảnh đầu nằm dưới cùng và luôn đục, hai ảnh sau
+ * chồng lên rồi mờ dần vào — nhờ vậy giữa hai cảnh không có lúc nào nền tối lộ
+ * ra, chuyện sẽ xảy ra nếu cả ba cùng mờ đi mờ lại.
+ *
+ * Ảnh hai vào ở mốc 1/3 vòng, ảnh ba ở mốc 2/3, đặt bằng animation-delay. Ảnh
+ * hai tắt lúc đã bị ảnh ba che kín nên không ai thấy; ảnh ba tắt thì để lộ lại
+ * ảnh nền, thành ra vòng mới.
+ */
+@keyframes t24-hero-fade {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  39% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/*
+ * Hoạt cảnh xào bài, chạy một lượt rồi sang bước chọn lá.
+ * Mỗi lá tự mang ba biến: --c là chỗ đứng so với giữa cỗ, --dir là nửa trái
+ * hay nửa phải khi chẻ, --cut đánh dấu nửa được nhấc lên lúc cắt bài. Nhờ vậy
+ * cả cỗ dùng chung một bộ keyframes mà vẫn chuyển động khác nhau.
+ *
+ * Mốc thời gian: 0–48% chẻ đôi rồi đan lại, 48–75% cắt cỗ, 75–100% xòe quạt
+ * rồi gom về chồng. Đổi mốc thì sửa cả PHASES trong ShuffleDeck.tsx.
+ */
+@keyframes t24-riffle {
+  0% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    animation-timing-function: cubic-bezier(0.32, 0, 0.67, 0);
+  }
+  7% {
+    transform: translate3d(0, calc(var(--c) * -1.1px - 14px), 0)
+      rotateY(calc(var(--dir) * 6deg));
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  19% {
+    transform: translate3d(calc(var(--dir) * 68px), calc(var(--c) * -1.1px - 6px), 0)
+      rotateY(calc(var(--dir) * 26deg)) rotate(calc(var(--dir) * 10deg));
+  }
+  30% {
+    transform: translate3d(calc(var(--dir) * 62px), calc(var(--c) * -3.6px), 0)
+      rotateY(calc(var(--dir) * 20deg)) rotate(calc(var(--dir) * 7deg));
+    /* Đuôi hơi quá đà một nhịp cho giống lúc bài búng vào nhau. */
+    animation-timing-function: cubic-bezier(0.8, 0, 0.5, 1.35);
+  }
+  43% {
+    transform: translate3d(calc(var(--dir) * 4px), calc(var(--c) * -1.1px), 0)
+      rotate(calc(var(--dir) * 1.5deg));
+  }
+  48% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  58% {
+    transform: translate3d(
+        calc(var(--cut) * 46px),
+        calc(var(--c) * -1.1px + var(--cut) * -34px),
+        0
+      )
+      rotate(calc(var(--cut) * 9deg));
+  }
+  68% {
+    transform: translate3d(
+        calc(var(--cut) * -34px),
+        calc(var(--c) * -1.1px + var(--cut) * 20px),
+        0
+      )
+      rotate(calc(var(--cut) * -7deg));
+  }
+  75% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  87% {
+    /* --fan do nơi gọi đặt, để màn hẹp xòe vừa phải mà không tràn ngang. */
+    transform: translate3d(
+        calc(var(--c) * var(--fan, 13px)),
+        calc(var(--c) * var(--c) * 0.7px),
+        0
+      )
+      rotate(calc(var(--c) * 5.5deg));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.2, 1);
+  }
+  100% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+  }
+}
+
+/*
+ * Tráo dồn: rút một tệp ra rồi dồn lại, làm ba lượt.
+ * Keyframes chỉ tả một chuyến đi của một tệp; ba tệp nối nhau bằng độ trễ
+ * riêng, tệp trên cùng đi trước. --c vẫn là chỗ đứng của lá trong chồng.
+ */
+@keyframes t24-overhand {
+  0% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    z-index: 5;
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  10% {
+    z-index: 40;
+  }
+  24% {
+    transform: translate3d(calc(var(--dir) * 70px), calc(var(--c) * -1.1px - 20px), 0)
+      rotate(calc(var(--dir) * 8deg));
+  }
+  50% {
+    transform: translate3d(calc(var(--dir) * 78px), calc(var(--c) * -1.1px + 6px), 0)
+      rotate(calc(var(--dir) * 10deg));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.3, 1);
+  }
+  80% {
+    transform: translate3d(calc(var(--dir) * 12px), calc(var(--c) * -1.1px + 3px), 0)
+      rotate(calc(var(--dir) * 2deg));
+    z-index: 40;
+  }
+  100% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    z-index: 5;
+  }
+}
+
+/*
+ * Xoa bài: rải cả cỗ ra mặt bàn, khoắng vài vòng rồi gom lại.
+ * Ba điểm rơi của mỗi lá do JS tính sẵn, đều nằm trên một hình bầu dục nhưng
+ * lệch pha nhau nên cả cỗ trông như đang xoay. --wash thu nhỏ vùng rải trên
+ * máy hẹp cho khỏi tràn ngang.
+ */
+@keyframes t24-wash {
+  0% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  18% {
+    transform: translate3d(
+        calc(var(--x1) * var(--wash) * 1px),
+        calc(var(--y1) * var(--wash) * 1px),
+        0
+      )
+      rotate(calc(var(--r1) * 1deg));
+    animation-timing-function: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+  44% {
+    transform: translate3d(
+        calc(var(--x2) * var(--wash) * 1px),
+        calc(var(--y2) * var(--wash) * 1px),
+        0
+      )
+      rotate(calc(var(--r2) * 1deg));
+  }
+  68% {
+    transform: translate3d(
+        calc(var(--x3) * var(--wash) * 1px),
+        calc(var(--y3) * var(--wash) * 1px),
+        0
+      )
+      rotate(calc(var(--r3) * 1deg));
+    animation-timing-function: cubic-bezier(0.6, 0, 0.2, 1);
+  }
+  88% {
+    transform: translate3d(0, calc(var(--c) * -1.1px - 9px), 0)
+      rotate(calc(var(--r3) * 0.12deg));
+  }
+  100% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+  }
+}
+
+/*
+ * Chia ba cọc: tách cỗ thành ba cọc, nhấc lên đổi chỗ rồi chồng lại.
+ * --side là hướng của cọc (-1, 0, 1), --p là số thứ tự cọc, dùng để mỗi cọc
+ * bay ở một độ cao khác nhau nên lúc bắt chéo nhau nhìn rõ cọc nào qua cọc nào.
+ */
+@keyframes t24-piles {
+  0% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  10% {
+    transform: translate3d(0, calc(var(--c) * -1.1px - 12px), 0);
+  }
+  26% {
+    transform: translate3d(calc(var(--side) * 88px), calc(var(--c) * -1.1px), 0)
+      rotate(calc(var(--side) * 4deg));
+  }
+  38% {
+    transform: translate3d(calc(var(--side) * 88px), calc(var(--c) * -1.1px), 0)
+      rotate(calc(var(--side) * 4deg));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.3, 1);
+  }
+  54% {
+    transform: translate3d(
+        calc(var(--side) * 88px),
+        calc(var(--c) * -1.1px - 32px - var(--p) * 9px),
+        0
+      )
+      rotate(calc(var(--side) * 10deg));
+  }
+  70% {
+    transform: translate3d(
+        calc(var(--side) * -88px),
+        calc(var(--c) * -1.1px - 32px - var(--p) * 9px),
+        0
+      )
+      rotate(calc(var(--side) * -10deg));
+  }
+  84% {
+    transform: translate3d(calc(var(--side) * -88px), calc(var(--c) * -1.1px), 0)
+      rotate(calc(var(--side) * -3deg));
+    animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+  }
+  100% {
+    transform: translate3d(0, calc(var(--c) * -1.1px), 0);
+  }
+}
+
+/** Quầng sáng dưới cỗ bài, sáng lên đúng lúc chẻ và lúc xòe. */
+@keyframes t24-deck-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.9);
+  }
+  28% {
+    opacity: 0.95;
+    transform: scale(1.1);
+  }
+  62% {
+    opacity: 0.5;
+    transform: scale(0.95);
+  }
+  88% {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+
+/** Chữ báo từng nhịp xào, mỗi câu tự vào và tự rời. */
+@keyframes t24-say {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  14%,
+  74% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
   }
 }
 

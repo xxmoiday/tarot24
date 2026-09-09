@@ -1,6 +1,6 @@
 # Các kiểu trải bài — bản đọc cho người
 
-Bản nguồn: `spreads/*.yaml`; bản app đọc: `build/spreads.json`. Bài luận mẫu viết đúng theo `prompts/system_luan_bai.md`, lá rút ngẫu nhiên (seed 2409), không chọn bàn đẹp.
+Bản nguồn: `spreads/*.yaml`; bản app đọc: `build/spreads.json`. Bài luận mẫu viết đúng theo `prompts/system_luan_bai.md`. Mười một kiểu trải đầu dùng lá rút ngẫu nhiên (seed 2409); bốn kiểu thêm sau (móng ngựa, nhìn lại mình, tuần này, năm tới) dựng bàn theo tay để phủ đúng luật đọc riêng của từng kiểu. Không kiểu nào chọn bàn đẹp.
 
 
 ## Một lá cho hôm nay (`mot_la_hom_nay`, 1 lá, nhóm co_ban)
@@ -223,6 +223,50 @@ Lá: 1. Tám Gậy, 2. Toà Tháp, 3. Tiểu Đồng Cốc, 4. Tám Cốc (ngư�
 >
 > Hướng đi là Thế Giới. Nếu giữ đà này thì vài tuần tới mối này khép một chặng cho tròn, hoặc hai người rõ với nhau và sang vòng mới, hoặc xong hẳn; lá không cam đoan bên nào, chỉ nói nó không lơ lửng mãi. Bài không nói được anh ấy có người khác không, nhưng nói được bạn đang nhắn quá nhanh vào một người có vẻ đang chao, và cái nghi mọc từ chỗ bạn chưa biết mình muốn gì. Tuần này ngưng dồn tin ba ngày, rồi hỏi anh ấy đúng một câu, dạo này có chuyện gì nặng không, và không hỏi về ai khác.
 
+## Bảy lá móng ngựa (`mong_ngua_7`, 7 lá, nhóm co_ban)
+
+Bảy lá xếp thành vòng cung như hình móng ngựa, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic. Nhìn được cả gốc, cả chỗ đang cản, cả cái còn khuất và người xung quanh.
+
+Hợp với: Chuyện ở chỗ làm của mình đang thế nào; Mối này đang vướng ở đâu, nhìn giúp mình một lượt; Mình đang kẹt mà chưa biết kẹt chỗ nào; Chuyện này còn gì mình chưa nhìn ra không.  
+Không hợp: Nên chọn bên này hay bên kia; Hôm nay có nên nhắn cho người đó không; Bao giờ chuyện này xong.
+
+Cách rút: Xào bài, rút bảy lá và đặt thành một vòng cung mở lên như hình móng ngựa, từ trái sang phải theo thứ tự một tới bảy.
+
+| # | Vị trí | Lá ở đây trả lời | Gợi ý đọc |
+|---|---|---|---|
+| 1 | Quá khứ | Chuyện này từ đâu mà ra, cái gì đã xảy ra và còn để dấu lên hôm nay | Đọc ở thì đã qua, kể như chuyện đã xảy ra rồi. Lá nặng là cái vết còn kéo theo, lá nhẹ là cái vốn còn dùng được. Lá ngược thiên về chuyện cũ chưa dứt hẳn. Nói gọn một hai câu, đừng dừng lâu ở đây. |
+| 2 | Hiện tại | Ngay lúc này chuyện đang ở đâu và cái gì đang chi phối người hỏi | Đây là lá đọc kỹ nhất bàn, dùng sac_thai của nó để cân giọng cả bài. Nối thẳng với lá một, nói cho ra cái hiện tại này sinh từ quá khứ kia thế nào. Lá hoàng gia đọc theo la_nang_luong trừ khi câu hỏi có một người cụ thể. |
+| 3 | Cái còn khuất | Cái gì đang tác động vào chuyện này mà người hỏi chưa nhìn ra | Đọc như một thứ đang chạy dưới mặt, chưa lộ. Lá ngược ở đây thiên về cái khuất đang lộ dần. Không phán về người vắng mặt như sự thật, chỉ nói cái đang cho thấy từ phía người hỏi. Đọc nối liền với lá bốn, hai lá này là một cặp. |
+| 4 | Cái đang cản | Cái gì đang chặn chuyện này lại, và nó chặn bằng cách nào | Lá tốt ở đây vẫn là trở ngại, dùng phần đầu của canh_bao để nói mặt cản của nó. Nối với lá ba để phân biệt cái khuất và cái cản, một cái chưa thấy, một cái thấy rồi mà chưa gỡ. Lá ngược thiên về cái cản đang yếu đi hoặc đang tự vỡ. |
+| 5 | Người và hoàn cảnh xung quanh | Người khác và hoàn cảnh bên ngoài đang đẩy chuyện này theo hướng nào | Nói cái người hỏi gặp phải từ bên ngoài, không đoán bụng dạ ai. Lá hoàng gia ở đây đọc theo la_nguoi nếu câu hỏi có một người cụ thể, còn không thì đọc theo la_tinh_huong. Lá nặng là ngoại cảnh đang ép, lá nhẹ là chỗ có người đỡ. |
+| 6 | Việc nên làm | Với bàn bài này, người hỏi nên làm gì | Lá này phải ra được một việc cụ thể, không nói chung chung. Đọc theo cot_loi rồi hạ thẳng xuống hành động; lá nặng ở đây là việc khó phải làm, không phải lời cấm. Lá ngược thiên về nên làm ngược thói quen của người hỏi. |
+| 7 | Kết cục nếu giữ đà | Nếu mọi thứ giữ nguyên như bàn bài này thì chuyện đi tới đâu | Đọc như một hướng đang mở ra, không phải sự kiện đã định. Nói bằng nếu giữ đà này thì, không hứa kết quả và không đưa mốc ngày. Dùng huong trong sac_thai để nói chuyện đang đi lên, đi xuống hay đứng yên. |
+
+Luật đọc riêng:
+
+- Bảy lá là nhiều nên không luận rời từng lá; đi theo thứ tự một tới bảy nhưng chỉ nói kỹ ba lá là hiện tại, cái đang cản và việc nên làm, các lá còn lại mỗi lá một hai câu.
+- Lá ba và lá bốn luôn đọc thành một cặp, phân cho rõ cái người hỏi chưa thấy và cái người hỏi thấy rồi mà chưa gỡ; gộp hai lá này thành một đoạn.
+- Lá năm nói về ngoại cảnh và người xung quanh, không dùng để phán bụng dạ người vắng mặt; nếu lá gợi ra chuyện ai đó gian dối thì nói ở mức cái người hỏi đang gặp, không kết luận hộ.
+- Đoạn cuối luôn quay về lá sáu và lá bảy cùng nhau, nói rõ nếu làm việc kia thì cái đà ở lá bảy đổi theo hướng nào.
+- Mở bài bằng một câu nhìn cả bàn, chất nào nhiều, nặng hay nhẹ, đứng hay chuyển, rồi mới vào lá một.
+
+Độ dài bài: 380–460 tiếng.
+
+
+### Ví dụ 1 — "Công việc ở chỗ hiện tại của mình đang thế nào"
+
+Lá: 1. Tám Tiền, 2. Mười Gậy, 3. Bảy Kiếm (ngược), 4. Bốn Tiền, 5. Vua Kiếm, 6. Ba Tiền, 7. Bốn Kiếm
+
+> Ba lá Tiền và ba lá Kiếm chia đôi bàn này, việc làm và đầu óc, không có Ẩn Chính nào nên chuyện ở chỗ làm của bạn phần lớn còn nằm trong tay bạn. Phần lớn lá đứng yên, nghĩa là nó không tự chuyển, có chuyển là do bạn động.
+>
+> Quá khứ là Tám Tiền, mấy năm bạn cắm cúi làm cho quen tay, từng cái một, không màng ai nhìn. Nghề vào tay bạn từ đoạn đó. Hiện tại là Mười Gậy, và cái nặng bây giờ do chính đoạn đó sinh ra, làm được nên việc gì cũng dồn về bạn, bạn nhận hết vì không tin ai làm thay. Trong lá, bó gậy ôm trước ngực xoè ra che kín cả mặt, lưng khom mà đích thì ở ngay trước. Đây là chỗ nặng nhất bàn, việc chưa hỏng, chỉ là bạn đang gánh một mình.
+>
+> Cái còn khuất là Bảy Kiếm ngược. Có một lối tắt ai đó đi vòng qua phần việc của bạn, hoặc chính bạn đang né một cuộc nói thẳng, và lá ngược nên chuyện đó đang lộ dần chứ không giấu được lâu nữa. Nối liền với nó, cái đang cản là Bốn Tiền, bạn ôm chặt chỗ đang có, giữ ghế, giữ phần việc, vì sợ mất nhiều hơn muốn được. Tay bận ôm thì không rảnh nhận cái khác, mà cũng không rảnh giao bớt. Chỗ kẹt là cái ôm đó, không phải khối lượng việc.
+>
+> Xung quanh là Vua Kiếm, người quyết ở trên xét mọi thứ bằng lý, theo việc và theo giấy tờ, không theo chuyện bạn mệt hay không mệt. Chờ người đó tự nhìn ra rồi thương thì không tới. Việc nên làm là Ba Tiền, đưa phần việc ra thành việc chung, chia rõ ai làm gì, để tay nghề của bạn có người thấy thay vì chìm trong đống bạn ôm. Còn nếu giữ nguyên đà này, Bốn Kiếm ở cuối bàn nói bạn phải gác kiếm nằm nghỉ một dạo, không phải vì việc hỏng mà vì hết sức.
+>
+> Vậy chỗ làm của bạn đang ổn phần nghề và kẹt phần gánh. Trong tuần này, liệt kê những việc bạn đang giữ, khoanh hai việc người khác làm được, rồi mang đúng hai việc đó đi giao, nói bằng phần việc và bằng lý chứ không nói bằng chuyện bạn đang mệt.
+
 ## Thập tự Celtic (`celtic_cross`, 10 lá, nhóm co_ban)
 
 Trải mười lá cổ điển cho một chuyện lớn, muốn nhìn từ gốc tới ngọn, từ trong ra ngoài. Mất thời gian hơn nhưng thấy đủ mọi phía.
@@ -417,6 +461,90 @@ Lá: 1. Pháp Sư, 2. Năm Cốc, 3. Bảy Gậy, 4. Toà Tháp, 5. Bốn Cốc
 >
 > So hai đích thì Bảy Gậy nặng hơn nhưng là đứng và chống đỡ, có chỗ để giữ; Bốn Cốc nhẹ hơn nhưng là ngồi và ngó lơ. Bài nghiêng về nhánh A, với cái giá là một đoạn tiếc và những tháng đầu chống đỡ liên tục. Nhánh B không sai, chỉ đòi bạn nhìn thẳng vào chỗ mỏng thay vì chờ nó tự vỡ. Không ai chọn thay bạn được, vì lá gốc nói bạn đủ tay nghề cho cả hai. Tuần này tìm một người đang làm đúng chỗ ấy ở công ty lớn, hỏi họ tháng đầu phải chống đỡ những gì; câu trả lời cho bạn biết mình có muốn cầm cây gậy đó không.
 
+## Ba lá nhìn lại mình (`ban_than_3`, 3 lá, nhóm chuyen_de)
+
+Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì. Ba lá cho tâm thế hiện tại, cái đang bị tránh nhìn và cái nên nuôi. Trải này nhìn vào chính bạn, không nhìn chuyện bên ngoài.
+
+Hợp với: Dạo này mình thấy mình lửng lơ, mình đang ở đâu; Mình đang mệt mà không biết mệt vì cái gì; Có cái gì mình đang tránh không dám nhìn không; Giờ mình nên nuôi cái gì trong mình.  
+Không hợp: Người đó đang nghĩ gì về mình; Mình có nên nghỉ việc không; Bao giờ mình hết chuỗi ngày này.
+
+Cách rút: Xào bài, nghĩ về chính mình chứ không nghĩ về ai khác, rút ba lá và đặt thành hàng ngang từ trái sang phải.
+
+| # | Vị trí | Lá ở đây trả lời | Gợi ý đọc |
+|---|---|---|---|
+| 1 | Bạn lúc này | Người hỏi đang mang tâm thế gì, đang là người thế nào trong quãng này | Đọc bằng tam_ly, mô tả tâm thế chứ không mô tả hoàn cảnh. Lá nặng là cái đang đè bên trong, lá nhẹ là cái đang đỡ. Lá ngược thiên về tâm thế cũ đang vỡ ra hoặc đang bị đẩy quá đà. Lá hoàng gia đọc theo la_nang_luong, không đọc thành một người nào. |
+| 2 | Cái bạn đang tránh nhìn | Điều gì người hỏi biết mà không muốn nhìn thẳng, và nó đang giữ người hỏi lại ra sao | Chỗ khó nghe nhất bàn, dùng phần đầu của canh_bao để gọi tên cái đang bị né. Nói cái đang bị tránh, không dán nhãn tính cách người hỏi. Lá nhẹ ở đây cũng là cái bị né, thường là một chỗ tốt mà người hỏi không dám nhận. |
+| 3 | Cái nên nuôi | Sức nào người hỏi đang có mà chưa dùng tới, nên đổ công vào đâu | Đọc theo cot_loi rồi hạ xuống thành một thứ nuôi được bằng việc làm hằng ngày. Lá nặng ở đây là cái phải rèn chứ không phải điềm xấu. Lá ngược thiên về nuôi bằng cách ngược với thói quen của người hỏi. |
+
+Luật đọc riêng:
+
+- Cả ba lá đọc bằng lăng kính tâm lý, kể cả khi người hỏi nhắc tới việc, tiền hay tình cảm; chuyện bên ngoài chỉ dùng làm ví dụ cho tâm thế, không luận chuyện đó.
+- Lá hai nói thẳng nhưng gọn, không dán nhãn người hỏi là yếu, lười hay dở; gọi tên cái đang bị né chứ không gọi tên người hỏi là ai.
+- Mệt, lo, chán, kẹt trong bài này là tâm thế, không được đọc thành trầm cảm, bệnh tâm lý hay sức khoẻ đi xuống, dù lá nặng tới đâu; chuyện đó chuyển hướng theo mục 5 của system prompt.
+- Lá ba phải nối được với lá một, cái nên nuôi là thứ gỡ đúng chỗ đang kẹt ở lá một, không phải một lời khuyên chung ai nghe cũng được.
+- Trải này không trả lời chuyện người khác nghĩ gì, không trả lời có hay không và không đoán chuyện sắp tới; câu hỏi đòi những thứ đó thì đọc theo tâm thế người hỏi rồi gợi ý trải kiểu khác.
+
+Độ dài bài: 220–300 tiếng.
+
+
+### Ví dụ 1 — "Dạo này mình thấy mình cứ lửng lơ, nhìn giúp mình xem mình đang ở đâu"
+
+Lá: 1. Hai Kiếm (ngược), 2. Năm Cốc, 3. Hai Gậy
+
+> Ba lá đều đứng yên, không lá nào đẩy, nên cái lửng lơ bạn đang thấy là thật. Chuyện này không tự chuyển, có chuyển là do bạn động.
+>
+> Bạn lúc này là Hai Kiếm, lá ngược. Dải vải bịt mắt vừa tuột, hai thanh kiếm vẫn dựng chếch trên hai vai, và cái yên tạm mấy tháng qua đang vỡ. Trước đây bạn còn khất được, gạt chuyện sang bên cho lòng đỡ nặng, giờ bên nào cũng ép mà bạn chưa quyết nổi nên đầu rối. Lửng lơ không phải vì bạn không biết mình muốn gì, mà vì bạn vừa hết chỗ để khất.
+>
+> Cái bạn đang tránh nhìn là Năm Cốc, một chuyện đã đổ mà bạn còn tiếc. Mắt dán vào mấy cái cốc đổ dưới đất, còn hai cốc đứng nguyên sau lưng thì ngoài tầm mắt. Tiếc là thật, không ai bắt bạn thôi tiếc; cái kẹt là bạn quay lưng với phần còn giữ được, và chính cái quay lưng đó giữ bạn đứng yên chứ không phải chuyện cũ.
+>
+> Cái nên nuôi là Hai Gậy. Bạn có một chỗ đứng đã chắc, chắc tới mức thành chật, và quyền chọn vẫn nằm nguyên trong tay bạn chứ không nằm ở ai khác. Nuôi cái đó nghĩa là thôi đứng trên tường tính mãi, đem cái đang cầm ra dùng thay vì chỉ giữ.
+>
+> Vậy bạn đang ở chỗ hết khất được nhưng chưa chịu nhìn về phía còn lại. Tuần này viết ra hai thứ bạn vẫn còn nguyên sau chuyện đã đổ, chọn một trong hai, rồi làm cho nó một việc nhỏ, dù chỉ mất một buổi.
+
+## Bảy lá tuần này (`tuan_nay_7`, 7 lá, nhóm chuyen_de)
+
+Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch. Để biết tuần này dồn ở đoạn nào, thưa ở đoạn nào, ngày nào nên dồn sức và ngày nào nên giữ sức.
+
+Hợp với: Tuần này của mình thế nào; Tuần này đi làm có căng không; Mấy hôm tới mình nên để ý chuyện gì; Tuần này nên dồn sức vào đoạn nào.  
+Không hợp: Thứ mấy thì nên ký hợp đồng; Tuần này có gặp chuyện gì xui không; Tuần này người đó có nhắn cho mình không.
+
+Cách rút: Xào bài, rút bảy lá và đặt thành hàng ngang từ trái sang phải, mỗi lá một ngày, lá đầu tiên là ngày hôm nay.
+
+| # | Vị trí | Lá ở đây trả lời | Gợi ý đọc |
+|---|---|---|---|
+| 1 | Ngày đầu | Ngày mở tuần, cái gì đang chi phối và người hỏi nên để ý điều gì | Đọc theo lăng kính của câu hỏi, câu hỏi chung thì lấy tam_ly làm nền. Lá nặng là ngày nên giữ sức, lá nhẹ là ngày có đà. Lá ngược thiên về ngày này chậm hoặc chưa rõ. Lá hoàng gia đọc theo la_tinh_huong. |
+| 2 | Ngày hai | Sang ngày sau, nhịp chuyển sang đâu so với ngày mở tuần | Đọc nối với lá một, không đọc rời. Lá nặng sau lá nhẹ là chỗ đà chững lại, lá nhẹ sau lá nặng là chỗ dễ thở hơn. Nếu hai lá cùng chất thì gộp hai ngày thành một câu. |
+| 3 | Ngày ba | Đoạn đầu tuần khép lại thế nào, cái gì nổi lên ở đây | Đọc như điểm khép của đoạn đầu tuần. Lá nặng là chỗ nên chuẩn bị trước, lá nhẹ là chỗ nên tận dụng ngay. Lá ngược thiên về đoạn này cần làm khác thói quen. |
+| 4 | Ngày bốn | Giữa tuần, đà đang lên hay đang chững | Đây là lá bản lề của tuần, đọc kỹ hơn các ngày khác và dùng sac_thai của nó để cân giọng cả bài. Lá nặng ở giữa tuần là chỗ tuần chững lại, nói gọn cái đang ghì rồi chỉ chỗ làm được. |
+| 5 | Ngày năm | Sang nửa sau tuần, cái gì mở ra hoặc đòi người hỏi làm gì | Đọc nối với lá bốn, nói cho ra nửa sau khác nửa đầu chỗ nào. Lá nhẹ ở đây là ngày dễ thở nhất tuần, nói rõ nên dùng nó vào việc gì thay vì chỉ khen là ngày vui. |
+| 6 | Ngày sáu | Gần cuối tuần, cái gì dễ bị bỏ lỡ hoặc dễ hỏng | Đọc như chỗ hụt của tuần, dùng phần đầu của canh_bao khi lá nặng hoặc lá ngược. Lá nhẹ ở đây thì nói cái đang đưa tới mà người hỏi dễ không để ý. |
+| 7 | Ngày cuối | Tuần khép lại thế nào, đà nào mang sang tuần sau | Đọc như điểm khép, nói bằng cuối tuần chứ không gọi tên thứ. Lá nhẹ là tuần khép êm, lá nặng là tuần khép còn dở, nói gọn cái dở đó. Dùng huong trong sac_thai để nói tuần đi lên hay đi xuống. |
+
+Luật đọc riêng:
+
+- Bảy ngày không nói đều bảy đoạn; gộp những ngày cùng nhịp thành một câu và chỉ nói kỹ hai ba ngày lệch hẳn khỏi phần còn lại.
+- Gọi bằng ngày đầu, đầu tuần, giữa tuần, nửa sau, ngày cuối; không gọi tên thứ, không nói ngày dương lịch, vì bảy lá này tính từ hôm rút chứ không theo lịch.
+- Không hứa sự kiện cho ngày nào; mỗi ngày nói về nhịp, tâm thế và chỗ nên dồn sức hay giữ sức, không nói hôm đó có tin, hôm đó gặp người.
+- Lá nặng trong tuần là ngày nên giữ sức chứ không phải ngày xấu, và bài này không có ngày xui; câu hỏi hỏi thẳng chuyện xui rủi, tai nạn hay bệnh trong tuần thì chuyển hướng theo mục 5 của system prompt.
+- Mở bằng một câu về nhịp cả tuần, dồn hay thưa, đi lên hay đi xuống, rồi mới vào ngày đầu; kết bằng một việc làm được và nói rõ nên làm nó vào đoạn nào của tuần.
+
+Độ dài bài: 380–460 tiếng.
+
+
+### Ví dụ 1 — "Tuần này của mình thế nào"
+
+Lá: 1. Tám Gậy, 2. Bảy Cốc, 3. Hai Tiền, 4. Chín Kiếm (ngược), 5. Ba Cốc, 6. Bốn Cốc, 7. Ngôi Sao
+
+> Tuần này dồn ở đầu rồi lắng dần về cuối. Ba lá Cốc trong bảy, nên nhịp của tuần nằm ở lòng dạ và ở người quanh bạn nhiều hơn ở việc, và chỉ một Ẩn Chính, nghĩa là phần lớn tuần này nằm trong tay bạn.
+>
+> Ngày đầu là Tám Gậy, mọi thứ tới cùng một lúc, tin nhắn, việc, mấy chuyện chờ lâu bỗng chạy hết trong một hôm. Tám cây gậy bay chéo trên không mà không ai cầm, nên đừng cố sắp cho gọn, theo kịp là đủ; chỗ dễ hỏng là gửi vội và hứa vội. Ngày hai là Bảy Cốc, bày ra nhiều ngả mà chưa ngả nào có thật, bạn dễ ngồi cả buổi so đo cái nào hay hơn rồi không động tay vào cái nào. Ngày ba là Hai Tiền, xoay giữa hai đầu, chưa rơi quả nào nhưng cũng chưa được ngồi yên một phút. Ba ngày đầu tuần là một mạch, nhanh, hoa mắt, rồi xoay xở.
+>
+> Giữa tuần chững lại ở Chín Kiếm ngược. Có một nỗi lo bạn ôm mấy hôm nay, và lá ngược nên nó đang tan bớt, sáng ra thấy nhẹ hơn tối qua. Cái làm nó nhẹ là kể ra với một người, không phải nghĩ thêm một mình. Nỗi sợ trong đầu vẫn đang to hơn chuyện thật ngoài đời, nên đừng lấy ngày này ra quyết chuyện lớn, để nó cho việc tay chân và cho một giấc ngủ đủ. Đây là ngày nên giữ sức, không phải ngày xấu.
+>
+> Nửa sau tuần mở ở Ba Cốc, ngày dễ thở nhất, có người cùng chia, việc gì xong thì mừng cho xong với đúng những người đã cùng làm. Nhưng ngay sau đó là Bốn Cốc, hết hứng, ngồi khoanh tay thấy cái gì cũng nhạt, và có một cốc đưa tới ngang tầm mắt mà bạn không buồn ngước lên. Đây là chỗ dễ bỏ lỡ nhất cả tuần, mà bỏ lỡ vì chán chứ không vì thiếu. Ngày cuối là Ngôi Sao, lặng và trong, không có gì ồn, lòng lắng lại và hướng đi hiện ra ở xa, chưa tới nhưng có thật.
+>
+> Tuần này của bạn không nặng, chỉ dồn không đều. Việc làm được là chọn đúng một thứ trong đống chạy tới ở đầu tuần rồi làm cho xong nó trước lúc tuần chững, và tới cái ngày bạn thấy chán nhất thì nhận lời mời gần nhất thay vì khoanh tay ngó lơ.
+
 ## Năm lá tháng tới (`thang_toi`, 5 lá, nhóm chuyen_de)
 
 Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng. Để biết đoạn nào nên dồn sức, đoạn nào nên giữ sức.
@@ -454,3 +582,54 @@ Lá: 1. Át Cốc, 2. Mười Cốc (ngược), 3. Nữ Hoàng, 4. Ác Quỷ, 5.
 > Đầu tháng là Át Cốc, lòng đầy đến tràn, dễ xúc động, muốn cho đi mà chưa rõ cho ai. Đoạn này có đà, nhưng là đà của cảm xúc, chưa phải của việc; đừng hứa gì lớn lúc cốc đang tràn. Giữa tháng là Mười Cốc, lá ngược, và đà chững lại đúng ở chỗ nhà, cái tràn của tuần đầu đổ vào người thân mà gặp lạnh; ngoài nhìn vẫn êm, trong thì mỗi người một hướng. Đoạn này kẹt, nên giữ sức, đừng cố rót thêm cho ấm, vì rót thêm là quá liều. Nửa sau tháng là Nữ Hoàng, tuần đáng dồn sức nhất vì nó cùng nhịp với cả tháng, cái gì được chăm đúng nhịp thì lớn, việc, tiền, tình đều dễ chịu hơn, ruộng lúa trên lá đang chín. Đây là đỉnh của tháng, dồn theo kiểu chăm cho lớn, không ép, và nhớ chăm cả mình. Cuối tháng là Ác Quỷ, đáy của tháng, và tháng khép còn dở ở chỗ này, một thói quen, một cái thích, hay một nỗi sợ được nuôi suốt tháng đang thành cái trói. Xích trên lá rộng và lỏng, lối ra có, chỉ là bạn chưa muốn bước. Đà mang sang tháng sau là cái trói đó, nếu bạn không nhìn ra trước khi tháng hết.
 >
 > Tháng tới đi lên ở nửa sau và ghì xuống ở cuối, không phải tháng xấu, là tháng có một liều lượng phải học. Việc giữ cả tháng là chọn đúng một thứ bạn hay làm quá tay, ví dụ tiêu cho người khác, đặt cho nó một mức mỗi tuần và giữ suốt bốn tuần, kể cả tuần dễ chịu nhất.
+
+## Mười hai lá năm tới (`nam_toi_12`, 12 lá, nhóm chuyen_de)
+
+Mười hai lá xếp thành vòng tròn cho mười hai tháng tới, tính từ tháng bạn rút chứ không theo lịch. Để nhìn đường đi của cả năm, quý nào nặng, quý nào mở ra, và cái gì đọng lại khi năm khép.
+
+Hợp với: Năm tới của mình thế nào; Sang năm chuyện đi làm của mình chuyển ra sao; Năm tới mình nên dồn sức vào quãng nào; Nhìn giúp mình cả năm tới một lượt.  
+Không hợp: Tháng nào trong năm thì nên cưới; Năm tới có gặp hạn gì không; Năm tới có nên mua nhà không.
+
+Cách rút: Xào bài, rút mười hai lá và đặt thành một vòng tròn theo chiều kim đồng hồ, lá một ở đỉnh vòng, mỗi lá là một tháng kể từ tháng bạn đang rút.
+
+| # | Vị trí | Lá ở đây trả lời | Gợi ý đọc |
+|---|---|---|---|
+| 1 | Tháng thứ nhất | Năm này mở ra bằng cái gì, tháng đầu đặt người hỏi vào tâm thế nào | Đọc như câu mở của cả năm, nói cái được đặt xuống ở đây còn theo người hỏi về sau. Lá nhẹ là năm mở có đà, lá nặng là năm mở bằng một thứ phải đi qua. Lá ngược thiên về cái mở ra còn chậm hoặc chưa rõ hình. |
+| 2 | Tháng thứ hai | Sang tháng sau, cái mở ra ở tháng đầu chuyển thế nào | Đọc nối với lá một, không đọc rời. Hai lá cùng chất thì gộp một câu. Lá ngược ở đây thường là chuyện chưa chạy được như tháng đầu tưởng. |
+| 3 | Tháng thứ ba | Quý mở khép lại thế nào, cái gì còn kẹt lại từ đoạn này | Đọc như điểm khép của quý đầu. Lá nặng ở đây là chỗ kẹt của quý mở, nói gọn cái kẹt rồi chỉ chỗ gỡ. Lá nhẹ là cái vốn mang được sang quý sau. |
+| 4 | Tháng thứ tư | Quý hai mở ra bằng gì, có gì khác quý đầu | Nói cho ra chỗ bàn bắt đầu đổi so với quý mở. Lá hoàng gia ở đây đọc theo la_tinh_huong trừ khi câu hỏi có một người cụ thể. Lá nhẹ sau một quý nặng là chỗ dễ thở, nói rõ nên dùng nó vào việc gì. |
+| 5 | Tháng thứ năm | Giữa quý hai, cái gì đang lớn lên và cái gì đang chậm | Đọc nối với lá bốn. Lá tĩnh ở đây là quãng phải chờ, không phải quãng hỏng; lá động là quãng nên đẩy. Lá ngược thiên về chuyện cần làm khác cách người hỏi vẫn làm. |
+| 6 | Tháng thứ sáu | Nửa năm đầu khép lại ở đâu, người hỏi đang đứng chỗ nào | Đây là điểm giữa của cả năm, đọc kỹ hơn các tháng thường và dùng nó để nói nửa đầu năm đi lên hay đi xuống. Ẩn Chính ở đây là quãng không nằm hết trong tay người hỏi, nói rõ chỗ đó. |
+| 7 | Tháng thứ bảy | Nửa sau năm mở ra bằng gì | Đọc như câu mở của nửa sau, nói cho ra nó khác nửa đầu chỗ nào. Lá ngược ở đây thiên về nửa sau bắt đầu chậm. Lá nặng không phải điềm xấu, là thứ phải đi qua để sang được đoạn sau. |
+| 8 | Tháng thứ tám | Cái gì thành hình hoặc được nhìn thấy ở quãng này | Đọc như chỗ công sức nửa đầu năm hiện ra thành cái thấy được. Lá nhẹ ở đây là quãng dễ thở nhất năm, nói rõ nên dùng nó vào việc gì. Lá nặng là cái phải trả cho những gì đã làm. |
+| 9 | Tháng thứ chín | Quý ba khép lại thế nào, cái gì đang qua đi | Đọc như điểm khép của quý ba, hợp với chuyện một đoạn đang hết. Lá ngược ở đây thường là cái nặng đang dịu, đừng máy móc làm nặng thêm. Nói gọn, để chỗ cho quý cuối. |
+| 10 | Tháng thứ mười | Quý cuối mở ra bằng gì, người hỏi cần đổi cách nào | Đọc như chỗ năm quay đầu về, thường là quãng thu lại hơn là quãng mở ra. Ẩn Chính ở đây là quãng phải chịu chứ không phải quãng đẩy. Lá hoàng gia đọc theo la_nang_luong, là tâm thế nên giữ cho hết năm. |
+| 11 | Tháng thứ mười một | Gần cuối năm, cái gì tới tay và cái gì dễ bị bỏ lỡ | Đọc nối với lá mười. Lá nhẹ ở đây nói cái đã tới tay, nhưng dùng canh_bao để nói luôn mặt hụt của nó. Lá nặng là chỗ hụt cuối năm, nói gọn rồi chỉ chỗ làm được. |
+| 12 | Tháng thứ mười hai | Năm này khép lại ở đâu, cái gì đọng lại mang sang năm sau | Đọc như điểm khép của cả vòng, nói cái đọng lại chứ không nói một sự kiện. Lá nhẹ là năm khép có nền, lá nặng là năm khép còn dở, nói rõ cái dở đó mang sang năm sau dạng gì. Đây là lá quay về ở đoạn kết. |
+
+Luật đọc riêng:
+
+- Mười hai lá thì không luận rời từng tháng; đi theo bốn quý, mỗi quý một mạch, nói kỹ ba bốn tháng lệch hẳn khỏi phần còn lại, các tháng còn lại mỗi tháng một câu và gộp những tháng cùng nhịp.
+- Đếm tháng từ tháng người hỏi rút, gọi bằng tháng đầu, tháng thứ tư, nửa sau năm, quý cuối; không gọi tên tháng dương lịch hay âm lịch, không nói ngày, không nói mùa, không nhắc Tết.
+- Không hứa sự kiện cho tháng nào; mỗi tháng nói về đà, tâm thế và chỗ nên dồn sức hay giữ sức. Câu hỏi về bệnh, sinh tử, thai sản, kiện tụng hay mua bán đầu tư trong năm thì chuyển hướng theo mục 5 của system prompt rồi mới đọc phần đọc được.
+- Tháng nào ra Ẩn Chính là quãng không nằm hết trong tay người hỏi, nói rõ chỗ đó; hai Ẩn Chính liền nhau thì cả quãng ấy là chỗ phải chịu, không phải chỗ đẩy.
+- Mở bài bằng một câu về đường đi của cả năm, chất nào chiếm bàn, nặng ở quý nào và mở ra ở quý nào; kết bằng một việc giữ được suốt năm chứ không phải việc của một tuần, và quay về lá mười hai để nói cái đọng lại.
+
+Độ dài bài: 520–620 tiếng.
+
+
+### Ví dụ 1 — "Năm tới của mình thế nào"
+
+Lá: 1. Tiểu Đồng Tiền, 2. Ba Gậy (ngược), 3. Tám Kiếm, 4. Hai Cốc, 5. Bảy Tiền, 6. Bánh Xe Số Phận, 7. Sáu Kiếm, 8. Bốn Gậy, 9. Năm Tiền (ngược), 10. Ẩn Sĩ, 11. Chín Cốc, 12. Mười Tiền
+
+> Bốn lá Tiền trong mười hai, năm tới của bạn xoay quanh việc làm và chỗ ăn ở nhiều hơn chuyện tình cảm, và chỉ hai Ẩn Chính nên phần lớn năm nằm trong tay bạn. Nhìn theo đường thì năm mở ra chậm, bí ở quý đầu, chuyển từ giữa, rồi khép lại có nền.
+>
+> Ba tháng đầu đi chậm. Tiểu Đồng Tiền mở năm bằng một thứ cụ thể bạn bắt đầu học, một việc nhỏ đầu tay, còn học chứ chưa kiếm được, mà học cho chắc thì cả năm sau đỡ. Tháng thứ hai là Ba Gậy ngược, cái bạn gửi đi từ trước chưa thấy đường về, đợi mà tin chưa tới, và chỗ dễ hỏng là bỏ việc trước mắt để đứng ngóng. Tháng thứ ba là Tám Kiếm, chỗ bí nhất của quý mở, bạn tin là hết cách và ngồi chờ ai đó gỡ hộ. Nhưng hàng rào kiếm trong lá cắm thưa và phía trước không có thanh nào, cái kẹt nằm trong đầu bạn chứ không nằm ngoài đời.
+>
+> Từ tháng thứ tư bàn bắt đầu chuyển. Hai Cốc là một mối kết lại, có người đứng cùng phía và chảy đều hai chiều, trong việc thì là một cái bắt tay ngang vai. Tháng thứ năm là Bảy Tiền, bạn dừng tay ngắm lại xem công bỏ ra có đáng, quả còn xanh nên sốt ruột, đây là chỗ dễ hái non nhất năm. Tháng thứ sáu là Bánh Xe, quãng không nằm trong tay bạn, vòng quay đổi chiều mà chẳng ai bấm nút; việc của bạn ở đó là biết mình đang ở đâu trên vòng chứ không gồng cưỡng lại.
+>
+> Nửa sau năm nhẹ dần. Tháng thứ bảy là Sáu Kiếm, rời một chỗ khó sang chỗ yên hơn, đi chậm và mang theo cả cái buồn cũ, mới là đoạn giữa đường chứ chưa phải nơi đến, và có người chống sào đưa qua nên bạn không phải tự chèo. Tháng thứ tám là Bốn Gậy, quãng dễ thở nhất năm, nền đã dựng xong đủ để dừng lại mừng cùng người thân. Tháng thứ chín là Năm Tiền ngược, cái thiếu và cái đứng ngoài đang qua dần, cửa sáng đã trong tầm nhìn; mặt kia của lá ngược là vừa dễ thở lại tiêu bừa cho bõ những tháng nhịn.
+>
+> Ba tháng cuối quay vào trong rồi đóng lại. Ẩn Sĩ ở tháng thứ mười là quãng bạn rút khỏi đám đông để tự tìm câu trả lời, đi chậm và soi kỹ, một khoảng yên có chủ ý và có hạn chứ không phải trốn. Tháng thứ mười một là Chín Cốc, thoả được một điều bạn ước, nhưng cái thoả này của riêng bạn và hơi khép, dễ hưởng một mình mà quên người bên cạnh. Tháng cuối là Mười Tiền, năm khép ở chỗ nền, cái làm được suốt năm đọng lại thành thứ lâu dài, một nếp đứng được nhiều năm chứ không phải một cú.
+>
+> Vậy năm tới của bạn đi lên nhưng đi chậm, bí ở quý đầu và mở từ giữa, và cái đọng lại cuối năm là nền chứ không phải món hời. Việc nên giữ suốt năm chính là cái mở ra ở tháng đầu, chọn một thứ để học cho tới nơi, đặt cho nó một buổi cố định mỗi tuần, rồi giữ buổi đó cả trong quý bí lẫn trong tháng dễ thở nhất.

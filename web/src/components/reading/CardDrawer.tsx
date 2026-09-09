@@ -22,7 +22,7 @@ export function CardDrawer({
   topic: TopicKey;
   onClose: () => void;
 }) {
-  const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!entry) return;
@@ -32,7 +32,9 @@ export function CardDrawer({
     document.addEventListener("keydown", onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    closeRef.current?.focus();
+    /* Đưa tiêu điểm vào chính khung, không vào nút đóng — nút đóng ở mobile và
+       ở desktop là hai nút khác nhau, nút nào đang ẩn thì không nhận được. */
+    panelRef.current?.focus();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
@@ -45,7 +47,13 @@ export function CardDrawer({
   const keywords = (reversed ? card.reversed : card.upright).slice(0, 4);
 
   return (
-    <div className="fixed inset-0 z-50">
+    /*
+      Máy hẹp thì đây là ngăn kéo trượt lên từ mép dưới. Máy rộng mà vẫn dán
+      xuống đáy màn thì trông như bị rơi, nên từ md trở lên nó thành hộp thoại
+      nằm giữa. Canh bằng flex chứ không dùng transform, vì animate-rise cũng
+      chạy trên transform, hai thứ đè nhau là khung nhảy chỗ.
+    */
+    <div className="fixed inset-0 z-50 flex items-end justify-center md:items-center md:p-6">
       <button
         type="button"
         aria-label="Đóng"
@@ -53,18 +61,29 @@ export function CardDrawer({
         onClick={onClose}
       />
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-label={card.vi}
-        className="absolute inset-x-0 bottom-0 mx-auto flex max-h-[86vh] w-full max-w-[560px] animate-rise flex-col gap-4.5 overflow-y-auto rounded-t-[18px] border-t border-line bg-surface px-5 pt-3 pb-6.5 shadow-drawer"
+        tabIndex={-1}
+        className="relative flex max-h-[86vh] w-full max-w-[560px] animate-rise flex-col gap-4.5 overflow-y-auto rounded-t-[18px] border-t border-line bg-surface px-5 pt-3 pb-6.5 shadow-drawer outline-none md:max-h-[82vh] md:rounded-[18px] md:border md:px-7 md:pt-6 md:pb-7"
       >
+        {/* Thanh kéo chỉ có nghĩa với ngón tay. */}
         <button
-          ref={closeRef}
           type="button"
           onClick={onClose}
           aria-label="Đóng"
-          className="mx-auto h-1 w-10 shrink-0 rounded-sm bg-line"
+          className="mx-auto h-1 w-10 shrink-0 rounded-sm bg-line md:hidden"
         />
+        {/* Máy rộng thì cần một nút đóng thấy được, không có mép dưới để vuốt. */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Đóng"
+          className="absolute top-3.5 right-3.5 hidden size-8 items-center justify-center rounded-full text-[15px] text-muted transition-colors hover:bg-surface-2 hover:text-ink md:flex"
+        >
+          ✕
+        </button>
 
         <div className="flex items-start gap-4">
           <TarotCardFace

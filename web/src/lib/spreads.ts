@@ -5,7 +5,8 @@ import type { AspectKey } from "./cards";
  * toạ độ để giữ đúng hình mà kiểu trải quy định.
  */
 export type LayoutKind =
-  "single" | "row" | "pair" | "love" | "plus" | "branch" | "month" | "cross";
+  | "single" | "row" | "pair" | "love" | "plus" | "branch"
+  | "month" | "cross" | "horseshoe" | "week" | "year";
 
 export type TopicKey = AspectKey | "general";
 
@@ -310,6 +311,75 @@ export const SPREADS: Spread[] = [
       title: "Trải bài tarot tình cảm năm lá",
       description:
         "Năm lá nhìn phía bạn, phía người kia, cái đang nối, cái đang cản và hướng mối quan hệ đang đi.",
+    },
+  },
+  {
+    slug: "bay-la-mong-ngua",
+    name: "Bảy lá móng ngựa",
+    nameEn: "Seven Card Horseshoe",
+    count: 7,
+    length: { min: 380, max: 460 },
+    group: "basic",
+    layout: "horseshoe",
+    blurb:
+      "Bảy lá xếp thành vòng cung, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic.",
+    about:
+      "Bảy lá xếp thành vòng cung như hình móng ngựa, cho một chuyện đang rối mà chưa đủ lớn để bày cả Thập tự Celtic. Nhìn được cả gốc, cả chỗ đang cản, cả cái còn khuất và người xung quanh.",
+    how: "Xào bài, rút bảy lá và đặt thành một vòng cung mở lên như hình móng ngựa, từ trái sang phải theo thứ tự một tới bảy.",
+    placeholder: "Chuyện nào bạn muốn nhìn cho hết một lượt",
+    fits: [
+      "Chuyện ở chỗ làm của mình đang thế nào",
+      "Mối này đang vướng ở đâu, nhìn giúp mình một lượt",
+      "Mình đang kẹt mà chưa biết kẹt chỗ nào",
+      "Chuyện này còn gì mình chưa nhìn ra không",
+    ],
+    notFor: [
+      "Nên chọn bên này hay bên kia",
+      "Hôm nay có nên nhắn cho người đó không",
+      "Bao giờ chuyện này xong",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Quá khứ",
+        meaning:
+          "chuyện này từ đâu mà ra, cái gì đã xảy ra và còn để dấu lên hôm nay",
+      },
+      {
+        label: "Hiện tại",
+        meaning: "ngay lúc này chuyện đang ở đâu và cái gì đang chi phối bạn",
+      },
+      {
+        label: "Cái còn khuất",
+        short: "Còn khuất",
+        meaning: "cái gì đang tác động vào chuyện này mà bạn chưa nhìn ra",
+      },
+      {
+        label: "Cái đang cản",
+        short: "Đang cản",
+        meaning: "cái gì đang chặn chuyện này lại, và nó chặn bằng cách nào",
+      },
+      {
+        label: "Người và hoàn cảnh xung quanh",
+        short: "Xung quanh",
+        meaning:
+          "người khác và hoàn cảnh bên ngoài đang đẩy chuyện này theo hướng nào",
+      },
+      {
+        label: "Việc nên làm",
+        short: "Nên làm",
+        meaning: "với bàn bài này, bạn nên làm gì",
+      },
+      {
+        label: "Kết cục nếu giữ đà",
+        short: "Kết cục",
+        meaning: "nếu mọi thứ giữ nguyên như bàn bài này thì chuyện đi tới đâu",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot móng ngựa bảy lá",
+      description:
+        "Bảy lá móng ngựa cho một chuyện đang rối: gốc rễ, hiện tại, cái còn khuất, cái đang cản, việc nên làm và kết cục nếu giữ đà.",
     },
   },
   {
@@ -634,6 +704,119 @@ export const SPREADS: Spread[] = [
     },
   },
   {
+    slug: "ba-la-nhin-lai-minh",
+    name: "Ba lá nhìn lại mình",
+    nameEn: "Three Card Self Reflection",
+    count: 3,
+    length: { min: 220, max: 300 },
+    group: "topic",
+    layout: "row",
+    blurb: "Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì.",
+    about:
+      "Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì. Ba lá cho tâm thế hiện tại, cái đang bị tránh nhìn và cái nên nuôi. Trải này nhìn vào chính bạn, không nhìn chuyện bên ngoài.",
+    how: "Xào bài, nghĩ về chính mình chứ không nghĩ về ai khác, rút ba lá và đặt thành hàng ngang từ trái sang phải.",
+    placeholder: "Dạo này bạn thấy mình thế nào",
+    fits: [
+      "Dạo này mình thấy mình lửng lơ, mình đang ở đâu",
+      "Mình đang mệt mà không biết mệt vì cái gì",
+      "Có cái gì mình đang tránh không dám nhìn không",
+      "Giờ mình nên nuôi cái gì trong mình",
+    ],
+    notFor: [
+      "Người đó đang nghĩ gì về mình",
+      "Mình có nên nghỉ việc không",
+      "Bao giờ mình hết chuỗi ngày này",
+    ],
+    defaultTopic: "mind",
+    positions: [
+      {
+        label: "Bạn lúc này",
+        meaning:
+          "bạn đang mang tâm thế gì, đang là người thế nào trong quãng này",
+        lens: "mind",
+      },
+      {
+        label: "Cái bạn đang tránh nhìn",
+        short: "Đang tránh nhìn",
+        meaning:
+          "điều gì bạn biết mà không muốn nhìn thẳng, và nó đang giữ bạn lại ra sao",
+        lens: "mind",
+      },
+      {
+        label: "Cái nên nuôi",
+        short: "Nên nuôi",
+        meaning: "sức nào bạn đang có mà chưa dùng tới, nên đổ công vào đâu",
+        lens: "mind",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot ba lá nhìn lại mình",
+      description:
+        "Ba lá cho chính bạn: tâm thế lúc này, cái bạn đang tránh nhìn và cái nên nuôi.",
+    },
+  },
+  {
+    slug: "bay-la-tuan-nay",
+    name: "Bảy lá tuần này",
+    nameEn: "Seven Card Week Ahead",
+    count: 7,
+    length: { min: 380, max: 460 },
+    group: "topic",
+    layout: "week",
+    blurb: "Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch.",
+    about:
+      "Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch. Để biết tuần này dồn ở đoạn nào, thưa ở đoạn nào, ngày nào nên dồn sức và ngày nào nên giữ sức.",
+    how: "Xào bài, rút bảy lá và đặt thành hàng ngang từ trái sang phải, mỗi lá một ngày, lá đầu tiên là ngày hôm nay.",
+    placeholder: "Bạn muốn nhìn trước tuần này ở mặt nào",
+    fits: [
+      "Tuần này của mình thế nào",
+      "Tuần này đi làm có căng không",
+      "Mấy hôm tới mình nên để ý chuyện gì",
+      "Tuần này nên dồn sức vào đoạn nào",
+    ],
+    notFor: [
+      "Thứ mấy thì nên ký hợp đồng",
+      "Tuần này có gặp chuyện gì xui không",
+      "Tuần này người đó có nhắn cho mình không",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Ngày đầu",
+        meaning: "ngày mở tuần, cái gì đang chi phối và bạn nên để ý điều gì",
+      },
+      {
+        label: "Ngày hai",
+        meaning: "sang ngày sau, nhịp chuyển sang đâu so với ngày mở tuần",
+      },
+      {
+        label: "Ngày ba",
+        meaning: "đoạn đầu tuần khép lại thế nào, cái gì nổi lên ở đây",
+      },
+      {
+        label: "Ngày bốn",
+        meaning: "giữa tuần, đà đang lên hay đang chững",
+      },
+      {
+        label: "Ngày năm",
+        meaning: "sang nửa sau tuần, cái gì mở ra hoặc đòi bạn làm gì",
+      },
+      {
+        label: "Ngày sáu",
+        meaning: "gần cuối tuần, cái gì dễ bị bỏ lỡ hoặc dễ hỏng",
+      },
+      {
+        label: "Ngày cuối",
+        meaning: "tuần khép lại thế nào, đà nào mang sang tuần sau",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot tuần này bảy lá",
+      description:
+        "Bảy lá cho bảy ngày tới: tuần này dồn ở đoạn nào, ngày nào nên dồn sức và ngày nào nên giữ sức.",
+    },
+  },
+  {
     slug: "nam-la-thang-toi",
     name: "Năm lá tháng tới",
     nameEn: "Five Card Month Ahead",
@@ -687,6 +870,88 @@ export const SPREADS: Spread[] = [
       title: "Trải bài tarot tháng tới năm lá",
       description:
         "Bốn lá cho bốn tuần và một lá chủ đề, nhìn trước cả tháng sắp tới.",
+    },
+  },
+  {
+    slug: "muoi-hai-la-nam-toi",
+    name: "Mười hai lá năm tới",
+    nameEn: "Twelve Card Year Ahead",
+    count: 12,
+    length: { min: 520, max: 620 },
+    group: "topic",
+    layout: "year",
+    blurb:
+      "Mười hai lá cho mười hai tháng tới, tính từ tháng bạn rút chứ không theo lịch.",
+    about:
+      "Mười hai lá xếp thành vòng tròn cho mười hai tháng tới, tính từ tháng bạn rút chứ không theo lịch. Để nhìn đường đi của cả năm, quý nào nặng, quý nào mở ra, và cái gì đọng lại khi năm khép.",
+    how: "Xào bài, rút mười hai lá và đặt thành một vòng tròn theo chiều kim đồng hồ, lá một ở đỉnh vòng, mỗi lá là một tháng kể từ tháng bạn đang rút.",
+    placeholder: "Bạn muốn nhìn trước năm tới ở mặt nào",
+    fits: [
+      "Năm tới của mình thế nào",
+      "Sang năm chuyện đi làm của mình chuyển ra sao",
+      "Năm tới mình nên dồn sức vào quãng nào",
+      "Nhìn giúp mình cả năm tới một lượt",
+    ],
+    notFor: [
+      "Tháng nào trong năm thì nên cưới",
+      "Năm tới có gặp hạn gì không",
+      "Năm tới có nên mua nhà không",
+    ],
+    defaultTopic: "general",
+    positions: [
+      {
+        label: "Tháng thứ nhất",
+        meaning: "năm này mở ra bằng cái gì, tháng đầu đặt bạn vào tâm thế nào",
+      },
+      {
+        label: "Tháng thứ hai",
+        meaning: "sang tháng sau, cái mở ra ở tháng đầu chuyển thế nào",
+      },
+      {
+        label: "Tháng thứ ba",
+        meaning: "quý mở khép lại thế nào, cái gì còn kẹt lại từ đoạn này",
+      },
+      {
+        label: "Tháng thứ tư",
+        meaning: "quý hai mở ra bằng gì, có gì khác quý đầu",
+      },
+      {
+        label: "Tháng thứ năm",
+        meaning: "giữa quý hai, cái gì đang lớn lên và cái gì đang chậm",
+      },
+      {
+        label: "Tháng thứ sáu",
+        meaning: "nửa năm đầu khép lại ở đâu, bạn đang đứng chỗ nào",
+      },
+      {
+        label: "Tháng thứ bảy",
+        meaning: "nửa sau năm mở ra bằng gì",
+      },
+      {
+        label: "Tháng thứ tám",
+        meaning: "cái gì thành hình hoặc được nhìn thấy ở quãng này",
+      },
+      {
+        label: "Tháng thứ chín",
+        meaning: "quý ba khép lại thế nào, cái gì đang qua đi",
+      },
+      {
+        label: "Tháng thứ mười",
+        meaning: "quý cuối mở ra bằng gì, bạn cần đổi cách nào",
+      },
+      {
+        label: "Tháng thứ mười một",
+        meaning: "gần cuối năm, cái gì tới tay và cái gì dễ bị bỏ lỡ",
+      },
+      {
+        label: "Tháng thứ mười hai",
+        meaning: "năm này khép lại ở đâu, cái gì đọng lại mang sang năm sau",
+      },
+    ],
+    seo: {
+      title: "Trải bài tarot năm tới mười hai lá",
+      description:
+        "Mười hai lá cho mười hai tháng tới: quý nào nặng, quý nào mở ra, và cái gì đọng lại khi năm khép.",
     },
   },
 ];
@@ -778,6 +1043,53 @@ export const SPREAD_LAYOUTS: Record<
       { x: 62.5, y: 72 },
       { x: 87.5, y: 72 },
       { x: 50, y: 24, z: 2 },
+    ],
+  },
+  /** Móng ngựa: bảy lá xoè thành vòng cung mở lên, lá bốn ở đỉnh cung */
+  horseshoe: {
+    ratio: [100, 46],
+    cardWidth: 12.5,
+    points: [
+      { x: 11.9, y: 68.2, z: 1, rotate: -21 },
+      { x: 21.7, y: 45.1, z: 2, rotate: -14 },
+      { x: 34.9, y: 29.9, z: 3, rotate: -7 },
+      { x: 50, y: 24.7, z: 4 },
+      { x: 65.1, y: 29.9, z: 5, rotate: 7 },
+      { x: 78.3, y: 45.1, z: 6, rotate: 14 },
+      { x: 88.1, y: 68.2, z: 7, rotate: 21 },
+    ],
+  },
+  /** Bảy ngày xếp một hàng ngang, ngày đầu bên trái */
+  week: {
+    ratio: [100, 22],
+    cardWidth: 12,
+    points: [
+      { x: 7.5, y: 50 },
+      { x: 21.7, y: 50 },
+      { x: 35.8, y: 50 },
+      { x: 50, y: 50 },
+      { x: 64.2, y: 50 },
+      { x: 78.3, y: 50 },
+      { x: 92.5, y: 50 },
+    ],
+  },
+  /** Mười hai tháng thành một vòng tròn, tháng đầu ở đỉnh rồi đi theo chiều kim đồng hồ */
+  year: {
+    ratio: [100, 100],
+    cardWidth: 12.5,
+    points: [
+      { x: 50, y: 11.5 },
+      { x: 69.3, y: 16.7 },
+      { x: 83.3, y: 30.8 },
+      { x: 88.5, y: 50 },
+      { x: 83.3, y: 69.3 },
+      { x: 69.3, y: 83.3 },
+      { x: 50, y: 88.5 },
+      { x: 30.8, y: 83.3 },
+      { x: 16.7, y: 69.3 },
+      { x: 11.5, y: 50 },
+      { x: 16.7, y: 30.8 },
+      { x: 30.8, y: 16.7 },
     ],
   },
   /** Thập tự Celtic: sáu lá dựng thành thập tự, bốn lá còn lại thành cột bên phải */

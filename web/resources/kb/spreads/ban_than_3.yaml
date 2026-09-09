@@ -1,0 +1,64 @@
+id: ban_than_3
+ten_vi: Ba lá nhìn lại mình
+ten_en: Three Card Self Reflection
+nhom: chuyen_de
+so_la: 3
+mo_ta: Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì. Ba lá cho tâm thế hiện tại, cái đang bị tránh nhìn và cái nên nuôi. Trải này nhìn vào chính bạn, không nhìn chuyện bên ngoài.
+hop_voi:
+- Dạo này mình thấy mình lửng lơ, mình đang ở đâu
+- Mình đang mệt mà không biết mệt vì cái gì
+- Có cái gì mình đang tránh không dám nhìn không
+- Giờ mình nên nuôi cái gì trong mình
+khong_hop_voi:
+- Người đó đang nghĩ gì về mình
+- Mình có nên nghỉ việc không
+- Bao giờ mình hết chuỗi ngày này
+cach_rut: Xào bài, nghĩ về chính mình chứ không nghĩ về ai khác, rút ba lá và đặt thành hàng ngang từ trái sang phải.
+vi_tri:
+- stt: 1
+  ten: Bạn lúc này
+  cau_hoi: Người hỏi đang mang tâm thế gì, đang là người thế nào trong quãng này
+  goi_y_doc: Đọc bằng tam_ly, mô tả tâm thế chứ không mô tả hoàn cảnh. Lá nặng là cái đang đè bên trong, lá nhẹ là cái đang đỡ. Lá ngược thiên về tâm thế cũ đang vỡ ra hoặc đang bị đẩy quá đà. Lá hoàng gia đọc theo la_nang_luong, không đọc thành một người nào.
+  lang_kinh_uu_tien: tam_ly
+- stt: 2
+  ten: Cái bạn đang tránh nhìn
+  cau_hoi: Điều gì người hỏi biết mà không muốn nhìn thẳng, và nó đang giữ người hỏi lại ra sao
+  goi_y_doc: Chỗ khó nghe nhất bàn, dùng phần đầu của canh_bao để gọi tên cái đang bị né. Nói cái đang bị tránh, không dán nhãn tính cách người hỏi. Lá nhẹ ở đây cũng là cái bị né, thường là một chỗ tốt mà người hỏi không dám nhận.
+  lang_kinh_uu_tien: tam_ly
+- stt: 3
+  ten: Cái nên nuôi
+  cau_hoi: Sức nào người hỏi đang có mà chưa dùng tới, nên đổ công vào đâu
+  goi_y_doc: Đọc theo cot_loi rồi hạ xuống thành một thứ nuôi được bằng việc làm hằng ngày. Lá nặng ở đây là cái phải rèn chứ không phải điềm xấu. Lá ngược thiên về nuôi bằng cách ngược với thói quen của người hỏi.
+  lang_kinh_uu_tien: tam_ly
+luat_doc:
+- Cả ba lá đọc bằng lăng kính tâm lý, kể cả khi người hỏi nhắc tới việc, tiền hay tình cảm; chuyện bên ngoài chỉ dùng làm ví dụ cho tâm thế, không luận chuyện đó.
+- Lá hai nói thẳng nhưng gọn, không dán nhãn người hỏi là yếu, lười hay dở; gọi tên cái đang bị né chứ không gọi tên người hỏi là ai.
+- Mệt, lo, chán, kẹt trong bài này là tâm thế, không được đọc thành trầm cảm, bệnh tâm lý hay sức khoẻ đi xuống, dù lá nặng tới đâu; chuyện đó chuyển hướng theo mục 5 của system prompt.
+- Lá ba phải nối được với lá một, cái nên nuôi là thứ gỡ đúng chỗ đang kẹt ở lá một, không phải một lời khuyên chung ai nghe cũng được.
+- Trải này không trả lời chuyện người khác nghĩ gì, không trả lời có hay không và không đoán chuyện sắp tới; câu hỏi đòi những thứ đó thì đọc theo tâm thế người hỏi rồi gợi ý trải kiểu khác.
+do_dai:
+  min: 220
+  max: 300
+vi_du:
+- cau_hoi: Dạo này mình thấy mình cứ lửng lơ, nhìn giúp mình xem mình đang ở đâu
+  linh_vuc: tam_ly
+  la:
+  - vi_tri: 1
+    id: sword_02
+    nguoc: true
+  - vi_tri: 2
+    id: cup_05
+    nguoc: false
+  - vi_tri: 3
+    id: wand_02
+    nguoc: false
+  bai_luan: |-
+    Ba lá đều đứng yên, không lá nào đẩy, nên cái lửng lơ bạn đang thấy là thật. Chuyện này không tự chuyển, có chuyển là do bạn động.
+
+    Bạn lúc này là Hai Kiếm, lá ngược. Dải vải bịt mắt vừa tuột, hai thanh kiếm vẫn dựng chếch trên hai vai, và cái yên tạm mấy tháng qua đang vỡ. Trước đây bạn còn khất được, gạt chuyện sang bên cho lòng đỡ nặng, giờ bên nào cũng ép mà bạn chưa quyết nổi nên đầu rối. Lửng lơ không phải vì bạn không biết mình muốn gì, mà vì bạn vừa hết chỗ để khất.
+
+    Cái bạn đang tránh nhìn là Năm Cốc, một chuyện đã đổ mà bạn còn tiếc. Mắt dán vào mấy cái cốc đổ dưới đất, còn hai cốc đứng nguyên sau lưng thì ngoài tầm mắt. Tiếc là thật, không ai bắt bạn thôi tiếc; cái kẹt là bạn quay lưng với phần còn giữ được, và chính cái quay lưng đó giữ bạn đứng yên chứ không phải chuyện cũ.
+
+    Cái nên nuôi là Hai Gậy. Bạn có một chỗ đứng đã chắc, chắc tới mức thành chật, và quyền chọn vẫn nằm nguyên trong tay bạn chứ không nằm ở ai khác. Nuôi cái đó nghĩa là thôi đứng trên tường tính mãi, đem cái đang cầm ra dùng thay vì chỉ giữ.
+
+    Vậy bạn đang ở chỗ hết khất được nhưng chưa chịu nhìn về phía còn lại. Tuần này viết ra hai thứ bạn vẫn còn nguyên sau chuyện đã đổ, chọn một trong hai, rồi làm cho nó một việc nhỏ, dù chỉ mất một buổi.

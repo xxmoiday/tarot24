@@ -15,12 +15,30 @@ import {
 import { composeReading } from "@/lib/reading";
 import { decodeReading, encodeReading } from "@/lib/share";
 import { TOPICS, type Spread, type TopicKey } from "@/lib/spreads";
+import { DeckSpread, GATHER_MS } from "./DeckSpread";
 import { ReadingView, type FollowUp } from "./ReadingView";
+import {
+  ShuffleDeck,
+  SHUFFLE_MS,
+  SHUFFLE_MS_REDUCED,
+} from "./ShuffleDeck";
 
 type Step = "ask" | "shuffle" | "draw" | "result";
 
-const FAN_SIZE = 24;
 const MAX_QUESTION = 200;
+
+/** Thu xong thì để chồng bài nằm yên một nhịp, đừng cắt cảnh ngay. */
+const SETTLE_MS = 400;
+
+/**
+ * Cả đoạn kết màn rút bài: thu bài, nghỉ, rồi mờ đi. Phải khớp với
+ * --animate-step-out trong globals.css, ở đó độ trễ đúng bằng GATHER_MS +
+ * SETTLE_MS và thời lượng đúng bằng 320ms.
+ */
+const OUTRO_MS = GATHER_MS + SETTLE_MS + 320;
+
+/** Tắt hiệu ứng chuyển động thì chỉ giữ lại một nhịp cho đỡ giật màn. */
+const OUTRO_MS_REDUCED = 220;
 
 export function ReadingFlow({ spread }: { spread: Spread }) {
   const router = useRouter();
@@ -55,6 +73,9 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
 
   const activeCards = step === "result" && initial ? initial.cards : drawn;
 
+  /** Rút đủ lá rồi thì cỗ bài đang được thu lại, không cần giữ thêm trạng thái. */
+  const gathering = step === "draw" && picked.length >= spread.count;
+
   const reading = useMemo(() => {
     if (step !== "result" || activeCards.length < spread.count) return null;
     return composeReading({
@@ -73,15 +94,26 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  /** Chờ hết hoạt cảnh xào bài rồi mới mở bộ bài cho chạm chọn. */
   useEffect(() => {
     if (step !== "shuffle") return;
-    const t = setTimeout(() => setStep("draw"), 1100);
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    const t = setTimeout(
+      () => setStep("draw"),
+      reduced ? SHUFFLE_MS_REDUCED : SHUFFLE_MS,
+    );
     return () => clearTimeout(t);
   }, [step]);
 
-  /** Chọn đủ lá thì chuyển sang kết quả và ghi mã bài đọc vào đường dẫn. */
+  /**
+   * Chọn đủ lá thì thu cỗ bài lại — ngoài đời người đọc cũng vỗ gọn cỗ còn lại
+   * rồi để sang bên — xong mới sang kết quả và ghi mã bài đọc vào đường dẫn.
+   */
   useEffect(() => {
     if (step !== "draw" || picked.length < spread.count) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const t = setTimeout(() => {
       const id = encodeReading({
         spread: spread.slug,
@@ -94,7 +126,7 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
       setStep("result");
       router.replace(`/rut-bai/${spread.slug}?r=${id}`, { scroll: false });
       window.scrollTo({ top: 0, behavior: "smooth" });
-    }, 620);
+    }, reduced ? OUTRO_MS_REDUCED : OUTRO_MS);
     return () => clearTimeout(t);
   }, [step, picked, spread.count, spread.slug, deck, question, topic, router]);
 
@@ -270,31 +302,16 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
 
   /* ---------- Bước 2 · xào bài ---------- */
   if (step === "shuffle") {
-    return (
-      <div className="flex min-h-[70vh] flex-col items-center justify-center gap-8 px-5">
-        <div className="relative h-[190px] w-[130px]">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <TarotCardFace
-              key={i}
-              face="down"
-              className="absolute inset-x-0 top-0 w-[130px]"
-              style={{
-                animation: `t24-fly 900ms cubic-bezier(.22,1,.36,1) ${i * 110}ms infinite alternate`,
-                rotate: `${(i - 2) * 5}deg`,
-                zIndex: 5 - i,
-              }}
-            />
-          ))}
-        </div>
-        <p className="text-sm text-muted">Đang xào bài…</p>
-      </div>
-    );
+    return <ShuffleDeck seed={seed} />;
   }
 
   /* ---------- Bước 3 · chạm chọn lá ---------- */
   if (step === "draw") {
+    const slotCols = Math.min(spread.count, 5);
     return (
-      <div className="flex flex-col pb-8">
+      <div
+        className={`flex flex-col pb-8 ${gathering ? "animate-step-out" : ""}`}
+      >
         <div className="mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
           <div className="flex items-baseline justify-between">
             <h1 className="font-serif text-xl text-ink md:text-2xl">
@@ -305,10 +322,16 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
             </span>
           </div>
 
+          {/*
+            Ô chờ luôn theo tỉ lệ lá bài, nên cột càng ít thì ô càng cao. Chặn
+            bề ngang mỗi ô lại để kiểu trải một lá không dựng một khung chiếm
+            trọn màn hình, đẩy bộ bài xuống dưới nếp gấp.
+          */}
           <div
-            className="mt-4 grid gap-2 sm:gap-3"
+            className="mx-auto mt-4 grid gap-2 [--slot:150px] sm:gap-3 md:[--slot:200px]"
             style={{
-              gridTemplateColumns: `repeat(${Math.min(spread.count, 5)}, minmax(0, 1fr))`,
+              gridTemplateColumns: `repeat(${slotCols}, minmax(0, 1fr))`,
+              maxWidth: `calc(${slotCols} * var(--slot) + ${(slotCols - 1) * 12}px)`,
             }}
           >
             {spread.positions.map((pos, i) => {
@@ -345,68 +368,19 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           </div>
         </div>
 
-        <div className="relative mt-7 h-[150px]">
-          <div
-            aria-hidden
-            className="absolute top-4 left-1/2 h-[130px] w-[210px] -translate-x-1/2 rounded-[50%]"
-            style={{
-              background:
-                "radial-gradient(ellipse,rgba(201,169,97,0.10),rgba(201,169,97,0) 70%)",
-            }}
+        {/*
+          Trước đây chỗ này còn một chồng bài úp để trang trí. Nó vẽ lại đúng
+          hình ảnh bộ bài nằm ngay bên dưới mà lại đẩy chỗ chạm chọn xuống dưới
+          nếp gấp, nên chỉ giữ lại quầng sáng và đưa xuống sau lưng bộ bài thật.
+        */}
+        <div className="mt-8">
+          <DeckSpread
+            total={deck.length}
+            picked={picked}
+            locked={picked.length >= spread.count}
+            gathering={gathering}
+            onPick={(i) => setPicked((p) => (p.includes(i) ? p : [...p, i]))}
           />
-          {[
-            { top: 44, left: -34, rotate: -16, opacity: 0.3, scale: 0.9 },
-            { top: 22, left: -14, rotate: -9, opacity: 0.6, scale: 0.95 },
-            { top: 0, left: 6, rotate: -3, opacity: 1, scale: 1 },
-          ].map((c, i) => (
-            <TarotCardFace
-              key={i}
-              face="down"
-              className="absolute left-1/2 w-[86px]"
-              style={{
-                top: c.top,
-                opacity: c.opacity,
-                transform: `translateX(calc(-50% + ${c.left}px)) rotate(${c.rotate}deg) scale(${c.scale})`,
-              }}
-            />
-          ))}
-        </div>
-
-        <p className="mt-1 text-center text-[13px] text-muted">
-          Vuốt ngang để xem hết bộ bài
-        </p>
-
-        <div className="no-scrollbar relative mt-3 overflow-x-auto overscroll-x-contain px-5">
-          <div
-            className="relative mx-auto h-[150px]"
-            style={{ width: FAN_SIZE * 34 + 50 }}
-          >
-            {Array.from({ length: FAN_SIZE }).map((_, i) => {
-              const used = picked.includes(i);
-              const mid = (FAN_SIZE - 1) / 2;
-              const off = (i - mid) / mid;
-              return (
-                <button
-                  key={i}
-                  type="button"
-                  disabled={used || picked.length >= spread.count}
-                  aria-label={`Chọn lá thứ ${i + 1}`}
-                  onClick={() =>
-                    setPicked((p) => (p.includes(i) ? p : [...p, i]))
-                  }
-                  className="absolute w-[76px] cursor-pointer transition-all duration-200 hover:-translate-y-3 focus-visible:-translate-y-3 disabled:pointer-events-none disabled:opacity-0"
-                  style={{
-                    left: i * 34,
-                    top: 8 + off * off * 26,
-                    rotate: `${off * 15}deg`,
-                    zIndex: i,
-                  }}
-                >
-                  <TarotCardFace face="down" className="w-full" />
-                </button>
-              );
-            })}
-          </div>
         </div>
       </div>
     );
@@ -429,7 +403,10 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   }
 
   return (
-    <div ref={resultRef} className="px-5 pt-6 pb-4 md:px-[60px] md:pt-10">
+    <div
+      ref={resultRef}
+      className="animate-fade px-5 pt-6 pb-4 md:px-[60px] md:pt-10"
+    >
       <ReadingView
         reading={reading}
         shareUrl={`/doc/${shareId}`}
