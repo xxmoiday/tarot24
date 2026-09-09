@@ -191,8 +191,14 @@ export function DeckPile({
         : "Chạm cỗ bài để rút lá trên cùng · kéo sang phải để xoè cả cỗ";
 
   return (
-    <div className="flex flex-col gap-3">
-      <div className="relative h-[150px] md:h-[176px]">
+    /*
+      Máy hẹp: cỗ nằm mép trái, dòng nhắc xuống dưới. Máy rộng: cỗ lên mặt bàn
+      cùng khung với hàng ô bài chứ không dán mép màn nữa — cỗ bài đặt ở góc
+      bàn, không phải góc phòng — và dòng nhắc sang đứng cạnh nó. Câu ấy nói về
+      cỗ bài, mà canh giữa màn thì nó đứng cách cái nó đang nói tới cả gang.
+    */
+    <div className="mx-auto flex w-full max-w-[720px] flex-col gap-3 md:flex-row md:items-center md:gap-8">
+      <div className="relative h-[150px] w-full shrink-0 md:h-[176px] md:w-[176px]">
         <div
           ref={pileRef}
           role="button"
@@ -207,7 +213,7 @@ export function DeckPile({
             touch-none vì kéo ngang ở đây là thao tác xoè bài, để trình duyệt
             hiểu thành cuộn trang thì cỗ chẳng bao giờ hé ra được.
           */
-          className={`absolute top-2 left-5 h-[129px] w-[86px] touch-none select-none transition-[translate,opacity] duration-300 ease-out md:left-8 md:h-[150px] md:w-[100px] ${
+          className={`absolute top-2 left-5 h-[129px] w-[86px] touch-none select-none transition-[translate,opacity] duration-300 ease-out md:left-10 md:h-[150px] md:w-[100px] ${
             locked
               ? "cursor-default"
               : "cursor-grab hover:-translate-y-1 focus-visible:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-[6px] focus-visible:outline-gold active:cursor-grabbing"
@@ -258,7 +264,7 @@ export function DeckPile({
 
       <p
         role="status"
-        className={`px-5 text-center text-[13px] text-balance transition-colors duration-200 ${
+        className={`px-5 text-center text-[13px] text-balance transition-colors duration-200 md:px-0 md:text-left ${
           pull >= FAN_MIN ? "text-gold" : "text-muted"
         } ${aside ? "opacity-0" : ""}`}
       >

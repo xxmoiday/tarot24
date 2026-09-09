@@ -526,6 +526,12 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   /* ---------- Bước 3 · rút lá ---------- */
   if (step === "draw") {
     const slotCols = Math.min(spread.count, 5);
+    /*
+      Bề ngang cái bàn. Dòng tiêu đề và hàng ô bài đọc chung một con số này, để
+      tên bước nằm thẳng mép trái ô đầu và số đếm thẳng mép phải ô cuối — trước
+      đây tiêu đề rộng bằng cả cột 720 nên nó dạt ra ngoài bàn cả gang tay.
+    */
+    const banRong = `calc(${slotCols} * var(--slot) + ${(slotCols - 1) * 12}px)`;
     return (
       <>
         {/*
@@ -538,15 +544,25 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           cuối vừa rơi xuống. Nên nó đứng riêng, tự mờ theo cùng một nhịp.
         */}
         <RitualRoom className={gathering ? "animate-step-out" : ""} />
+        {/*
+          Máy rộng thì cả bàn bài đứng giữa khung nhìn, y như bàn xào. min-h chứ
+          không phải h: kiểu trải mười hai lá cao hơn màn thì khung tự nở ra,
+          không có chuyện canh giữa rồi hàng ô trên cùng trôi khỏi màn.
+        */}
         <div
-          className={`flex flex-col pb-8 ${gathering ? "animate-step-out" : ""}`}
+          className={`flex flex-col pb-8 md:min-h-[calc(100svh-77px)] md:justify-center ${
+            gathering ? "animate-step-out" : ""
+          }`}
         >
           {/*
             Bàn nằm trên cỗ bài một lớp: lá vừa rút bay lên từ dưới, phải thấy nó
             nhấc khỏi mặt cỗ chứ không phải chui ra từ sau lưng cỗ.
           */}
-          <div className="relative z-10 mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
-            <div className="flex animate-rise items-baseline justify-between">
+          <div className="relative z-10 mx-auto w-full max-w-[720px] px-5 pt-6 [--slot:150px] md:px-0 md:pt-0 md:[--slot:200px]">
+            <div
+              className="mx-auto flex animate-rise items-baseline justify-between"
+              style={{ maxWidth: banRong }}
+            >
               <h1 className="font-serif text-xl text-ink md:text-2xl">
                 Rút {spread.count} lá
               </h1>
@@ -561,10 +577,10 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
               trọn màn hình, đẩy bộ bài xuống dưới nếp gấp.
             */}
             <div
-              className="mx-auto mt-4 grid gap-2 [--slot:150px] sm:gap-3 md:[--slot:200px]"
+              className="mx-auto mt-4 grid gap-2 sm:gap-3"
               style={{
                 gridTemplateColumns: `repeat(${slotCols}, minmax(0, 1fr))`,
-                maxWidth: `calc(${slotCols} * var(--slot) + ${(slotCols - 1) * 12}px)`,
+                maxWidth: banRong,
               }}
             >
               {spread.positions.map((pos, i) => {
