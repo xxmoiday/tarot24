@@ -514,6 +514,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "plus",
     blurb: "Cho chuyện đi làm và đường sự nghiệp.",
+    coverImage: {
+      src: "/spreads/nam-la-cong-viec-cover.webp",
+      alt: "Năm lá tarot công việc trên bàn làm việc cạnh laptop và sổ tay",
+      position: "66% 52%",
+    },
     about:
       "Cho chuyện đi làm và đường sự nghiệp. Năm lá nhìn chỗ đứng hiện tại, cái mình đang có, cái đang cản, yếu tố bên ngoài và hướng nên đi.",
     how: "Xào bài, rút năm lá; lá một đặt giữa, lá hai bên trái, lá ba bên phải, lá bốn phía trên, lá năm phía dưới.",
@@ -646,6 +651,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "pair",
     blurb: "Khi đang vướng một người và muốn biết giữa hai bên đang có gì.",
+    coverImage: {
+      src: "/spreads/ba-la-giua-hai-nguoi-cover.webp",
+      alt: "Ba lá tarot giữa hai người trên bàn gỗ cạnh hai tách trà",
+      position: "66% 52%",
+    },
     about:
       "Khi đang vướng một người và muốn biết giữa hai bên đang có gì. Ba lá cho phía mình, phía người kia và cái đang diễn ra ở giữa.",
     how: "Xào bài, rút ba lá; lá một đặt bên trái cho phía mình, lá hai bên phải cho phía người kia, lá ba đặt giữa hai lá.",
@@ -695,6 +705,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "branch",
     blurb: "Khi đang phân vân giữa hai hướng.",
+    coverImage: {
+      src: "/spreads/nam-la-chon-huong-cover.webp",
+      alt: "Năm lá tarot chọn hướng xếp thành hai nhánh trên bàn gỗ",
+      position: "66% 52%",
+    },
     about:
       "Khi đang phân vân giữa hai hướng. Năm lá nhìn gốc của phân vân, rồi mỗi hướng một cặp lá cho thấy nó là gì và dẫn tới đâu.",
     how: "Định rõ trong đầu hướng A và hướng B, xào bài, rút năm lá; lá một đặt giữa, lá hai và lá ba xếp dọc bên trái cho hướng A, lá bốn và lá năm xếp dọc bên phải cho hướng B.",
@@ -754,6 +769,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "row",
     blurb: "Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì.",
+    coverImage: {
+      src: "/spreads/ba-la-nhin-lai-minh-cover.webp",
+      alt: "Ba lá tarot nhìn lại mình trên bàn gỗ cạnh gương và ánh nến",
+      position: "66% 52%",
+    },
     about:
       "Khi thấy mình lửng lơ, mệt, hoặc không rõ mình đang muốn gì. Ba lá cho tâm thế hiện tại, cái đang bị tránh nhìn và cái nên nuôi. Trải này nhìn vào chính bạn, không nhìn chuyện bên ngoài.",
     how: "Xào bài, nghĩ về chính mình chứ không nghĩ về ai khác, rút ba lá và đặt thành hàng ngang từ trái sang phải.",
@@ -806,6 +826,11 @@ export const SPREADS: Spread[] = [
     group: "topic",
     layout: "week",
     blurb: "Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch.",
+    coverImage: {
+      src: "/spreads/bay-la-tuan-nay-cover.webp",
+      alt: "Bảy lá tarot cho tuần này xếp cạnh sổ kế hoạch và cà phê",
+      position: "64% 52%",
+    },
     about:
       "Bảy lá cho bảy ngày tới, tính từ hôm rút chứ không theo lịch. Để biết tuần này dồn ở đoạn nào, thưa ở đoạn nào, ngày nào nên dồn sức và ngày nào nên giữ sức.",
     how: "Xào bài, rút bảy lá và đặt thành hàng ngang từ trái sang phải, mỗi lá một ngày, lá đầu tiên là ngày hôm nay.",
@@ -868,6 +893,11 @@ export const SPREADS: Spread[] = [
     layout: "month",
     blurb:
       "Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng.",
+    coverImage: {
+      src: "/spreads/nam-la-thang-toi-cover.webp",
+      alt: "Năm lá tarot tháng tới xếp cạnh lịch trắng và biểu tượng chu kỳ trăng",
+      position: "66% 52%",
+    },
     about:
       "Nhìn trước tháng tới theo bốn tuần, cộng một lá chủ đề bao trùm cả tháng. Để biết đoạn nào nên dồn sức, đoạn nào nên giữ sức.",
     how: "Xào bài, rút năm lá; bốn lá đầu đặt hàng ngang từ trái sang phải cho bốn tuần, lá năm đặt trên hàng đó làm chủ đề của tháng.",
@@ -924,6 +954,11 @@ export const SPREADS: Spread[] = [
     layout: "year",
     blurb:
       "Mười hai lá cho mười hai tháng tới, tính từ tháng bạn rút chứ không theo lịch.",
+    coverImage: {
+      src: "/spreads/muoi-hai-la-nam-toi-cover.webp",
+      alt: "Mười hai lá tarot năm tới xếp thành vòng quanh biểu tượng mặt trời mặt trăng",
+      position: "66% 52%",
+    },
     about:
       "Mười hai lá xếp thành vòng tròn cho mười hai tháng tới, tính từ tháng bạn rút chứ không theo lịch. Để nhìn đường đi của cả năm, quý nào nặng, quý nào mở ra, và cái gì đọng lại khi năm khép.",
     how: "Xào bài, rút mười hai lá và đặt thành một vòng tròn theo chiều kim đồng hồ, lá một ở đỉnh vòng, mỗi lá là một tháng kể từ tháng bạn đang rút.",
@@ -999,6 +1034,26 @@ export const SPREADS: Spread[] = [
 ];
 
 export const SPREAD_BY_SLUG = new Map(SPREADS.map((s) => [s.slug, s]));
+
+/** Từ bấy nhiêu lá trở lên thì một lần rút đã thành chuyện dài. */
+export const TRAI_DAI_TU = 7;
+
+/**
+ * Ba tầng để bày ra danh sách.
+ *
+ * Ngoài đời phần lớn ca dùng trải nhỏ: một lá, ba lá, năm lá. Thập tự Celtic
+ * được nhắc nhiều nhưng ít dùng vì tốn thời gian và dễ loãng. Bày cả mười lăm
+ * kiểu ngang hàng là nói sai chuyện đó, nên trải dài tách hẳn ra một tầng
+ * riêng thay vì đứng cạnh trải một lá.
+ */
+export const SPREAD_TIERS = {
+  /** Trải nhỏ, dùng chung, hợp phần lớn câu hỏi */
+  start: SPREADS.filter((s) => s.group === "basic" && s.count < TRAI_DAI_TU),
+  /** Trải nhỏ nhưng khoá vào một chủ đề */
+  topic: SPREADS.filter((s) => s.group === "topic" && s.count < TRAI_DAI_TU),
+  /** Trải dài, xếp từ ít lá tới nhiều lá */
+  long: SPREADS.filter((s) => s.count >= TRAI_DAI_TU).sort((a, b) => a.count - b.count),
+};
 
 export function getSpread(slug: string) {
   return SPREAD_BY_SLUG.get(slug);

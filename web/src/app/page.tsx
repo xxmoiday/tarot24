@@ -8,7 +8,7 @@ import { TarotCardFace } from "@/components/TarotCardFace";
 import { Eyebrow } from "@/components/ui";
 import { cardOfTheDay } from "@/lib/draw";
 import { SITE, absoluteUrl } from "@/lib/site";
-import { SPREADS } from "@/lib/spreads";
+import { SPREAD_TIERS } from "@/lib/spreads";
 import { ARTICLES } from "@/lib/articles";
 
 /** Câu dẫn dưới h1 ở hero, ngắn hơn SITE.description vốn viết cho thẻ meta. */
@@ -52,8 +52,6 @@ const jsonLd = {
 
 export default function HomePage() {
   const today = cardOfTheDay();
-  const basic = SPREADS.filter((s) => s.group === "basic");
-  const topical = SPREADS.filter((s) => s.group === "topic");
 
   return (
     <>
@@ -123,18 +121,37 @@ export default function HomePage() {
           {/* Kiểu trải */}
           <section className="px-5 pt-9.5 md:px-[60px] md:pt-24">
             <div className="flex flex-col gap-4 md:gap-6">
+              {/*
+                Ba tầng thay vì hai. Trải nhỏ đứng trước vì ngoài đời phần lớn
+                ca là chúng, còn trải dài xuống cuối kèm một câu nói thẳng cái
+                giá của nó, thay vì đứng ngang hàng với trải một lá.
+              */}
               <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:gap-5">
                 <h2 className="font-serif text-2xl text-ink md:text-[34px]">Kiểu trải</h2>
-                <Eyebrow>Cơ bản</Eyebrow>
+                <Eyebrow>Bắt đầu ở đây</Eyebrow>
               </div>
               <div className="grid gap-2.5 md:grid-cols-3 md:gap-4.5">
-                {basic.map((s) => (
+                {SPREAD_TIERS.start.map((s) => (
                   <SpreadCard key={s.slug} spread={s} featured={s.slug === "ba-la-thoi-gian"} />
                 ))}
               </div>
+
               <Eyebrow className="mt-2.5 md:mt-4">Chuyên đề</Eyebrow>
               <div className="grid gap-2.5 md:grid-cols-3 md:gap-4.5">
-                {topical.map((s) => (
+                {SPREAD_TIERS.topic.map((s) => (
+                  <SpreadCard key={s.slug} spread={s} />
+                ))}
+              </div>
+
+              <div className="mt-2.5 flex flex-col gap-2 md:mt-4">
+                <Eyebrow>Trải dài</Eyebrow>
+                <p className="max-w-[62ch] text-[13.5px]/[1.7] text-pretty text-muted">
+                  Bảy lá trở lên thì đọc lâu và dễ loãng nếu câu hỏi còn chung chung. Để
+                  dành cho chuyện lớn, và hỏi cho thật cụ thể trước khi rút.
+                </p>
+              </div>
+              <div className="grid gap-2.5 md:grid-cols-3 md:gap-4.5">
+                {SPREAD_TIERS.long.map((s) => (
                   <SpreadCard key={s.slug} spread={s} />
                 ))}
               </div>
