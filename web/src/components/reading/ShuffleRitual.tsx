@@ -10,6 +10,7 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { TarotCardFace } from "@/components/TarotCardFace";
+import { buttonClass } from "@/components/ui";
 import {
   autoShuffle,
   cutDeck,
@@ -75,6 +76,9 @@ const CUT_MS = 620;
 /** Kéo hụt thì chồng bài trượt về chỗ cũ trong bấy nhiêu. */
 const SNAP_MS = 280;
 
+/** Cắt xong thì vỗ cỗ về giữa bàn cho gọn, hết bấy nhiêu. */
+const SETTLE_MS = 380;
+
 /** Tắt hiệu ứng thì mọi thứ về gần như tức thì, chỉ chừa một nhịp. */
 const REDUCED_MS = 220;
 
@@ -125,6 +129,10 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   const [pull, setPull] = useState<number | null>(null);
   /** Đang chạy nốt hoạt cảnh đặt chồng bài xuống. */
   const [cutting, setCutting] = useState(false);
+  /** Cắt xong, cỗ nằm chờ — người rút bấm nút mới sang bàn bài. */
+  const [ready, setReady] = useState(false);
+  /** Nhịp vỗ cỗ về giữa bàn ngay sau khi cắt. */
+  const [settling, setSettling] = useState(false);
   /** Kéo hụt hoặc kéo sớm thì cho chồng bài trượt về, có nhắc một câu. */
   const [snapping, setSnapping] = useState(false);
   const [tooSoon, setTooSoon] = useState(false);
@@ -138,9 +146,19 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   const entropyRef = useRef(seed);
 
   const planeRef = useRef<HTMLDivElement>(null);
+  const startRef = useRef<HTMLButtonElement>(null);
+
+  /*
+    Cắt xong thì đưa tiêu điểm sang nút. Vùng chạm vừa rời khỏi vòng tab, ai
+    dùng bàn phím mà không dời tiêu điểm đi thì nhấn Tab một cái là lạc mất chỗ.
+  */
+  useEffect(() => {
+    if (ready) startRef.current?.focus();
+  }, [ready]);
 
   const total = deck.length;
-  const cutAt = pull === null ? 0 : cutAtFor(pull, total);
+  /* Chưa kéo qua ngưỡng thì chưa có chỗ cắt nào cả — thả tay ra là bài về chỗ cũ. */
+  const cutAt = pull !== null && pull >= PULL_MIN ? cutAtFor(pull, total) : 0;
   const packet = cutAt ? packetFor(cutAt, total) : 0;
 
   /* ---------- Xào ---------- */
@@ -180,15 +198,23 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   /* ---------- Cắt ---------- */
 
-  /** Đặt chồng vừa nhấc xuống bàn, chồng phần còn lại lên, rồi giao cỗ đã cắt. */
-  const commitCut = useCallback(
-    (at: number) => {
-      setCutting(true);
-      const wait = prefersReduced() ? REDUCED_MS : CUT_MS + 140;
-      setTimeout(() => onDone(cutDeck(deckRef.current, at)), wait);
-    },
-    [onDone],
-  );
+  /**
+   * Đặt chồng vừa nhấc xuống bàn, chồng phần còn lại lên, rồi vỗ cỗ về giữa.
+   * Cắt xong là dừng ở đây chứ không nhảy thẳng sang bàn bài: nhát cắt vừa rồi
+   * là một nhịp của nghi thức, phải cho người rút nhìn thấy nó xong đã.
+   */
+  const commitCut = useCallback((at: number) => {
+    setCutting(true);
+    const wait = prefersReduced() ? REDUCED_MS : CUT_MS + 140;
+    setTimeout(() => {
+      deckRef.current = cutDeck(deckRef.current, at);
+      setCutting(false);
+      setReady(true);
+      setSettling(true);
+      setPull(null);
+      setTimeout(() => setSettling(false), SETTLE_MS);
+    }, wait);
+  }, []);
 
   /** Kéo hụt: trả chồng bài về chỗ cũ rồi xoá dấu vết cú kéo. */
   const cancelPull = useCallback(() => {
@@ -209,7 +235,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const onPointerDown = useCallback(
     (e: ReactPointerEvent<HTMLElement>) => {
-      if (cutting) return;
+      if (cutting || ready) return;
       e.currentTarget.setPointerCapture(e.pointerId);
       drag.current = {
         id: e.pointerId,
@@ -219,7 +245,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         mode: "chua",
       };
     },
-    [cutting],
+    [cutting, ready],
   );
 
   const onPointerMove = useCallback(
@@ -282,7 +308,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const onKeyDown = useCallback(
     (e: ReactKeyboardEvent<HTMLElement>) => {
-      if (cutting) return;
+      if (cutting || ready) return;
       const k = e.key;
       /* Mũi tên dọc thay cho cú kéo: mỗi nhịp lấy thêm hoặc bớt đi mấy lá. */
       if (k === "ArrowDown" || k === "ArrowUp") {
@@ -299,8 +325,14 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           kiểu kia là nhịp sau đè lên nhịp trước, bấm mười cái vẫn đứng yên một chỗ.
         */
         setPull((prev) => {
-          const next = clamp((prev ?? 0) + step, 0, PULL_MAX);
-          return next > 0 ? next : null;
+          /*
+            Nhịp đầu nhảy thẳng tới ngưỡng cắt. Nhích từng tí một từ 0 lên thì
+            có lúc chỗ cắt đã hiện trên màn mà Enter lại rơi vào nhánh xào, vì
+            quãng kéo vẫn chưa qua ngưỡng.
+          */
+          if (prev === null) return k === "ArrowDown" ? PULL_MIN : null;
+          const next = clamp(prev + step, 0, PULL_MAX);
+          return next >= PULL_MIN ? next : null;
         });
         return;
       }
@@ -314,20 +346,26 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         runPass(k === "ArrowLeft" ? -1 : 1, SWIPE_STEP, 0);
       }
     },
-    [commitCut, cutting, passes, pull, runPass, total],
+    [commitCut, cutting, passes, pull, ready, runPass, total],
   );
 
   /* ---------- Xào hộ ---------- */
 
+  /*
+    Xào hộ cũng dừng ở đúng chỗ người tự xào dừng: cỗ nằm chờ, có nút mới sang
+    bàn bài. Một cửa ra cho cả hai lối, người rút không phải đoán xem lần này
+    màn hình có tự nhảy hay không.
+  */
   useEffect(() => {
     if (phase !== "auto") return;
     const wait = prefersReduced() ? SHUFFLE_MS_REDUCED : SHUFFLE_MS;
-    const t = setTimeout(
-      () => onDone(autoShuffle(deckRef.current, entropyRef.current)),
-      wait,
-    );
+    const t = setTimeout(() => {
+      deckRef.current = autoShuffle(deckRef.current, entropyRef.current);
+      setPhase("hand");
+      setReady(true);
+    }, wait);
     return () => clearTimeout(t);
-  }, [phase, onDone]);
+  }, [phase]);
 
   if (phase === "auto") return <ShuffleDeck seed={seed} />;
 
@@ -355,18 +393,23 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
     return `translate3d(0, 0, ${z.toFixed(1)}px)`;
   };
 
-  const moving = cutting || snapping;
-  const hint = cutting
-    ? "Đang cắt cỗ…"
-    : cutAt
-      ? `Cắt ở lá thứ ${cutAt} · thả tay ra là xong`
-      : tooSoon
-        ? "Xào thêm vài lượt rồi hãy cắt"
-        : passes === 0
-          ? "Vuốt ngang qua cỗ bài để xào"
-          : passes < MIN_PASSES
-            ? `Đã xào ${passes} lượt · vuốt thêm ${MIN_PASSES - passes} lượt nữa`
-            : `Đã xào ${passes} lượt · kéo cỗ bài xuống để cắt`;
+  const moving = cutting || snapping || settling;
+  const moveMs = cutting ? CUT_MS : settling ? SETTLE_MS : SNAP_MS;
+  const hint = ready
+    ? "Cỗ bài đã xào và cắt xong"
+    : cutting
+      ? "Đang cắt cỗ…"
+      : cutAt
+        ? `Cắt ở lá thứ ${cutAt} · thả tay ra là xong`
+        : pull !== null
+          ? "Kéo thêm chút nữa để cắt cỗ"
+          : tooSoon
+            ? "Xào thêm vài lượt rồi hãy cắt"
+            : passes === 0
+              ? "Vuốt ngang qua cỗ bài để xào"
+              : passes < MIN_PASSES
+                ? `Đã xào ${passes} lượt · vuốt thêm ${MIN_PASSES - passes} lượt nữa`
+                : `Đã xào ${passes} lượt · kéo cỗ bài xuống để cắt`;
 
   return (
     <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:px-0">
@@ -378,8 +421,12 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
       <div
         role="button"
-        tabIndex={cutting ? -1 : 0}
-        aria-label={`Cỗ bài. Vuốt ngang để xào, kéo xuống để cắt cỗ. Đã xào ${passes} lượt.`}
+        tabIndex={cutting || ready ? -1 : 0}
+        aria-label={
+          ready
+            ? "Cỗ bài đã xào và cắt xong."
+            : `Cỗ bài. Vuốt ngang để xào, kéo xuống để cắt cỗ. Đã xào ${passes} lượt.`
+        }
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -389,7 +436,9 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           touch-none vì ở đây cả hai chiều đều là thao tác: ngang thì xào, dọc
           thì cắt. Bù lại cả bước này gói trong một màn, không có gì để cuộn.
         */
-        className="relative mx-auto mt-6 h-[340px] w-full max-w-[360px] touch-none cursor-grab select-none active:cursor-grabbing"
+        className={`relative mx-auto mt-6 h-[340px] w-full max-w-[360px] touch-none select-none ${
+          cutting || ready ? "cursor-default" : "cursor-grab active:cursor-grabbing"
+        }`}
       >
         {/* Quầng ấm hắt quanh cỗ, nằm ngoài mặt bàn nên không bị ngả theo. */}
         <div
@@ -428,8 +477,8 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
                 transform: cutting
                   ? `translate3d(${((pull ?? 0) * PULL_DRIFT).toFixed(1)}px, ${((pull ?? 0) * PULL_SCALE).toFixed(1)}px, -1px)`
                   : "translateZ(-1px)",
-                transition: cutting
-                  ? `transform ${CUT_MS}ms cubic-bezier(0.32,0.72,0.2,1)`
+                transition: moving
+                  ? `transform ${moveMs}ms cubic-bezier(0.32,0.72,0.2,1)`
                   : undefined,
               }}
             />
@@ -445,7 +494,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
                     "--s": i % 2 ? "1" : "-1",
                     transform: cardTransform(i),
                     transition: moving
-                      ? `transform ${cutting ? CUT_MS : SNAP_MS}ms cubic-bezier(0.32,0.72,0.2,1)`
+                      ? `transform ${moveMs}ms cubic-bezier(0.32,0.72,0.2,1)`
                       : undefined,
                   } as CSSProperties
                 }
@@ -456,21 +505,24 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
       </div>
 
       <div className="mt-1 flex flex-col items-center gap-2.5">
-        <div className="flex h-4 items-center gap-2">
-          {Array.from({ length: MIN_PASSES }, (_, i) => (
-            <span
-              key={i}
-              className={`size-1.5 rounded-full transition-colors duration-200 ${
-                i < passes ? "bg-gold" : "bg-line"
-              }`}
-            />
-          ))}
-          {passes > MIN_PASSES ? (
-            <span className="text-[12px] font-medium text-gold">
-              +{passes - MIN_PASSES}
-            </span>
-          ) : null}
-        </div>
+        {/* Xong rồi thì hàng chấm tiến độ hết nghĩa, cất đi cho gọn màn. */}
+        {ready ? null : (
+          <div className="flex h-4 items-center gap-2">
+            {Array.from({ length: MIN_PASSES }, (_, i) => (
+              <span
+                key={i}
+                className={`size-1.5 rounded-full transition-colors duration-200 ${
+                  i < passes ? "bg-gold" : "bg-line"
+                }`}
+              />
+            ))}
+            {passes > MIN_PASSES ? (
+              <span className="text-[12px] font-medium text-gold">
+                +{passes - MIN_PASSES}
+              </span>
+            ) : null}
+          </div>
+        )}
         <p
           role="status"
           className={`text-center text-[13px] ${
@@ -481,14 +533,30 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         </p>
       </div>
 
-      <button
-        type="button"
-        onClick={() => setPhase("auto")}
-        disabled={cutting}
-        className="mt-8 self-center text-[13.5px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi disabled:opacity-50"
-      >
-        Xào và cắt giúp tôi
-      </button>
+      {/*
+        Cắt xong mới hiện nút. Chỗ này cố ý là một cái nút thật: xào và cắt là
+        việc của bàn tay, còn rời bàn xào sang bàn bài là một quyết định, nên để
+        người rút tự bấm khi thấy sẵn sàng.
+      */}
+      {ready ? (
+        <button
+          ref={startRef}
+          type="button"
+          onClick={() => onDone(deckRef.current)}
+          className={buttonClass("primary", "md", "mt-8 animate-rise self-center")}
+        >
+          Bắt đầu rút bài
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setPhase("auto")}
+          disabled={cutting}
+          className="mt-8 self-center text-[13.5px] text-muted underline underline-offset-4 transition-colors hover:text-gold-hi disabled:opacity-50"
+        >
+          Xào và cắt giúp tôi
+        </button>
+      )}
     </div>
   );
 }
