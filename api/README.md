@@ -47,3 +47,22 @@ npm run sync:kb    # chép lại từ web
 3. `checkEssay` soát theo mục 9 của system prompt
 4. Vi phạm thì gọi lại đúng một lần kèm danh sách chỗ sai
 5. Ghi vào Postgres, mỗi mã chỉ tốn một lượt gọi mô hình
+
+## Chạy thử một bài với mô hình thật
+
+`scripts/thu-bai.mjs` đi đúng chuỗi trên nhưng không đụng Postgres và không qua
+controller, để xem đầu ra thật trước khi triển khai. Cần `DEEPSEEK_API_KEY`
+trong `.env` và một lượt `npm run build`.
+
+```bash
+npm run build
+node scripts/thu-bai.mjs --ca dayThem --lan 3
+node scripts/thu-bai.mjs --trai nam-la-cong-viec --hoi "..." --la coin_03n,cup_07,major_12,cup_06,major_18n
+```
+
+Hậu tố `n` sau mã lá là lá ngược. Ba ca dựng sẵn: `dayThem` là ca hỏng đã dựng
+nên mục 10 của system prompt, `doiViec` là câu hỏi đóng dạng A hay B, `thangToi`
+là câu hỏi mở để xem luật 1 có bắt oan không.
+
+Script in bài theo từng ô, số tiếng và danh sách vi phạm. Máy chỉ soát được T2,
+T3, T6, T7 trong bảng nghiệm thu; T1, T4, T5, T8 vẫn phải đọc tay.
