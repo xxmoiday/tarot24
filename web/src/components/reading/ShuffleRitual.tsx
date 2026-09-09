@@ -104,16 +104,20 @@ const SETTLE_MS = 380;
 const REDUCED_MS = 220;
 
 /**
- * Màn xào hộ: bốn nhịp nối nhau. `dur` là thời lượng của một lá, `step` là
- * quãng lệch giữa hai lá liền nhau — giãn ra thì cả cỗ chảy thành dòng chứ
- * không nhảy cùng một lúc. `ms` là chỗ đứng của nhịp trên trục thời gian, tính
- * cả nhịp nghỉ cho lá cuối rơi xong.
+ * Màn xào hộ: bốn nhịp nối nhau, tổng cộng gần tám giây. `dur` là thời lượng
+ * của một lá, `step` là quãng lệch giữa hai lá liền nhau — giãn ra thì cả cỗ
+ * chảy thành dòng chứ không nhảy cùng một lúc. `ms` là chỗ đứng của nhịp trên
+ * trục thời gian: nó phải lớn hơn 17 × step + dur, phần dôi ra là nhịp nghỉ để
+ * lá cuối kịp rơi xong trước khi nhịp sau mở.
+ *
+ * Đây là màn để ngồi xem, không phải màn chờ, nên thà chậm còn hơn vội — mỗi
+ * cử động kéo dài hẳn ra mới nhìn kịp nó làm gì.
  */
 const CINEMA = [
-  { keyframes: "t24-auto-overhand", dur: 560, step: 34, ms: 1200, say: "Đang tráo dồn…" },
-  { keyframes: "t24-auto-riffle", dur: 760, step: 14, ms: 1080, say: "Đang chẻ bài…" },
-  { keyframes: "t24-auto-swirl", dur: 1280, step: 20, ms: 1700, say: "Đang xoáy bài…" },
-  { keyframes: "t24-auto-cut", dur: 820, step: 6, ms: 960, say: "Đang cắt cỗ…" },
+  { keyframes: "t24-auto-overhand", dur: 860, step: 44, ms: 1720, say: "Đang tráo dồn…" },
+  { keyframes: "t24-auto-riffle", dur: 1140, step: 20, ms: 1620, say: "Đang chẻ bài…" },
+  { keyframes: "t24-auto-swirl", dur: 2040, step: 30, ms: 2660, say: "Đang xoáy bài…" },
+  { keyframes: "t24-auto-cut", dur: 1220, step: 10, ms: 1500, say: "Đang cắt cỗ…" },
 ] as const;
 
 /** Cả màn xào hộ, tính cả nhịp nghỉ cuối. */
