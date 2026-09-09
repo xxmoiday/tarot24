@@ -11,7 +11,10 @@ set -euo pipefail
 
 VPS_HOST=${VPS_HOST:-45.76.161.193}
 VPS_USER=${VPS_USER:-root}
-VPS_KEY=${VPS_KEY:-$HOME/.ssh/tarot24_vps}
+# Máy này còn chạy mấy dịch vụ khác nên vào bằng khoá chung id_ed25519, đúng
+# khoá của alias `dautuyensinh-vps` trong ~/.ssh/config, chứ không có khoá riêng
+# cho tarot24. Máy khác thì đè bằng biến VPS_KEY.
+VPS_KEY=${VPS_KEY:-$HOME/.ssh/id_ed25519}
 VPS_DIR=${VPS_DIR:-/var/www/tarot24-backend}
 PM2_NAME=${PM2_NAME:-tarot24-backend}
 HEALTH_URL=${HEALTH_URL:-https://api.tarot24.online/api/health}
