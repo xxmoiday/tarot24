@@ -188,6 +188,12 @@ const LEAVE_MS = 300;
  *
  * Đây là màn để ngồi xem, không phải màn chờ, nên thà chậm còn hơn vội — mỗi
  * cử động kéo dài hẳn ra mới nhìn kịp nó làm gì.
+ *
+ * Bốn nhịp này là màn diễn chứ không phải tường thuật: cỗ bài thật do
+ * autoShuffle xào một lần ở cuối màn, và nó làm chẻ → tráo dồn → chẻ → cắt,
+ * không trùng thứ tự với bốn nhịp ở đây, còn nhịp xoáy bài thì chẳng ứng với
+ * thao tác thật nào. Cỗ vẫn được xào thật, chỉ đừng đọc màn diễn này như một
+ * bản tường thuật từng bước.
  */
 const CINEMA = [
   { keyframes: "t24-auto-overhand", dur: 860, step: 44, ms: 1720, say: "Đang tráo dồn…" },
@@ -268,8 +274,14 @@ const CUT_HI = 0.74;
  * mà kéo tới đâu hai chồng vẫn là hai chồng, không có lá nào đang yên lành lại
  * bị rút sang bên kia giữa đường.
  *
- * Chỉ để nhìn nên gieo bằng Math.random, không đụng vào chuỗi entropy quyết
- * định thứ tự cỗ bài: chỗ đi vào đó là độ sâu kéo tay và thời điểm thả.
+ * Con số này không chỉ để nhìn: cutAtFor đổi thẳng nó ra chỗ cắt trên cỗ 78 lá,
+ * nên chính nó quyết định cỗ bị cắt ở đâu. Nó không đi qua chuỗi entropy của
+ * những lượt xào — chỗ ấy nhận độ sâu kéo tay, chỗ ngón tay đặt và thời điểm
+ * thả — mà đi thẳng vào nhát cắt, gieo bằng Math.random.
+ *
+ * Vẫn sòng phẳng với người rút, vì nó chốt ngay lúc đặt tay chứ không phải lúc
+ * thả, và dòng nhắc xướng cắt ở lá thứ mấy trước khi thả tay: nhìn thấy rồi mới
+ * quyết cắt hay thôi.
  */
 const tayCat = () =>
   clamp(
@@ -278,7 +290,11 @@ const tayCat = () =>
     STACK - 1,
   );
 
-/** Cái tay bốc của một vòng tráo dồn: rút ra mấy lá. */
+/**
+ * Cái tay bốc của một vòng tráo dồn: rút ra mấy lá. Cái này thì chỉ để nhìn
+ * thật, khác hẳn tay cắt ở trên: lượt xào lấy entropy từ độ sâu kéo tay, chỗ
+ * ngón tay đặt và thời điểm, chứ không đọc con số này.
+ */
 const tayBoc = () => 2 + Math.floor(Math.random() * (GRAB_MAX - 1));
 
 /** Chồng nhấc dày mấy lá thì đổi ra chỗ cắt trên cỗ bài thật. */
