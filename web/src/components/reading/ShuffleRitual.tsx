@@ -71,6 +71,14 @@ const CARD_MAG = 1.08;
 const EDGE_PAD = 8;
 
 /**
+ * Bóng cỗ bài lệch khỏi chân cỗ ngần này, tính trong mặt bàn. Cả màn chỉ có một
+ * ngọn đèn, chếch trên bên trái, nên bóng phải đổ xuống chếch dưới bên phải —
+ * bóng nằm đúng tâm thì thành ra cỗ bài tự phát sáng từ dưới lên.
+ */
+const SHADOW_X = 7;
+const SHADOW_Y = 10;
+
+/**
  * Lề trang hai bên khung cỗ bài, đúng bằng lớp px-5 bọc ngoài. Lá bài tràn ra
  * đây được — chỗ đó có gì đâu — nên nó tính vào chỗ trống để tách cỗ.
  */
@@ -1012,11 +1020,30 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   const xoaChu = `transition-opacity duration-300 ${leaving ? "opacity-0" : ""}`;
 
   return (
-    <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:px-0">
-      <h1 className={`font-serif text-xl text-ink md:text-2xl ${xoaChu}`}>
+    /*
+      Máy rộng thì cả nghi thức đứng giữa khung nhìn. Neo lên mép trên thì dưới
+      cỗ bài hụt xuống một mảng trống bằng nửa màn, mà trang này chẳng có gì
+      dưới đó cả. 77px là chiều cao thanh đầu trang từ md trở lên — h-[76px] cộng
+      một vạch viền, xem SiteHeader.
+
+      min-h chứ không phải h: màn thấp hơn nội dung thì khung tự nở ra, không có
+      chuyện canh giữa rồi phần trên trôi khỏi màn mà không kéo tới được.
+    */
+    <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:min-h-[calc(100svh-77px)] md:justify-center md:px-0">
+      {/*
+        Máy rộng thì cả màn này là một vật duy nhất — cái bàn có cỗ bài nằm
+        giữa — nên dòng chữ canh giữa theo nó. Canh trái như các trang khác thì
+        tiêu đề dạt hẳn sang một bên trong khi cỗ bài nằm chính giữa, nhìn ra
+        hai thứ rời nhau chứ không phải một cảnh.
+      */}
+      <h1
+        className={`font-serif text-xl text-ink md:text-center md:text-2xl ${xoaChu}`}
+      >
         Xào bài
       </h1>
-      <p className={`mt-1.5 text-[13.5px]/[1.65] text-pretty text-muted ${xoaChu}`}>
+      <p
+        className={`mt-1.5 text-[13.5px]/[1.65] text-pretty text-muted md:mx-auto md:max-w-[54ch] md:text-center ${xoaChu}`}
+      >
         {phase === "auto"
           ? "Đang xào và cắt hộ bạn. Ngồi yên một nhịp."
           : "Giữ câu hỏi trong đầu. Kéo cỗ xuống rồi đẩy lên là một lượt xào, kéo ngang cho cỗ tách làm hai rồi thả tay là cắt."}
@@ -1043,23 +1070,78 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           Màn xào hộ nới cao thêm và đẩy cỗ xuống một quãng: nhịp xoáy hất cả cỗ
           bốc khỏi mặt bàn, không chừa khoảng trên là lá bay trèo lên dòng chữ.
         */
-        className={`relative mx-auto mt-6 w-full max-w-[360px] touch-none select-none ${
-          phase === "auto" ? "h-[384px]" : "h-[352px]"
+        /*
+          Máy rộng thì nới khung ra: mặt bàn rộng theo nó, và khoảng chừa cho cú
+          kéo tay không còn là một mảng trống giữa cỗ bài với dòng nhắc. Quãng
+          kéo ngang vốn đã chạm trần CUT_CAP từ khổ hẹp nên nới ra không đổi tay
+          nào cả, chỉ đổi chỗ cho mắt nhìn.
+        */
+        /*
+          --deck-top là chỗ cỗ bài đứng, và mọi thứ khác trong khung đều đo từ
+          nó: mặt bàn, quầng sáng, đều là calc trên biến này. Trước đây mỗi thứ
+          giữ một con số riêng, dịch cỗ bài đi một nhịp là phải nhớ sửa cả ba.
+          Máy rộng thì hạ cỗ xuống một quãng cho nó ngồi vào giữa bàn chứ không
+          dán lên mép trên.
+        */
+        className={`relative mx-auto mt-6 w-full max-w-[360px] touch-none select-none md:max-w-[520px] ${
+          phase === "auto"
+            ? "h-[384px] [--deck-top:78px] md:h-[432px] md:[--deck-top:104px]"
+            : "h-[352px] [--deck-top:10px] md:h-[400px] md:[--deck-top:36px]"
         } ${
           cutting || leaving || phase === "auto"
             ? "cursor-default"
             : "cursor-grab active:cursor-grabbing"
         }`}
       >
-        {/* Quầng ấm hắt quanh cỗ, nằm ngoài mặt bàn nên không bị ngả theo. */}
+        {/*
+          Mặt bàn. Nằm đúng mặt phẳng nghiêng của cỗ bài, cùng một điểm tụ, nên
+          bóng cỗ có chỗ mà rơi và khoảng trống chừa sẵn cho cú kéo tay thành
+          mặt bàn chứ không phải chỗ hụt.
+
+          Vẽ bằng chính ngôn ngữ của lá bài — vân chéo, sắc vàng, mép tan dần
+          vào nền — chứ không phải một tấm ảnh chụp. Ảnh chụp có phối cảnh và
+          chiều sáng riêng của nó, đặt cỗ bài vẽ tay lên trên thì lá bài thành
+          miếng dán.
+
+          Lớp bọc cắt phần thừa: mặt bàn nghiêng thì mép gần mắt nở to ra, quá
+          bề ngang màn là sinh thanh cuộn ngang. Điểm tụ đặt lại đúng chỗ cũ vì
+          lớp bọc trùng khít khung ngoài, nên cắt mà mặt bàn vẫn ăn khớp với cỗ.
+        */}
         <div
           aria-hidden
-          className={`pointer-events-none absolute inset-x-0 h-[140px] rounded-[50%] ${
-            phase === "auto" ? "top-[94px]" : "top-[26px]"
-          }`}
+          className="pointer-events-none absolute inset-0 overflow-hidden [perspective:1100px]"
+        >
+          <div
+            className="absolute left-1/2 h-[680px] w-[118%] -translate-x-1/2"
+            style={{
+              /* Tâm bàn trùng tâm cỗ bài: nửa bề cao bàn là 340. */
+              top: `calc(var(--deck-top) + ${CARD_H / 2}px - 340px)`,
+              transform: `rotateX(${TILT}deg)`,
+              backgroundImage: [
+                /* Vũng đèn chếch trên trái, hắt xuống mặt bàn chứ không bọc quanh cỗ. */
+                "radial-gradient(ellipse 54% 40% at 43% 46%,rgba(201,169,97,0.21),rgba(201,169,97,0.08) 44%,transparent 76%)",
+                /* Vân khăn trải bàn, cùng nét chéo với mặt lưng lá bài. */
+                "repeating-linear-gradient(45deg,rgba(201,169,97,0.05) 0 1px,transparent 1px 13px)",
+                "repeating-linear-gradient(-45deg,rgba(201,169,97,0.05) 0 1px,transparent 1px 13px)",
+                /* Nền bàn ấm hơn nền trang, xa dần thì tối lại về đúng màu nền. */
+                "radial-gradient(ellipse 80% 64% at 45% 47%,#221d24,#191722 36%,#111320 66%,#0b0f1a 100%)",
+              ].join(","),
+              /* Mép bàn không có đường viền, nó chỉ mờ dần đi cho tới hết. */
+              maskImage:
+                "radial-gradient(ellipse 44% 52% at 50% 48%,#000 44%,rgba(0,0,0,0.5) 76%,transparent 100%)",
+            }}
+          />
+        </div>
+
+        {/* Chút hơi sáng còn vương trong không khí ngay trên cỗ, nhẹ thôi: sáng
+            thật nằm ở vũng đèn trên mặt bàn rồi. */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 mx-auto h-[140px] w-[300px] rounded-[50%]"
           style={{
+            top: "calc(var(--deck-top) + 16px)",
             background:
-              "radial-gradient(ellipse,rgba(201,169,97,0.16),rgba(201,169,97,0) 70%)",
+              "radial-gradient(ellipse,rgba(201,169,97,0.07),rgba(201,169,97,0) 70%)",
           }}
         />
 
@@ -1071,11 +1153,13 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
               tính `translate` riêng chứ không phải `transform` — nên đừng lặp
               lại translateX ở dưới, kẻo cỗ bài dịch sang trái hai lần.
             */
-            className={`absolute left-1/2 h-[192px] w-[128px] -translate-x-1/2 [transform-style:preserve-3d] ${
-              phase === "auto" ? "top-[78px]" : "top-[10px]"
-            }`}
+            className="absolute left-1/2 h-[192px] w-[128px] -translate-x-1/2 [transform-style:preserve-3d]"
             style={
-              { "--dir": "1", transform: `rotateX(${TILT}deg)` } as CSSProperties
+              {
+                "--dir": "1",
+                top: "var(--deck-top)",
+                transform: `rotateX(${TILT}deg)`,
+              } as CSSProperties
             }
           >
             {/*
@@ -1104,7 +1188,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
                     background:
                       "radial-gradient(ellipse,rgba(0,0,0,0.6),rgba(0,0,0,0) 72%)",
                     opacity: mo,
-                    transform: `translate3d(${x.toFixed(1)}px, 0, -1px)`,
+                    transform: `translate3d(${(x + SHADOW_X).toFixed(1)}px, ${SHADOW_Y}px, -1px)`,
                     transition: moving
                       ? `transform ${moveMs}ms cubic-bezier(0.32,0.72,0.2,1), opacity ${moveMs}ms linear`
                       : undefined,
