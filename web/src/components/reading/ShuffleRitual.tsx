@@ -11,6 +11,7 @@ import {
 } from "react";
 import { TarotCardFace } from "@/components/TarotCardFace";
 import { buttonClass } from "@/components/ui";
+import { RitualRoom } from "./RitualRoom";
 import { spotOf, type DeckSpot } from "./deck-spot";
 import {
   autoShuffle,
@@ -1031,56 +1032,11 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
     */
     <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:min-h-[calc(100svh-77px)] md:justify-center md:px-0">
       {/*
-        Căn phòng quanh cái bàn: viền tối bốn phía và nến hắt vào từ ngoài khung.
-
-        Phủ cả khung nhìn chứ không riêng cột chữ, vì góc phòng là góc màn hình
-        chứ không phải góc của cột 720px — neo vào cột thì hai ngọn nến rơi vào
-        giữa màn, thành hai vệt sáng lửng lơ chẳng của ai.
-
-        -z-10 đặt nó xuống dưới mọi thứ: nến là thứ ở sau lưng, không phải tấm
-        kính trước mặt. Nằm dưới nên nó không rửa trôi mặt bài, mà thanh đầu
-        trang trong mờ thì vẫn thấy được chút hơi ấm thấm qua.
+        Căn phòng đứng suốt từ đây sang bàn bài nên nó không mờ đi cùng với chữ:
+        rời màn xào là rời cái bàn, không phải rời căn phòng. Bàn bài dựng lại
+        đúng căn phòng ấy, đổi màn chẳng thấy gì.
       */}
-      <div
-        aria-hidden
-        className={`pointer-events-none fixed inset-0 -z-10 overflow-hidden ${xoaChu}`}
-      >
-        {/* Viền tối: mắt dồn về giữa bàn, bốn góc phòng chìm đi. */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 76% 66% at 50% 46%,transparent 36%,rgba(3,5,11,0.34) 72%,rgba(3,5,11,0.72) 100%)",
-          }}
-        />
-        {/*
-          Ngọn nến chính, ngoài khung phía trên bên trái — đúng chiều đèn mà cả
-          màn này đang theo: vũng sáng trên mặt bàn lệch về trái, bóng cỗ bài đổ
-          xuống chếch dưới phải. Nó xuyên qua được viền tối vì đèn gần thì vẫn
-          sáng ở góc, chứ viền tối là chuyện của ống kính.
-
-          Tâm ngọn nến đặt sát mép, vòng sáng thì to hơn cả màn: nhìn vào chỉ
-          thấy quãng tản ra, không thấy cái lõi. Có lõi trong khung thì nó thành
-          một đốm nâu nằm chình ình ở góc chứ không phải ánh sáng của một ngọn
-          nến đứng ngoài khung.
-        */}
-        <div
-          className="animate-candle absolute top-[12%] left-[4%] h-[155vmin] w-[155vmin] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle,rgba(222,170,100,0.15),rgba(214,152,84,0.05) 26%,rgba(214,152,84,0) 58%)",
-          }}
-        />
-        {/* Ngọn thứ hai ở xa, góc dưới bên phải, mờ hơn hẳn — nó chỉ hắt lại
-            chút hơi ấm cho góc kia khỏi chết hẳn, không tranh phần đổ bóng. */}
-        <div
-          className="animate-candle-far absolute right-[7%] bottom-[10%] h-[125vmin] w-[125vmin] translate-x-1/2 translate-y-1/2 rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle,rgba(222,170,100,0.065),rgba(214,152,84,0.022) 28%,rgba(214,152,84,0) 58%)",
-          }}
-        />
-      </div>
+      <RitualRoom />
 
       {/*
         Máy rộng thì cả màn này là một vật duy nhất — cái bàn có cỗ bài nằm

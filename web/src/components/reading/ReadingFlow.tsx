@@ -21,6 +21,7 @@ import { TOPICS, type Spread, type TopicKey } from "@/lib/spreads";
 import { BoardCard, REVEAL_MS } from "./BoardCard";
 import { DeckPile } from "./DeckPile";
 import { DeckSpread, GATHER_MS } from "./DeckSpread";
+import { RitualRoom } from "./RitualRoom";
 import type { DeckSpot } from "./deck-spot";
 import {
   ReadingView,
@@ -526,105 +527,117 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   if (step === "draw") {
     const slotCols = Math.min(spread.count, 5);
     return (
-      <div
-        className={`flex flex-col pb-8 ${gathering ? "animate-step-out" : ""}`}
-      >
+      <>
         {/*
-          Bàn nằm trên cỗ bài một lớp: lá vừa rút bay lên từ dưới, phải thấy nó
-          nhấc khỏi mặt cỗ chứ không phải chui ra từ sau lưng cỗ.
+          Cùng căn phòng của màn xào, đi tiếp sang đây: cỗ bài vừa được mang từ
+          bàn xào sang đặt xuống góc bàn này, chứ không phải sang một chỗ khác.
+
+          Phòng nằm ngoài khối mờ đi chứ không nằm trong: animate-step-out có
+          transform, mà tổ tiên có transform thì con position:fixed neo vào tổ
+          tiên ấy thay vì vào khung nhìn — phòng co lại bằng cột chữ ngay lúc lá
+          cuối vừa rơi xuống. Nên nó đứng riêng, tự mờ theo cùng một nhịp.
         */}
-        <div className="relative z-10 mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
-          <div className="flex animate-rise items-baseline justify-between">
-            <h1 className="font-serif text-xl text-ink md:text-2xl">
-              Rút {spread.count} lá
-            </h1>
-            <span className="text-[13px] font-medium text-gold">
-              {picked.length} / {spread.count}
-            </span>
+        <RitualRoom className={gathering ? "animate-step-out" : ""} />
+        <div
+          className={`flex flex-col pb-8 ${gathering ? "animate-step-out" : ""}`}
+        >
+          {/*
+            Bàn nằm trên cỗ bài một lớp: lá vừa rút bay lên từ dưới, phải thấy nó
+            nhấc khỏi mặt cỗ chứ không phải chui ra từ sau lưng cỗ.
+          */}
+          <div className="relative z-10 mx-auto w-full max-w-[720px] px-5 pt-6 md:px-0">
+            <div className="flex animate-rise items-baseline justify-between">
+              <h1 className="font-serif text-xl text-ink md:text-2xl">
+                Rút {spread.count} lá
+              </h1>
+              <span className="text-[13px] font-medium text-gold">
+                {picked.length} / {spread.count}
+              </span>
+            </div>
+
+            {/*
+              Ô chờ luôn theo tỉ lệ lá bài, nên cột càng ít thì ô càng cao. Chặn
+              bề ngang mỗi ô lại để kiểu trải một lá không dựng một khung chiếm
+              trọn màn hình, đẩy bộ bài xuống dưới nếp gấp.
+            */}
+            <div
+              className="mx-auto mt-4 grid gap-2 [--slot:150px] sm:gap-3 md:[--slot:200px]"
+              style={{
+                gridTemplateColumns: `repeat(${slotCols}, minmax(0, 1fr))`,
+                maxWidth: `calc(${slotCols} * var(--slot) + ${(slotCols - 1) * 12}px)`,
+              }}
+            >
+              {spread.positions.map((pos, i) => {
+                const card = drawn[i] ? getCard(drawn[i].slug) : undefined;
+                const isNext = i === picked.length;
+                return (
+                  /*
+                    Bàn bày ra từng ô một, trái sang phải, như người đọc đặt tay
+                    xuống chỉ chỗ cho từng vị trí trước khi rút.
+                  */
+                  <div
+                    key={pos.label}
+                    className="flex animate-rise flex-col items-center gap-2"
+                    style={{ animationDelay: `${90 + i * 70}ms` }}
+                  >
+                    {card ? (
+                      <BoardCard
+                        imageId={card.id}
+                        title={card.vi}
+                        reversed={drawn[i].reversed}
+                        from={taken[i]?.from ?? null}
+                      />
+                    ) : (
+                      <TarotCardSlot
+                        className={isNext ? "animate-pulse" : "opacity-60"}
+                      />
+                    )}
+                    <span
+                      className={`text-center text-[11px] font-medium tracking-[0.12em] uppercase ${
+                        isNext ? "text-gold" : "text-muted"
+                      }`}
+                    >
+                      {pos.short ?? pos.label}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/*
-            Ô chờ luôn theo tỉ lệ lá bài, nên cột càng ít thì ô càng cao. Chặn
-            bề ngang mỗi ô lại để kiểu trải một lá không dựng một khung chiếm
-            trọn màn hình, đẩy bộ bài xuống dưới nếp gấp.
+            Trước đây chỗ này còn một chồng bài úp để trang trí. Nó vẽ lại đúng
+            hình ảnh bộ bài nằm ngay bên dưới mà lại đẩy chỗ chạm chọn xuống dưới
+            nếp gấp, nên chỉ giữ lại quầng sáng và đưa xuống sau lưng bộ bài thật.
+
+            Cỗ mở màn ở dạng úp nguyên chồng. Xoè cả bộ ra là một lựa chọn của
+            người rút chứ không phải mặc định: kéo cỗ sang phải thì nó mới trải
+            thành dải bài, còn không thì chạm vào cỗ là rút lá trên cùng.
           */}
-          <div
-            className="mx-auto mt-4 grid gap-2 [--slot:150px] sm:gap-3 md:[--slot:200px]"
-            style={{
-              gridTemplateColumns: `repeat(${slotCols}, minmax(0, 1fr))`,
-              maxWidth: `calc(${slotCols} * var(--slot) + ${(slotCols - 1) * 12}px)`,
-            }}
-          >
-            {spread.positions.map((pos, i) => {
-              const card = drawn[i] ? getCard(drawn[i].slug) : undefined;
-              const isNext = i === picked.length;
-              return (
-                /*
-                  Bàn bày ra từng ô một, trái sang phải, như người đọc đặt tay
-                  xuống chỉ chỗ cho từng vị trí trước khi rút.
-                */
-                <div
-                  key={pos.label}
-                  className="flex animate-rise flex-col items-center gap-2"
-                  style={{ animationDelay: `${90 + i * 70}ms` }}
-                >
-                  {card ? (
-                    <BoardCard
-                      imageId={card.id}
-                      title={card.vi}
-                      reversed={drawn[i].reversed}
-                      from={taken[i]?.from ?? null}
-                    />
-                  ) : (
-                    <TarotCardSlot
-                      className={isNext ? "animate-pulse" : "opacity-60"}
-                    />
-                  )}
-                  <span
-                    className={`text-center text-[11px] font-medium tracking-[0.12em] uppercase ${
-                      isNext ? "text-gold" : "text-muted"
-                    }`}
-                  >
-                    {pos.short ?? pos.label}
-                  </span>
-                </div>
-              );
-            })}
+          <div className="mt-8">
+            {fanned ? (
+              <DeckSpread
+                total={deck.length}
+                picked={picked}
+                locked={picked.length >= spread.count}
+                gathering={gathering}
+                fanning
+                onPick={takeCard}
+              />
+            ) : (
+              <DeckPile
+                total={deck.length}
+                taken={picked.length}
+                locked={picked.length >= spread.count}
+                from={deckFrom}
+                aside={gathering}
+                onFan={() => setFanned(true)}
+                onDraw={drawTop}
+              />
+            )}
           </div>
         </div>
-
-        {/*
-          Trước đây chỗ này còn một chồng bài úp để trang trí. Nó vẽ lại đúng
-          hình ảnh bộ bài nằm ngay bên dưới mà lại đẩy chỗ chạm chọn xuống dưới
-          nếp gấp, nên chỉ giữ lại quầng sáng và đưa xuống sau lưng bộ bài thật.
-
-          Cỗ mở màn ở dạng úp nguyên chồng. Xoè cả bộ ra là một lựa chọn của
-          người rút chứ không phải mặc định: kéo cỗ sang phải thì nó mới trải
-          thành dải bài, còn không thì chạm vào cỗ là rút lá trên cùng.
-        */}
-        <div className="mt-8">
-          {fanned ? (
-            <DeckSpread
-              total={deck.length}
-              picked={picked}
-              locked={picked.length >= spread.count}
-              gathering={gathering}
-              fanning
-              onPick={takeCard}
-            />
-          ) : (
-            <DeckPile
-              total={deck.length}
-              taken={picked.length}
-              locked={picked.length >= spread.count}
-              from={deckFrom}
-              aside={gathering}
-              onFan={() => setFanned(true)}
-              onDraw={drawTop}
-            />
-          )}
-        </div>
-      </div>
+      </>
     );
   }
 
