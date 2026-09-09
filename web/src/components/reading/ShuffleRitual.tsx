@@ -20,7 +20,7 @@ import {
   riffle,
   type DrawnCard,
 } from "@/lib/draw";
-import { ShuffleDeck, SHUFFLE_MS, SHUFFLE_MS_REDUCED } from "./ShuffleDeck";
+
 
 /** Số lá vẽ trong chồng. Đủ dày để thấy bề dày cỗ, ít để còn chạy mượt. */
 const STACK = 18;
@@ -102,6 +102,53 @@ const SETTLE_MS = 380;
 
 /** Tắt hiệu ứng thì mọi thứ về gần như tức thì, chỉ chừa một nhịp. */
 const REDUCED_MS = 220;
+
+/**
+ * Màn xào hộ: bốn nhịp nối nhau. `dur` là thời lượng của một lá, `step` là
+ * quãng lệch giữa hai lá liền nhau — giãn ra thì cả cỗ chảy thành dòng chứ
+ * không nhảy cùng một lúc. `ms` là chỗ đứng của nhịp trên trục thời gian, tính
+ * cả nhịp nghỉ cho lá cuối rơi xong.
+ */
+const CINEMA = [
+  { keyframes: "t24-auto-overhand", dur: 560, step: 34, ms: 1200, say: "Đang tráo dồn…" },
+  { keyframes: "t24-auto-riffle", dur: 760, step: 14, ms: 1080, say: "Đang chẻ bài…" },
+  { keyframes: "t24-auto-swirl", dur: 1280, step: 20, ms: 1700, say: "Đang xoáy bài…" },
+  { keyframes: "t24-auto-cut", dur: 820, step: 6, ms: 960, say: "Đang cắt cỗ…" },
+] as const;
+
+/** Cả màn xào hộ, tính cả nhịp nghỉ cuối. */
+const AUTO_MS = CINEMA.reduce((n, c) => n + c.ms, 0) + 260;
+
+/**
+ * Chỗ mỗi lá bay tới trong nhịp xoáy. Góc vàng cho các lá tản đều chứ không dồn
+ * cục; ba điểm cùng nằm trên một hình bầu dục nhưng lệch pha, nên cả cỗ trông
+ * như đang quay quanh một trục.
+ */
+const swirlVars = (i: number) => {
+  const a = i * 2.39996;
+  /*
+    Bán kính chặn bởi bề ngang màn: lá bài rộng 128, lúc bốc lên gần mắt nhìn còn
+    nở thêm chừng 6%, nên nửa lá đã ngốn 89px trong 180px nửa khung.
+  */
+  const at = (turn: number) => ({
+    x: `${(Math.cos(a + turn) * 72).toFixed(1)}px`,
+    y: `${(Math.sin(a + turn) * 62).toFixed(1)}px`,
+  });
+  const p1 = at(0);
+  const p2 = at(2.2);
+  const p3 = at(4.4);
+  return {
+    "--x1": p1.x,
+    "--y1": p1.y,
+    "--r1": `${(Math.sin(a) * 26).toFixed(1)}deg`,
+    "--x2": p2.x,
+    "--y2": p2.y,
+    "--r2": `${(Math.cos(a) * 22).toFixed(1)}deg`,
+    "--x3": p3.x,
+    "--y3": p3.y,
+    "--r3": `${(Math.sin(a + 1) * 16).toFixed(1)}deg`,
+  };
+};
 
 const prefersReduced = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -206,6 +253,8 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   /** Kéo hụt hoặc kéo sớm thì cho chồng bài trượt về, có nhắc một câu. */
   const [snapping, setSnapping] = useState(false);
   const [tooSoon, setTooSoon] = useState(false);
+  /** Nhịp thứ mấy của màn xào hộ đang chạy; -1 là không diễn gì. */
+  const [cinema, setCinema] = useState(-1);
 
   /*
     Cỗ bài và entropy nằm trong ref chứ không phải state: suốt bước này màn hình
@@ -257,7 +306,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
    * trong style, còn đang chạy mà người rút tách chồng tiếp thì bài không đi
    * theo tay được.
    */
-  const setAnim = useCallback((value: string | null) => {
+  const setAnim = useCallback((value: string | ((i: number) => string) | null) => {
     const plane = planeRef.current;
     if (!plane) return;
     const cards = Array.from(plane.querySelectorAll<HTMLElement>(`.${CARD}`));
@@ -270,7 +319,9 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
       vòng thứ hai trở đi cỗ bài đứng im.
     */
     void plane.offsetWidth;
-    for (const c of cards) c.style.animation = value;
+    cards.forEach((c, i) => {
+      c.style.animation = typeof value === "string" ? value : value(i);
+    });
     anim.current = true;
   }, []);
 
@@ -552,9 +603,12 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   */
   useEffect(() => {
     if (phase !== "auto") return;
-    const wait = prefersReduced() ? SHUFFLE_MS_REDUCED : SHUFFLE_MS;
-    const t = setTimeout(() => {
+    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    const xongMan = () => {
       deckRef.current = autoShuffle(deckRef.current, entropyRef.current);
+      setAnim(null);
+      setCinema(-1);
       setPhase("hand");
       setReady(true);
       /*
@@ -563,11 +617,29 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         "xào thêm vài lượt rồi hãy cắt" nếu người rút muốn tự cắt lại.
       */
       setPasses((n) => Math.max(n, MIN_PASSES));
-    }, wait);
-    return () => clearTimeout(t);
-  }, [phase]);
+    };
 
-  if (phase === "auto") return <ShuffleDeck seed={seed} />;
+    /* Tắt hiệu ứng thì bỏ hẳn màn diễn, chỉ chừa một nhịp cho đỡ giật màn. */
+    if (prefersReduced()) {
+      timers.push(setTimeout(xongMan, REDUCED_MS));
+      return () => timers.forEach(clearTimeout);
+    }
+
+    let at = 0;
+    CINEMA.forEach((nhip, n) => {
+      timers.push(
+        setTimeout(() => {
+          setCinema(n);
+          setAnim(
+            (i) => `${nhip.keyframes} ${nhip.dur}ms ${i * nhip.step}ms both`,
+          );
+        }, at),
+      );
+      at += nhip.ms;
+    });
+    timers.push(setTimeout(xongMan, AUTO_MS));
+    return () => timers.forEach(clearTimeout);
+  }, [phase, setAnim]);
 
   /* ---------- Chỗ đứng của từng lá ---------- */
 
@@ -618,37 +690,43 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const moving = cutting || snapping || settling;
   const moveMs = cutting ? CUT_MS : settling ? SETTLE_MS : SNAP_MS;
-  const hint = cutting
-    ? "Đang cắt cỗ…"
-    : cutAt
-      ? `Cắt ở lá thứ ${cutAt} · thả tay ra là chồng lại`
-      : grip?.ngang
-        ? passes < MIN_PASSES
-          ? "Xào thêm vài lượt rồi hãy cắt"
-          : "Kéo ngang thêm chút nữa để cắt"
-        : grip
-          ? "Đẩy lên để nhập lại · một vòng là một lượt xào"
-          : ready
-            ? `Đã xào ${passes} lượt và cắt xong · làm tiếp hoặc bắt đầu rút`
-            : tooSoon
-              ? "Xào thêm vài lượt rồi hãy cắt"
-              : passes === 0
-                ? "Kéo cỗ bài xuống phía bạn để tách một chồng ra"
-                : passes < MIN_PASSES
-                  ? `Đã xào ${passes} lượt · làm thêm ${MIN_PASSES - passes} vòng nữa`
-                  : `Đã xào ${passes} lượt · kéo ngang để cắt cỗ`;
+  const dienMan = phase === "auto";
+
+  /** Câu dưới cỗ bài: đang diễn thì xướng tên nhịp, còn lại thì nhắc việc. */
+  const hint = (() => {
+    /* Nhịp đầu chưa kịp gắn thì vẫn xướng tên nó, kẻo loé một khung chữ khác. */
+    if (dienMan) return CINEMA[Math.max(cinema, 0)].say;
+    if (cutting) return "Đang cắt cỗ…";
+    if (cutAt) return `Cắt ở lá thứ ${cutAt} · thả tay ra là chồng lại`;
+    if (grip?.ngang) {
+      return passes < MIN_PASSES
+        ? "Xào thêm vài lượt rồi hãy cắt"
+        : "Kéo ngang thêm chút nữa để cắt";
+    }
+    if (grip) return "Đẩy lên để nhập lại · một vòng là một lượt xào";
+    if (ready) {
+      return `Đã xào ${passes} lượt và cắt xong · làm tiếp hoặc bắt đầu rút`;
+    }
+    if (tooSoon) return "Xào thêm vài lượt rồi hãy cắt";
+    if (passes === 0) return "Kéo cỗ bài xuống phía bạn để tách một chồng ra";
+    if (passes < MIN_PASSES) {
+      return `Đã xào ${passes} lượt · làm thêm ${MIN_PASSES - passes} vòng nữa`;
+    }
+    return `Đã xào ${passes} lượt · kéo ngang để cắt cỗ`;
+  })();
 
   return (
     <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:px-0">
       <h1 className="font-serif text-xl text-ink md:text-2xl">Xào bài</h1>
       <p className="mt-1.5 text-[13.5px]/[1.65] text-pretty text-muted">
-        Giữ câu hỏi trong đầu. Kéo cỗ xuống rồi đẩy lên là một lượt xào, kéo
-        ngang cho cỗ tách làm hai rồi thả tay là cắt.
+        {phase === "auto"
+          ? "Đang xào và cắt hộ bạn. Ngồi yên một nhịp."
+          : "Giữ câu hỏi trong đầu. Kéo cỗ xuống rồi đẩy lên là một lượt xào, kéo ngang cho cỗ tách làm hai rồi thả tay là cắt."}
       </p>
 
       <div
         role="button"
-        tabIndex={cutting ? -1 : 0}
+        tabIndex={cutting || phase === "auto" ? -1 : 0}
         /* Nhãn kể cả đường bàn phím, vì dòng nhắc dưới màn chỉ nói tới ngón tay. */
         aria-label={`Cỗ bài. Kéo xuống rồi đẩy lên là một lượt xào, kéo ngang rồi thả tay là cắt cỗ. Bằng bàn phím: mũi tên xuống bốc chồng ra, mũi tên lên nhập lại, mũi tên trái phải chọn chỗ cắt rồi Enter. Đã xào ${passes} lượt${
           ready ? ", đã cắt" : ""
@@ -662,14 +740,24 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           touch-none vì ở đây cả hai chiều đều là thao tác: ngang thì xào, dọc
           thì cắt. Bù lại cả bước này gói trong một màn, không có gì để cuộn.
         */
-        className={`relative mx-auto mt-6 h-[320px] w-full max-w-[360px] touch-none select-none ${
-          cutting ? "cursor-default" : "cursor-grab active:cursor-grabbing"
+        /*
+          Màn xào hộ nới cao thêm và đẩy cỗ xuống một quãng: nhịp xoáy hất cả cỗ
+          bốc khỏi mặt bàn, không chừa khoảng trên là lá bay trèo lên dòng chữ.
+        */
+        className={`relative mx-auto mt-6 w-full max-w-[360px] touch-none select-none ${
+          phase === "auto" ? "h-[384px]" : "h-[320px]"
+        } ${
+          cutting || phase === "auto"
+            ? "cursor-default"
+            : "cursor-grab active:cursor-grabbing"
         }`}
       >
         {/* Quầng ấm hắt quanh cỗ, nằm ngoài mặt bàn nên không bị ngả theo. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-[26px] h-[140px] rounded-[50%]"
+          className={`pointer-events-none absolute inset-x-0 h-[140px] rounded-[50%] ${
+            phase === "auto" ? "top-[94px]" : "top-[26px]"
+          }`}
           style={{
             background:
               "radial-gradient(ellipse,rgba(201,169,97,0.16),rgba(201,169,97,0) 70%)",
@@ -684,7 +772,9 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
               tính `translate` riêng chứ không phải `transform` — nên đừng lặp
               lại translateX ở dưới, kẻo cỗ bài dịch sang trái hai lần.
             */
-            className="absolute top-[10px] left-1/2 h-[192px] w-[128px] -translate-x-1/2 [transform-style:preserve-3d]"
+            className={`absolute left-1/2 h-[192px] w-[128px] -translate-x-1/2 [transform-style:preserve-3d] ${
+              phase === "auto" ? "top-[78px]" : "top-[10px]"
+            }`}
             style={
               { "--dir": "1", transform: `rotateX(${TILT}deg)` } as CSSProperties
             }
@@ -720,6 +810,10 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
                     "--z": `${(i * ZSTEP).toFixed(1)}px`,
                     /* Hai nửa cỗ đan vào nhau, nên lá chẵn lá lẻ đi ngược chiều. */
                     "--s": i % 2 ? "1" : "-1",
+                    /* Chỗ đứng của lá trong nhịp cắt của màn xào hộ. */
+                    "--cx": i >= STACK / 2 ? "92px" : "-40px",
+                    "--cz": i >= STACK / 2 ? "26px" : "0px",
+                    ...swirlVars(i),
                     transform: cardTransform(i),
                     transition: moving
                       ? `transform ${moveMs}ms cubic-bezier(0.32,0.72,0.2,1)`
@@ -733,29 +827,33 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
       </div>
 
       <div className="mt-1 flex flex-col items-center gap-2.5">
-        <div className="flex h-4 items-center gap-2">
-          {Array.from({ length: MIN_PASSES }, (_, i) => (
-            <span
-              key={i}
-              className={`size-1.5 rounded-full transition-colors duration-200 ${
-                i < passes ? "bg-gold" : "bg-line"
-              }`}
-            />
-          ))}
-          {passes > MIN_PASSES ? (
-            <span className="text-[12px] font-medium text-gold">
-              +{passes - MIN_PASSES}
-            </span>
-          ) : null}
-        </div>
+        {phase === "auto" ? null : (
+          <div className="flex h-4 items-center gap-2">
+            {Array.from({ length: MIN_PASSES }, (_, i) => (
+              <span
+                key={i}
+                className={`size-1.5 rounded-full transition-colors duration-200 ${
+                  i < passes ? "bg-gold" : "bg-line"
+                }`}
+              />
+            ))}
+            {passes > MIN_PASSES ? (
+              <span className="text-[12px] font-medium text-gold">
+                +{passes - MIN_PASSES}
+              </span>
+            ) : null}
+          </div>
+        )}
         <p
           role="status"
           className={`text-center text-[13px] ${
-            cutAt
+            dienMan
               ? "text-gold"
-              : tooSoon || (grip?.ngang && passes < MIN_PASSES)
-                ? "text-rust"
-                : "text-muted"
+              : cutAt
+                ? "text-gold"
+                : tooSoon || (grip?.ngang && passes < MIN_PASSES)
+                  ? "text-rust"
+                  : "text-muted"
           }`}
         >
           {hint}
@@ -767,7 +865,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         việc của bàn tay, còn rời bàn xào sang bàn bài là một quyết định, nên để
         người rút tự bấm khi thấy sẵn sàng.
       */}
-      {ready ? (
+      {phase === "auto" ? null : ready ? (
         <button
           type="button"
           onClick={() => onDone(deckRef.current)}
