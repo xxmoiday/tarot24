@@ -42,17 +42,28 @@ const TILT = 52;
 const PULL_SCALE = 1 / Math.cos((TILT * Math.PI) / 180);
 
 /**
- * Kéo hết ngần này px là bốc tới sát đáy cỗ, dùng chung cho cả hai chiều.
- *
- * Chặn trên do chiều ngang quyết: màn 320px thì khung nội dung còn 280, lá bài
- * rộng 142 nằm giữa, nên chồng tách ra chỉ được dạt chừng này mới không lòi ra
- * ngoài mép. Chiều dọc thì thoải mái hơn nhưng dùng chung một con số cho hai
- * chiều đi cùng một nhịp tay.
+ * Kéo dọc hết cỡ là ngần này px — đủ để chồng bốc ra rời hẳn khỏi cỗ chứ không
+ * còn nằm đè lên. Cỗ nhìn nghiêng cao chừng 115px trên màn, cộng thêm phần nở
+ * ra khi chồng bài đi lại gần mắt nhìn, nên phải ngần này mới hở được một
+ * khoảng giữa hai chồng.
  */
-const GRIP_MAX = 78;
+const PULL_MAX = 130;
+
+/**
+ * Kéo ngang hết cỡ là ngần này px. Chật hơn chiều dọc vì bị bề ngang màn chặn:
+ * màn 320px thì khung nội dung còn 280, lá bài rộng 128 nằm giữa, dạt quá ngần
+ * này là lòi ra ngoài mép.
+ */
+const CUT_MAX = 76;
 
 /** Kéo chưa tới đây thì chưa đủ thành một vòng hay một nhát cắt. */
 const GRIP_MIN = 26;
+
+/**
+ * Bốc một tệp thì nhiều nhất cũng chỉ ngần này lá trong chồng vẽ. Bốc nửa cỗ
+ * lên tay không phải là tráo dồn, mà là cắt — hai việc khác nhau.
+ */
+const GRAB_MAX = 7;
 
 /**
  * Kéo xuống thì chồng bài dạt ngang thêm một quãng bằng ngần này lần quãng
@@ -97,13 +108,28 @@ const CARD = "t24-deck-card";
 const clamp = (v: number, lo: number, hi: number) =>
   Math.max(lo, Math.min(hi, v));
 
-/** Quãng kéo trên màn đổi ra số lá bốc khỏi nóc cỗ. */
+/** Quãng kéo ngang đổi ra chỗ cắt, tính bằng lá từ nóc cỗ xuống. */
 const cutAtFor = (d: number, total: number) =>
-  clamp(Math.round((d / GRIP_MAX) * (total - 1)), 1, total - 1);
+  clamp(Math.round((d / CUT_MAX) * (total - 1)), 1, total - 1);
 
 /** Chỗ cắt đổi ra số lá phải vẽ trong chồng đang nhấc. */
 const packetFor = (at: number, total: number) =>
   clamp(Math.round((at / total) * STACK), 1, STACK - 1);
+
+/**
+ * Quãng kéo dọc đổi ra số lá bốc lên tay. Không dùng chung thang với nhát cắt:
+ * cắt là chia đôi cỗ nên quãng kéo phải trải hết 78 lá, còn bốc một tệp thì chỉ
+ * quanh quẩn vài lá. `grab` là cái tay bốc của riêng vòng này, hơi nặng hơi nhẹ
+ * mỗi lần một khác — ngoài đời có ai bốc hai lần đúng bằng nhau đâu.
+ */
+const grabFor = (d: number, grab: number) =>
+  clamp(Math.round((d / PULL_MAX) * GRAB_MAX * grab), 1, GRAB_MAX);
+
+/**
+ * Gieo cái tay bốc cho một vòng. Chỉ để nhìn nên gieo bằng Math.random, không
+ * đụng vào chuỗi entropy quyết định thứ tự cỗ bài.
+ */
+const tayBoc = () => 0.6 + Math.random() * 0.8;
 
 export interface ShuffleRitualProps {
   /** Cỗ bài lúc bắt đầu, tức là thứ tự nó nằm sau lượt đọc trước. */
@@ -139,9 +165,13 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
   /**
    * Cái nắm tay đang diễn ra: `ngang` là đang cắt hay đang xào, `d` là quãng đã
    * kéo tính bằng px trên màn — chiều ngang có dấu để biết dạt sang trái hay
-   * phải. Chưa nắm gì thì null.
+   * phải — và `grab` là cái tay bốc của riêng vòng này. Chưa nắm gì thì null.
    */
-  const [grip, setGrip] = useState<{ ngang: boolean; d: number } | null>(null);
+  const [grip, setGrip] = useState<{
+    ngang: boolean;
+    d: number;
+    grab: number;
+  } | null>(null);
   /** Đang chạy nốt hoạt cảnh đặt chồng bài xuống. */
   const [cutting, setCutting] = useState(false);
   /**
@@ -166,21 +196,29 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
 
   const planeRef = useRef<HTMLDivElement>(null);
   /** Cái nắm tay dựng bằng bàn phím — bản sao có thể đọc ngay của `grip`. */
-  const kb = useRef<{ ngang: boolean; d: number } | null>(null);
+  const kb = useRef<{ ngang: boolean; d: number; grab: number } | null>(null);
 
   const total = deck.length;
   /** Quãng đã kéo, bỏ dấu đi. */
   const depth = grip ? Math.abs(grip.d) : 0;
-  /** Đang cầm bao nhiêu lá trên tay — hễ nhấc là có, dù mới nhấc một tí. */
-  const held = depth ? cutAtFor(depth, total) : 0;
-  const packet = held ? packetFor(held, total) : 0;
+  /**
+   * Số lá vẽ trong chồng đang cầm. Kéo ngang thì nó phải khớp với chỗ cắt đang
+   * hiện trên màn; kéo dọc thì chỉ là một tệp mỏng bốc lên tay.
+   */
+  const packet = !grip
+    ? 0
+    : grip.ngang
+      ? packetFor(cutAtFor(depth, total), total)
+      : grabFor(depth, grip.grab);
   /*
    * Chỗ cắt chỉ có nghĩa khi nhát cắt đó thật sự sẽ xuống: đang kéo ngang, đã
    * qua ngưỡng, và cỗ đã xào đủ. Thiếu một điều kiện là dòng nhắc hứa cắt mà
    * thả tay ra lại chẳng cắt gì.
    */
   const cutAt =
-    grip?.ngang && depth >= GRIP_MIN && passes >= MIN_PASSES ? held : 0;
+    grip?.ngang && depth >= GRIP_MIN && passes >= MIN_PASSES
+      ? cutAtFor(depth, total)
+      : 0;
 
   /* ---------- Xào ---------- */
 
@@ -278,6 +316,8 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
     ngang: boolean | null;
     /** Vòng dọc này đã bốc chồng bài sâu nhất tới đâu. */
     deep: number;
+    /** Cái tay bốc của vòng dọc đang làm. */
+    grab: number;
   } | null>(null);
 
   const onPointerDown = useCallback(
@@ -295,6 +335,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         y0: e.clientY,
         ngang: null,
         deep: 0,
+        grab: tayBoc(),
       };
     },
     [cutting],
@@ -331,23 +372,25 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
       setSettling(false);
 
       if (d.ngang) {
-        const s = clamp(Math.abs(dx) - LOCK_SLOP, 0, GRIP_MAX);
-        setGrip(s > 0 ? { ngang: true, d: dx < 0 ? -s : s } : null);
+        const s = clamp(Math.abs(dx) - LOCK_SLOP, 0, CUT_MAX);
+        setGrip(s > 0 ? { ngang: true, d: dx < 0 ? -s : s, grab: 1 } : null);
         /* Cỗ chưa xào mấy mà đã đòi cắt thì nhắc ngay từ lúc còn đang kéo. */
         if (s >= GRIP_MIN && passes < MIN_PASSES) setTooSoon(true);
         return;
       }
 
-      const p = clamp(dy - LOCK_SLOP, 0, GRIP_MAX);
+      const p = clamp(dy - LOCK_SLOP, 0, PULL_MAX);
       /* Về sát cỗ thì coi như không cầm gì nữa — số 0 và "không cầm" là hai
          chuyện khác nhau, dòng nhắc với chồng bài trên tay đều đọc chỗ này. */
-      setGrip(p > 0 ? { ngang: false, d: p } : null);
+      setGrip(p > 0 ? { ngang: false, d: p, grab: d.grab } : null);
       d.deep = Math.max(d.deep, p);
 
       /* Bốc đủ sâu rồi đẩy về sát cỗ: chồng bài đã nhập vào, xong một lượt. */
       if (d.deep >= GRIP_MIN && p <= BACK_PX) {
         const deep = d.deep;
         d.deep = 0;
+        /* Vòng sau bốc bằng một tay khác, cho tệp mỗi lần một dày một mỏng. */
+        d.grab = tayBoc();
         setGrip(null);
         runPass(deep, e.clientX);
       }
@@ -379,7 +422,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         return;
       }
 
-      const s = clamp(Math.abs(e.clientX - d.x0) - LOCK_SLOP, 0, GRIP_MAX);
+      const s = clamp(Math.abs(e.clientX - d.x0) - LOCK_SLOP, 0, CUT_MAX);
       if (s < GRIP_MIN) {
         cancelPull();
         return;
@@ -411,8 +454,10 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
         e.preventDefault();
         /* Đổi chiều là bỏ cái nắm cũ, y như nhả tay ra rồi nắm lại. */
         const cu = kb.current?.ngang === ngang ? kb.current.d : 0;
-        const buoc =
-          (k === "ArrowDown" || k === "ArrowRight" ? 1 : -1) * (GRIP_MAX / 12);
+        const max = ngang ? CUT_MAX : PULL_MAX;
+        const buoc = (k === "ArrowDown" || k === "ArrowRight" ? 1 : -1) * (max / 12);
+        /* Bắt đầu một vòng dọc mới thì gieo lại tay bốc, y như bên ngón tay. */
+        const grab = cu === 0 ? tayBoc() : (kb.current?.grab ?? 1);
         /*
           Nhịp đầu nhảy thẳng tới ngưỡng. Nhích từng tí từ 0 lên thì có lúc chỗ
           cắt đã hiện trên màn mà Enter lại chưa cắt được, vì quãng kéo chưa qua
@@ -424,11 +469,11 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
               ? Math.sign(buoc) * GRIP_MIN
               : 0
             : cu + buoc;
-        moi = clamp(moi, -GRIP_MAX, GRIP_MAX);
+        moi = clamp(moi, -max, max);
         if (Math.abs(moi) < GRIP_MIN) moi = 0;
 
         const daBoc = !ngang && Math.abs(cu) >= GRIP_MIN;
-        kb.current = moi === 0 ? null : { ngang, d: moi };
+        kb.current = moi === 0 ? null : { ngang, d: moi, grab };
         /*
           Nhịp nhập vào của lượt trước còn đang chạy thì gỡ, y như bên ngón tay:
           hoạt cảnh đè lên transform trong style, không gỡ thì bấm phím ngay sau
@@ -543,9 +588,8 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
     <div className="mx-auto flex w-full max-w-[720px] flex-col px-5 pt-6 pb-10 md:px-0">
       <h1 className="font-serif text-xl text-ink md:text-2xl">Xào bài</h1>
       <p className="mt-1.5 text-[13.5px]/[1.65] text-pretty text-muted">
-        Giữ câu hỏi trong đầu rồi kéo cỗ bài xuống phía bạn để bốc một chồng
-        ra, đẩy lên cho nhập lại vào cỗ — một vòng như thế là một lượt xào. Xào
-        đủ rồi thì kéo ngang cho cỗ tách làm hai, thả tay ra là cắt.
+        Giữ câu hỏi trong đầu. Kéo cỗ xuống rồi đẩy lên là một lượt xào, kéo
+        ngang cho cỗ tách làm hai rồi thả tay là cắt.
       </p>
 
       <div
@@ -564,14 +608,14 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
           touch-none vì ở đây cả hai chiều đều là thao tác: ngang thì xào, dọc
           thì cắt. Bù lại cả bước này gói trong một màn, không có gì để cuộn.
         */
-        className={`relative mx-auto mt-6 h-[340px] w-full max-w-[360px] touch-none select-none ${
+        className={`relative mx-auto mt-6 h-[292px] w-full max-w-[360px] touch-none select-none ${
           cutting ? "cursor-default" : "cursor-grab active:cursor-grabbing"
         }`}
       >
         {/* Quầng ấm hắt quanh cỗ, nằm ngoài mặt bàn nên không bị ngả theo. */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-[44px] h-[150px] rounded-[50%]"
+          className="pointer-events-none absolute inset-x-0 top-[26px] h-[140px] rounded-[50%]"
           style={{
             background:
               "radial-gradient(ellipse,rgba(201,169,97,0.16),rgba(201,169,97,0) 70%)",
@@ -586,7 +630,7 @@ export function ShuffleRitual({ deck, seed, onDone }: ShuffleRitualProps) {
               tính `translate` riêng chứ không phải `transform` — nên đừng lặp
               lại translateX ở dưới, kẻo cỗ bài dịch sang trái hai lần.
             */
-            className="absolute top-[24px] left-1/2 h-[213px] w-[142px] -translate-x-1/2 [transform-style:preserve-3d]"
+            className="absolute top-[10px] left-1/2 h-[192px] w-[128px] -translate-x-1/2 [transform-style:preserve-3d]"
             style={
               { "--dir": "1", transform: `rotateX(${TILT}deg)` } as CSSProperties
             }
