@@ -107,21 +107,14 @@ Tên miền gõ nhầm, chưa từng quảng bá nên không có gì để giữ
 `https://tarrot24.online` giờ trả 530 — đúng, bản ghi Cloudflare còn trỏ vào
 tunnel đã xoá.
 
-**Còn lại, làm lúc nào cũng được:**
+**Đã dọn xong trên VPS (09/09/2026):**
 
-Trên VPS, gỡ nginx site và cert của tên miền cũ:
+- xoá nginx site `api.tarrot24.online` (sao lưu `/root/luu-tarot24-cu/`)
+- `certbot delete --cert-name api.tarrot24.online`
+- tám cert và tám site của dự án khác trên máy không đụng tới
 
-```bash
-rm /etc/nginx/sites-enabled/api.tarrot24.online
-rm /etc/nginx/sites-available/api.tarrot24.online
-certbot delete --cert-name api.tarrot24.online
-nginx -t && systemctl reload nginx
-```
-
-Rồi xoá zone `tarrot24.online` ở Cloudflare và thôi gia hạn tên miền.
-
-`web/ecosystem.config.cjs` là cấu hình PM2 hồi web còn chạy ở Mac Mini (cổng
-3111). Không còn dùng nữa, xoá được.
+**Còn lại, làm lúc nào cũng được:** xoá zone `tarrot24.online` ở Cloudflare,
+thôi gia hạn tên miền, và xoá hai bản ghi rác trong zone `taohinhanh.online`.
 
 Giữ lại kho mã ở `~/Projects/tarrot24` (thư mục vẫn mang tên cũ, không sao) để
 còn dev và để chạy `npm run deploy:vps` cho backend.
