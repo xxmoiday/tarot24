@@ -36,6 +36,47 @@
 
   /* Chạm một lá trên bàn thì đoạn nói về lá đó sáng lên một nhịp rồi tắt. */
   --animate-flash: t24-flash 1.6s ease both;
+
+  /*
+   * Nến ngoài khung lay động. Hai ngọn hai nhịp lệch hẳn nhau, và cả hai đều
+   * là số lẻ chia không hết cho nhau, nên chúng không bao giờ đập cùng lúc —
+   * đập cùng lúc thì thành cả màn nhấp nháy chứ không phải hai ngọn nến.
+   */
+  --animate-candle: t24-candle 9s ease-in-out infinite both;
+  --animate-candle-far: t24-candle 13.5s ease-in-out infinite both;
+}
+
+/*
+ * Ngọn nến thở: mờ tỏ một chút và phồng lên xẹp xuống một chút. Biên độ giữ
+ * thật nhỏ — quá tay là thành đèn nhấp nháy, mà màn này người ta còn phải ngồi
+ * nhìn cỗ bài xào trong tám giây.
+ */
+@keyframes t24-candle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  17% {
+    opacity: 0.9;
+    transform: scale(0.988);
+  }
+  34% {
+    opacity: 0.98;
+    transform: scale(1.006);
+  }
+  51% {
+    opacity: 0.86;
+    transform: scale(0.979);
+  }
+  68% {
+    opacity: 0.96;
+    transform: scale(1.004);
+  }
+  84% {
+    opacity: 0.91;
+    transform: scale(0.992);
+  }
 }
 
 @keyframes t24-flash {
