@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Disclaimer, Eyebrow } from "@/components/ui";
 import { ARTICLES, getArticle } from "@/lib/articles";
-import { absoluteUrl, breadcrumbLd } from "@/lib/site";
+import { absoluteUrl, breadcrumbLd, ogCover } from "@/lib/site";
 
 export function generateStaticParams() {
   return ARTICLES.map((a) => ({ slug: a.slug }));
@@ -73,7 +73,7 @@ export async function generateMetadata({
       description: article.excerpt,
       url: absoluteUrl(`/kien-thuc/${article.slug}`),
       publishedTime: article.updated,
-      images: [absoluteUrl(coverImage.src)],
+      images: [ogCover(coverImage.src, coverImage.alt)],
     },
   };
 }

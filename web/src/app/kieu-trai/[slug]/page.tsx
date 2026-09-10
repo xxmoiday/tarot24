@@ -7,7 +7,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SpreadCard } from "@/components/SpreadCard";
 import { TarotCardFace } from "@/components/TarotCardFace";
 import { ButtonLink, Disclaimer, Eyebrow } from "@/components/ui";
-import { absoluteUrl, breadcrumbLd } from "@/lib/site";
+import { absoluteUrl, breadcrumbLd, ogCover } from "@/lib/site";
 import { SPREADS, getSpread } from "@/lib/spreads";
 
 export function generateStaticParams() {
@@ -30,7 +30,9 @@ export async function generateMetadata({
       title: spread.seo.title,
       description: spread.seo.description,
       url: absoluteUrl(`/kieu-trai/${spread.slug}`),
-      images: spread.coverImage ? [absoluteUrl(spread.coverImage.src)] : undefined,
+      images: spread.coverImage
+        ? [ogCover(spread.coverImage.src, spread.coverImage.alt)]
+        : undefined,
     },
   };
 }

@@ -18,6 +18,27 @@ export function absoluteUrl(path = "/") {
 }
 
 /**
+ * Ảnh cho thẻ og:image, trỏ sang bản .jpg sinh kèm bởi npm run build:og-covers.
+ *
+ * Cover trong public/ là webp, mà Facebook, Messenger, Zalo và LinkedIn chỉ
+ * nhận JPEG/PNG/GIF: gặp webp là crawler tải về rồi bỏ qua, link dán vào khung
+ * chat ra thẻ trơ không ảnh. Bản webp vẫn là bản <Image> dùng để hiển thị.
+ *
+ * Khai luôn khổ và kiểu vì Next chỉ tự điền mấy thứ đó cho ảnh sinh bằng
+ * opengraph-image.tsx, không điền cho URL viết tay; thiếu thì có nơi hạ xuống
+ * thẻ nhỏ hoặc bỏ qua ảnh.
+ */
+export function ogCover(src: string, alt: string) {
+  return {
+    url: absoluteUrl(src.replace(/\.webp$/, ".jpg")),
+    width: 1200,
+    height: 630,
+    type: "image/jpeg",
+    alt,
+  };
+}
+
+/**
  * BreadcrumbList cho các trang con. Google dùng nó để in đường dẫn thay cho URL
  * trong kết quả tìm kiếm, nên mọi trang chi tiết đều nên có.
  */

@@ -15,7 +15,8 @@
     "check:lengths": "node --experimental-strip-types --no-warnings scripts/check-lengths.mjs",
     "check:cards": "node --experimental-strip-types --no-warnings scripts/check-cards.mjs",
     "check:seo": "node --experimental-strip-types --no-warnings scripts/check-seo.mjs",
-    "build:og-cards": "node scripts/build-og-cards.mjs"
+    "build:og-cards": "node scripts/build-og-cards.mjs",
+    "build:og-covers": "node scripts/build-og-covers.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

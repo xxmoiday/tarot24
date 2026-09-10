@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Disclaimer, Eyebrow } from "@/components/ui";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, ogCover } from "@/lib/site";
 
 const COVER_IMAGE = {
   src: "/hero/banner-tarot-mystic.webp",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: absoluteUrl("/ve-tarot24"),
     title: "Về Tarot24",
-    images: [absoluteUrl(COVER_IMAGE.src)],
+    images: [ogCover(COVER_IMAGE.src, COVER_IMAGE.alt)],
   },
 };
 

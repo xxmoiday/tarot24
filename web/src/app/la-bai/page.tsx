@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Eyebrow } from "@/components/ui";
 import { CARDS } from "@/lib/cards";
-import { SITE, absoluteUrl, breadcrumbLd } from "@/lib/site";
+import { SITE, absoluteUrl, breadcrumbLd, ogCover } from "@/lib/site";
 
 const COVER_IMAGE = {
   src: "/hero/banner-3.webp",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: absoluteUrl("/la-bai"),
     title: "Thư viện 78 lá bài tarot",
-    images: [absoluteUrl(COVER_IMAGE.src)],
+    images: [ogCover(COVER_IMAGE.src, COVER_IMAGE.alt)],
   },
 };
 
