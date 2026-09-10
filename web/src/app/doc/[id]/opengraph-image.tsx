@@ -73,25 +73,33 @@ export default async function ReadingOgImage({
         <div style={{ fontSize: 24, color: "#C9A961", display: "flex" }}>
           Tarot24
         </div>
-        {closing && state?.question ? (
-          <div style={{ fontSize: 21, color: "#9AA3B8", display: "flex" }}>
-            {trimForOg(state.question, 72)}
-          </div>
-        ) : null}
+        {/*
+          Không lấy chữ nào của người dùng ra ảnh này. Trước đây câu hỏi giải
+          mã từ id được in lên đây, mà id là base64 trần ai cũng nặn được: nặn
+          một mã chứa chữ tuỳ ý rồi dán link tarot24.online vào Zalo hay
+          Facebook là ra thẻ xem trước mang tên miền của mình với nội dung của
+          họ. Ký id không chặn được, vì câu hỏi là chữ người dùng nhập nên đi
+          qua đường hợp lệ vẫn ký được.
+
+          Nên chữ trên ảnh chỉ còn hai nguồn: câu chốt do mô hình mình viết,
+          đọc từ kho đã lưu, và tên kiểu trải, vốn tra từ một danh sách cố
+          định nên không nhồi được gì vào. Ảnh này cũng đi ra nhóm chat của
+          người khác, mà câu hỏi thì là chuyện riêng của người rút.
+        */}
         <div
           style={{
-            fontSize: closing ? 34 : state?.question ? 38 : 30,
+            fontSize: closing ? 34 : 30,
             lineHeight: 1.25,
             color: "#EDE6D6",
             display: "flex",
             fontFamily: "Newsreader",
           }}
         >
-          {trimForOg(closing ?? state?.question ?? "", closing ? 150 : 96) ||
+          {(closing && trimForOg(closing, 150)) ||
             spread?.name ||
             "Một bài đọc tarot"}
         </div>
-        {!closing && state?.question && spread ? (
+        {closing && spread ? (
           <div style={{ fontSize: 21, color: "#9AA3B8", display: "flex" }}>
             {spread.name}
           </div>

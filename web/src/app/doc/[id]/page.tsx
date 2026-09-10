@@ -21,9 +21,15 @@ export async function generateMetadata({
   const reading = state && composeReading(state);
   if (!reading)
     return { title: "Bài đọc", robots: { index: false, follow: false } };
+  /*
+    Mô tả lấy từ giới thiệu kiểu trải, không lấy câu hỏi. Câu hỏi giải mã từ
+    id, mà id là base64 trần nên ai cũng nặn được một mã chứa chữ tuỳ ý rồi
+    dán link tarot24.online đi khắp nơi — thẻ xem trước hiện ra chữ của họ
+    dưới tên miền của mình. Xem chú thích dài hơn ở opengraph-image.tsx.
+  */
   return {
     title: `${reading.spread.name} · bài đọc đã chia sẻ`,
-    description: reading.question || reading.spread.blurb,
+    description: reading.spread.blurb,
     robots: { index: false, follow: true },
   };
 }
