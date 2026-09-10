@@ -43,6 +43,7 @@ Project Settings → Environment Variables, môi trường **Production**:
 | `RATE_READINGS_PER_HOUR` | tuỳ, mặc định 12 |
 | `RATE_FOLLOWUPS_PER_HOUR` | tuỳ, mặc định 30 |
 | `API_TIMEOUT_MS` | tuỳ, một lượt luận bài mất 6–15 giây |
+| `NEXT_PUBLIC_GA_ID` | tuỳ, mặc định `G-LZLMGNL8SJ`; để trống là tắt hẳn đo lường |
 
 `NEXT_PUBLIC_SITE_URL` được **nướng vào lúc build**. Đổi biến xong mà không
 deploy lại thì canonical, `og:url` và sitemap vẫn giữ giá trị cũ — đã dính một

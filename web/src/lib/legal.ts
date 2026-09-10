@@ -17,7 +17,7 @@ export interface LegalDoc {
 export const LEGAL_EMAIL = "damdinhhuy@gmail.com";
 
 /** Ngày sửa gần nhất của cả ba văn bản. Sửa nội dung thì sửa luôn ngày này. */
-export const LEGAL_UPDATED = "2026-09-08";
+export const LEGAL_UPDATED = "2026-09-10";
 
 /** Trong nội dung, {email} được thay bằng liên kết thư. */
 export const EMAIL_TOKEN = "{email}";
@@ -122,9 +122,9 @@ export const LEGAL_DOCS: LegalDoc[] = [
     label: "Chính sách riêng tư",
     title: "Chính sách riêng tư",
     excerpt:
-      "Tarot24 lưu gì, gửi đi đâu, giữ bao lâu và bạn xoá bằng cách nào. Không tài khoản, không cookie, không công cụ theo dõi.",
+      "Tarot24 lưu gì, gửi đi đâu, giữ bao lâu và bạn xoá bằng cách nào. Không tài khoản, không quảng cáo. Có đếm lượt xem, nhưng câu hỏi của bạn được gột khỏi số đếm ấy.",
     intro:
-      "Trang này nói thật về dữ liệu, không vòng vo. Tarot24 không có tài khoản, không đặt cookie, không gắn công cụ đo lường hay quảng cáo. Nhưng để viết được bài luận thì câu hỏi của bạn phải đi qua vài chỗ, và dưới đây là đúng những chỗ đó.",
+      "Trang này nói thật về dữ liệu, không vòng vo. Tarot24 không có tài khoản, không gắn mã quảng cáo, không bán gì của bạn cho ai. Có hai thứ đi ra ngoài: câu hỏi của bạn phải qua nhà cung cấp mô hình thì mới thành bài luận, và lượt xem trang được đếm bằng Google Analytics — chỗ đếm ấy chúng tôi đã gột câu hỏi ra khỏi đường dẫn trước khi gửi. Dưới đây là đúng những chỗ đó, không thiếu chỗ nào.",
     sections: [
       {
         heading: "Chúng tôi lưu gì",
@@ -140,8 +140,8 @@ export const LEGAL_DOCS: LegalDoc[] = [
         heading: "Chúng tôi không lưu gì",
         paragraphs: [
           "Không tên, không email, không số điện thoại, không ngày sinh, không vị trí. Trang không có chỗ để đăng ký nên đơn giản là không có những dữ liệu đó, trừ khi chính bạn viết thư cho chúng tôi.",
-          "Trang không đặt cookie và không lưu gì trong trình duyệt của bạn. Không có Google Analytics, không có mã quảng cáo, không có pixel theo dõi.",
-          "Phông chữ được đóng gói và phục vụ ngay từ máy chủ của trang, nên trình duyệt của bạn không phải gọi sang máy chủ của bên thứ ba khi tải trang.",
+          "Chúng tôi không gắn mã quảng cáo, không có pixel bám theo bạn sang trang khác, và không tự đặt cookie nào. Cookie duy nhất nằm trong trình duyệt bạn là của Google Analytics; mục Đếm lượt xem dưới đây nói rõ nó làm gì.",
+          "Phông chữ được đóng gói và phục vụ ngay từ máy chủ của trang, nên trình duyệt của bạn không phải gọi sang máy chủ của bên thứ ba để tải chữ.",
         ],
       },
       {
@@ -153,6 +153,15 @@ export const LEGAL_DOCS: LegalDoc[] = [
         ],
       },
       {
+        heading: "Đếm lượt xem",
+        paragraphs: [
+          "Chúng tôi cần biết mỗi ngày có bao nhiêu người vào và vào trang nào, để còn biết nên viết thêm gì. Việc đó do Google Analytics làm, và nó đặt cookie của Google trong trình duyệt bạn để phân biệt người quay lại với người mới.",
+          "Chỗ này chúng tôi làm khác mặc định một bước, vì mục ngay trên đã nói: câu hỏi của bạn nằm trong đường dẫn. Trước khi gửi bất cứ con số nào, đường dẫn được gột sạch hai tham số chứa chuyện của bạn — câu hỏi gõ ở trang chủ và mã bài đọc. Google đếm được là có người xem trang rút bài, chứ không đọc được người đó hỏi gì.",
+          "Google giữ số liệu mức sự kiện 2 tháng rồi xoá — mức ngắn nhất Google Analytics cho chọn, và chúng tôi chọn mức đó. Báo cáo tổng theo ngày, kiểu hôm nay có bao nhiêu lượt xem, thì Google giữ tiếp; trong đó không còn gì lần được về một người.",
+          "Không muốn bị đếm thì bật chặn theo dõi của trình duyệt, dùng chế độ ẩn danh, hoặc cài phần mở rộng từ chối Google Analytics của chính Google. Trang vẫn chạy đủ, không thiếu gì cả, và chúng tôi không dựng tường chặn ai từ chối.",
+        ],
+      },
+      {
         heading: "Dữ liệu đi qua những bên nào",
         paragraphs: [
           "Để sinh bài luận, câu hỏi và các lá bài của bạn được gửi tới nhà cung cấp mô hình ngôn ngữ. Đây là chuyển dữ liệu ra ngoài lãnh thổ Việt Nam, nên chúng tôi nói rõ ở đây.",
@@ -161,6 +170,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
           "DeepSeek (Trung Quốc) là nơi xử lý chính hiện nay",
           "Anthropic và OpenAI (Hoa Kỳ) là phương án dự phòng khi nơi trên không phản hồi",
           "Nhà cung cấp máy chủ và mạng phân phối nội dung, có nhật ký truy cập kỹ thuật theo mặc định gồm địa chỉ mạng, thời điểm và đường dẫn được gọi",
+          "Google Analytics (Hoa Kỳ) đếm lượt xem trang. Nó nhận đường dẫn bạn đang mở, loại máy, ngôn ngữ và trang đã dẫn bạn tới đây — những thứ trình duyệt nào cũng khai",
         ],
       },
       {
@@ -173,7 +183,7 @@ export const LEGAL_DOCS: LegalDoc[] = [
       {
         heading: "Giữ bao lâu, xoá thế nào",
         paragraphs: [
-          "Bài đọc được giữ đến khi bạn yêu cầu xoá. Địa chỉ mạng dùng đếm lượt thì tự xoá trong vòng một giờ.",
+          "Bài đọc được giữ đến khi bạn yêu cầu xoá. Địa chỉ mạng dùng đếm lượt thì tự xoá trong vòng một giờ. Số liệu lượt xem nằm ở Google theo hạn đã nói trong mục Đếm lượt xem.",
           `Muốn xoá một bài đọc, gửi thư tới ${EMAIL_TOKEN} kèm đường dẫn /doc/… của bài đó. Chúng tôi xoá trong vòng 7 ngày làm việc và trả lời lại cho bạn. Vì không có tài khoản nên đường dẫn chính là thứ duy nhất xác định được bài của bạn.`,
           "Bạn cũng có quyền hỏi chúng tôi đang giữ gì về một bài đọc cụ thể, và quyền phản đối việc xử lý. Cách làm giống hệt: gửi thư kèm đường dẫn.",
         ],

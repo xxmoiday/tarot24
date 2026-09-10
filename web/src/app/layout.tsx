@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Be_Vietnam_Pro, Newsreader } from "next/font/google";
+import { Analytics } from "@/components/Analytics";
 import { ScrollTopOnRoute } from "@/components/ScrollTopOnRoute";
 import { SITE } from "@/lib/site";
 import "./globals.css";
@@ -73,6 +74,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </a>
         <ScrollTopOnRoute />
         {children}
+        {/* Chỉ đo ở bản thật. Chạy dev mà bắn về thì số liệu là số của mình. */}
+        {process.env.NODE_ENV === "production" ? <Analytics /> : null}
       </body>
     </html>
   );

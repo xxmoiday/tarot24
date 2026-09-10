@@ -7,6 +7,12 @@ export const SITE = {
   locale: "vi_VN",
 } as const;
 
+/**
+ * Mã đo Google Analytics. Để trống biến môi trường là tắt hẳn — bản dựng thử
+ * hay bản chạy trên máy mình không có lý do gì bắn số về.
+ */
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "G-LZLMGNL8SJ";
+
 export function absoluteUrl(path = "/") {
   return new URL(path, SITE.url).toString();
 }

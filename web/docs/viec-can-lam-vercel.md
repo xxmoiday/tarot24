@@ -29,9 +29,24 @@ Vercel → Project → **Settings → Environment Variables** → môi trường
 | `RATE_READINGS_PER_HOUR` | `12` | tuỳ |
 | `RATE_FOLLOWUPS_PER_HOUR` | `30` | tuỳ |
 | `REVIEW_USER` / `REVIEW_PASS` | lấy trong `web/.env.local` | chỉ khi muốn mở `/soat` |
+| `NEXT_PUBLIC_GA_ID` | `G-LZLMGNL8SJ` — đã có mặc định cứng trong `src/lib/site.ts`, đặt biến chỉ để đổi hoặc để tắt | tuỳ |
 
 Giá trị thật nằm ở `web/.env.local` trên Mac Mini. Tệp đó gitignore — **đừng
 commit, đừng dán khoá vào chat**.
+
+### Biến `NEXT_PUBLIC_*` phải để loại Config, không phải Secret
+
+Lưu một biến `NEXT_PUBLIC_*` dạng Secret thì Vercel chặn, đúng câu này:
+
+> Remove the public framework prefix to keep this value private. Public
+> prefixes expose values to the browser. If that's safe, change the variable
+> to Config.
+
+Nó nói đúng: tiền tố `NEXT_PUBLIC_` nghĩa là giá trị được nướng thẳng vào JS
+gửi xuống trình duyệt, giấu không nổi. Với `NEXT_PUBLIC_SITE_URL` và
+`NEXT_PUBLIC_GA_ID` thì lộ cũng chẳng sao — tên miền và mã đo vốn nằm sẵn
+trong HTML mọi trang. Chọn **Config**. Còn `API_KEY` thì ngược lại: nó không
+có tiền tố ấy, chỉ chạy phía máy chủ, và phải để **Secret**.
 
 ## Xong rồi phải deploy lại
 
