@@ -8,9 +8,12 @@ import {
   NotFoundException,
   Param,
   Post,
+  Req,
   UseGuards,
 } from "@nestjs/common";
+import type { Request } from "express";
 import { ApiKeyGuard } from "../common/api-key.guard.js";
+import { clientCua, type CoClient } from "../common/clients.js";
 import { RateLimitGuard } from "../common/rate-limit.guard.js";
 import { MAX_CLARIFIERS, MAX_FOLLOW_UPS, ReadingsService } from "./readings.service.js";
 
@@ -38,9 +41,9 @@ export class ReadingsController {
   /** Viết bài luận cho mã bài đọc, gọi lại cùng mã thì trả bản đã lưu. */
   @Post()
   @UseGuards(RateLimitGuard)
-  async create(@Body("id") id: string) {
+  async create(@Body("id") id: string, @Req() req: Request & CoClient) {
     if (!id || typeof id !== "string") throw new BadRequestException("Thiếu mã bài đọc");
-    const out = await this.readings.create(id);
+    const out = await this.readings.create(id, clientCua(req));
 
     switch (out.kind) {
       case "ok":
@@ -70,11 +73,15 @@ export class ReadingsController {
 
   @Post(":id/follow-ups")
   @UseGuards(RateLimitGuard)
-  async followUp(@Param("id") id: string, @Body("question") question: string) {
+  async followUp(
+    @Param("id") id: string,
+    @Body("question") question: string,
+    @Req() req: Request & CoClient,
+  ) {
     const q = (question ?? "").trim().slice(0, MAX_QUESTION);
     if (!q) throw new BadRequestException("Thiếu câu hỏi");
 
-    const out = await this.readings.followUp(id, q);
+    const out = await this.readings.followUp(id, q, clientCua(req));
     switch (out.kind) {
       case "ok": {
         const last = out.reading.followUps.at(-1);
@@ -109,13 +116,19 @@ export class ReadingsController {
     @Body("stt") stt: number,
     @Body("slug") slug: string,
     @Body("reversed") reversed: boolean,
+    @Req() req: Request & CoClient,
   ) {
     const n = Number(stt);
     if (!Number.isInteger(n) || n < 1 || !slug || typeof slug !== "string") {
       throw new BadRequestException("Thiếu vị trí hoặc lá làm rõ");
     }
 
-    const out = await this.readings.clarify(id, n, { slug, reversed: !!reversed });
+    const out = await this.readings.clarify(
+      id,
+      n,
+      { slug, reversed: !!reversed },
+      clientCua(req),
+    );
     switch (out.kind) {
       case "ok":
         return { clarifiers: out.reading.clarifiers };

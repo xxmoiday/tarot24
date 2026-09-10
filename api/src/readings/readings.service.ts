@@ -1,4 +1,5 @@
 import { Injectable, Logger } from "@nestjs/common";
+import { WEB } from "../common/clients.js";
 import { KbService, type ChatMessage, type ReadingRequest } from "../kb/kb.service.js";
 import { detectGuard } from "../llm/guard.js";
 import { LlmBudgetService } from "../llm/budget.service.js";
@@ -94,7 +95,7 @@ export class ReadingsService {
    * Viết bài luận rồi soát theo mục 9. Vi phạm thì gọi lại đúng một lần với
    * danh sách chỗ sai; lần hai không khá hơn thì giữ bài đầu và ghi log.
    */
-  async create(id: string): Promise<ReadingOutcome> {
+  async create(id: string, client: string = WEB): Promise<ReadingOutcome> {
     const req = this.request(id);
     if (!req) return { kind: "bad-id" };
 
@@ -102,7 +103,7 @@ export class ReadingsService {
     if (cached) return { kind: "ok", reading: cached, cached: true };
 
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
-    if (!this.budget.con()) return { kind: "over-budget" };
+    if (!this.budget.con(client)) return { kind: "over-budget" };
 
     const spread = this.kb.spread(req.spreadSlug)!;
     /* Khuôn JSON tốn thêm ít token so với văn xuôi trần, chừa sẵn ra. */
@@ -110,7 +111,7 @@ export class ReadingsService {
 
     try {
       const messages = this.kb.buildMessages(req);
-      const first = await this.llm.chat(messages, budget);
+      const first = await this.llm.chat(messages, budget, client);
 
       const soat = { question: req.question, guard: !!req.guard };
 
@@ -125,6 +126,7 @@ export class ReadingsService {
             { role: "user", content: fixPrompt(worst) },
           ],
           budget,
+          client,
         );
         const shaped = {
           ...this.shape(retry.text),
@@ -160,7 +162,9 @@ export class ReadingsService {
         createdAt: new Date().toISOString(),
       };
 
-      this.log.log(`${id} xong, ${countWords(best.essay)} tiếng, ${best.provider}`);
+      this.log.log(
+        `${id} xong, ${countWords(best.essay)} tiếng, ${best.provider}, cho ${client}`,
+      );
       return { kind: "ok", reading, cached: false };
     } catch (e) {
       const message = e instanceof Error ? e.message : String(e);
@@ -194,11 +198,17 @@ export class ReadingsService {
    * database, tức mọi luật ở mục 1, 5, 7 và 10 không áp dụng cho chúng: câu
    * hỏi thêm được phép nói "chắc chắn", được phép phán người hỏi lười.
    */
-  private async vietNgan(messages: ChatMessage[], kieu: KieuBai, question: string, guard: boolean) {
+  private async vietNgan(
+    messages: ChatMessage[],
+    kieu: KieuBai,
+    question: string,
+    guard: boolean,
+    client: string,
+  ) {
     const khung = { min: 60, max: 120 };
     const soat = (t: string) => checkEssay(t, khung, { question, guard, kieu });
 
-    const first = await this.llm.chat(messages, 600);
+    const first = await this.llm.chat(messages, 600, client);
     let best = stripStockLabels(first.text);
     let worst = soat(best);
 
@@ -206,6 +216,7 @@ export class ReadingsService {
       const retry = await this.llm.chat(
         [...messages, { role: "assistant", content: first.text }, { role: "user", content: fixPromptNgan(worst) }],
         600,
+        client,
       );
       const lai = stripStockLabels(retry.text);
       const sau = soat(lai);
@@ -218,7 +229,11 @@ export class ReadingsService {
   }
 
   /** Câu hỏi thêm sau bài, khung 60–120 tiếng theo mục 6. */
-  async followUp(id: string, question: string): Promise<FollowUpOutcome> {
+  async followUp(
+    id: string,
+    question: string,
+    client: string = WEB,
+  ): Promise<FollowUpOutcome> {
     const req = this.request(id);
     if (!req) return { kind: "bad-id" };
 
@@ -226,11 +241,17 @@ export class ReadingsService {
     if (!stored) return { kind: "not-found" };
     if (stored.followUps.length >= MAX_FOLLOW_UPS) return { kind: "limit" };
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
-    if (!this.budget.con()) return { kind: "over-budget" };
+    if (!this.budget.con(client)) return { kind: "over-budget" };
 
     try {
       const messages = this.kb.buildFollowUpMessages(req, stored.essay, question);
-      const { text, faults } = await this.vietNgan(messages, "hoi_them", question, !!req.guard);
+      const { text, faults } = await this.vietNgan(
+        messages,
+        "hoi_them",
+        question,
+        !!req.guard,
+        client,
+      );
       if (faults.length) {
         this.log.warn(
           `${id} hỏi thêm còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,
@@ -251,7 +272,12 @@ export class ReadingsService {
    * Rút thêm một lá làm rõ cho đúng một vị trí. Lá do người rút chọn từ phần
    * cỗ còn lại và gửi xuống đây, mô hình chỉ đọc chứ không tự bốc.
    */
-  async clarify(id: string, stt: number, card: DrawnCard): Promise<ClarifyOutcome> {
+  async clarify(
+    id: string,
+    stt: number,
+    card: DrawnCard,
+    client: string = WEB,
+  ): Promise<ClarifyOutcome> {
     const req = this.request(id);
     if (!req) return { kind: "bad-id" };
 
@@ -271,11 +297,17 @@ export class ReadingsService {
       return { kind: "limit" };
     }
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
-    if (!this.budget.con()) return { kind: "over-budget" };
+    if (!this.budget.con(client)) return { kind: "over-budget" };
 
     try {
       const messages = this.kb.buildClarifierMessages(req, stored.essay, stt, card);
-      const { text, faults } = await this.vietNgan(messages, "lam_ro", req.question, !!req.guard);
+      const { text, faults } = await this.vietNgan(
+        messages,
+        "lam_ro",
+        req.question,
+        !!req.guard,
+        client,
+      );
       if (faults.length) {
         this.log.warn(
           `${id} lá làm rõ còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,

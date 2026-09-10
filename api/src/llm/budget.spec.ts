@@ -18,6 +18,8 @@ afterEach(() => {
   rmSync(thuMuc, { recursive: true, force: true });
   delete process.env.LLM_BUDGET_FILE;
   delete process.env.LLM_CALLS_PER_DAY;
+  delete process.env.API_KEY;
+  delete process.env.API_KEYS;
 });
 
 /** Ngày theo giờ Việt Nam, đúng cách service tự tính. */
@@ -80,5 +82,75 @@ describe("LlmBudgetService", () => {
     b.ghiNhan();
     b.ghiNhan();
     expect(b.con()).toBe(false);
+  });
+});
+
+describe("trần riêng của từng bên", () => {
+  beforeEach(() => {
+    process.env.LLM_CALLS_PER_DAY = "10";
+    process.env.API_KEY = "khoa-cua-web";
+    process.env.API_KEYS = "troly:khoa-cua-troly:2";
+  });
+
+  it("bên có trần riêng bị chặn ở trần của mình, chưa đụng trần tổng", () => {
+    const b = new LlmBudgetService();
+    b.ghiNhan("troly");
+    b.ghiNhan("troly");
+
+    expect(b.con("troly")).toBe(false);
+    expect(b.tinhHinh().dem).toBe(2);
+  });
+
+  it("một bên hết lượt thì bên kia vẫn gọi được", () => {
+    const b = new LlmBudgetService();
+    b.ghiNhan("troly");
+    b.ghiNhan("troly");
+
+    expect(b.con("troly")).toBe(false);
+    expect(b.con("web")).toBe(true);
+  });
+
+  it("web không có trần riêng nên chỉ dừng ở trần tổng", () => {
+    const b = new LlmBudgetService();
+    for (let i = 0; i < 10; i++) {
+      expect(b.con("web"), `lượt ${i + 1}`).toBe(true);
+      b.ghiNhan("web");
+    }
+    expect(b.con("web")).toBe(false);
+  });
+
+  it("trần tổng chặn cả bên còn lượt riêng", () => {
+    const b = new LlmBudgetService();
+    for (let i = 0; i < 10; i++) b.ghiNhan("web");
+    expect(b.con("troly")).toBe(false);
+  });
+
+  it("số của từng bên sống qua lần khởi động lại", () => {
+    const b = new LlmBudgetService();
+    b.ghiNhan("troly");
+
+    const sau = new LlmBudgetService();
+    expect(sau.con("troly")).toBe(true);
+    sau.ghiNhan("troly");
+    expect(sau.con("troly")).toBe(false);
+    expect(sau.con("web")).toBe(true);
+  });
+
+  it("số của bên bị sửa tay thành rác thì bỏ, không đem so chuỗi với trần", () => {
+    writeFileSync(
+      tep,
+      JSON.stringify({ ngay: homNay(), dem: 2, ben: { troly: "hai lượt" } }),
+    );
+    const b = new LlmBudgetService();
+    expect(b.con("troly")).toBe(true);
+    b.ghiNhan("troly");
+    b.ghiNhan("troly");
+    expect(b.con("troly")).toBe(false);
+  });
+
+  it("bên lạ không khai trong env thì chỉ chịu trần tổng", () => {
+    const b = new LlmBudgetService();
+    for (let i = 0; i < 5; i++) b.ghiNhan("chua-khai");
+    expect(b.con("chua-khai")).toBe(true);
   });
 });

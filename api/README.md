@@ -18,6 +18,11 @@ Bảng `readings` tự dựng lúc khởi động, không cần bước migrate 
 
 Tiền tố `/api`. Mọi endpoint trừ `/api/health` đòi header `x-api-key`.
 
+Khoá của web nằm ở `API_KEY`. Ứng dụng khác khai trong `API_KEYS` theo dạng
+`ten:khoa:tran_moi_ngay`, mỗi bên một khoá riêng và một trần lượt gọi mô hình
+riêng mỗi ngày — cái nắp để một bên hỏng không nuốt hết trần tổng. Sổ đếm ghi
+kèm phân rã theo bên, xem `common/clients.ts` và `llm/budget.service.ts`.
+
 | Method | Đường dẫn | Việc |
 |---|---|---|
 | GET | `/api/health` | trạng thái database, LLM, KB |

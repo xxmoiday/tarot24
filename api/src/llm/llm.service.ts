@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import type { ChatMessage } from "../kb/kb.service.js";
+import { WEB } from "../common/clients.js";
 import { LlmBudgetService } from "./budget.service.js";
 
 interface ProviderConfig {
@@ -112,7 +113,7 @@ export class LlmService {
   }
 
   /** Gọi lần lượt theo thứ tự cấu hình, nhà nào lỗi thì rơi sang nhà kế. */
-  async chat(messages: ChatMessage[], maxTokens = 1400) {
+  async chat(messages: ChatMessage[], maxTokens = 1400, client: string = WEB) {
     const list = this.providers();
     if (!list.length) throw new Error("Chưa cấu hình nhà cung cấp LLM nào");
     const errors: string[] = [];
@@ -121,7 +122,7 @@ export class LlmService {
         const text = await this.callOne(p, messages, maxTokens);
         /* Đếm sau khi có bài, tức đếm đúng lượt phải trả tiền; nhà lỗi rồi rơi
            sang nhà kế thì chỉ tính một lượt. */
-        this.budget.ghiNhan();
+        this.budget.ghiNhan(client);
         return { text, provider: p.name, model: p.model };
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);

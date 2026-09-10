@@ -9,21 +9,29 @@ vận hành chính backend thì đọc `README.md` và `DEPLOY.md`.
 |---|---|
 | Gốc | `https://api.tarot24.online` |
 | Tiền tố | mọi đường dẫn bắt đầu bằng `/api` |
-| Xác thực | header `x-api-key`, khoá dùng chung với web tarot24.online |
+| Xác thực | header `x-api-key`, khoá riêng cấp cho ứng dụng của bạn |
 | Kiểu gọi | chỉ từ máy chủ sang máy chủ |
 
 `GET /api/health` là đường duy nhất không cần khoá. Thiếu khoá hoặc sai khoá thì
 mọi đường còn lại trả **403**.
 
-Hai bên đang dùng **chung một khoá**, nên đi kèm hai điều phải biết trước:
+Khoá của bạn khác khoá của web, nên hai bên tách nhau: thu hồi hay đổi khoá bên
+này không đụng gì bên kia.
 
-- Thu hồi là cả hai cùng đổi. Không cắt riêng một bên được.
-- Trần lượt gọi mô hình mỗi ngày (mặc định 1000) là túi chung. Bên nào rút mạnh
-  thì bên kia hết lượt theo, và log không tách được ai tiêu. Xem còn bao nhiêu ở
-  `/api/health` → `luot: { dem, tran }`.
+Kèm theo khoá là **trần lượt gọi mô hình mỗi ngày của riêng bạn**, thoả thuận
+lúc cấp khoá. Hết trần riêng thì mọi đường sinh bài trả **429** kèm
+`reason: "over-budget"`, còn `GET` lấy bài cũ vẫn chạy bình thường. Trần này
+không phải để chia phần mà là cái nắp: app của bạn có retry loạn hay lộ khoá thì
+web tarot24.online vẫn sống.
 
-Khoá này mở hết mọi endpoint và tiêu thẳng vào tiền mô hình, nên nó không được
-ra khỏi máy chủ: không nhúng vào bản dựng app điện thoại, không để lọt xuống
+Trên trần riêng còn một trần tổng cho cả hệ thống, mặc định 1000 lượt mỗi ngày,
+cũng trả `over-budget` khi chạm. Cả hai mốc reset lúc nửa đêm giờ Việt Nam. Xem
+tổng đã dùng ở `/api/health` → `luot: { dem, tran }`.
+
+Một "lượt" là một lần gọi mô hình, không phải một bài: lượt gọi lại để sửa bài
+hỏng cũng tính. Thực tế cứ 100 bài thì mất khoảng 105 lượt.
+
+Khoá tiêu thẳng vào tiền mô hình, nên nó không được ra khỏi máy chủ: không nhúng vào bản dựng app điện thoại, không để lọt xuống
 trình duyệt, không đi kèm mã nguồn phía client. CORS của backend chỉ mở cho
 `tarot24.online`, nên gọi thẳng từ trình duyệt cũng không qua được — đó là chủ ý
 chứ không phải thiếu sót.
@@ -298,7 +306,7 @@ thêm và lá làm rõ nhanh hơn, cỡ 3–6 giây.
 | 404 | `Chưa có bài đọc cho mã này` | chưa từng `POST /api/readings` với `id` đó |
 | 429 | `{ message, retryAfter }` | quá 30 lượt/giờ cho IP đó, `retryAfter` tính bằng giây |
 | 429 | `{ reason: "limit", max }` | quá 3 câu hỏi thêm hoặc quá 2 lá làm rõ |
-| 429 | `{ reason: "over-budget" }` | hết trần lượt gọi mô hình trong ngày, chung cho cả hai bên |
+| 429 | `{ reason: "over-budget" }` | hết trần riêng của khoá bạn, hoặc hết trần tổng của cả hệ thống trong ngày |
 | 502 | `{ reason: "error" }` | nhà mô hình lỗi hoặc quá hạn chờ |
 | 200 | `{ essay: null, reason: "no-provider" }` | backend chưa cấu hình mô hình. Là 200 chứ không phải lỗi |
 

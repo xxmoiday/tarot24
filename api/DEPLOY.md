@@ -86,6 +86,7 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | Biến | Ghi chú |
 |---|---|
 | `API_KEY` | khoá dùng chung, phải khớp `API_KEY` bên web. Chưa đặt thì backend **chặn hết** |
+| `API_KEYS` | khoá cho ứng dụng ngoài, `ten:khoa:tran_moi_ngay` cách nhau bằng dấu phẩy. Trần riêng chặn một bên tiêu hết túi chung; bỏ trống là bên đó chỉ chịu trần tổng. Xem `INTEGRATION.md` |
 | `CORS_ORIGINS` | `https://tarot24.online,https://www.tarot24.online` |
 | `DATABASE_URL` | `postgres://tarot24:...@localhost:5432/tarot24` |
 | `DEEPSEEK_API_KEY` | khoá mô hình, chỉ nằm ở đây chứ không lên Vercel |
@@ -94,6 +95,13 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | `RATE_PER_HOUR` | mặc định 30 lượt mỗi người mỗi giờ. Web phải gửi kèm header `x-client-ip`, không thì backend chỉ thấy IP của máy chạy web và con số này thành trần của **cả website** |
 
 Sinh khoá: `openssl rand -base64url 24`
+
+Sổ đếm lượt ghi kèm phân rã theo bên gọi, xem ai đang tiêu:
+
+```bash
+cat /var/lib/tarot24/llm-budget.json
+# {"ngay":"2026-09-10","dem":19,"ben":{"web":17,"troly":2}}
+```
 
 ## 5. Nginx và TLS
 
