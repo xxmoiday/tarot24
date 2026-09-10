@@ -49,6 +49,25 @@ export default async function ReadingOgImage({
   }[];
   const width = shown.length > 3 ? 150 : 190;
 
+  /*
+    call() trong lib/api để cache: "no-store" vì hầu hết chỗ gọi cần số liệu
+    tươi, nên Next xếp route này vào loại động và Vercel trả về max-age=0:
+    mỗi lượt Facebook hay Zalo quét lại là vẽ lại từ đầu, đo được 1,6–3,2
+    giây một lần. Crawler nào hết kiên nhẫn trước thì link ra thẻ trơ.
+
+    Mà ảnh này gần như bất biến: lá và kiểu trải nằm sẵn trong id, câu chốt
+    một khi đã lưu thì không viết lại nữa. Đổi thiết kế ảnh cũng không lo
+    người xem mắc bản cũ, vì Next gắn hash của chính file này vào query nên
+    sửa file là ra URL khác.
+
+    Chỉ khi chưa có câu chốt — bài vừa rút chưa kịp lưu, hoặc backend đang
+    hỏng và fetchReading trả null — thì mới phải cache ngắn, để lần quét sau
+    còn lấy được bản đủ thay vì đóng đinh bản thiếu suốt một năm.
+  */
+  const cacheControl = closing
+    ? "public, max-age=3600, s-maxage=31536000, stale-while-revalidate=86400"
+    : "public, max-age=0, s-maxage=60, stale-while-revalidate=300";
+
   return new ImageResponse(
     <div
       style={{
@@ -138,6 +157,10 @@ export default async function ReadingOgImage({
         </div>
       </div>
     </div>,
-    { ...size, fonts: await ogFonts() },
+    {
+      ...size,
+      fonts: await ogFonts(),
+      headers: { "cache-control": cacheControl },
+    },
   );
 }
