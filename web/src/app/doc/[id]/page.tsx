@@ -47,6 +47,22 @@ export default async function SharedReadingPage({
   /* Bài do mô hình viết không dựng lại được, nên link chia sẻ đọc từ kho đã lưu. */
   const stored = await fetchReading(id).catch(() => null);
 
+  /*
+    Câu hỏi chỉ hiện khi mã này có bản lưu thật.
+
+    Mã bài đọc là base64 trần nên ai cũng nặn được một mã chứa chữ tuỳ ý, và
+    trước đây trang này in thẳng chữ đó ra dưới tên miền của mình. Nhưng mã
+    cũng chính là khoá của bảng readings, và nó gói luôn câu hỏi vào trong: muốn
+    có một dòng trong kho cho đúng mã đó thì phải đi qua một lượt luận bài thật,
+    tức phải qua rate limit và trần lượt mỗi ngày. Mã bịa thì không có dòng nào,
+    nên chữ bịa không lên được trang.
+
+    Backend chết thì kho trả về null và câu hỏi tạm ẩn trên cả link thật. Chịu
+    chỗ đó, vì đằng nào cũng còn đọc được lá và bài; cho 404 cả trang lúc backend
+    hắt hơi thì tệ hơn nhiều.
+  */
+  const shown = stored ? reading : { ...reading, question: "" };
+
   return (
     <>
       <div className="border-b border-line bg-surface">
@@ -68,7 +84,7 @@ export default async function SharedReadingPage({
         className="mx-auto max-w-[1440px] px-5 pt-8 pb-4 md:px-[60px] md:pt-12"
       >
         <ReadingView
-          reading={reading}
+          reading={shown}
           shareUrl={`/doc/${id}`}
           readOnly
           essay={stored?.essay ?? null}
