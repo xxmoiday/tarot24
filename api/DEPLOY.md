@@ -91,7 +91,7 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | `WEB_BASE_URL` | gốc của web, để `/api/cards` dựng đường dẫn ảnh lá. Mặc định `https://www.tarot24.online` |
 | `DATABASE_URL` | `postgres://tarot24:...@localhost:5432/tarot24` |
 | `DEEPSEEK_API_KEY` | khoá mô hình, chỉ nằm ở đây chứ không lên Vercel |
-| `LLM_CALLS_PER_DAY` | trần tổng lượt gọi mô hình mỗi ngày, mặc định 1000, tính cả lượt gọi lại. Chạm trần thì ba endpoint trả 429 kèm `reason: over-budget`. Đặt 0 là tắt. Xem `/api/health` để biết đã dùng bao nhiêu |
+| `LLM_CALLS_PER_DAY` | trần tổng lượt gọi mô hình mỗi ngày, mặc định 1000, tính cả lượt gọi lại. Chạm trần thì ba endpoint trả 429 kèm `reason: over-budget`. Đặt 0 là tắt. Xem `/api/health` (nhớ kèm khoá) để biết đã dùng bao nhiêu |
 | `LLM_BUDGET_FILE` | nơi ghi sổ đếm, mặc định trong thư mục tạm. Đặt ra ngoài `/var/www/tarot24-backend` vì rsync lúc deploy chạy kèm `--delete` |
 | `RATE_PER_HOUR` | mặc định 30 lượt mỗi người mỗi giờ. Web phải gửi kèm header `x-client-ip`, không thì backend chỉ thấy IP của máy chạy web và con số này thành trần của **cả website** |
 
@@ -151,13 +151,19 @@ Trên Vercel thì đặt hai biến này trong Project Settings, không commit.
 ## 8. Kiểm
 
 ```bash
-curl -s https://api.tarot24.online/api/health
-# {"ok":true,"database":true,"llm":true,"spread":true}
+curl -s -o /dev/null -w '%{http_code}\n' https://api.tarot24.online/api/health
+# 403 — health cũng đòi khoá, và 403 nghĩa là nginx với DNS đều thông
+
+curl -s -H "x-api-key: $KHOA" https://api.tarot24.online/api/health
+# {"ok":true,"database":true,"llm":true,"spread":true,"luot":{...}}
 
 curl -s -o /dev/null -w '%{http_code}\n' -X POST https://api.tarot24.online/api/readings \
   -H 'content-type: application/json' -d '{"id":"x"}'
 # 403 vì thiếu x-api-key, đúng là đang chặn
 ```
+
+Giám sát ngoài thì cho nó gửi kèm khoá, hoặc để nó canh đúng mã 403: máy chết
+hay nginx sập thì không có gì trả nổi 403.
 
 ## Khi sửa dữ liệu KB
 

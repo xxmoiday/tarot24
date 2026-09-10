@@ -91,9 +91,12 @@ xong "đã build và khởi động lại"
 # ------------------------------------------------------------------ soát sống
 buoc "Soát backend"
 
+# Health cũng đòi khoá, nên đọc khoá ngay trên VPS chứ đừng kéo nó về máy dev.
+HEALTH_NOI_BO="cd $VPS_DIR && curl -fsS -m 5 -H \"x-api-key: \$(grep -m1 '^API_KEY=' .env | cut -d= -f2-)\" http://127.0.0.1:3210/api/health"
+
 song=""
 for i in $(seq 1 20); do
-  if "${SSH[@]}" "curl -fsS -m 5 http://127.0.0.1:3210/api/health" 2>/dev/null | grep -q '"ok":true'; then
+  if "${SSH[@]}" "$HEALTH_NOI_BO" 2>/dev/null | grep -q '"ok":true'; then
     song=1
     break
   fi
@@ -120,13 +123,18 @@ fi
 
 "${SSH[@]}" "rm -rf $VPS_DIR/dist.truoc"
 
-suc_khoe=$(curl -fsS -m 20 "$HEALTH_URL" || echo '')
-if [[ "$suc_khoe" != *'"ok":true'* ]]; then
-  hong "qua $HEALTH_URL chưa thấy ok (backend trong máy thì sống), soát lại nginx hoặc DNS"
-  echo "  nhận được: ${suc_khoe:-không có phản hồi}"
+suc_khoe=$("${SSH[@]}" "$HEALTH_NOI_BO" 2>/dev/null || echo '')
+xong "trong máy: $suc_khoe"
+
+# Từ ngoài thì soát bằng chính cái chặn: 403 nghĩa là nginx, DNS và TLS đều
+# thông tới backend, mà backend vẫn không cho ai vào tay không.
+ma=$(curl -s -o /dev/null -m 20 -w '%{http_code}' "$HEALTH_URL")
+if [[ "$ma" == "403" ]]; then
+  xong "$HEALTH_URL đã lên và đang đòi khoá (403)"
+else
+  hong "$HEALTH_URL trả $ma, đáng lẽ phải 403 — soát lại nginx, DNS hoặc API_KEY trong .env trên VPS"
   exit 1
 fi
-xong "$HEALTH_URL → $suc_khoe"
 
 # Cổng chặn phải còn đóng sau mỗi lần triển khai.
 ma=$(curl -s -o /dev/null -m 20 -w '%{http_code}' -X POST "${HEALTH_URL%/api/health}/api/readings" \

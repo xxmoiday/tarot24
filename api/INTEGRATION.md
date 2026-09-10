@@ -12,8 +12,8 @@ vận hành chính backend thì đọc `README.md` và `DEPLOY.md`.
 | Xác thực | header `x-api-key`, khoá riêng cấp cho ứng dụng của bạn |
 | Kiểu gọi | chỉ từ máy chủ sang máy chủ |
 
-`GET /api/health` là đường duy nhất không cần khoá. Thiếu khoá hoặc sai khoá thì
-mọi đường còn lại trả **403**.
+Không có đường nào ở đây mở toang, kể cả `/api/health`. Thiếu khoá hoặc sai khoá
+thì mọi đường đều trả **403**.
 
 Khoá của bạn khác khoá của web, nên hai bên tách nhau: thu hồi hay đổi khoá bên
 này không đụng gì bên kia.
@@ -475,12 +475,11 @@ Lưu `id` lại. Lần sau người dùng mở lại bài đó thì `GET /api/re
 ## 10. Kiểm nhanh trước khi nối
 
 ```bash
-curl -s https://api.tarot24.online/api/health
-# {"ok":true,"database":true,"llm":true,"spread":true,"luot":{"ngay":"...","dem":13,"tran":1000}}
+curl -s -o /dev/null -w '%{http_code}\n' https://api.tarot24.online/api/health
+# 403 — cả health cũng đòi khoá; nhận được 403 tức là đường đi tới backend đã thông
 
-curl -s -o /dev/null -w '%{http_code}\n' -X POST https://api.tarot24.online/api/readings \
-  -H 'content-type: application/json' -d '{"id":"x"}'
-# 403 — đúng, không có khoá thì không vào được
+curl -s -H "x-api-key: $TAROT24_API_KEY" https://api.tarot24.online/api/health
+# {"ok":true,"database":true,"llm":true,"spread":true,"luot":{"ngay":"...","dem":13,"tran":1000}}
 
 curl -s -X POST https://api.tarot24.online/api/readings \
   -H 'content-type: application/json' -H "x-api-key: $TAROT24_API_KEY" \

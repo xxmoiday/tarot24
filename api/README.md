@@ -16,7 +16,8 @@ Bảng `readings` tự dựng lúc khởi động, không cần bước migrate 
 
 ## Endpoint
 
-Tiền tố `/api`. Mọi endpoint trừ `/api/health` đòi header `x-api-key`.
+Tiền tố `/api`. **Mọi** endpoint đòi header `x-api-key`, kể cả `/api/health` —
+không có đường nào mở toang.
 
 Khoá của web nằm ở `API_KEY`. Ứng dụng khác khai trong `API_KEYS` theo dạng
 `ten:khoa:tran_moi_ngay`, mỗi bên một khoá riêng và một trần lượt gọi mô hình
