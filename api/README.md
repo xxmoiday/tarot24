@@ -28,6 +28,9 @@ Tiền tố `/api`. Mọi endpoint trừ `/api/health` đòi header `x-api-key`.
 `id` là mã base64url do web sinh, gói sẵn kiểu trải, câu hỏi, lĩnh vực và các
 lá đã rút. Backend giải mã rồi tự dựng payload nên web không gửi lá sang.
 
+Ứng dụng khác muốn gọi sang đây thì đọc `INTEGRATION.md`: khuôn mã bài đọc,
+bảng kiểu trải, bảng 78 lá, mã lỗi và những chỗ hay dính.
+
 ## Dữ liệu KB
 
 `data/` là bản sao của `web/data`. Bản gốc nằm bên web vì các trang tĩnh cần
