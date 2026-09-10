@@ -11,16 +11,19 @@ export interface ChatMessage {
   content: string;
 }
 
-interface RawCard {
+export interface RawCard {
   id: string;
   ten_vi: string;
   lang_kinh: Record<string, string>;
   [k: string]: unknown;
 }
 
-interface RawSpread {
+export interface RawSpread {
   id: string;
   ten_vi: string;
+  /* KB còn nhiều trường nữa — mô tả, cách rút, hợp với câu hỏi nào — mà chỗ
+     luận bài không đụng tới; khai mở để đường trả KB ra ngoài giữ nguyên chúng. */
+  [k: string]: unknown;
   vi_tri: {
     stt: number;
     ten: string;
@@ -39,7 +42,7 @@ interface RawSpread {
  * phải trả. Mẫu nào có `parts` thì mới đem làm few-shot được, vì few-shot văn
  * xuôi dạy mô hình phá khuôn JSON.
  */
-interface ViDu {
+export interface ViDu {
   cau_hoi: string;
   bai_luan: string;
   ghi_chu?: string;
@@ -79,6 +82,18 @@ const SPREAD_ID: Record<string, string> = {
   "muoi-hai-la-nam-toi": "nam_toi_12",
 };
 
+/** Đi ngược `SPREAD_ID`: từ id trong KB ra đường dẫn mà mã bài đọc dùng. */
+const SLUG_CUA_TRAI = new Map(Object.entries(SPREAD_ID).map(([slug, id]) => [id, slug]));
+
+/**
+ * Ảnh lá nằm bên web, đặt tên theo id chứ không theo đường dẫn tiếng Việt.
+ * Để ở env vì máy dev và máy thật trỏ về hai nơi khác nhau.
+ */
+function anhCuaLa(id: string) {
+  const goc = process.env.WEB_BASE_URL ?? "https://www.tarot24.online";
+  return `${goc.replace(/\/$/, "")}/cards/${id}.webp`;
+}
+
 /** Sinh đường dẫn từ tên lá, đúng cùng quy tắc mà web đang dùng. */
 export function slugOf(tenVi: string) {
   return tenVi
@@ -110,12 +125,13 @@ export interface ReadingRequest {
 export class KbService {
   private readonly log = new Logger(KbService.name);
   private readonly spreads = (rawSpreads as { spreads: RawSpread[] }).spreads;
+  private readonly cards = (rawCards as { cards: RawCard[] }).cards;
   private readonly cardsById = new Map<string, RawCard>();
   private readonly cardsBySlug = new Map<string, RawCard>();
   private systemPrompt: string | null = null;
 
   constructor() {
-    for (const c of (rawCards as { cards: RawCard[] }).cards) {
+    for (const c of this.cards) {
       this.cardsById.set(c.id, c);
       this.cardsBySlug.set(slugOf(c.ten_vi), c);
     }
@@ -140,6 +156,27 @@ export class KbService {
 
   card(slug: string) {
     return this.cardsBySlug.get(slug) ?? null;
+  }
+
+  /**
+   * Cả bộ bài cho bên ngoài đọc, nguyên vẹn như trong KB, thêm hai thứ mà file
+   * gốc không có: đường dẫn tiếng Việt dùng trong mã bài đọc, và ảnh lá.
+   */
+  moLa(raw: RawCard) {
+    return { ...raw, slug: slugOf(raw.ten_vi), anh: anhCuaLa(raw.id) };
+  }
+
+  tatCaLa() {
+    return this.cards.map((c) => this.moLa(c));
+  }
+
+  /** Kiểu trải nguyên vẹn, thêm đường dẫn vì trong KB nó chỉ có id. */
+  moTrai(raw: RawSpread) {
+    return { ...raw, slug: SLUG_CUA_TRAI.get(raw.id) ?? raw.id };
+  }
+
+  tatCaTrai() {
+    return this.spreads.map((s) => this.moTrai(s));
   }
 
   /**

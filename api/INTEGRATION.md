@@ -108,6 +108,10 @@ Mã này **không phải mã hoá**: ai cầm được `id` đều bung ra đọ
 
 ## 4. Mười lăm kiểu trải
 
+Bảng dưới in ra cho tiện tra; bản luôn đúng thì gọi `GET /api/spreads` (mục 6),
+ở đó mỗi kiểu trải còn có mô tả, cách rút, câu hỏi hợp và không hợp, ý nghĩa
+từng vị trí, luật đọc và bài mẫu.
+
 Số lá phải khớp cột `Số lá`, và thứ tự lá trong `id` phải theo đúng thứ tự vị trí
 liệt kê ở cột cuối.
 
@@ -138,8 +142,9 @@ Sáu mã lĩnh vực, dùng nguyên văn: `love`, `work`, `money`, `mind`, `stud
 `general`. Mã này quyết định lăng kính đọc lá, sai một chữ là bài mất lăng kính
 mà không có lỗi nào báo.
 
-Slug lá là tên tiếng Việt không dấu, **không phải** mã kiểu `major_00`. Sinh cả
-bộ 78 lá bằng công thức, khỏi chép tay:
+Slug lá là tên tiếng Việt không dấu, **không phải** mã kiểu `major_00`. Cần cả
+nội dung lá — nghĩa, từ khoá, ảnh — thì gọi `GET /api/cards` (mục 6). Chỉ cần
+đúng danh sách slug để rút bài thì sinh bằng công thức, khỏi gọi mạng:
 
 ```js
 const MAJORS = [
@@ -204,10 +209,12 @@ Bảng tra tên, nếu app của bạn cần hiển thị:
 | Hoàng hậu | `hoang-hau-gay` | `hoang-hau-coc` | `hoang-hau-kiem` | `hoang-hau-tien` |
 | Vua | `vua-gay` | `vua-coc` | `vua-kiem` | `vua-tien` |
 
-## 6. Bốn endpoint
+## 6. Endpoint
 
-Mọi request đều cần `content-type: application/json`, `x-api-key`, và nên có
-`x-client-ip` (mục 7).
+Mọi request đều cần `x-api-key`. Đường `POST` cần thêm
+`content-type: application/json`, và nên có `x-client-ip` (mục 7).
+
+Bốn đường đầu là bói bài. Bốn đường cuối chỉ trả dữ liệu, không đụng mô hình.
 
 ### POST /api/readings — viết bài luận
 
@@ -278,6 +285,80 @@ thật, hoặc lá đó **đã nằm trên bàn** — lá đã rút thì không 
 ```json
 { "clarifiers": [{ "stt": 2, "slug": "sau-coc", "reversed": false, "answer": "..." }] }
 ```
+
+### GET /api/spreads — mười lăm kiểu trải
+
+Trả nguyên phần kiểu trải của KB, thêm `slug` là cái dùng trong mã bài đọc:
+
+```json
+{
+  "spreads": [
+    {
+      "id": "ba_la_thoi_gian",
+      "slug": "ba-la-thoi-gian",
+      "ten_vi": "Ba lá quá khứ, hiện tại, tương lai gần",
+      "ten_en": "Past Present Future",
+      "nhom": "co_ban",
+      "so_la": 3,
+      "mo_ta": "...",
+      "hop_voi": ["..."],
+      "khong_hop_voi": ["..."],
+      "cach_rut": "...",
+      "vi_tri": [{ "stt": 1, "ten": "Quá khứ", "cau_hoi": "...", "goi_y_doc": "...", "lang_kinh_uu_tien": "..." }],
+      "luat_doc": ["..."],
+      "do_dai": { "min": 220, "max": 300 },
+      "vi_du": [{ "cau_hoi": "...", "bai_luan": "..." }]
+    }
+  ]
+}
+```
+
+`GET /api/spreads/:slug` trả đúng một kiểu trải, 404 nếu không có.
+
+### GET /api/cards — bộ 78 lá
+
+Trả nguyên phần lá của KB, thêm `slug` và `anh`:
+
+```json
+{
+  "cards": [
+    {
+      "id": "cup_03",
+      "slug": "ba-coc",
+      "anh": "https://www.tarot24.online/cards/cup_03.webp",
+      "ten_vi": "Ba Cốc",
+      "ten_en": "Three of Cups",
+      "arcana": "phu",
+      "so": 3,
+      "chat": "cup",
+      "hoang_gia": false,
+      "bieu_tuong": ["..."],
+      "cot_loi": "...",
+      "tu_khoa_xuoi": ["..."],
+      "tu_khoa_nguoc": ["..."],
+      "canh_bao": "...",
+      "nguyen_to": "thuy",
+      "chiem_tinh_gd": "Sao Thuỷ ở Cự Giải",
+      "chiem_tinh_hd": null,
+      "sac_thai": { "trong_luong": "rất nhẹ", "dong_tinh": "động vừa", "huong": "nâng lên cùng nhau" },
+      "lang_kinh": { "tinh_cam": "...", "cong_viec": "...", "tien_bac": "...", "tam_ly": "...", "hoc_hanh": "..." },
+      "cach_noi_viet": ["vui như Tết", "..."]
+    }
+  ]
+}
+```
+
+`GET /api/cards/:slug` trả đúng một lá, 404 nếu không có.
+
+Ảnh đặt tên theo `id` chứ không theo `slug`, và nằm trên web chứ không trên
+backend — cứ dùng nguyên chuỗi trong trường `anh`.
+
+**Về kích thước và cache.** `/api/cards` khoảng 270KB, `/api/spreads` khoảng
+120KB. Cả hai gắn `cache-control: public, max-age=3600` và ETag, nên nhớ ETag
+rồi gửi lại kèm `if-none-match` thì lần sau chỉ tốn một **304** không thân. Đừng
+gọi mỗi lượt bói: nạp một lần lúc khởi động rồi giữ trong bộ nhớ, hoặc đồng bộ
+theo giờ. Hai đường này không đụng mô hình nên không tính vào trần lượt gọi và
+không qua bộ đếm 30 lượt/giờ.
 
 ## 7. Giới hạn, thời gian chờ, mã lỗi
 

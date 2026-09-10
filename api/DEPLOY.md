@@ -88,6 +88,7 @@ pm2 start ecosystem.config.cjs   # xem canh bao ve pm2 save o tren
 | `API_KEY` | khoá dùng chung, phải khớp `API_KEY` bên web. Chưa đặt thì backend **chặn hết** |
 | `API_KEYS` | khoá cho ứng dụng ngoài, `ten:khoa:tran_moi_ngay` cách nhau bằng dấu phẩy. Trần riêng chặn một bên tiêu hết túi chung; bỏ trống là bên đó chỉ chịu trần tổng. Xem `INTEGRATION.md` |
 | `CORS_ORIGINS` | `https://tarot24.online,https://www.tarot24.online` |
+| `WEB_BASE_URL` | gốc của web, để `/api/cards` dựng đường dẫn ảnh lá. Mặc định `https://www.tarot24.online` |
 | `DATABASE_URL` | `postgres://tarot24:...@localhost:5432/tarot24` |
 | `DEEPSEEK_API_KEY` | khoá mô hình, chỉ nằm ở đây chứ không lên Vercel |
 | `LLM_CALLS_PER_DAY` | trần tổng lượt gọi mô hình mỗi ngày, mặc định 1000, tính cả lượt gọi lại. Chạm trần thì ba endpoint trả 429 kèm `reason: over-budget`. Đặt 0 là tắt. Xem `/api/health` để biết đã dùng bao nhiêu |

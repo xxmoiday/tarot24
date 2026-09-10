@@ -26,9 +26,12 @@ kèm phân rã theo bên, xem `common/clients.ts` và `llm/budget.service.ts`.
 | Method | Đường dẫn | Việc |
 |---|---|---|
 | GET | `/api/health` | trạng thái database, LLM, KB |
+| GET | `/api/spreads` `/api/spreads/:slug` | kiểu trải, nguyên như KB, thêm `slug` |
+| GET | `/api/cards` `/api/cards/:slug` | 78 lá, nguyên như KB, thêm `slug` và `anh` |
 | GET | `/api/readings/:id` | lấy bài đã lưu, không sinh mới |
 | POST | `/api/readings` | `{id}` → viết bài luận, gọi lại cùng mã thì trả bản đã lưu |
 | POST | `/api/readings/:id/follow-ups` | `{question}` → trả lời thêm, tối đa 3 câu |
+| POST | `/api/readings/:id/clarifiers` | `{stt, slug, reversed}` → lá làm rõ một vị trí, tối đa 2 lá |
 
 `id` là mã base64url do web sinh, gói sẵn kiểu trải, câu hỏi, lĩnh vực và các
 lá đã rút. Backend giải mã rồi tự dựng payload nên web không gửi lá sang.
