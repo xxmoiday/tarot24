@@ -58,10 +58,24 @@ export class ReadingsService {
     private readonly repo: ReadingsRepository,
   ) {}
 
-  /** Dựng yêu cầu luận bài từ mã bài đọc do web sinh. */
+  /**
+   * Dựng yêu cầu luận bài từ mã bài đọc do web sinh.
+   *
+   * Soát cả bàn bài chứ không chỉ kiểu trải. Lá tra không ra trước đây bị lặng
+   * lẽ bỏ khỏi ngữ cảnh gửi đi: bàn bốn lá cho kiểu trải năm vị trí, mà prompt
+   * vẫn đòi đủ năm phần tử và người rút không thấy gì bất thường. Mã bài đọc
+   * nằm ngay trên đường dẫn nên sửa tay được, thà trả về hỏng còn hơn luận một
+   * bàn thiếu lá.
+   */
   private request(id: string): ReadingRequest | null {
     const state = decodeReading(id);
-    if (!state || !this.kb.spread(state.spread)) return null;
+    if (!state) return null;
+    const spread = this.kb.spread(state.spread);
+    if (!spread) return null;
+    if (state.cards.length < spread.vi_tri.length) return null;
+    if (state.cards.slice(0, spread.vi_tri.length).some((c) => !this.kb.card(c.slug))) {
+      return null;
+    }
     return {
       spreadSlug: state.spread,
       question: state.question,

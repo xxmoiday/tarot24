@@ -100,3 +100,48 @@ describe("guard cho câu hỏi thêm", () => {
     expect(goi).toHaveLength(2);
   });
 });
+
+/* Mã bài đọc nằm ngay trên đường dẫn nên sửa tay được. Lá tra không ra trước
+   đây bị lặng lẽ bỏ khỏi ngữ cảnh, để lại một bàn thiếu lá mà prompt vẫn đòi
+   đủ số vị trí. */
+describe("soát bàn bài trong mã bài đọc", () => {
+  const NAM = [
+    { slug: "hai-coc", reversed: false },
+    { slug: "bay-coc", reversed: false },
+    { slug: "hiep-si-coc", reversed: false },
+    { slug: "tam-kiem", reversed: true },
+    { slug: "ngoi-sao", reversed: false },
+  ];
+  const ma = (cards: typeof NAM) =>
+    encodeReading({
+      spread: "nam-la-tinh-cam",
+      question: "Mối này rồi đi về đâu",
+      topic: "love",
+      cards,
+      at: 1_700_000_000_000,
+    });
+
+  it("lá không tra được thì trả bad-id, không gọi mô hình", async () => {
+    const svc = dungService(CO_NGHIENG);
+    const out = await svc.followUp(
+      ma([...NAM.slice(0, 4), { slug: "la-khong-co-that", reversed: false }]),
+      "Em có nên nói trước không",
+    );
+    expect(out.kind).toBe("bad-id");
+    expect(goi).toHaveLength(0);
+  });
+
+  it("bàn thiếu lá so với số vị trí cũng trả bad-id", async () => {
+    const svc = dungService(CO_NGHIENG);
+    const out = await svc.followUp(ma(NAM.slice(0, 4)), "Em có nên nói trước không");
+    expect(out.kind).toBe("bad-id");
+    expect(goi).toHaveLength(0);
+  });
+
+  it("bàn đủ và tra được thì vẫn đi tiếp như thường", async () => {
+    const svc = dungService(CO_NGHIENG);
+    const out = await svc.followUp(ma(NAM), "Em có nên nói trước không");
+    expect(out.kind).toBe("ok");
+    expect(goi).toHaveLength(1);
+  });
+});
