@@ -44,6 +44,7 @@ interface Row {
   tokens_vao: number | null;
   tokens_ra: number | null;
   tokens_cache: number | null;
+  tokens_nghi: number | null;
 }
 
 @Injectable()
@@ -85,6 +86,10 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
       ALTER TABLE readings ADD COLUMN IF NOT EXISTS tokens_vao integer NOT NULL DEFAULT 0;
       ALTER TABLE readings ADD COLUMN IF NOT EXISTS tokens_ra integer NOT NULL DEFAULT 0;
       ALTER TABLE readings ADD COLUMN IF NOT EXISTS tokens_cache integer NOT NULL DEFAULT 0;
+
+      /* Nằm trong tokens_ra, không cộng thêm. Có cột riêng thì mới trả lời được
+         phần suy luận đáng bao nhiêu tiền so với phần chữ người ta đọc. */
+      ALTER TABLE readings ADD COLUMN IF NOT EXISTS tokens_nghi integer NOT NULL DEFAULT 0;
     `);
     this.log.log("đã nối Postgres và bảo đảm bảng readings tồn tại");
   }
@@ -111,6 +116,7 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
         vao: r.tokens_vao ?? 0,
         ra: r.tokens_ra ?? 0,
         cache: r.tokens_cache ?? 0,
+        nghi: r.tokens_nghi ?? 0,
       },
     };
   }
@@ -127,8 +133,8 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
     const { rows } = await this.pool.query<Row>(
       `INSERT INTO readings
          (id, essay, parts, provider, model, follow_ups, clarifiers,
-          tokens_vao, tokens_ra, tokens_cache)
-       VALUES ($1, $2, $3::jsonb, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10)
+          tokens_vao, tokens_ra, tokens_cache, tokens_nghi)
+       VALUES ($1, $2, $3::jsonb, $4, $5, $6::jsonb, $7::jsonb, $8, $9, $10, $11)
        ON CONFLICT (id) DO NOTHING
        RETURNING *`,
       [
@@ -142,6 +148,7 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
         r.tokens.vao,
         r.tokens.ra,
         r.tokens.cache,
+        r.tokens.nghi,
       ],
     );
     return rows[0] ? this.toReading(rows[0]) : this.find(r.id);
@@ -159,10 +166,11 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
           SET follow_ups   = follow_ups || $2::jsonb,
               tokens_vao   = tokens_vao + $3,
               tokens_ra    = tokens_ra + $4,
-              tokens_cache = tokens_cache + $5
+              tokens_cache = tokens_cache + $5,
+              tokens_nghi  = tokens_nghi + $6
         WHERE id = $1
         RETURNING *`,
-      [id, JSON.stringify([f]), u.vao, u.ra, u.cache],
+      [id, JSON.stringify([f]), u.vao, u.ra, u.cache, u.nghi],
     );
     return rows[0] ? this.toReading(rows[0]) : null;
   }
@@ -178,10 +186,11 @@ export class ReadingsRepository implements OnModuleInit, OnModuleDestroy {
           SET clarifiers   = clarifiers || $2::jsonb,
               tokens_vao   = tokens_vao + $3,
               tokens_ra    = tokens_ra + $4,
-              tokens_cache = tokens_cache + $5
+              tokens_cache = tokens_cache + $5,
+              tokens_nghi  = tokens_nghi + $6
         WHERE id = $1
         RETURNING *`,
-      [id, JSON.stringify([c]), u.vao, u.ra, u.cache],
+      [id, JSON.stringify([c]), u.vao, u.ra, u.cache, u.nghi],
     );
     return rows[0] ? this.toReading(rows[0]) : null;
   }

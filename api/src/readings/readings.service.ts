@@ -18,6 +18,27 @@ import { ReadingsRepository, type StoredReading } from "./readings.repository.js
 
 export const MAX_FOLLOW_UPS = 3;
 
+/**
+ * Chỗ chừa cho phần suy luận, tính bằng token ra.
+ *
+ * `deepseek-flash` nghĩ trước khi viết, và phần nghĩ ăn chung `max_tokens` với
+ * phần viết. Ngân sách trước đây cỡ cho model không suy luận, nên phần nghĩ ăn
+ * sạch rồi `content` trả về rỗng: một lượt gọi đã trả tiền mà không có lấy một
+ * chữ. Đường hỏi thêm để cứng 600 token, mà riêng phần nghĩ đo được đã 959.
+ *
+ * Trần rộng không tốn thêm đồng nào nếu mô hình không dùng tới — tính tiền
+ * theo token sinh ra, không theo trần — còn trần hẹp thì hỏng hẳn tính năng.
+ * Nên chừa thoáng tay.
+ */
+function choSuyLuan() {
+  return Number(process.env.LLM_REASONING_TOKENS ?? 2000);
+}
+
+/** Ngân sách token ra của một lượt: chỗ viết, chỗ cho khuôn JSON, chỗ nghĩ. */
+function nganSach(soTiengToiDa: number) {
+  return Math.ceil(soTiengToiDa * 4) + 300 + choSuyLuan();
+}
+
 /** Ngoài đời cũng chỉ rút thêm một hai lá làm rõ, rút nữa là loãng cả bàn. */
 export const MAX_CLARIFIERS = 2;
 
@@ -120,8 +141,7 @@ export class ReadingsService {
     if (!this.budget.con(client)) return { kind: "over-budget" };
 
     const spread = this.kb.spread(req.spreadSlug)!;
-    /* Khuôn JSON tốn thêm ít token so với văn xuôi trần, chừa sẵn ra. */
-    const budget = Math.ceil(spread.do_dai.max * 4) + 300;
+    const budget = nganSach(spread.do_dai.max);
 
     try {
       const messages = this.kb.buildMessages(req);
@@ -182,7 +202,8 @@ export class ReadingsService {
 
       this.log.log(
         `${id} xong, ${countWords(best.essay)} tiếng, ${best.provider}, cho ${client}, ` +
-          `${tokens.vao} token vào và ${tokens.ra} ra`,
+          `${tokens.vao} token vào và ${tokens.ra} ra` +
+          (tokens.nghi ? ` (${tokens.nghi} nghĩ)` : ""),
       );
       return { kind: "ok", reading, cached: false };
     } catch (e) {
@@ -225,9 +246,10 @@ export class ReadingsService {
     client: string,
   ) {
     const khung = { min: 60, max: 120 };
+    const budget = nganSach(khung.max);
     const soat = (t: string) => checkEssay(t, khung, { question, guard, kieu });
 
-    const first = await this.llm.chat(messages, 600, client);
+    const first = await this.llm.chat(messages, budget, client);
     let tokens: Usage = first.usage;
     let best = stripStockLabels(first.text);
     let worst = soat(best);
@@ -235,7 +257,7 @@ export class ReadingsService {
     if (worst.length) {
       const retry = await this.llm.chat(
         [...messages, { role: "assistant", content: first.text }, { role: "user", content: fixPromptNgan(worst) }],
-        600,
+        budget,
         client,
       );
       tokens = congUsage(tokens, retry.usage);

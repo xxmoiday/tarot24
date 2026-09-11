@@ -28,11 +28,11 @@ const LUU: StoredReading = {
   createdAt: "2026-01-01T00:00:00.000Z",
   followUps: [],
   clarifiers: [],
-  tokens: { vao: 0, ra: 0, cache: 0 },
+  tokens: { vao: 0, ra: 0, cache: 0, nghi: 0 },
 };
 
 /** Số mô hình trả về cho mỗi lượt gọi trong các ca dưới đây. */
-const DEM = { vao: 1200, ra: 90, cache: 800 };
+const DEM = { vao: 1200, ra: 1050, cache: 800, nghi: 960 };
 
 /** Bài chuyển hướng theo mục 5 và mục 8: không kết luận, không nghiêng về đâu. */
 const CHUYEN_HUONG =
@@ -49,15 +49,18 @@ const CO_NGHIENG =
   "theo nhịp đó, còn nếu chỉ ậm ừ cho qua thì thôi gồng một mình.";
 
 let goi: { role: string; content: string }[][];
-let ghi: { vao: number; ra: number; cache: number } | null;
+let tran: number[];
+let ghi: typeof DEM | null;
 
 function dungService(traLoi: string) {
   goi = [];
+  tran = [];
   ghi = null;
   const llm = {
     hasProvider: () => true,
-    chat: async (messages: { role: string; content: string }[]) => {
+    chat: async (messages: { role: string; content: string }[], maxTokens: number) => {
       goi.push(messages);
+      tran.push(maxTokens);
       return { text: traLoi, provider: "deepseek", model: "deepseek-chat", usage: DEM };
     },
   };
@@ -74,6 +77,7 @@ function dungService(traLoi: string) {
 
 beforeEach(() => {
   goi = [];
+  tran = [];
   ghi = null;
 });
 
@@ -171,6 +175,49 @@ describe("ghi token của lượt hỏi thêm", () => {
     const svc = dungService("Không sao đâu, rồi sẽ ổn cả thôi.");
     await svc.followUp(ID, "Em có nên nói trước không");
     expect(goi).toHaveLength(2);
-    expect(ghi).toEqual({ vao: DEM.vao * 2, ra: DEM.ra * 2, cache: DEM.cache * 2 });
+    expect(ghi).toEqual({
+      vao: DEM.vao * 2,
+      ra: DEM.ra * 2,
+      cache: DEM.cache * 2,
+      nghi: DEM.nghi * 2,
+    });
+  });
+});
+
+/* Model biết nghĩ ăn chung max_tokens với phần viết. Đường hỏi thêm từng để
+   cứng 600, mà riêng phần nghĩ đo ở production đã 959 token: phần viết không
+   còn chỗ, `content` về rỗng, và lượt gọi đó vẫn bị tính tiền. */
+describe("ngân sách token chừa chỗ cho suy luận", () => {
+  const NGHI_DO_DUOC = 959;
+
+  it("lượt hỏi thêm xin đủ chỗ cho cả nghĩ lẫn viết", async () => {
+    const svc = dungService(CO_NGHIENG);
+    await svc.followUp(ID, "Em có nên nói trước không");
+    expect(tran[0]).toBeGreaterThan(NGHI_DO_DUOC + 120 * 4);
+  });
+
+  it("lượt gọi lại cũng xin đúng ngân sách đó, không tụt về số cũ", async () => {
+    const svc = dungService("Không sao đâu, rồi sẽ ổn cả thôi.");
+    await svc.followUp(ID, "Em có nên nói trước không");
+    expect(tran).toHaveLength(2);
+    expect(tran[1]).toBe(tran[0]);
+  });
+
+  it("chỉnh được bằng env", async () => {
+    process.env.LLM_REASONING_TOKENS = "5000";
+    try {
+      const svc = dungService(CO_NGHIENG);
+      await svc.followUp(ID, "Em có nên nói trước không");
+      expect(tran[0]).toBe(120 * 4 + 300 + 5000);
+    } finally {
+      delete process.env.LLM_REASONING_TOKENS;
+    }
+  });
+
+  it("token nghĩ được ghi xuống kho cùng token ra", async () => {
+    const svc = dungService(CO_NGHIENG);
+    await svc.followUp(ID, "Em có nên nói trước không");
+    expect(ghi).toEqual(DEM);
+    expect(ghi!.nghi).toBeLessThan(ghi!.ra);
   });
 });

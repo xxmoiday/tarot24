@@ -16,13 +16,25 @@ export interface Usage {
   vao: number;
   ra: number;
   cache: number;
+  /**
+   * Token suy luận, nằm TRONG `ra` chứ không cộng thêm. Tách ra vì hai số này
+   * trả lời hai câu khác nhau: `ra` là tiền phải trả, `nghi` là bao nhiêu phần
+   * trong đó mô hình dùng để tự soát trước khi viết. Bài dài ra hay phần nghĩ
+   * dài ra đều làm `ra` tăng, nhìn mình `ra` thì không biết cái nào.
+   */
+  nghi: number;
 }
 
 /** Chưa gọi lượt nào, hoặc nhà cung cấp không trả `usage`. */
-export const KHONG_DEM: Usage = { vao: 0, ra: 0, cache: 0 };
+export const KHONG_DEM: Usage = { vao: 0, ra: 0, cache: 0, nghi: 0 };
 
 export function congUsage(a: Usage, b: Usage): Usage {
-  return { vao: a.vao + b.vao, ra: a.ra + b.ra, cache: a.cache + b.cache };
+  return {
+    vao: a.vao + b.vao,
+    ra: a.ra + b.ra,
+    cache: a.cache + b.cache,
+    nghi: a.nghi + b.nghi,
+  };
 }
 
 /**
@@ -39,13 +51,18 @@ function docUsage(dialect: ProviderConfig["dialect"], json: Record<string, any>)
       vao: so(u.input_tokens) + cache + so(u.cache_creation_input_tokens),
       ra: so(u.output_tokens),
       cache,
+      /* Anthropic trả phần nghĩ thành content block, không tách trong usage. */
+      nghi: 0,
     };
   }
   return {
     vao: so(u.prompt_tokens),
+    /* Đã gồm cả token suy luận, nên đây là con số bị tính tiền chứ không phải
+       độ dài bài. Lượt đo thật: 1094 ra trong đó 959 là nghĩ, bài còn 135. */
     ra: so(u.completion_tokens),
     /* DeepSeek gọi là prompt_cache_hit_tokens, OpenAI để trong details. */
     cache: so(u.prompt_cache_hit_tokens ?? u.prompt_tokens_details?.cached_tokens),
+    nghi: so(u.completion_tokens_details?.reasoning_tokens),
   };
 }
 
@@ -185,7 +202,8 @@ export class LlmService {
           `${p.name} ${model}${model === p.model ? "" : ` (gửi ${p.model})`}: ` +
             `${usage.vao} token vào` +
             (usage.cache ? ` (${usage.cache} từ cache)` : "") +
-            `, ${usage.ra} ra`,
+            `, ${usage.ra} ra` +
+            (usage.nghi ? ` (${usage.nghi} nghĩ)` : ""),
         );
         return { text, provider: p.name, model, usage };
       } catch (e) {
