@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { KbService } from "./kb.service.js";
+import { KbService, type ReadingRequest } from "./kb.service.js";
 
 const kb = new KbService();
 
@@ -46,5 +46,73 @@ describe("KB mở ra ngoài", () => {
     expect(celtic.vi_tri).toHaveLength(10);
     expect(Array.isArray(celtic.luat_doc)).toBe(true);
     expect(celtic.vi_du).toBeTruthy();
+  });
+});
+
+/** Một lượt năm lá đủ dùng cho cả ba đường dựng prompt. */
+const luot: ReadingRequest = {
+  spreadSlug: "nam-la-tinh-cam",
+  question: "Em với người này lửng lơ mãi, có nên nói rõ lòng mình không?",
+  topic: "love",
+  cards: [
+    { slug: "hai-coc", reversed: false },
+    { slug: "bay-coc", reversed: false },
+    { slug: "hiep-si-coc", reversed: false },
+    { slug: "tam-kiem", reversed: true },
+    { slug: "ngoi-sao", reversed: false },
+  ],
+  guard: null,
+};
+
+const KHUON = "Trả về đúng một khối JSON";
+
+describe("khuôn đầu ra chỉ thuộc lượt luận bài", () => {
+  it("lượt luận bài mang khuôn JSON và khung độ dài của kiểu trải", () => {
+    const gop = kb.buildMessages(luot).map((m) => m.content).join("\n");
+    expect(gop).toContain(KHUON);
+    expect(gop).toContain("dài 280–380 tiếng");
+  });
+
+  /* Hai đường này đòi văn xuôi 60–120 tiếng. Trước đây chúng dùng lại nguyên
+     message ngữ cảnh của bài luận, nên cùng một prompt vừa đòi "đúng một khối
+     JSON" vừa đòi "không JSON", lại mang hai khung độ dài lệch nhau. */
+  it("câu hỏi thêm không mang khuôn JSON lẫn khung của bài luận", () => {
+    const msg = kb.buildFollowUpMessages(luot, "Bài đã luận.", "Còn chuyện tiền thì sao");
+    const gop = msg.map((m) => m.content).join("\n");
+    expect(gop).not.toContain(KHUON);
+    expect(gop).not.toContain("dài 280–380 tiếng");
+    expect(msg.at(-1)!.content).toContain("không JSON");
+  });
+
+  it("lá làm rõ cũng vậy", () => {
+    const msg = kb.buildClarifierMessages(luot, "Bài đã luận.", 4, {
+      slug: "ba-coc",
+      reversed: false,
+    });
+    const gop = msg.map((m) => m.content).join("\n");
+    expect(gop).not.toContain(KHUON);
+    expect(gop).not.toContain("dài 280–380 tiếng");
+    expect(msg.at(-1)!.content).toContain("không JSON");
+  });
+
+  /* Anthropic đòi message đầu tiên mang vai người dùng, nên lượt hỏi của người
+     rút phải còn nguyên ở cả ba đường, đứng trước mọi lượt của trợ lý. */
+  it("cả ba đường đều để lượt người dùng đứng trước lượt trợ lý", () => {
+    const duong = [
+      kb.buildMessages(luot),
+      kb.buildFollowUpMessages(luot, "Bài đã luận.", "Còn chuyện tiền thì sao"),
+      kb.buildClarifierMessages(luot, "Bài đã luận.", 4, { slug: "ba-coc", reversed: false }),
+    ];
+    for (const msg of duong) {
+      const ngoaiSystem = msg.filter((m) => m.role !== "system");
+      expect(ngoaiSystem[0].role).toBe("user");
+      expect(msg.at(-1)!.role).toBe("user");
+    }
+  });
+
+  it("câu chạm chủ đề cấm thì ngữ cảnh bật chu_de_cam", () => {
+    const cam = { ...luot, guard: { kind: "death" as const, label: "", hint: "", notice: "" } };
+    const gop = kb.buildFollowUpMessages(cam, "Bài đã luận.", "x").map((m) => m.content).join("\n");
+    expect(gop).toContain('"chu_de_cam": true');
   });
 });

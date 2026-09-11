@@ -209,11 +209,15 @@ export class KbService {
   }
 
   /**
-   * Ghép ba khối theo prompts/README.md: system nguyên văn, ngữ cảnh lượt,
-   * rồi câu hỏi của người dùng. Câu chạm chủ đề cấm thì kèm ví dụ mẫu của
-   * chính kiểu trải đó để mô hình biết cách chuyển hướng.
+   * Hai message system mở đầu mọi lượt: system nguyên văn, rồi ngữ cảnh lượt.
+   *
+   * `luanBai` bật khung độ dài và khuôn JSON của bài luận. Câu hỏi thêm và lá
+   * làm rõ tắt nó đi: hai đường đó đòi văn xuôi 60–120 tiếng ngay ở lượt hỏi,
+   * để khối kia sót lại thì cùng một prompt vừa đòi "đúng một khối JSON, không
+   * kèm chữ nào ngoài nó" vừa đòi "không JSON", lại đưa ra hai khung độ dài
+   * lệch nhau.
    */
-  buildMessages(req: ReadingRequest, kemMau = true): ChatMessage[] {
+  private moDau(req: ReadingRequest, luanBai: boolean) {
     const spread = this.spread(req.spreadSlug);
     if (!spread) throw new Error(`Không có kiểu trải ${req.spreadSlug}`);
 
@@ -238,24 +242,39 @@ export class KbService {
       cau_hoi: req.question || null,
     };
 
-    const giua = Math.round((spread.do_dai.min + spread.do_dai.max) / 2);
-    const messages: ChatMessage[] = [
-      { role: "system", content: this.systemLuanBai() },
-      {
-        role: "system",
-        content:
-          `Ngữ cảnh lượt này, dạng JSON:\n\n${JSON.stringify(context, null, 1)}\n\n` +
-          `Bài lần này dài ${spread.do_dai.min}–${spread.do_dai.max} tiếng tính cả ba ` +
-          `phần cộng lại, nhắm vào giữa khung là khoảng ${giua} tiếng.\n\n` +
-          this.khuonDauRa(spread.vi_tri.length),
-      },
-    ];
-
-    if (kemMau) {
-      for (const m of this.mauLamGuong(spread, !!req.guard)) messages.push(m);
+    let nguCanh = `Ngữ cảnh lượt này, dạng JSON:\n\n${JSON.stringify(context, null, 1)}`;
+    if (luanBai) {
+      const giua = Math.round((spread.do_dai.min + spread.do_dai.max) / 2);
+      nguCanh +=
+        `\n\nBài lần này dài ${spread.do_dai.min}–${spread.do_dai.max} tiếng tính cả ba ` +
+        `phần cộng lại, nhắm vào giữa khung là khoảng ${giua} tiếng.\n\n` +
+        this.khuonDauRa(spread.vi_tri.length);
     }
 
-    messages.push({ role: "user", content: req.question || KHONG_CAU_HOI });
+    const messages: ChatMessage[] = [
+      { role: "system", content: this.systemLuanBai() },
+      { role: "system", content: nguCanh },
+    ];
+    return { spread, messages };
+  }
+
+  /**
+   * Lượt của người rút. Mọi đường đều phải có nó, và nó phải đứng trước lượt
+   * của trợ lý vì Anthropic đòi message đầu tiên mang vai người dùng.
+   */
+  private luotHoi(req: ReadingRequest): ChatMessage {
+    return { role: "user", content: req.question || KHONG_CAU_HOI };
+  }
+
+  /**
+   * Ghép ba khối theo prompts/README.md: system nguyên văn, ngữ cảnh lượt,
+   * rồi câu hỏi của người dùng. Câu chạm chủ đề cấm thì kèm ví dụ mẫu của
+   * chính kiểu trải đó để mô hình biết cách chuyển hướng.
+   */
+  buildMessages(req: ReadingRequest): ChatMessage[] {
+    const { spread, messages } = this.moDau(req, true);
+    for (const m of this.mauLamGuong(spread, !!req.guard)) messages.push(m);
+    messages.push(this.luotHoi(req));
     return messages;
   }
 
@@ -329,7 +348,8 @@ export class KbService {
    */
   buildFollowUpMessages(req: ReadingRequest, essay: string, question: string): ChatMessage[] {
     return [
-      ...this.buildMessages(req, false),
+      ...this.moDau(req, false).messages,
+      this.luotHoi(req),
       { role: "assistant", content: essay },
       {
         role: "user",
@@ -359,7 +379,8 @@ export class KbService {
     if (!raw) throw new Error(`Không có lá ${card.slug}`);
 
     return [
-      ...this.buildMessages(req, false),
+      ...this.moDau(req, false).messages,
+      this.luotHoi(req),
       { role: "assistant", content: essay },
       {
         role: "user",
