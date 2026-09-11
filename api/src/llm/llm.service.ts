@@ -3,6 +3,52 @@ import type { ChatMessage } from "../kb/kb.service.js";
 import { WEB } from "../common/clients.js";
 import { LlmBudgetService } from "./budget.service.js";
 
+/**
+ * Token của một lượt gọi. `vao` là tổng token vào kể cả phần đọc được từ cache,
+ * `cache` là phần trong đó không phải trả giá đầy đủ.
+ *
+ * Hai dialect đếm khác nhau nên phải quy về một mối: OpenAI và DeepSeek để
+ * `prompt_tokens` đã gồm phần cache, còn Anthropic tách `input_tokens` ra khỏi
+ * `cache_read_input_tokens`. Không cộng lại thì hai nhà trả về hai nghĩa khác
+ * nhau dưới cùng một cái tên.
+ */
+export interface Usage {
+  vao: number;
+  ra: number;
+  cache: number;
+}
+
+/** Chưa gọi lượt nào, hoặc nhà cung cấp không trả `usage`. */
+export const KHONG_DEM: Usage = { vao: 0, ra: 0, cache: 0 };
+
+export function congUsage(a: Usage, b: Usage): Usage {
+  return { vao: a.vao + b.vao, ra: a.ra + b.ra, cache: a.cache + b.cache };
+}
+
+/**
+ * Bóc `usage` ra khỏi response. Nhà nào không trả thì để 0 chứ không đoán:
+ * số 0 đọc ra là "không biết", còn số ước lượng đọc ra là "biết rồi".
+ */
+function docUsage(dialect: ProviderConfig["dialect"], json: Record<string, any>): Usage {
+  const u = (json.usage ?? {}) as Record<string, any>;
+  const so = (x: unknown) => (Number.isFinite(Number(x)) ? Number(x) : 0);
+
+  if (dialect === "anthropic") {
+    const cache = so(u.cache_read_input_tokens);
+    return {
+      vao: so(u.input_tokens) + cache + so(u.cache_creation_input_tokens),
+      ra: so(u.output_tokens),
+      cache,
+    };
+  }
+  return {
+    vao: so(u.prompt_tokens),
+    ra: so(u.completion_tokens),
+    /* DeepSeek gọi là prompt_cache_hit_tokens, OpenAI để trong details. */
+    cache: so(u.prompt_cache_hit_tokens ?? u.prompt_tokens_details?.cached_tokens),
+  };
+}
+
 interface ProviderConfig {
   name: string;
   baseUrl: string;
@@ -106,7 +152,7 @@ export class LlmService {
           ? (json.content ?? []).map((c: { text?: string }) => c.text ?? "").join("")
           : (json.choices?.[0]?.message?.content ?? "");
       if (!String(text).trim()) throw new Error(`${p.name} trả bài rỗng`);
-      return String(text).trim();
+      return { text: String(text).trim(), usage: docUsage(p.dialect, json) };
     } finally {
       clearTimeout(timer);
     }
@@ -119,11 +165,16 @@ export class LlmService {
     const errors: string[] = [];
     for (const p of list) {
       try {
-        const text = await this.callOne(p, messages, maxTokens);
+        const { text, usage } = await this.callOne(p, messages, maxTokens);
         /* Đếm sau khi có bài, tức đếm đúng lượt phải trả tiền; nhà lỗi rồi rơi
            sang nhà kế thì chỉ tính một lượt. */
         this.budget.ghiNhan(client);
-        return { text, provider: p.name, model: p.model };
+        this.log.log(
+          `${p.name} ${p.model}: ${usage.vao} token vào` +
+            (usage.cache ? ` (${usage.cache} từ cache)` : "") +
+            `, ${usage.ra} ra`,
+        );
+        return { text, provider: p.name, model: p.model, usage };
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
         this.log.warn(`${p.name} lỗi: ${msg.slice(0, 200)}`);

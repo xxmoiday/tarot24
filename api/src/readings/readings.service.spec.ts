@@ -28,7 +28,11 @@ const LUU: StoredReading = {
   createdAt: "2026-01-01T00:00:00.000Z",
   followUps: [],
   clarifiers: [],
+  tokens: { vao: 0, ra: 0, cache: 0 },
 };
+
+/** Số mô hình trả về cho mỗi lượt gọi trong các ca dưới đây. */
+const DEM = { vao: 1200, ra: 90, cache: 800 };
 
 /** Bài chuyển hướng theo mục 5 và mục 8: không kết luận, không nghiêng về đâu. */
 const CHUYEN_HUONG =
@@ -45,26 +49,32 @@ const CO_NGHIENG =
   "theo nhịp đó, còn nếu chỉ ậm ừ cho qua thì thôi gồng một mình.";
 
 let goi: { role: string; content: string }[][];
+let ghi: { vao: number; ra: number; cache: number } | null;
 
 function dungService(traLoi: string) {
   goi = [];
+  ghi = null;
   const llm = {
     hasProvider: () => true,
     chat: async (messages: { role: string; content: string }[]) => {
       goi.push(messages);
-      return { text: traLoi, provider: "deepseek", model: "deepseek-chat" };
+      return { text: traLoi, provider: "deepseek", model: "deepseek-chat", usage: DEM };
     },
   };
   const budget = { con: () => true, ghiNhan: () => {} };
   const repo = {
     find: async () => LUU,
-    appendFollowUp: async () => LUU,
+    appendFollowUp: async (_id: string, _f: unknown, u: typeof DEM) => {
+      ghi = u;
+      return LUU;
+    },
   };
   return new ReadingsService(new KbService(), llm as any, budget as any, repo as any);
 }
 
 beforeEach(() => {
   goi = [];
+  ghi = null;
 });
 
 describe("guard cho câu hỏi thêm", () => {
@@ -143,5 +153,24 @@ describe("soát bàn bài trong mã bài đọc", () => {
     const out = await svc.followUp(ma(NAM), "Em có nên nói trước không");
     expect(out.kind).toBe("ok");
     expect(goi).toHaveLength(1);
+  });
+});
+
+/* Token của lượt hỏi thêm phải cộng vào đúng bài đọc đã sinh ra nó, chứ không
+   biến mất cùng lượt gọi. */
+describe("ghi token của lượt hỏi thêm", () => {
+  it("đưa số của lượt gọi xuống kho", async () => {
+    const svc = dungService(CO_NGHIENG);
+    await svc.followUp(ID, "Em có nên nói trước không");
+    expect(goi).toHaveLength(1);
+    expect(ghi).toEqual(DEM);
+  });
+
+  /* Gọi lại là đã trả tiền, dù bài của lượt hai có được giữ hay không. */
+  it("cộng cả lượt gọi lại", async () => {
+    const svc = dungService("Không sao đâu, rồi sẽ ổn cả thôi.");
+    await svc.followUp(ID, "Em có nên nói trước không");
+    expect(goi).toHaveLength(2);
+    expect(ghi).toEqual({ vao: DEM.vao * 2, ra: DEM.ra * 2, cache: DEM.cache * 2 });
   });
 });

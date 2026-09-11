@@ -3,7 +3,7 @@ import { WEB } from "../common/clients.js";
 import { KbService, type ChatMessage, type ReadingRequest } from "../kb/kb.service.js";
 import { detectGuard } from "../llm/guard.js";
 import { LlmBudgetService } from "../llm/budget.service.js";
-import { LlmService } from "../llm/llm.service.js";
+import { congUsage, LlmService, type Usage } from "../llm/llm.service.js";
 import { flatten, parseParts, type ReadingParts } from "../llm/parse.js";
 import {
   checkEssay,
@@ -127,6 +127,8 @@ export class ReadingsService {
       const messages = this.kb.buildMessages(req);
       const first = await this.llm.chat(messages, budget, client);
 
+      /* Cộng cả lượt gọi lại, kể cả khi bài của nó bị bỏ: đã gọi là đã trả. */
+      let tokens: Usage = first.usage;
       const soat = { question: req.question, guard: !!req.guard };
 
       let best = { ...this.shape(first.text), provider: first.provider, model: first.model };
@@ -142,6 +144,7 @@ export class ReadingsService {
           budget,
           client,
         );
+        tokens = congUsage(tokens, retry.usage);
         const shaped = {
           ...this.shape(retry.text),
           provider: retry.provider,
@@ -168,6 +171,7 @@ export class ReadingsService {
         model: best.model,
         followUps: [],
         clarifiers: [],
+        tokens,
       };
       const saved = await this.repo.insert(fresh);
 
@@ -177,7 +181,8 @@ export class ReadingsService {
       };
 
       this.log.log(
-        `${id} xong, ${countWords(best.essay)} tiếng, ${best.provider}, cho ${client}`,
+        `${id} xong, ${countWords(best.essay)} tiếng, ${best.provider}, cho ${client}, ` +
+          `${tokens.vao} token vào và ${tokens.ra} ra`,
       );
       return { kind: "ok", reading, cached: false };
     } catch (e) {
@@ -223,6 +228,7 @@ export class ReadingsService {
     const soat = (t: string) => checkEssay(t, khung, { question, guard, kieu });
 
     const first = await this.llm.chat(messages, 600, client);
+    let tokens: Usage = first.usage;
     let best = stripStockLabels(first.text);
     let worst = soat(best);
 
@@ -232,6 +238,7 @@ export class ReadingsService {
         600,
         client,
       );
+      tokens = congUsage(tokens, retry.usage);
       const lai = stripStockLabels(retry.text);
       const sau = soat(lai);
       if (sau.length < worst.length) {
@@ -239,7 +246,7 @@ export class ReadingsService {
         worst = sau;
       }
     }
-    return { text: best, faults: worst };
+    return { text: best, faults: worst, tokens };
   }
 
   /** Câu hỏi thêm sau bài, khung 60–120 tiếng theo mục 6. */
@@ -265,7 +272,7 @@ export class ReadingsService {
 
     try {
       const messages = this.kb.buildFollowUpMessages({ ...req, guard }, stored.essay, question);
-      const { text, faults } = await this.vietNgan(
+      const { text, faults, tokens } = await this.vietNgan(
         messages,
         "hoi_them",
         question,
@@ -277,7 +284,7 @@ export class ReadingsService {
           `${id} hỏi thêm còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,
         );
       }
-      const next = await this.repo.appendFollowUp(id, { question, answer: text });
+      const next = await this.repo.appendFollowUp(id, { question, answer: text }, tokens);
       return next
         ? { kind: "ok", reading: next }
         : { kind: "error", message: "không ghi được câu hỏi thêm" };
@@ -321,7 +328,7 @@ export class ReadingsService {
 
     try {
       const messages = this.kb.buildClarifierMessages(req, stored.essay, stt, card);
-      const { text, faults } = await this.vietNgan(
+      const { text, faults, tokens } = await this.vietNgan(
         messages,
         "lam_ro",
         req.question,
@@ -333,12 +340,11 @@ export class ReadingsService {
           `${id} lá làm rõ còn vi phạm: ${faults.map((v) => `${v.rule}: ${v.detail}`).join(" | ")}`,
         );
       }
-      const next = await this.repo.appendClarifier(id, {
-        stt,
-        slug: card.slug,
-        reversed: card.reversed,
-        answer: text,
-      });
+      const next = await this.repo.appendClarifier(
+        id,
+        { stt, slug: card.slug, reversed: card.reversed, answer: text },
+        tokens,
+      );
       return next
         ? { kind: "ok", reading: next }
         : { kind: "error", message: "không ghi được lá làm rõ" };
