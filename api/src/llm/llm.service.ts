@@ -80,7 +80,12 @@ export class LlmService {
             name: "deepseek",
             baseUrl: process.env.DEEPSEEK_BASE_URL ?? "https://api.deepseek.com",
             apiKey: process.env.DEEPSEEK_API_KEY,
-            model: process.env.DEEPSEEK_MODEL ?? "deepseek-chat",
+            /* Tên `deepseek-chat` không còn trong tài liệu của DeepSeek: endpoint
+               liệt kê model chỉ trả `deepseek-flash` và `deepseek-v4-pro`, và
+               trang giá chỉ nhận `deepseek-v4-flash` là tên cũ. Tên không có
+               trong tài liệu thì không biết nó phục vụ bằng model nào và tính
+               tiền theo cột nào, mà hai cột chênh nhau 4,4 lần. */
+            model: process.env.DEEPSEEK_MODEL ?? "deepseek-flash",
             dialect: "openai",
           }
         : null,
@@ -152,7 +157,14 @@ export class LlmService {
           ? (json.content ?? []).map((c: { text?: string }) => c.text ?? "").join("")
           : (json.choices?.[0]?.message?.content ?? "");
       if (!String(text).trim()) throw new Error(`${p.name} trả bài rỗng`);
-      return { text: String(text).trim(), usage: docUsage(p.dialect, json) };
+      /* Model do nhà cung cấp khai trong response, không phải cái mình gửi đi.
+         Tên cũ được phục vụ bằng model khác là chuyện thường, mà đó mới là
+         model viết ra bài và là model bị tính tiền. */
+      return {
+        text: String(text).trim(),
+        usage: docUsage(p.dialect, json),
+        model: typeof json.model === "string" && json.model ? json.model : p.model,
+      };
     } finally {
       clearTimeout(timer);
     }
@@ -165,16 +177,17 @@ export class LlmService {
     const errors: string[] = [];
     for (const p of list) {
       try {
-        const { text, usage } = await this.callOne(p, messages, maxTokens);
+        const { text, usage, model } = await this.callOne(p, messages, maxTokens);
         /* Đếm sau khi có bài, tức đếm đúng lượt phải trả tiền; nhà lỗi rồi rơi
            sang nhà kế thì chỉ tính một lượt. */
         this.budget.ghiNhan(client);
         this.log.log(
-          `${p.name} ${p.model}: ${usage.vao} token vào` +
+          `${p.name} ${model}${model === p.model ? "" : ` (gửi ${p.model})`}: ` +
+            `${usage.vao} token vào` +
             (usage.cache ? ` (${usage.cache} từ cache)` : "") +
             `, ${usage.ra} ra`,
         );
-        return { text, provider: p.name, model: p.model, usage };
+        return { text, provider: p.name, model, usage };
       } catch (e) {
         const msg = e instanceof Error ? e.message : String(e);
         this.log.warn(`${p.name} lỗi: ${msg.slice(0, 200)}`);
