@@ -289,17 +289,22 @@ export class KbService {
    * ngoài KB" ngay trước lượt thật.
    *
    * Chỉ đẩy cho trải bốn tới năm lá: đó là chỗ hay hỏng nhất, còn bắt mọi lượt
-   * cõng thêm ba trăm tiếng bài mẫu thì không đáng. Câu chạm chủ đề cấm thì
-   * luôn đẩy, vì ở đó mẫu chuyển hướng đáng giá hơn tiền token.
+   * cõng thêm ba trăm tiếng bài mẫu thì không đáng. Câu chạm chủ đề cấm thì đẩy
+   * ở mọi cỡ trải, vì ở đó mẫu chuyển hướng đáng giá hơn tiền token — nhưng
+   * đúng mẫu chuyển hướng, không mẫu nào khác.
    */
   private mauLamGuong(spread: RawSpread, guard: boolean): ChatMessage[] {
     const soViTri = spread.vi_tri.length;
     if (!guard && (soViTri < 4 || soViTri > 5)) return [];
 
     const list = spread.vi_du ?? [];
-    /* Mẫu có ghi_chu là mẫu chuyển hướng, chỉ đúng khi câu hỏi chạm chủ đề cấm. */
+    /* Mẫu có ghi_chu là mẫu chuyển hướng, chỉ đúng khi câu hỏi chạm chủ đề cấm.
+       Kiểu trải nào chưa có mẫu chuyển hướng thì lượt đó đi tay không: rơi về
+       mẫu thường là đặt một bài kết luận thẳng cộng việc cụ thể ngay trước câu
+       mà mục 5 cấm kết luận, tức dạy đúng cái phải tránh. Trải tiền bạc dính
+       nặng nhất, guard tài chính bắn ở đó suốt. */
     const sample = guard
-      ? (list.find((v) => v.ghi_chu) ?? list[0])
+      ? list.find((v) => v.ghi_chu)
       : list.find((v) => !v.ghi_chu);
     if (!sample) return [];
 

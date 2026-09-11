@@ -134,6 +134,33 @@ describe("bài mẫu few-shot", () => {
     );
   });
 
+  const CAM = { kind: "legal" as const, label: "", hint: "", notice: "" };
+
+  it("câu chạm chủ đề cấm thì lấy mẫu chuyển hướng, không lấy mẫu thường", () => {
+    const msg = kb.buildMessages({ ...luot, guard: CAM });
+    const hoi = msg.filter((m) => m.role === "user");
+    expect(hoi[0].content).toBe("Anh ấy có đang có người khác không");
+  });
+
+  /* Rơi về mẫu thường là đặt một bài kết luận thẳng cộng việc cụ thể ngay
+     trước câu mà mục 5 cấm kết luận. Thà đi tay không. */
+  it("kiểu trải chưa có mẫu chuyển hướng thì lượt cấm đi tay không", () => {
+    const msg = kb.buildMessages({
+      spreadSlug: "bon-la-tien-bac",
+      question: "Có nên dồn tiền mua vàng lúc này không",
+      topic: "money",
+      cards: [
+        { slug: "hai-coc", reversed: false },
+        { slug: "bay-coc", reversed: false },
+        { slug: "hiep-si-coc", reversed: false },
+        { slug: "tam-kiem", reversed: true },
+      ],
+      guard: CAM,
+    });
+    expect(msg).toHaveLength(3);
+    expect(msg.filter((m) => m.role === "assistant")).toHaveLength(0);
+  });
+
   /* Khuôn đầu ra đi mọi lượt luận bài, kể cả lượt không kèm mẫu nào; đoạn dặn
      về bài mẫu nằm trong đó là dặn về một thứ không có mặt. */
   it("trải ba lá không kèm mẫu thì cũng không nhắc tới bài mẫu", () => {
