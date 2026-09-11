@@ -330,7 +330,7 @@ export const SPREADS: Spread[] = [
       {
         label: "Hướng đi",
         meaning:
-          "nếu giữ đà này thì mối này nghiêng về đâu, và bạn làm được gì để nó đi theo hướng tốt hơn",
+          "nếu giữ đà này thì mối này đang tiến, đang lùi hay đang đứng",
         lens: "love",
       },
     ],
@@ -632,7 +632,7 @@ export const SPREADS: Spread[] = [
       {
         label: "Hướng đi",
         meaning:
-          "nếu sửa được theo lá ba thì tiền nong nghiêng về đâu trong vài tháng tới, và việc đầu tiên nên làm là gì",
+          "nếu sửa được theo lá ba thì tiền nong đang lên, đang xuống hay đang đứng trong vài tháng tới",
         lens: "money",
       },
     ],

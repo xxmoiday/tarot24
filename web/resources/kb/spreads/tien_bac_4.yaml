@@ -33,8 +33,8 @@ vi_tri:
   lang_kinh_uu_tien: tien_bac
 - stt: 4
   ten: Hướng đi
-  cau_hoi: Nếu sửa được theo lá ba thì tiền nong nghiêng về đâu trong vài tháng tới, và việc đầu tiên nên làm là gì
-  goi_y_doc: Đọc như hướng, nói bằng "nếu giữ nếp này thì", theo khoảng "vài tháng tới", không mốc ngày, không con số. Lá nhẹ là đang có đường ra hoặc đang có đà thu; lá nặng là đang phải qua một đoạn thắt, nói gọn rồi chỉ chỗ làm được. Lá ngược thiên về hướng đó đến chậm. Dùng huong trong sac_thai để nói đang lên, xuống hay đứng.
+  cau_hoi: Nếu sửa được theo lá ba thì tiền nong đang lên, đang xuống hay đang đứng trong vài tháng tới
+  goi_y_doc: Đọc như hướng, nói bằng "nếu giữ nếp này thì", theo khoảng "vài tháng tới", không mốc ngày, không con số. Lá nhẹ là đang có đường ra hoặc đang có đà thu; lá nặng là đang phải qua một đoạn thắt, nói gọn. Lá ngược thiên về hướng đó đến chậm. Dùng huong trong sac_thai để nói đang lên, xuống hay đứng. Chỗ này chỉ nói hướng — câu nghiêng về một phía, việc làm được trong bảy ngày tới và điều kiện nếu... thì đều thuộc đoạn kết, nói trước ở đây thì đoạn kết không còn gì để nói.
   lang_kinh_uu_tien: tien_bac
 luat_doc:
 - Tuyệt đối không thành khuyến nghị mua, bán, giữ, vay để đầu tư, dù người hỏi gặng hay lá nào rơi ra; kể cả Mười Tiền, Bánh Xe, Mặt Trời cũng không đọc thành "nên xuống tiền". Bài chỉ nói về ba thứ là nếp tiêu, nguồn thu và cách giữ.

@@ -283,6 +283,22 @@ export function checkEssay(
         detail: `câu mở và đoạn kết dùng chung cụm "${trung}", câu mở đang nhại lại câu chốt`,
       });
     }
+
+    /* Đầu kia của bài cũng dính: vị trí cuối hay được viết thành một đoạn kết
+       thu nhỏ, rồi đoạn kết chỉ còn nhại lại nó. Bắt bằng cụm trùng chứ không
+       cấm chữ "nghiêng về" — KB dùng cụm ấy khắp nơi để nói cho dè dặt, cấm
+       thẳng là bắt oan mười hai trong mười lăm kiểu trải. Cụm để sáu tiếng chứ
+       không bốn như chỗ câu mở: vị trí cuối được dặn nói "nếu giữ đà này" và
+       đoạn kết cũng phải có một mệnh đề "nếu... thì", nên năm tiếng đầu của hai
+       câu đó chạm nhau mà chẳng ai nhại ai. */
+    const cuoi = ctx.parts.theoViTri.at(-1);
+    const trungCuoi = cuoi ? cumTrung(cuoi.doan, ctx.parts.ket, 6) : null;
+    if (trungCuoi) {
+      out.push({
+        rule: "luật 2",
+        detail: `vị trí cuối và đoạn kết dùng chung cụm "${trungCuoi}", đoạn kết đang nhại lại vị trí cuối`,
+      });
+    }
   }
 
   /* Luật 1 chỉ bật với câu hỏi đóng, và tắt khi câu hỏi chạm chủ đề cấm vì ở

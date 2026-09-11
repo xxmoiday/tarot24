@@ -184,6 +184,27 @@ describe("checkEssay, luật 2, 5 và 6", () => {
     expect(v.some((x) => x.rule === "mục 6" && x.detail.includes("cắt xuống"))).toBe(true);
   });
 
+  /* Đầu kia của luật 6: vị trí cuối viết thành đoạn kết thu nhỏ rồi đoạn kết
+     chỉ còn nhại lại nó. */
+  it("bắt đoạn kết nhại lại vị trí cuối", () => {
+    const p = bai({
+      ket: "Nghiêng về thu gọn xuống mức tối thiểu chứ không bỏ hẳn. Trong bảy ngày tới kẻ ra lịch thật. Nếu tìm được khung trống thì giữ, không thì dừng.",
+    });
+    p.theoViTri.at(-1)!.doan += " Hướng đi là thu gọn xuống mức tối thiểu chứ không bỏ hẳn.";
+    const v = soat(p, "Có nên giữ không");
+    expect(v.some((x) => x.rule === "luật 2" && x.detail.includes("vị trí cuối"))).toBe(true);
+  });
+
+  /* Vị trí cuối được KB dặn nói "nếu giữ đà này", đoạn kết thì luật 7 bắt phải
+     có "nếu... thì". Hai câu ấy chạm nhau năm tiếng đầu là chuyện thường. */
+  it("không bắt oan chỗ hai bên cùng mở bằng nếu giữ đà này thì", () => {
+    const p = bai({
+      ket: "Nghiêng về giữ. Trong bảy ngày tới nhắn một câu thật. Nếu giữ đà này thì tuần sau đã dễ thở hơn.",
+    });
+    p.theoViTri.at(-1)!.doan += " Nếu giữ đà này thì chuyện còn đi tiếp được một quãng nữa.";
+    expect(CO_LUAT(soat(p, "Có nên giữ không"), "luật 2")).toBe(false);
+  });
+
   it("bắt câu bình luận về chính bài đọc", () => {
     const p = bai({ ket: "Bài này không trả lời thẳng được. Nghiêng về giữ, nếu khó thì dừng." });
     expect(CO_LUAT(soat(p, "Có nên giữ không"), "luật 6")).toBe(true);

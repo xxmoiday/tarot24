@@ -350,14 +350,14 @@
     {
      "stt": 5,
      "ten": "Hướng đi",
-     "cau_hoi": "Nếu giữ đà này thì mối này nghiêng về đâu, và người hỏi làm được gì để nó đi theo hướng tốt hơn",
-     "goi_y_doc": "Đọc như hướng, không phải kết cục; nói bằng \"nếu giữ đà này\". Lá nhẹ là mối này đang có đường đi tiếp, lá nặng là đang nghiêng về xa nhau hoặc phải qua một đoạn khó, nói gọn rồi chỉ chỗ làm được. Lá ngược thiên về hướng đó đến chậm hoặc cần người hỏi làm khác đi. Dùng huong trong sac_thai để nói mối này đang tiến, lùi hay đứng.",
+     "cau_hoi": "Nếu giữ đà này thì mối này đang tiến, đang lùi hay đang đứng",
+     "goi_y_doc": "Đọc như hướng, không phải kết cục; nói bằng \"nếu giữ đà này\". Lá nhẹ là mối này đang có đường đi tiếp, lá nặng là đang xa dần hoặc phải qua một đoạn khó, nói gọn. Lá ngược thiên về hướng đó đến chậm hoặc cần người hỏi làm khác đi. Dùng huong trong sac_thai để nói mối này đang tiến, lùi hay đứng. Chỗ này chỉ nói hướng — câu nghiêng về một phía, việc làm được trong bảy ngày tới và điều kiện nếu... thì đều thuộc đoạn kết, nói trước ở đây thì đoạn kết không còn gì để nói.",
      "lang_kinh_uu_tien": "tinh_cam"
     }
    ],
    "luat_doc": [
     "Nhìn lá một và lá hai cạnh nhau trước, gọi tên chỗ hai bên đang lệch hay đang khớp; đây là cặp then chốt của kiểu trải này.",
-    "Nói theo thứ tự một, hai, ba, bốn, năm; gom lá ba và lá bốn thành một đoạn \"cái giữ và cái kéo\", rồi lá năm là câu trả lời.",
+    "Nói theo thứ tự một, hai, ba, bốn, năm; gom lá ba và lá bốn thành một đoạn \"cái giữ và cái kéo\", rồi lá năm là hướng đi nếu giữ đà này, còn câu trả lời thẳng để dành cho đoạn kết.",
     "Không phán về người kia như sự thật ở bất kỳ đoạn nào; không dùng lá nặng ở lá hai hay lá bốn để nói người đó lừa dối, có người khác, hết yêu. Chỉ nói bài cho thấy phía đó đang thế nào trong mối này.",
     "Câu hỏi tiếp tục hay dừng thì đoạn kết vẫn phải nghiêng rõ về một phía kèm một điều kiện nếu... thì để lật lại, theo luật 1 và luật 7 ở mục 10; cái giá của phía còn lại nói gọn một câu. Việc cụ thể ở cuối phải là việc người hỏi làm được một mình, không phụ thuộc người kia.",
     "Người hỏi đang tìm hiểu, chưa thành đôi, thì lá ba đọc là cái đang kéo hai người lại gần, lá năm đọc là chuyện có đi tiếp thành gì hay không, cùng một luật nói theo đà."
@@ -950,8 +950,8 @@
     {
      "stt": 4,
      "ten": "Hướng đi",
-     "cau_hoi": "Nếu sửa được theo lá ba thì tiền nong nghiêng về đâu trong vài tháng tới, và việc đầu tiên nên làm là gì",
-     "goi_y_doc": "Đọc như hướng, nói bằng \"nếu giữ nếp này thì\", theo khoảng \"vài tháng tới\", không mốc ngày, không con số. Lá nhẹ là đang có đường ra hoặc đang có đà thu; lá nặng là đang phải qua một đoạn thắt, nói gọn rồi chỉ chỗ làm được. Lá ngược thiên về hướng đó đến chậm. Dùng huong trong sac_thai để nói đang lên, xuống hay đứng.",
+     "cau_hoi": "Nếu sửa được theo lá ba thì tiền nong đang lên, đang xuống hay đang đứng trong vài tháng tới",
+     "goi_y_doc": "Đọc như hướng, nói bằng \"nếu giữ nếp này thì\", theo khoảng \"vài tháng tới\", không mốc ngày, không con số. Lá nhẹ là đang có đường ra hoặc đang có đà thu; lá nặng là đang phải qua một đoạn thắt, nói gọn. Lá ngược thiên về hướng đó đến chậm. Dùng huong trong sac_thai để nói đang lên, xuống hay đứng. Chỗ này chỉ nói hướng — câu nghiêng về một phía, việc làm được trong bảy ngày tới và điều kiện nếu... thì đều thuộc đoạn kết, nói trước ở đây thì đoạn kết không còn gì để nói.",
      "lang_kinh_uu_tien": "tien_bac"
     }
    ],
