@@ -11,9 +11,9 @@ Backend là tiến trình Node thường, không cần gì đặc biệt ngoài 
 - database `tarot24`, user `tarot24`, chi nghe qua 127.0.0.1
 - nginx site `api.tarot24.online`, chuyen tiep ve cong 3210
 - DNS A `api.tarot24.online` -> 45.76.161.193, DNS-only (khong bat proxy)
-- vao bang khoa chung `~/.ssh/id_ed25519`, dung khoa cua alias
-  `dautuyensinh-vps` trong `~/.ssh/config` — may nay con chay may dich vu khac
-  nen khong co khoa rieng cho tarot24. May khac thi de bang bien `VPS_KEY`.
+- vao bang khoa rieng `~/.ssh/tarot24_vps`. May nay con chay may dich vu khac,
+  moi cai mot khoa — alias `dautuyensinh-vps` trong `~/.ssh/config` la dich vu
+  khac, dung muon khoa do. May dev khac thi de bang bien `VPS_KEY`.
 - TLS Let's Encrypt da cap, HTTP 301 sang HTTPS, `certbot renew` dry-run dat
 
 Web tren Mac Mini goi thang vao `https://api.tarot24.online`. Backend chay
