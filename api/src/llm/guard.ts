@@ -52,7 +52,14 @@ const KEYWORDS: Record<GuardKind, string[]> = {
     "benh", "ung thu", "phau thuat", "bac si", "benh vien", "chua benh", "khoi benh",
     "suc khoe", "tram cam", "uong thuoc", "xet nghiem", "dot quy", "tieu duong",
   ],
-  death: ["chet", "qua doi", "tu tu", "tai nan", "song duoc bao lau", "tang le"],
+  /* Mục 8 lo nhất đường tự làm hại mình, mà mấy cách nói thường gặp nhất
+     không có chữ "chet" hay "tu tu" nào: thiếu chúng thì đúng chỗ cần chặn
+     lại là chỗ guard không bật. */
+  death: [
+    "chet", "qua doi", "tu tu", "tai nan", "song duoc bao lau", "tang le",
+    "tu sat", "tu lam hai", "khong muon song", "khong thiet song", "chan song",
+    "bien mat khoi the gioi", "ket thuc cuoc doi",
+  ],
   pregnancy: [
     "co bau", "mang thai", "co thai", "sinh con", "hiem muon", "thu tinh", "ivf", "thai nhi",
   ],

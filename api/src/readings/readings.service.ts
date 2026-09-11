@@ -243,13 +243,19 @@ export class ReadingsService {
     if (!this.llm.hasProvider()) return { kind: "no-provider" };
     if (!this.budget.con(client)) return { kind: "over-budget" };
 
+    /* Guard của mã bài đọc dò trên câu hỏi gốc, nhưng câu hỏi thêm là chữ mới
+       của người rút: nó chạm được chủ đề cấm mà câu gốc không chạm, và mục 8
+       bắt đúng đường này phải chuyển hướng. Dò lại rồi lấy cái nào bắt được,
+       câu gốc đã cấm thì lượt sau vẫn cấm. */
+    const guard = detectGuard(question) ?? req.guard;
+
     try {
-      const messages = this.kb.buildFollowUpMessages(req, stored.essay, question);
+      const messages = this.kb.buildFollowUpMessages({ ...req, guard }, stored.essay, question);
       const { text, faults } = await this.vietNgan(
         messages,
         "hoi_them",
         question,
-        !!req.guard,
+        !!guard,
         client,
       );
       if (faults.length) {
