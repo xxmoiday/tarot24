@@ -283,6 +283,11 @@ export class KbService {
    * và vẫn để bốn vị trí nói cùng một ý; một bài đã viết đúng dạy nhanh hơn
    * mọi luật viết ra chữ.
    *
+   * Bài mẫu đi kèm một nhãn nói rõ nó là bàn bài khác. Khối ngữ cảnh với năm lá
+   * thật nằm ngay phía trên nó, nên không nói gì thì cặp hỏi–đáp mẫu đọc như
+   * thể đang luận chính bàn bài này, và mô hình vừa được xem một lượt "luận lá
+   * ngoài KB" ngay trước lượt thật.
+   *
    * Chỉ đẩy cho trải bốn tới năm lá: đó là chỗ hay hỏng nhất, còn bắt mọi lượt
    * cõng thêm ba trăm tiếng bài mẫu thì không đáng. Câu chạm chủ đề cấm thì
    * luôn đẩy, vì ở đó mẫu chuyển hướng đáng giá hơn tiền token.
@@ -305,7 +310,8 @@ export class KbService {
         {
           role: "system",
           content:
-            `Một bài mẫu của kiểu trải này, cho câu hỏi "${sample.cau_hoi}":\n\n` +
+            `Một bài mẫu của kiểu trải này, cho câu hỏi "${sample.cau_hoi}" trên một bàn bài ` +
+            `khác — lá nhắc trong đó không nằm trên bàn của lượt này:\n\n` +
             `${sample.bai_luan}\n\n` +
             "Lấy giọng và cách đọc của bài mẫu; đầu ra của bạn vẫn phải là khối JSON đúng khuôn trên.",
         },
@@ -313,6 +319,16 @@ export class KbService {
     }
 
     return [
+      {
+        role: "system",
+        content:
+          `Ngay sau đây là một bài mẫu của chính kiểu trải này: một lượt hỏi và một bài đã ` +
+          `viết đúng khuôn, cho câu hỏi "${sample.cau_hoi}". Đó là bàn bài khác của người ` +
+          `khác. Những lá nhắc trong bài mẫu không nằm trên bàn của lượt này; lá của lượt ` +
+          `này chỉ có trong JSON ngữ cảnh ở trên, và bài bạn viết chỉ được đọc đúng mấy lá ` +
+          `đó. Lấy dáng bài và cách nối các vị trí, đừng lấy lại câu mở, việc cụ thể hay ` +
+          `điều kiện của bài mẫu. Câu hỏi thật của lượt này là lượt cuối cùng, nằm sau bài mẫu.`,
+      },
       { role: "user", content: sample.cau_hoi },
       { role: "assistant", content: JSON.stringify(sample.parts) },
     ];
@@ -333,8 +349,6 @@ export class KbService {
       "ket: đoạn cuối. Câu hỏi đóng thì mở bằng một câu nghiêng rõ về một phía, rồi một việc làm được trong bảy ngày tới, rồi một điều kiện nếu... thì để lật lại lựa chọn đó. Câu hỏi mở thì trả lời thẳng câu hỏi cộng một việc cụ thể. Không lời chúc, không nhắc lại tên các lá đã đi qua.",
       "",
       "Chữ trong từng trường là văn xuôi thuần: không tiêu đề, không gạch đầu dòng, không nhãn hai chấm đầu đoạn, không nhắc số thứ tự vị trí ra thành chữ.",
-      "",
-      "Bài mẫu đặt trước câu hỏi thật là để thấy cách dựng, không phải kho chữ để chép. Hoàn cảnh người hỏi lần này khác, nên đừng lấy lại câu mở, việc cụ thể hay điều kiện của bài mẫu; lá trên bàn quyết định nội dung, bài mẫu chỉ quyết định dáng bài.",
     ].join("\n");
   }
 

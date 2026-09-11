@@ -116,3 +116,39 @@ describe("khuôn đầu ra chỉ thuộc lượt luận bài", () => {
     expect(gop).toContain('"chu_de_cam": true');
   });
 });
+
+describe("bài mẫu few-shot", () => {
+  /* Khối ngữ cảnh với năm lá thật nằm ngay trên cặp hỏi–đáp mẫu, nên không nói
+     rõ thì bài mẫu đọc như thể đang luận chính bàn bài này. */
+  it("có nhãn đứng trước, nói rõ lá trong mẫu không thuộc lượt này", () => {
+    const msg = kb.buildMessages(luot);
+    const i = msg.findIndex((m) => m.content.includes("Ngay sau đây là một bài mẫu"));
+    expect(i).toBeGreaterThan(-1);
+    expect(msg[i].role).toBe("system");
+    expect(msg[i].content).toContain("không nằm trên bàn của lượt này");
+    /* Nhãn phải đi trước cặp mẫu, và cặp mẫu vẫn là user rồi assistant. */
+    expect(msg[i + 1].role).toBe("user");
+    expect(msg[i + 2].role).toBe("assistant");
+    expect(msg[i + 1].content).toBe(
+      "Yêu nhau hai năm, dạo này lạnh nhạt, mối này có đi tiếp được không",
+    );
+  });
+
+  /* Khuôn đầu ra đi mọi lượt luận bài, kể cả lượt không kèm mẫu nào; đoạn dặn
+     về bài mẫu nằm trong đó là dặn về một thứ không có mặt. */
+  it("trải ba lá không kèm mẫu thì cũng không nhắc tới bài mẫu", () => {
+    const msg = kb.buildMessages({
+      spreadSlug: "ba-la-thoi-gian",
+      question: "Chuyện học hành của em rồi ra sao",
+      topic: "study",
+      cards: [
+        { slug: "ba-coc", reversed: false },
+        { slug: "tam-kiem", reversed: true },
+        { slug: "ngoi-sao", reversed: false },
+      ],
+      guard: null,
+    });
+    expect(msg).toHaveLength(3);
+    expect(msg.map((m) => m.content).join("\n")).not.toContain("bài mẫu");
+  });
+});
