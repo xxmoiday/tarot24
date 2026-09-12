@@ -36,12 +36,20 @@ export const MAX_FOLLOW_UPS = 3;
  * Hai ngày trước lần sửa này, log VPS đếm được 26 lượt hỏng vì đúng lý do đó,
  * xen giữa vài lượt lọt — người rút nhận bài dựng cục bộ mà không được báo gì.
  *
- * 12000 phủ được số đo lớn nhất và còn thừa cho trải mười lá. Lượt nào nghĩ ít
- * thì vẫn chỉ trả tiền phần nó nghĩ; lượt nào nghĩ nhiều thì trước đây là lượt
- * mất trắng, giờ thành lượt có bài.
+ * 12000 chạy được nhưng vẫn sát. Đo tiếp trên chính production sau khi nới,
+ * phần nghĩ rải từ 955 tới 11.091, và đỉnh 11.091 lại rơi vào trải MỘT lá.
+ *
+ * Đó là chỗ công thức dưới đây sai nhịp: nó cho phần viết co giãn theo cỡ trải,
+ * mà phần nghĩ thì không co theo cỡ trải chút nào — nghĩ nhiều hay ít là do
+ * system prompt, và system prompt giống hệt nhau ở cả mười lăm kiểu. Nên ô hẹp
+ * nhất lại là ô phải chứa đỉnh cao nhất: trải một lá chỉ được 720 token cho
+ * phần viết, cộng 12000 là 13020, mà lượt kia đã ngốn 11091 chỉ để nghĩ.
+ *
+ * 16000 để cái đuôi kia còn chỗ. Đây là trần chứ không phải lượng tiêu thụ:
+ * lượt nghĩ 955 vẫn chỉ trả tiền 955.
  */
 function choSuyLuan() {
-  return Number(process.env.LLM_REASONING_TOKENS ?? 12000);
+  return Number(process.env.LLM_REASONING_TOKENS ?? 16000);
 }
 
 /** Ngân sách token ra của một lượt: chỗ viết, chỗ cho khuôn JSON, chỗ nghĩ. */
