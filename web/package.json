@@ -12,6 +12,7 @@
     "kb:prompt": "node scripts/sync-kb.mjs --prompt",
     "kb:sync": "node scripts/sync-kb.mjs",
     "check:spreads": "node --experimental-strip-types --no-warnings scripts/check-spreads.mjs",
+    "check:guard": "node scripts/check-guard.mjs",
     "check:lengths": "node --experimental-strip-types --no-warnings scripts/check-lengths.mjs",
     "check:cards": "node --experimental-strip-types --no-warnings scripts/check-cards.mjs",
     "check:seo": "node --experimental-strip-types --no-warnings scripts/check-seo.mjs",

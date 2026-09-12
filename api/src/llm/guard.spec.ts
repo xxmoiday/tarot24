@@ -1,24 +1,110 @@
 import { describe, expect, it } from "vitest";
-import { detectGuard } from "./guard.js";
+import { detectGuard, type GuardKind } from "./guard.js";
+
+/** Câu hỏi thật theo cách người ta hay gõ, gộp theo nhóm phải bắt. */
+const PHAI_BAT: Record<GuardKind, string[]> = {
+  health: [
+    "Em bị bệnh này có khỏi không",
+    "Tháng sau em đi khám, kết quả sẽ thế nào",
+    "Có nên mổ nội soi hay điều trị thuốc",
+    "Khối u này có phải ung thư không",
+    "Mẹ em huyết áp cao, có nên nhập viện",
+    "Em có nên đi cai nghiện không",
+    "Em bị rối loạn lo âu, bao giờ đỡ",
+  ],
+  death: [
+    "Bà em sống được bao lâu nữa",
+    "Dạo này em không muốn sống nữa",
+    "Em chán sống lắm rồi",
+    "Em muốn tự sát",
+    "Em đang tự làm hại mình",
+    "Em không muốn tồn tại nữa",
+  ],
+  pregnancy: [
+    "Năm nay em có mang thai không",
+    "Que thử hai vạch mờ, em có bầu thật không",
+    "Em chậm kinh mấy ngày rồi",
+    "Chuyển phôi lần này có đậu không",
+    "Có nên làm IVF không",
+    "Em có nên bỏ thai không",
+  ],
+  legal: [
+    "Vụ kiện này thắng kiện được không",
+    "Ra toà em có được quyền nuôi con không",
+    "Chia tài sản thế nào cho công bằng",
+    "Tranh chấp đất với nhà bên có xong không",
+    "Anh ấy bị bắt rồi, có bị phạt tù không",
+  ],
+  finance: [
+    "Có nên mua mảnh đất ở Long Thành",
+    "Em có nên mua vàng lúc này không",
+    "Mã này có nên chốt lời chưa",
+    "Có nên vay ngân hàng thế chấp nhà để đầu tư",
+    "Em có nên bỏ tiền vào coin không",
+    "Có nên mua chứng chỉ quỹ hay trái phiếu",
+    "Có nên đi làm bảo hiểm nhân thọ không",
+    "Bạn em rủ làm đa cấp, có nên không",
+    "Có nên dồn tiền mua căn hộ chung cư",
+  ],
+};
+
+/**
+ * Câu hỏi bài PHẢI đọc được. Đây là nửa quan trọng hơn: danh sách từ khoá dài
+ * ra thì mỗi lần thêm một cụm là thêm một cửa bắt oan, mà bắt oan nghĩa là
+ * người ta gõ một câu hỏi bình thường rồi bị từ chối.
+ */
+const KHONG_DUOC_BAT = [
+  "Mối này có đi tiếp được không",
+  "Em có nên nói rõ lòng mình không",
+  "Người ấy có bênh vực em không",
+  "Em thương người ấy chết đi được, có nên tỏ tình không",
+  "Sống chết gì em cũng làm, bài nói em nên bắt đầu từ đâu",
+  "Em nên bắt đầu từ đâu",
+  "Việc này nên bắt đầu từ tháng sau hay để sang năm",
+  "Sếp mới về, em nên bám lại hay tìm chỗ khác",
+  "Em có nên chuyển ngành không",
+  "Em có nên đổi việc không",
+  "Em có nên học lên cao học không",
+  "Năm nay em thi có đậu không",
+  "Em có nên mở quán cà phê không",
+  "Công ty có mở rộng quy mô không",
+  "Em có nên so đo với người ta không",
+  "Hai đứa có nên hoà giải không",
+  "Em có nên tiết kiệm hơn không",
+  "Bao giờ em trả hết nợ",
+  "Em có nên xuất hiện trước công chúng không",
+  "Em có nên tha thứ không",
+  "Gia đình có ủng hộ hai đứa không",
+  "Người cũ có quay lại không",
+  "Tháng tới của em thế nào",
+  "Em có nên chuyển ra ở riêng không",
+  "Chuyện này bao giờ ngã ngũ",
+];
 
 describe("dò chủ đề bài không trả lời", () => {
-  it("bắt mấy nhóm quen thuộc", () => {
-    expect(detectGuard("Em bị bệnh này có khỏi không")?.kind).toBe("health");
-    expect(detectGuard("Có nên mua mảnh đất ở Long Thành")?.kind).toBe("finance");
-    expect(detectGuard("Vụ kiện này thắng kiện được không")?.kind).toBe("legal");
+  for (const [kind, cau] of Object.entries(PHAI_BAT)) {
+    it.each(cau)(`${kind}: %s`, (q) => {
+      expect(detectGuard(q)?.kind).toBe(kind);
+    });
+  }
+
+  it.each(KHONG_DUOC_BAT)("không bắt oan: %s", (q) => {
+    expect(detectGuard(q)).toBeNull();
   });
 
-  /* Mục 8 lo nhất đường tự làm hại mình, mà mấy cách nói thường gặp nhất không
-     có chữ "chết" hay "tự tử" nào trong đó. */
-  it("bắt cả những cách nói không có chữ chết", () => {
-    for (const q of [
-      "Dạo này em không muốn sống nữa",
-      "Em chán sống lắm rồi",
-      "Em muốn tự sát",
-      "Em đang tự làm hại mình",
-      "Em không thiết sống nữa",
-    ]) {
-      expect(detectGuard(q)?.kind, q).toBe("death");
+  it("câu rỗng thì không dò", () => {
+    expect(detectGuard("")).toBeNull();
+    expect(detectGuard("   ")).toBeNull();
+  });
+
+  /* Mọi nhóm đều phải có câu nhắc và câu chuyển hướng, không thì màn đặt câu
+     hỏi hiện ô trống. */
+  it("nhóm nào bắt được cũng có đủ nhãn, câu nhắc và câu chuyển hướng", () => {
+    for (const cau of Object.values(PHAI_BAT).flat()) {
+      const g = detectGuard(cau)!;
+      expect(g.label, cau).toBeTruthy();
+      expect(g.hint, cau).toBeTruthy();
+      expect(g.notice, cau).toBeTruthy();
     }
   });
 
@@ -37,12 +123,6 @@ describe("dò chủ đề bài không trả lời", () => {
     ]) {
       expect(detectGuard(q)?.kind, q).toBe("finance");
     }
-  });
-
-  it("không bắt oan câu thường", () => {
-    expect(detectGuard("Mối này có đi tiếp được không")).toBeNull();
-    expect(detectGuard("Em có nên đổi việc không")).toBeNull();
-    expect(detectGuard("")).toBeNull();
   });
 
   /* "long" là bẫy: bỏ dấu thì "lòng" cũng thành "long", và "Long Thành" nữa.

@@ -51,6 +51,9 @@ const KEYWORDS: Record<GuardKind, string[]> = {
   health: [
     "benh", "ung thu", "phau thuat", "bac si", "benh vien", "chua benh", "khoi benh",
     "suc khoe", "tram cam", "uong thuoc", "xet nghiem", "dot quy", "tieu duong",
+    "di kham", "kham benh", "noi soi", "hoa tri", "xa tri", "khoi u", "u xo",
+    "huyet ap", "tim mach", "covid", "nhap vien", "dieu tri", "chan thuong",
+    "di ung", "tam than", "roi loan lo au", "cai nghien", "nghien ruou",
   ],
   /* Mục 8 lo nhất đường tự làm hại mình, mà mấy cách nói thường gặp nhất
      không có chữ "chet" hay "tu tu" nào: thiếu chúng thì đúng chỗ cần chặn
@@ -58,14 +61,20 @@ const KEYWORDS: Record<GuardKind, string[]> = {
   death: [
     "chet", "qua doi", "tu tu", "tai nan", "song duoc bao lau", "tang le",
     "tu sat", "tu lam hai", "khong muon song", "khong thiet song", "chan song",
-    "bien mat khoi the gioi", "ket thuc cuoc doi",
+    "bien mat khoi the gioi", "ket thuc cuoc doi", "khong muon ton tai",
+    "tu vong", "dam tang", "cat tay", "nhay cau",
   ],
   pregnancy: [
     "co bau", "mang thai", "co thai", "sinh con", "hiem muon", "thu tinh", "ivf", "thai nhi",
+    "que thu", "cham kinh", "sieu am", "sinh mo", "pha thai", "bo thai", "nao thai",
+    "tranh thai", "tinh trung", "chuyen phoi", "iui", "kich trung", "thai ky",
+    "om nghen", "sinh non", "bau bi",
   ],
   legal: [
     "kien tung", "thang kien", "toa an", "luat su", "to cao", "khoi kien",
-    "tranh chap dat", "di chuc", "hop dong phap ly",
+    "tranh chap dat", "di chuc", "hop dong phap ly", "ra toa", "vu an", "xu an",
+    "thi hanh an", "boi thuong", "quyen nuoi con", "chia tai san", "tranh chap",
+    "kien cao", "bi bat", "tam giam", "phat tu", "giay to dat", "so hong",
   ],
   /* Nhánh phái sinh thêm sau, vì thiếu nó thì đúng nhóm hỏi dày nhất lại lọt:
      người chơi future hỏi mỗi ngày, mà danh sách cũ chỉ có "forex" và "coin".
@@ -79,8 +88,29 @@ const KEYWORDS: Record<GuardKind, string[]> = {
     "future", "phai sinh", "hop dong tuong lai", "margin", "don bay", "thanh khoan",
     "trading", "trader", "scalp", "all in", "chay tai khoan", "san giao dich",
     "btc", "eth", "usdt", "altcoin", "bang lenh", "so lenh", "khop lenh",
+    "trai phieu", "chung chi quy", "dat nen", "can ho", "chung cu", "dao han",
+    "the chap", "cam co", "vay ngan hang", "lai kep", "tien ao", "ethereum",
+    "nft", "gui tiet kiem", "bao hiem nhan tho", "da cap",
   ],
 };
+
+/**
+ * Cụm trùng âm hoặc nói cho vui, gỡ khỏi câu trước khi dò.
+ *
+ * Bỏ dấu xong thì "bênh vực" thành "benh vuc", tức mọi câu hỏi người ấy có
+ * bênh vực mình không đều rơi vào nhóm sức khoẻ. "Thương chết đi được" cũng
+ * không phải câu hỏi về sinh tử. Danh sách từ khoá càng dài thì mấy chỗ trùng
+ * âm này càng nhiều, nên gỡ trước rồi mới dò, thay vì viết luật loại trừ cho
+ * từng từ.
+ */
+const NOI_CHO_VUI = [
+  "chet me", "chet met", "chet di duoc", "chet cuoi", "chet thoi", "song chet",
+  "benh vuc",
+  /* "bắt đầu từ đâu" bỏ dấu ra "bat dau tu dau", trong đó có "dau tu". Câu hỏi
+     nên bắt đầu từ đâu là câu hỏi thường gặp nhất của cả trang, mà nó rơi vào
+     nhóm đầu tư. Gỡ "bat dau" là xong cả họ câu đó. */
+  "bat dau",
+];
 
 /**
  * Vài câu chen chữ vào giữa, ví dụ "mua mảnh đất ở Long Thành", nên cần mẫu
@@ -117,7 +147,7 @@ function deaccent(s: string) {
  * Trả về nhóm đầu tiên khớp, ưu tiên nhóm nặng hơn.
  */
 export function detectGuard(question: string): Guard | null {
-  const q = deaccent(question);
+  const q = NOI_CHO_VUI.reduce((s, cum) => s.split(cum).join(" "), deaccent(question));
   if (!q.trim()) return null;
   const order: GuardKind[] = ["death", "health", "pregnancy", "legal", "finance"];
   for (const kind of order) {
