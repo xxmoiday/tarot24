@@ -5,6 +5,8 @@ const kb = new KbService();
 
 afterEach(() => {
   delete process.env.WEB_BASE_URL;
+  delete process.env.TAROT_CARD_DECK;
+  delete process.env.NEXT_PUBLIC_TAROT_CARD_DECK;
 });
 
 describe("KB mở ra ngoài", () => {
@@ -30,6 +32,81 @@ describe("KB mở ra ngoài", () => {
 
     process.env.WEB_BASE_URL = "http://localhost:3000/";
     expect(kb.tatCaLa()[0].anh).toBe("http://localhost:3000/cards/major_00.webp");
+  });
+
+  it("ảnh lá đổi được sang deck văn hoá Việt Nam và tự fallback lá chưa có", () => {
+    process.env.WEB_BASE_URL = "http://localhost:3000/";
+    process.env.TAROT_CARD_DECK = "vietnamese-culture";
+
+    const fool = kb.tatCaLa().find((c) => c.id === "major_00")!;
+    const magician = kb.tatCaLa().find((c) => c.id === "major_01")!;
+    const highPriestess = kb.tatCaLa().find((c) => c.id === "major_02")!;
+    const empress = kb.tatCaLa().find((c) => c.id === "major_03")!;
+    const emperor = kb.tatCaLa().find((c) => c.id === "major_04")!;
+    const hierophant = kb.tatCaLa().find((c) => c.id === "major_05")!;
+    const lovers = kb.tatCaLa().find((c) => c.id === "major_06")!;
+    const chariot = kb.tatCaLa().find((c) => c.id === "major_07")!;
+    const strength = kb.tatCaLa().find((c) => c.id === "major_08")!;
+    const hermit = kb.tatCaLa().find((c) => c.id === "major_09")!;
+    const wheel = kb.tatCaLa().find((c) => c.id === "major_10")!;
+    const justice = kb.tatCaLa().find((c) => c.id === "major_11")!;
+    const hangedMan = kb.tatCaLa().find((c) => c.id === "major_12")!;
+    const death = kb.tatCaLa().find((c) => c.id === "major_13")!;
+    const temperance = kb.tatCaLa().find((c) => c.id === "major_14")!;
+    const devil = kb.tatCaLa().find((c) => c.id === "major_15")!;
+    const tower = kb.tatCaLa().find((c) => c.id === "major_16")!;
+    const star = kb.tatCaLa().find((c) => c.id === "major_17")!;
+    const moon = kb.tatCaLa().find((c) => c.id === "major_18")!;
+    const sun = kb.tatCaLa().find((c) => c.id === "major_19")!;
+    const judgement = kb.tatCaLa().find((c) => c.id === "major_20")!;
+    const world = kb.tatCaLa().find((c) => c.id === "major_21")!;
+    const aceOfWands = kb.tatCaLa().find((c) => c.id === "wand_01")!;
+    const twoOfWands = kb.tatCaLa().find((c) => c.id === "wand_02")!;
+    const threeOfWands = kb.tatCaLa().find((c) => c.id === "wand_03")!;
+    const fourOfWands = kb.tatCaLa().find((c) => c.id === "wand_04")!;
+    const fiveOfWands = kb.tatCaLa().find((c) => c.id === "wand_05")!;
+
+    expect(fool.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_00.webp");
+    expect(magician.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_01.webp");
+    expect(highPriestess.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/major_02.webp",
+    );
+    expect(empress.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_03.webp");
+    expect(emperor.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_04.webp");
+    expect(hierophant.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_05.webp");
+    expect(lovers.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_06.webp");
+    expect(chariot.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_07.webp");
+    expect(strength.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_08.webp");
+    expect(hermit.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_09.webp");
+    expect(wheel.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_10.webp");
+    expect(justice.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_11.webp");
+    expect(hangedMan.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/major_12.webp",
+    );
+    expect(death.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_13.webp");
+    expect(temperance.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/major_14.webp",
+    );
+    expect(devil.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_15.webp");
+    expect(tower.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_16.webp");
+    expect(star.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_17.webp");
+    expect(moon.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_18.webp");
+    expect(sun.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_19.webp");
+    expect(judgement.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/major_20.webp",
+    );
+    expect(world.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_21.webp");
+    expect(aceOfWands.anh).toBe("http://localhost:3000/cards-vietnamese-culture/wand_01.webp");
+    expect(twoOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_02.webp",
+    );
+    expect(threeOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_03.webp",
+    );
+    expect(fourOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_04.webp",
+    );
+    expect(fiveOfWands.anh).toBe("http://localhost:3000/cards/wand_05.webp");
   });
 
   it("trả đủ 15 kiểu trải, đường dẫn khớp cái mã bài đọc dùng", () => {

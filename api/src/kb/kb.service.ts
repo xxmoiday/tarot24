@@ -89,9 +89,47 @@ const SLUG_CUA_TRAI = new Map(Object.entries(SPREAD_ID).map(([slug, id]) => [id,
  * Ảnh lá nằm bên web, đặt tên theo id chứ không theo đường dẫn tiếng Việt.
  * Để ở env vì máy dev và máy thật trỏ về hai nơi khác nhau.
  */
+const VIETNAMESE_CULTURE_DECK = "vietnamese-culture";
+const VIETNAMESE_CULTURE_CARDS = new Set([
+  "major_00",
+  "major_01",
+  "major_02",
+  "major_03",
+  "major_04",
+  "major_05",
+  "major_06",
+  "major_07",
+  "major_08",
+  "major_09",
+  "major_10",
+  "major_11",
+  "major_12",
+  "major_13",
+  "major_14",
+  "major_15",
+  "major_16",
+  "major_17",
+  "major_18",
+  "major_19",
+  "major_20",
+  "major_21",
+  "wand_01",
+  "wand_02",
+  "wand_03",
+  "wand_04",
+]);
+
+function cardImagePath(id: string) {
+  const deck = process.env.TAROT_CARD_DECK ?? process.env.NEXT_PUBLIC_TAROT_CARD_DECK;
+  if (deck === VIETNAMESE_CULTURE_DECK && VIETNAMESE_CULTURE_CARDS.has(id)) {
+    return `/cards-vietnamese-culture/${id}.webp`;
+  }
+  return `/cards/${id}.webp`;
+}
+
 function anhCuaLa(id: string) {
   const goc = process.env.WEB_BASE_URL ?? "https://www.tarot24.online";
-  return `${goc.replace(/\/$/, "")}/cards/${id}.webp`;
+  return `${goc.replace(/\/$/, "")}${cardImagePath(id)}`;
 }
 
 /** Sinh đường dẫn từ tên lá, đúng cùng quy tắc mà web đang dùng. */

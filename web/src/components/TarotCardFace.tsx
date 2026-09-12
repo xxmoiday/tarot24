@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
+import { cardImagePath, type CardDeck } from "@/lib/decks";
 
 export interface TarotCardFaceProps {
   /** Mã lá trong KB; có thì hiện tranh gốc thay cho mặt chữ */
@@ -10,6 +11,8 @@ export interface TarotCardFaceProps {
   en?: string;
   face?: "up" | "down";
   reversed?: boolean;
+  /** Bộ ảnh muốn dùng; bỏ trống thì theo NEXT_PUBLIC_TAROT_CARD_DECK. */
+  deck?: CardDeck;
   className?: string;
   style?: CSSProperties;
   /** Bề ngang do nơi gọi quyết định — luôn truyền một class width vào className */
@@ -26,6 +29,7 @@ export function TarotCardFace({
   en,
   face = "up",
   reversed = false,
+  deck,
   className = "",
   style,
   as: Tag = "div",
@@ -72,7 +76,7 @@ export function TarotCardFace({
           </div>
         ) : imageId ? (
           <Image
-            src={`/cards/${imageId}.webp`}
+            src={cardImagePath(imageId, deck)}
             alt={title ? `Lá ${title}` : ""}
             fill
             sizes="(max-width: 768px) 40vw, 300px"

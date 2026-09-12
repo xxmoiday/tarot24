@@ -16,6 +16,7 @@ import {
 } from "@/lib/cards";
 import { FAQ_ID, getCardSeo, type CardSeo } from "@/lib/seo";
 import { SITE, absoluteUrl, breadcrumbLd } from "@/lib/site";
+import { cardImagePath } from "@/lib/decks";
 
 export function generateStaticParams() {
   return CARDS.map((c) => ({ slug: c.slug }));
@@ -114,7 +115,7 @@ export default async function CardPage({
            được khổ hợp với từng chỗ hiển thị. */
         image: [
           absoluteUrl(`/la-bai/${card.slug}/opengraph-image`),
-          absoluteUrl(`/cards/${card.id}.webp`),
+          absoluteUrl(cardImagePath(card.id)),
         ],
         about: { "@type": "Thing", name: `Lá bài tarot ${card.en}` },
         keywords: [...card.upright, ...card.reversed].join(", "),
