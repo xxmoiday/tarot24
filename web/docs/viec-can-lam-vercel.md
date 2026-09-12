@@ -25,8 +25,8 @@ Vercel → Project → **Settings → Environment Variables** → môi trường
 | `NEXT_PUBLIC_SITE_URL` | `https://www.tarot24.online` | ✅ |
 | `API_BASE_URL` | `https://api.tarot24.online` | ✅ |
 | `API_KEY` | lấy trong `web/.env.local` ở Mac Mini, phải khớp `API_KEY` trong `/var/www/tarot24-backend/.env` trên VPS | ✅ |
-| `API_TIMEOUT_MS` | `90000` — một lượt luận bài mất 6–15 giây | nên có |
-| `RATE_READINGS_PER_HOUR` | `12` | tuỳ |
+| `API_TIMEOUT_MS` | `180000` — một lượt luận bài mất 15–60 giây, trải mười lá có thể gấp đôi nếu bộ soát đòi viết lại | ✅ |
+| `RATE_READINGS_PER_HOUR` | `24` | tuỳ |
 | `RATE_FOLLOWUPS_PER_HOUR` | `30` | tuỳ |
 | `REVIEW_USER` / `REVIEW_PASS` | lấy trong `web/.env.local` | chỉ khi muốn mở `/soat` |
 | `NEXT_PUBLIC_GA_ID` | `G-LZLMGNL8SJ` — đã có mặc định cứng trong `src/lib/site.ts`, đặt biến chỉ để đổi hoặc để tắt | tuỳ |
@@ -69,10 +69,11 @@ curl -s https://www.tarot24.online/sitemap.xml | head -3
 curl -s https://api.tarot24.online/api/health
 ```
 
-Rồi mở trình duyệt rút một bài thật — phải ra bài luận chứ không phải trang
-trống. Đây là phép thử duy nhất chứng minh `API_KEY` khớp giữa hai bên; sai
-khoá thì backend trả 403 và web nuốt lỗi thành `reason:"backend-error"` chứ
-không báo gì ra màn hình.
+Rồi mở trình duyệt rút một bài thật — phải ra bài luận chứ không phải bản
+dựng tạm. Đây là phép thử duy nhất chứng minh `API_KEY` khớp giữa hai bên. Sai
+khoá thì backend trả 403, web nhận `reason:"backend-error"` và hiện ô "Chưa
+luận được bài" kèm nút xin lại; chữ bên dưới ô đó là bản dựng tạm từ dữ liệu
+lá, không phải bài luận.
 
 Hỏi thêm một câu nữa, và mở một trang `/doc/<id>` xem ảnh OG có hiện không.
 

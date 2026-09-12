@@ -26,6 +26,7 @@ import type { DeckSpot } from "./deck-spot";
 import {
   ReadingView,
   type Clarifier,
+  type EssayFault,
   type FollowUp,
   type ReadingParts,
 } from "./ReadingView";
@@ -107,6 +108,8 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const [clarifiers, setClarifiers] = useState<Clarifier[]>([]);
   /** Mã bài đọc mà lượt xin bài luận đã xong, dùng để suy ra trạng thái chờ */
   const [essayFor, setEssayFor] = useState<string | null>(null);
+  /** Vì sao chưa có bài luận; null là không có chuyện gì. */
+  const [fault, setFault] = useState<EssayFault | null>(null);
   const [followUps, setFollowUps] = useState<FollowUp[]>([]);
   const resultRef = useRef<HTMLDivElement>(null);
 
@@ -210,7 +213,15 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
     return () => clearTimeout(t);
   }, [step, picked, spread.count, spread.slug, deck, question, topic, router]);
 
-  /** Xin bài luận cho mã hiện tại; chưa cấu hình mô hình thì giữ bản dựng cục bộ. */
+  /**
+   * Xin bài luận cho mã hiện tại; chưa cấu hình mô hình thì giữ bản dựng cục bộ.
+   *
+   * Hỏng thì phải nói ra. Trước đây mọi đường hỏng đều rơi lặng lẽ về bản dựng
+   * cục bộ: backend chết, hết lượt, mô hình trả bài rỗng — người rút đều nhận
+   * một bài trông y như bài thật, và không có cách nào biết mình đang đọc bản
+   * tạm. Chính chỗ này làm cả chủ site lẫn người dùng tưởng mô hình viết dở
+   * suốt hai ngày, trong khi mô hình chưa hề được gọi.
+   */
   useEffect(() => {
     if (step !== "result" || !shareId || essayFor === shareId) return;
     const ctl = new AbortController();
@@ -220,6 +231,7 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
       let shaped: ReadingParts | null = null;
       let list: FollowUp[] = [];
       let hints: Clarifier[] = [];
+      let sao: EssayFault | null = null;
       try {
         const res = await fetch("/api/reading", {
           method: "POST",
@@ -232,19 +244,31 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
           parts?: ReadingParts | null;
           followUps?: FollowUp[];
           clarifiers?: Clarifier[];
+          /** Chỉ có khi không mang bài về: no-backend, backend-error, rate-limit */
+          reason?: string;
         };
         text = data.essay ?? null;
         shaped = data.parts ?? null;
         list = data.followUps ?? [];
         hints = data.clarifiers ?? [];
-      } catch {
-        /* Mạng hỏng hoặc máy chủ lỗi thì rơi về bản dựng cục bộ. */
+        if (!text) {
+          sao = {
+            reason: data.reason ?? "khong-ro",
+            /* Giây còn phải chờ, backend gửi ở header chứ không ở thân. */
+            retryAfter: Number(res.headers.get("retry-after")) || undefined,
+          };
+        }
+      } catch (e) {
+        /* Người rút bấm rút lại giữa chừng thì lượt cũ bị huỷ, không phải hỏng. */
+        if ((e as Error)?.name === "AbortError") return;
+        sao = { reason: "mang" };
       }
       if (!alive) return;
       setEssay(text);
       setParts(shaped);
       setFollowUps(list);
       setClarifiers(hints);
+      setFault(sao);
       setEssayFor(shareId);
     })();
     return () => {
@@ -255,6 +279,12 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
 
   const essayState: "loading" | "ready" =
     step === "result" && shareId && essayFor !== shareId ? "loading" : "ready";
+
+  /** Xin lại bài cho đúng mã đang mở: quên mã đã xong là useEffect chạy lại. */
+  const retryEssay = useCallback(() => {
+    setFault(null);
+    setEssayFor(null);
+  }, []);
 
   const askServer = useCallback(
     async (question: string) => {
@@ -350,6 +380,7 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
   const redraw = useCallback(() => {
     setShareId("");
     setEssay(null);
+    setFault(null);
     setParts(null);
     setEssayFor(null);
     setFollowUps([]);
@@ -684,6 +715,8 @@ export function ReadingFlow({ spread }: { spread: Spread }) {
         onRedraw={redraw}
         essay={essay}
         essayState={essayState}
+        essayFault={fault}
+        onRetryEssay={retryEssay}
         parts={parts}
         followUps={followUps}
         clarifiers={clarifiers}

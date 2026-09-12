@@ -10,11 +10,22 @@ export const dynamic = "force-dynamic";
  * nên trình duyệt luôn đi qua đây chứ không gọi thẳng backend.
  */
 export async function POST(request: Request) {
-  /* Chặn sớm ngay tại đây để một máy khách hỏng không dội hết vào backend. */
+  /*
+    Chặn sớm ngay tại đây để một máy khách hỏng không dội hết vào backend.
+
+    12 bài mỗi giờ là quá chặt. Tiền của ngày đã có `LLM_CALLS_PER_DAY` bên
+    backend chốt, nên trần này chỉ để một máy khách hỏng không dội loạn — mà
+    12 thì chặn cả người đang ngồi thử thật, kể cả chính người vận hành. Hết
+    trần lại rơi vào đúng đường lặng lẽ dựng bản tạm, nên người bị chặn tưởng
+    bài luận viết dở chứ không biết mình bị chặn.
+
+    24 vẫn nằm dưới trần 30 lượt mỗi giờ của backend, nên phần còn lại đủ cho
+    câu hỏi thêm và lá làm rõ của chính người đó.
+  */
   const ip = clientIp(request);
   const limit = rateLimit(
     `luan-bai:${ip}`,
-    Number(process.env.RATE_READINGS_PER_HOUR ?? 12),
+    Number(process.env.RATE_READINGS_PER_HOUR ?? 24),
     60 * 60 * 1000,
   );
   if (!limit.ok) {

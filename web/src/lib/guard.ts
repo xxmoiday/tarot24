@@ -54,7 +54,14 @@ const KEYWORDS: Record<GuardKind, string[]> = {
     "benh", "ung thu", "phau thuat", "bac si", "benh vien", "chua benh", "khoi benh",
     "suc khoe", "tram cam", "uong thuoc", "xet nghiem", "dot quy", "tieu duong",
   ],
-  death: ["chet", "qua doi", "tu tu", "tai nan", "song duoc bao lau", "tang le"],
+  /* Mục 8 lo nhất đường tự làm hại mình, mà mấy cách nói thường gặp nhất
+     không có chữ "chet" hay "tu tu" nào: thiếu chúng thì đúng chỗ cần chặn
+     lại là chỗ guard không bật. Phải khớp với api/src/llm/guard.ts. */
+  death: [
+    "chet", "qua doi", "tu tu", "tai nan", "song duoc bao lau", "tang le",
+    "tu sat", "tu lam hai", "khong muon song", "khong thiet song", "chan song",
+    "bien mat khoi the gioi", "ket thuc cuoc doi",
+  ],
   pregnancy: [
     "co bau", "mang thai", "co thai", "sinh con", "hiem muon", "thu tinh", "ivf", "thai nhi",
   ],
@@ -62,10 +69,15 @@ const KEYWORDS: Record<GuardKind, string[]> = {
     "kien tung", "thang kien", "toa an", "luat su", "to cao", "khoi kien",
     "tranh chap dat", "di chuc", "hop dong phap ly",
   ],
+  /* Nhánh phái sinh thêm sau, vì thiếu nó thì đúng nhóm hỏi dày nhất lại lọt:
+     người chơi future hỏi mỗi ngày, mà danh sách cũ chỉ có "forex" và "coin". */
   finance: [
     "mua vang", "ban vang", "mua dat", "ban dat", "mua nha", "ban nha", "co phieu",
     "chung khoan", "coin", "bitcoin", "crypto", "forex", "dau tu", "gop von", "vay tien",
     "lai suat", "chot loi", "cat lo", "ma nay", "bat day", "xuong tien",
+    "future", "phai sinh", "hop dong tuong lai", "margin", "don bay", "thanh khoan",
+    "trading", "trader", "scalp", "all in", "chay tai khoan", "san giao dich",
+    "btc", "eth", "usdt", "altcoin", "bang lenh", "so lenh", "khop lenh",
   ],
 };
 
@@ -77,6 +89,15 @@ const PATTERNS: Partial<Record<GuardKind, RegExp[]>> = {
   finance: [
     /\b(mua|ban|dau tu|xuong tien|gom)\b[^?!.]{0,24}\b(dat|nha|vang|coin|chung khoan|co phieu|bat dong san|can ho)\b/,
     /\b(manh|lo|mieng) dat\b/,
+    /*
+      "long" và "short" một mình thì không dò được. Bỏ dấu xong "lòng" thành
+      "long", nên "mở lòng với người đó" sẽ dính; "Long Thành" cũng vậy. Chỉ
+      bắt khi hai chữ đi liền nhau, hoặc khi đứng cạnh chữ của nghề.
+    */
+    /\b(long|short)[\s/-]+(long|short)\b/,
+    /\b(lenh|vi the|phien|keo)\b[^?!.]{0,12}\b(long|short|sell|buy)\b/,
+    /\b(long|short|sell|buy)\b[^?!.]{0,12}\b(lenh|vi the|future|coin|vang)\b/,
+    /\b(vao|dong|cat|nhoi|om|gong|chot|them)\b[^?!.]{0,12}\blenh\b/,
   ],
   legal: [/\b(kien|thang|thua)\b[^?!.]{0,16}\b(kien|toa|vu an)\b/],
 };

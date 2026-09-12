@@ -38,6 +38,87 @@ export interface Clarifier {
   answer: string;
 }
 
+/** Vì sao lượt xin bài luận không mang bài về. */
+export interface EssayFault {
+  reason: string;
+  /** Giây còn phải chờ, chỉ có khi bị chặn vì rút quá nhiều. */
+  retryAfter?: number;
+}
+
+/**
+ * Đổi mã lỗi thành câu người đọc hiểu được.
+ *
+ * Chỗ này sinh ra vì bản dựng cục bộ trông y hệt bài thật: cùng khung, cùng ô
+ * Chốt lại, chỉ khác là chữ lấy từ mấy câu mẫu cứng trong `lib/reading.ts`. Ai
+ * gặp nó đều tưởng mô hình viết như thế, rồi đi sửa prompt hoặc đổi model —
+ * trong khi mô hình chưa từng được gọi cho bài đó.
+ */
+function moTaLoi(fault: EssayFault): { title: string; body: string; retry: boolean } {
+  const phut = fault.retryAfter ? Math.ceil(fault.retryAfter / 60) : 0;
+  switch (fault.reason) {
+    case "rate-limit":
+      return {
+        title: "Bạn vừa rút hơi nhiều",
+        body:
+          `Mỗi người rút được một số bài nhất định mỗi giờ, để bài luận còn phần cho người khác. ` +
+          (phut ? `Chờ khoảng ${phut} phút nữa rồi bấm xin lại.` : "Nghỉ một lát rồi bấm xin lại."),
+        retry: true,
+      };
+    case "no-backend":
+    case "no-provider":
+      return {
+        title: "Chưa nối được phần luận bài",
+        body: "Máy chủ viết bài chưa sẵn sàng, nên lần này chưa có bài luận.",
+        retry: false,
+      };
+    default:
+      return {
+        title: "Chưa luận được bài",
+        body: "Lượt viết bài vừa rồi không xong. Bàn bài vẫn nguyên, bấm xin lại là viết cho đúng bàn này.",
+        retry: true,
+      };
+  }
+}
+
+/**
+ * Nói thẳng rằng chưa có bài luận, và chữ bên dưới là bản dựng tạm.
+ *
+ * Bàn bài vẫn hiện nguyên, vì lá đã rút rồi và đó là của người rút. Cái phải
+ * nói rõ chỉ là: phần chữ này máy ghép từ dữ liệu lá, không phải bài người đọc
+ * viết cho câu hỏi của bạn.
+ */
+function EssayFaultNotice({
+  fault,
+  onRetry,
+}: {
+  fault: EssayFault;
+  onRetry?: () => void;
+}) {
+  const { title, body, retry } = moTaLoi(fault);
+  return (
+    <div
+      role="status"
+      className="flex flex-col gap-2.5 rounded-xl border border-rust/45 bg-rust/8 p-4.5"
+    >
+      <p className="label-eyebrow text-rust">{title}</p>
+      <p className="text-[14.5px]/[1.7] text-pretty text-ink">{body}</p>
+      <p className="text-[13.5px]/[1.65] text-pretty text-muted">
+        Phần chữ dưới đây là bản dựng tạm, ghép từ nghĩa các lá vừa rút. Nó
+        không phải bài luận viết riêng cho câu hỏi của bạn.
+      </p>
+      {retry && onRetry ? (
+        <button
+          type="button"
+          onClick={onRetry}
+          className={buttonClass("outline", "sm", "mt-1 self-start")}
+        >
+          Xin lại bài luận
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
 /** Bài do mô hình viết là văn xuôi liền, tách đoạn theo dòng trống. */
 function toParagraphs(essay: string) {
   return essay
@@ -62,6 +143,8 @@ export function ReadingView({
   onRedraw,
   essay,
   essayState = "ready",
+  essayFault,
+  onRetryEssay,
   parts,
   followUps: serverFollowUps,
   clarifiers = [],
@@ -75,6 +158,10 @@ export function ReadingView({
   /** Bài luận do mô hình viết; không có thì dùng bản dựng cục bộ */
   essay?: string | null;
   essayState?: "loading" | "ready" | "error";
+  /** Vì sao chưa có bài luận; có nó thì nói ra chứ không lặng lẽ dựng bản tạm */
+  essayFault?: EssayFault | null;
+  /** Xin lại bài luận cho đúng bàn bài đang mở */
+  onRetryEssay?: () => void;
   /** Bài tách theo vị trí; bài cũ không có nên vẫn phải đọc được từ `essay` */
   parts?: ReadingParts | null;
   followUps?: FollowUp[];
@@ -323,6 +410,9 @@ export function ReadingView({
             ))
           ) : (
             <>
+              {essayFault ? (
+                <EssayFaultNotice fault={essayFault} onRetry={onRetryEssay} />
+              ) : null}
               <p className="prose-reading">{reading.intro}</p>
               {reading.body.map((p, i) => (
                 <p key={i} className="prose-reading">

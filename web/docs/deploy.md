@@ -40,7 +40,7 @@ Project Settings → Environment Variables, môi trường **Production**:
 | `API_BASE_URL` | `https://api.tarot24.online` |
 | `API_KEY` | đúng khoá trong `/var/www/tarot24-backend/.env` trên VPS |
 | `REVIEW_USER` / `REVIEW_PASS` | chặn trang `/soat`; **không đặt là `/soat` trả 404**, đúng ý đồ |
-| `RATE_READINGS_PER_HOUR` | tuỳ, mặc định 12 |
+| `RATE_READINGS_PER_HOUR` | tuỳ, mặc định 24 |
 | `RATE_FOLLOWUPS_PER_HOUR` | tuỳ, mặc định 30 |
 | `API_TIMEOUT_MS` | tuỳ, một lượt luận bài mất 6–15 giây |
 | `NEXT_PUBLIC_GA_ID` | tuỳ, mặc định `G-LZLMGNL8SJ`; để trống là tắt hẳn đo lường |
