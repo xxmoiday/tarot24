@@ -29,9 +29,19 @@ export const MAX_FOLLOW_UPS = 3;
  * Trần rộng không tốn thêm đồng nào nếu mô hình không dùng tới — tính tiền
  * theo token sinh ra, không theo trần — còn trần hẹp thì hỏng hẳn tính năng.
  * Nên chừa thoáng tay.
+ *
+ * 2000 vẫn còn hẹp. Số đo lấy từ chính prompt của repo, gửi thẳng lên DeepSeek:
+ * một lá nghĩ 3.214–4.662, ba lá nghĩ 5.114–8.431, năm lá nghĩ 8.104. Tức mọi
+ * cỡ trải đều tràn, và tràn thì `finish_reason` về "length" với `content` rỗng.
+ * Hai ngày trước lần sửa này, log VPS đếm được 26 lượt hỏng vì đúng lý do đó,
+ * xen giữa vài lượt lọt — người rút nhận bài dựng cục bộ mà không được báo gì.
+ *
+ * 12000 phủ được số đo lớn nhất và còn thừa cho trải mười lá. Lượt nào nghĩ ít
+ * thì vẫn chỉ trả tiền phần nó nghĩ; lượt nào nghĩ nhiều thì trước đây là lượt
+ * mất trắng, giờ thành lượt có bài.
  */
 function choSuyLuan() {
-  return Number(process.env.LLM_REASONING_TOKENS ?? 2000);
+  return Number(process.env.LLM_REASONING_TOKENS ?? 12000);
 }
 
 /** Ngân sách token ra của một lượt: chỗ viết, chỗ cho khuôn JSON, chỗ nghĩ. */

@@ -74,6 +74,27 @@ interface ProviderConfig {
   dialect: "openai" | "anthropic";
 }
 
+/**
+ * Bài rỗng có hai kiểu, và trước đây log ghi chung một câu cho cả hai.
+ *
+ * Kiểu hay gặp là bị cắt: model suy luận nghĩ hết `max_tokens` rồi không còn
+ * chỗ viết, nhà cung cấp báo bằng `finish_reason` là "length" hoặc "max_tokens".
+ * Đó là lỗi ngân sách bên mình, sửa bằng cách nới trần ở `choSuyLuan`. Kiểu kia
+ * là model thật sự trả về chuỗi rỗng, chuyện của nhà cung cấp.
+ *
+ * Hai kiểu đó chữa bằng hai cách khác nhau nên phải phân biệt được từ log. Ghi
+ * kèm số token nghĩ để nhìn phát biết trần đang hụt bao nhiêu.
+ */
+function vietSaoRong(p: ProviderConfig, json: Record<string, any>) {
+  const ly =
+    p.dialect === "anthropic" ? json.stop_reason : json.choices?.[0]?.finish_reason;
+  const nghi = docUsage(p.dialect, json).nghi;
+  const dem = nghi ? `, đã nghĩ hết ${nghi} token` : "";
+  return ly === "length" || ly === "max_tokens"
+    ? `bị cắt vì chạm trần max_tokens trước khi kịp viết${dem}`
+    : `trả bài rỗng (finish_reason ${ly ?? "không rõ"})${dem}`;
+}
+
 @Injectable()
 export class LlmService {
   private readonly log = new Logger(LlmService.name);
@@ -173,7 +194,7 @@ export class LlmService {
         p.dialect === "anthropic"
           ? (json.content ?? []).map((c: { text?: string }) => c.text ?? "").join("")
           : (json.choices?.[0]?.message?.content ?? "");
-      if (!String(text).trim()) throw new Error(`${p.name} trả bài rỗng`);
+      if (!String(text).trim()) throw new Error(`${p.name} ${vietSaoRong(p, json)}`);
       /* Model do nhà cung cấp khai trong response, không phải cái mình gửi đi.
          Tên cũ được phục vụ bằng model khác là chuyện thường, mà đó mới là
          model viết ra bài và là model bị tính tiền. */
