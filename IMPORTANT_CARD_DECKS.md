@@ -13,7 +13,7 @@ through the `anh` field.
 | Deck id | Folder | Status |
 | --- | --- | --- |
 | `classic` | `web/public/cards` | Default live deck |
-| `vietnamese-culture` | `web/public/cards-vietnamese-culture` | 24/11 Vietnamese Culture Day alternate deck, in progress |
+| `vietnamese-culture` | `web/public/cards-vietnamese-culture` | 24/11 Vietnamese Culture Day alternate deck, 78/78 generated, complete |
 
 Before generating cards for `vietnamese-culture`, read:
 
@@ -77,12 +77,65 @@ wand_01.webp
 wand_02.webp
 wand_03.webp
 wand_04.webp
+wand_05.webp
+wand_06.webp
+wand_07.webp
+wand_08.webp
+wand_09.webp
+wand_10.webp
+wand_page.webp
+wand_knight.webp
+wand_queen.webp
+wand_king.webp
+cup_01.webp
+cup_02.webp
+cup_03.webp
+cup_04.webp
+cup_05.webp
+cup_06.webp
+cup_07.webp
+cup_08.webp
+cup_09.webp
+cup_10.webp
+cup_page.webp
+cup_knight.webp
+cup_queen.webp
+cup_king.webp
+sword_01.webp
+sword_02.webp
+sword_03.webp
+sword_04.webp
+sword_05.webp
+sword_06.webp
+sword_07.webp
+sword_08.webp
+sword_09.webp
+sword_10.webp
+sword_page.webp
+sword_knight.webp
+sword_queen.webp
+sword_king.webp
+coin_01.webp
+coin_02.webp
+coin_03.webp
+coin_04.webp
+coin_05.webp
+coin_06.webp
+coin_07.webp
+coin_08.webp
+coin_09.webp
+coin_10.webp
+coin_page.webp
+coin_knight.webp
+coin_queen.webp
+coin_king.webp
 ```
 
 So with the deck enabled:
 
-- `major_00` through `major_21`, `wand_01`, `wand_02`, `wand_03`, and `wand_04` render from `/cards-vietnamese-culture/<id>.webp`
-- every other card still renders from `/cards/<id>.webp`
+- all 78 tarot cards render from `/cards-vietnamese-culture/<id>.webp`
+- fallback to `/cards/<id>.webp` remains the general safety rule for future
+  incomplete alternate decks
 
 ## When Adding A New Deck
 

@@ -65,6 +65,57 @@ describe("KB mở ra ngoài", () => {
     const threeOfWands = kb.tatCaLa().find((c) => c.id === "wand_03")!;
     const fourOfWands = kb.tatCaLa().find((c) => c.id === "wand_04")!;
     const fiveOfWands = kb.tatCaLa().find((c) => c.id === "wand_05")!;
+    const sixOfWands = kb.tatCaLa().find((c) => c.id === "wand_06")!;
+    const sevenOfWands = kb.tatCaLa().find((c) => c.id === "wand_07")!;
+    const eightOfWands = kb.tatCaLa().find((c) => c.id === "wand_08")!;
+    const nineOfWands = kb.tatCaLa().find((c) => c.id === "wand_09")!;
+    const tenOfWands = kb.tatCaLa().find((c) => c.id === "wand_10")!;
+    const pageOfWands = kb.tatCaLa().find((c) => c.id === "wand_page")!;
+    const knightOfWands = kb.tatCaLa().find((c) => c.id === "wand_knight")!;
+    const queenOfWands = kb.tatCaLa().find((c) => c.id === "wand_queen")!;
+    const kingOfWands = kb.tatCaLa().find((c) => c.id === "wand_king")!;
+    const aceOfCups = kb.tatCaLa().find((c) => c.id === "cup_01")!;
+    const twoOfCups = kb.tatCaLa().find((c) => c.id === "cup_02")!;
+    const threeOfCups = kb.tatCaLa().find((c) => c.id === "cup_03")!;
+    const fourOfCups = kb.tatCaLa().find((c) => c.id === "cup_04")!;
+    const fiveOfCups = kb.tatCaLa().find((c) => c.id === "cup_05")!;
+    const sixOfCups = kb.tatCaLa().find((c) => c.id === "cup_06")!;
+    const sevenOfCups = kb.tatCaLa().find((c) => c.id === "cup_07")!;
+    const eightOfCups = kb.tatCaLa().find((c) => c.id === "cup_08")!;
+    const nineOfCups = kb.tatCaLa().find((c) => c.id === "cup_09")!;
+    const tenOfCups = kb.tatCaLa().find((c) => c.id === "cup_10")!;
+    const pageOfCups = kb.tatCaLa().find((c) => c.id === "cup_page")!;
+    const knightOfCups = kb.tatCaLa().find((c) => c.id === "cup_knight")!;
+    const queenOfCups = kb.tatCaLa().find((c) => c.id === "cup_queen")!;
+    const kingOfCups = kb.tatCaLa().find((c) => c.id === "cup_king")!;
+    const aceOfSwords = kb.tatCaLa().find((c) => c.id === "sword_01")!;
+    const twoOfSwords = kb.tatCaLa().find((c) => c.id === "sword_02")!;
+    const threeOfSwords = kb.tatCaLa().find((c) => c.id === "sword_03")!;
+    const fourOfSwords = kb.tatCaLa().find((c) => c.id === "sword_04")!;
+    const fiveOfSwords = kb.tatCaLa().find((c) => c.id === "sword_05")!;
+    const sixOfSwords = kb.tatCaLa().find((c) => c.id === "sword_06")!;
+    const sevenOfSwords = kb.tatCaLa().find((c) => c.id === "sword_07")!;
+    const eightOfSwords = kb.tatCaLa().find((c) => c.id === "sword_08")!;
+    const nineOfSwords = kb.tatCaLa().find((c) => c.id === "sword_09")!;
+    const tenOfSwords = kb.tatCaLa().find((c) => c.id === "sword_10")!;
+    const pageOfSwords = kb.tatCaLa().find((c) => c.id === "sword_page")!;
+    const knightOfSwords = kb.tatCaLa().find((c) => c.id === "sword_knight")!;
+    const queenOfSwords = kb.tatCaLa().find((c) => c.id === "sword_queen")!;
+    const kingOfSwords = kb.tatCaLa().find((c) => c.id === "sword_king")!;
+    const aceOfCoins = kb.tatCaLa().find((c) => c.id === "coin_01")!;
+    const twoOfCoins = kb.tatCaLa().find((c) => c.id === "coin_02")!;
+    const threeOfCoins = kb.tatCaLa().find((c) => c.id === "coin_03")!;
+    const fourOfCoins = kb.tatCaLa().find((c) => c.id === "coin_04")!;
+    const fiveOfCoins = kb.tatCaLa().find((c) => c.id === "coin_05")!;
+    const sixOfCoins = kb.tatCaLa().find((c) => c.id === "coin_06")!;
+    const sevenOfCoins = kb.tatCaLa().find((c) => c.id === "coin_07")!;
+    const eightOfCoins = kb.tatCaLa().find((c) => c.id === "coin_08")!;
+    const nineOfCoins = kb.tatCaLa().find((c) => c.id === "coin_09")!;
+    const tenOfCoins = kb.tatCaLa().find((c) => c.id === "coin_10")!;
+    const pageOfCoins = kb.tatCaLa().find((c) => c.id === "coin_page")!;
+    const knightOfCoins = kb.tatCaLa().find((c) => c.id === "coin_knight")!;
+    const queenOfCoins = kb.tatCaLa().find((c) => c.id === "coin_queen")!;
+    const kingOfCoins = kb.tatCaLa().find((c) => c.id === "coin_king")!;
 
     expect(fool.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_00.webp");
     expect(magician.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_01.webp");
@@ -106,7 +157,138 @@ describe("KB mở ra ngoài", () => {
     expect(fourOfWands.anh).toBe(
       "http://localhost:3000/cards-vietnamese-culture/wand_04.webp",
     );
-    expect(fiveOfWands.anh).toBe("http://localhost:3000/cards/wand_05.webp");
+    expect(fiveOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_05.webp",
+    );
+    expect(sixOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_06.webp",
+    );
+    expect(sevenOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_07.webp",
+    );
+    expect(eightOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_08.webp",
+    );
+    expect(nineOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_09.webp",
+    );
+    expect(tenOfWands.anh).toBe("http://localhost:3000/cards-vietnamese-culture/wand_10.webp");
+    expect(pageOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_page.webp",
+    );
+    expect(knightOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_knight.webp",
+    );
+    expect(queenOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_queen.webp",
+    );
+    expect(kingOfWands.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/wand_king.webp",
+    );
+    expect(aceOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_01.webp");
+    expect(twoOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_02.webp");
+    expect(threeOfCups.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/cup_03.webp",
+    );
+    expect(fourOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_04.webp");
+    expect(fiveOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_05.webp");
+    expect(sixOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_06.webp");
+    expect(sevenOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_07.webp");
+    expect(eightOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_08.webp");
+    expect(nineOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_09.webp");
+    expect(tenOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_10.webp");
+    expect(pageOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_page.webp");
+    expect(knightOfCups.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/cup_knight.webp",
+    );
+    expect(queenOfCups.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/cup_queen.webp",
+    );
+    expect(kingOfCups.anh).toBe("http://localhost:3000/cards-vietnamese-culture/cup_king.webp");
+    expect(aceOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_01.webp",
+    );
+    expect(twoOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_02.webp",
+    );
+    expect(threeOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_03.webp",
+    );
+    expect(fourOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_04.webp",
+    );
+    expect(fiveOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_05.webp",
+    );
+    expect(sixOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_06.webp",
+    );
+    expect(sevenOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_07.webp",
+    );
+    expect(eightOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_08.webp",
+    );
+    expect(nineOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_09.webp",
+    );
+    expect(tenOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_10.webp",
+    );
+    expect(pageOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_page.webp",
+    );
+    expect(knightOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_knight.webp",
+    );
+    expect(queenOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_queen.webp",
+    );
+    expect(kingOfSwords.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/sword_king.webp",
+    );
+    expect(aceOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_01.webp",
+    );
+    expect(twoOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_02.webp",
+    );
+    expect(threeOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_03.webp",
+    );
+    expect(fourOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_04.webp",
+    );
+    expect(fiveOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_05.webp",
+    );
+    expect(sixOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_06.webp",
+    );
+    expect(sevenOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_07.webp",
+    );
+    expect(eightOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_08.webp",
+    );
+    expect(nineOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_09.webp",
+    );
+    expect(tenOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_10.webp",
+    );
+    expect(pageOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_page.webp",
+    );
+    expect(knightOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_knight.webp",
+    );
+    expect(queenOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_queen.webp",
+    );
+    expect(kingOfCoins.anh).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/coin_king.webp",
+    );
   });
 
   it("trả đủ 15 kiểu trải, đường dẫn khớp cái mã bài đọc dùng", () => {

@@ -8,9 +8,9 @@ generating more cards for the `vietnamese-culture` deck.
 - Deck id: `vietnamese-culture`
 - Asset folder: `web/public/cards-vietnamese-culture`
 - Target deck size: 78 tarot cards
-- Generated so far: 26 / 78
-- Current phase: Major Arcana complete; Bamboo suit in progress
-- Last generated cards: `wand_03.webp` and `wand_04.webp`
+- Generated so far: 78 / 78
+- Current phase: full alternate deck complete; review and polish only
+- Last generated cards: `coin_page.webp`, `coin_knight.webp`, `coin_queen.webp`, and `coin_king.webp`
 
 ## Must Read First
 
@@ -52,25 +52,65 @@ Before generating any new artwork, read these files in this order:
 | `wand_02` | Two of Bamboo | Planning and far-view prototype |
 | `wand_03` | Three of Bamboo | Waiting for return from afar prototype |
 | `wand_04` | Four of Bamboo | First stable milestone prototype |
+| `wand_05` | Five of Bamboo | Lively friction and competition prototype |
+| `wand_06` | Six of Bamboo | Public recognition prototype |
+| `wand_07` | Seven of Bamboo | Courage under pressure prototype |
+| `wand_08` | Eight of Bamboo | Swift movement and messages prototype |
+| `wand_09` | Nine of Bamboo | Endurance and watchfulness prototype |
+| `wand_10` | Ten of Bamboo | Burden and responsibility prototype |
+| `wand_page` | Page of Bamboo | Apprentice spark and new message prototype |
+| `wand_knight` | Knight of Bamboo | Swift journey and bold action prototype |
+| `wand_queen` | Queen of Bamboo | Warm confidence and community fire prototype |
+| `wand_king` | King of Bamboo | Vision and stewardship prototype |
+| `cup_01` | Ace of Ceramics | Overflowing first feeling prototype |
+| `cup_02` | Two of Ceramics | Mutual recognition prototype |
+| `cup_03` | Three of Ceramics | Shared joy and group support prototype |
+| `cup_04` | Four of Ceramics | Boredom and missed invitation prototype |
+| `cup_05` | Five of Ceramics | Regret and remaining support prototype |
+| `cup_06` | Six of Ceramics | Nostalgia and small kindness prototype |
+| `cup_07` | Seven of Ceramics | Choices and illusion prototype |
+| `cup_08` | Eight of Ceramics | Leaving what is no longer enough prototype |
+| `cup_09` | Nine of Ceramics | Private contentment prototype |
+| `cup_10` | Ten of Ceramics | Shared home and family harmony prototype |
+| `cup_page` | Page of Ceramics | First tender message prototype |
+| `cup_knight` | Knight of Ceramics | Graceful invitation prototype |
+| `cup_queen` | Queen of Ceramics | Quiet emotional wisdom prototype |
+| `cup_king` | King of Ceramics | Calm emotional stewardship prototype |
+| `sword_01` | Ace of Brush and Ink | First clarity prototype |
+| `sword_02` | Two of Brush and Ink | Suspended choice prototype |
+| `sword_03` | Three of Brush and Ink | Sorrow and difficult truth prototype |
+| `sword_04` | Four of Brush and Ink | Rest and recovery prototype |
+| `sword_05` | Five of Brush and Ink | Conflict of ideas prototype |
+| `sword_06` | Six of Brush and Ink | Guided transition prototype |
+| `sword_07` | Seven of Brush and Ink | Strategy and secrecy prototype |
+| `sword_08` | Eight of Brush and Ink | Mental restriction prototype |
+| `sword_09` | Nine of Brush and Ink | Sleepless anxiety prototype |
+| `sword_10` | Ten of Brush and Ink | Painful ending and dawn prototype |
+| `sword_page` | Page of Brush and Ink | Apprentice curiosity prototype |
+| `sword_knight` | Knight of Brush and Ink | Swift message prototype |
+| `sword_queen` | Queen of Brush and Ink | Clear discernment prototype |
+| `sword_king` | King of Brush and Ink | Disciplined judgment prototype |
+| `coin_01` | Ace of Rice and Old Coins | Grounded opportunity prototype |
+| `coin_02` | Two of Rice and Old Coins | Livelihood balance prototype |
+| `coin_03` | Three of Rice and Old Coins | Skilled collaboration prototype |
+| `coin_04` | Four of Rice and Old Coins | Careful saving prototype |
+| `coin_05` | Five of Rice and Old Coins | Hardship and nearby help prototype |
+| `coin_06` | Six of Rice and Old Coins | Dignified generosity prototype |
+| `coin_07` | Seven of Rice and Old Coins | Patient harvest-waiting prototype |
+| `coin_08` | Eight of Rice and Old Coins | Diligent craft practice prototype |
+| `coin_09` | Nine of Rice and Old Coins | Self-sufficient abundance prototype |
+| `coin_10` | Ten of Rice and Old Coins | Family legacy prototype |
+| `coin_page` | Page of Rice and Old Coins | Apprentice stewardship prototype |
+| `coin_knight` | Knight of Rice and Old Coins | Steady service prototype |
+| `coin_queen` | Queen of Rice and Old Coins | Nourishing abundance prototype |
+| `coin_king` | King of Rice and Old Coins | Grounded prosperity prototype |
 
 ## Suggested Next Cards
 
-The Major Arcana is complete. Continue into the minor suits using the
-Vietnamese replacements:
+The full 78-card alternate deck is generated. Next work should be review, visual
+QA, optional polish, and the explicit enablement checklist when ready to switch.
 
-- Wands = Bamboo
-- Cups = Ceramics
-- Swords = Brush and Ink
-- Pentacles = Rice and Old Coins
-
-Recommended next batch:
-
-1. `wand_05` - Five of Wands / Five of Bamboo
-2. `wand_06` - Six of Wands / Six of Bamboo
-3. `wand_07` - Seven of Wands / Seven of Bamboo
-4. `wand_08` - Eight of Wands / Eight of Bamboo
-5. `wand_09` - Nine of Wands / Nine of Bamboo
-6. `wand_10` - Ten of Wands / Ten of Bamboo
+No next generation batch is pending.
 
 ## Non-Negotiable Visual Rules
 
