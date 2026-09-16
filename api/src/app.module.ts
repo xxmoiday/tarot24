@@ -8,10 +8,19 @@ import { LlmService } from "./llm/llm.service.js";
 import { ReadingsController } from "./readings/readings.controller.js";
 import { ReadingsRepository } from "./readings/readings.repository.js";
 import { ReadingsService } from "./readings/readings.service.js";
+import { SuggestController } from "./suggest/suggest.controller.js";
+import { SuggestService } from "./suggest/question.js";
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true })],
-  controllers: [HealthController, KbController, ReadingsController],
-  providers: [KbService, LlmBudgetService, LlmService, ReadingsRepository, ReadingsService],
+  controllers: [HealthController, KbController, ReadingsController, SuggestController],
+  providers: [
+    KbService,
+    LlmBudgetService,
+    LlmService,
+    ReadingsRepository,
+    ReadingsService,
+    SuggestService,
+  ],
 })
 export class AppModule {}

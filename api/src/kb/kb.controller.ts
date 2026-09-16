@@ -1,6 +1,21 @@
-import { Controller, Get, Header, NotFoundException, Param, UseGuards } from "@nestjs/common";
+import {
+  BadRequestException,
+  Controller,
+  Get,
+  Header,
+  NotFoundException,
+  Param,
+  Query,
+  UseGuards,
+} from "@nestjs/common";
 import { ApiKeyGuard } from "../common/api-key.guard.js";
-import { KbService } from "./kb.service.js";
+import {
+  AN_HOP_LE,
+  BO_HOP_LE,
+  KbService,
+  laAnCoThat,
+  laBoCoThat,
+} from "./kb.service.js";
 
 /**
  * Bộ bài và các kiểu trải, đọc nguyên từ KB. Ứng dụng ngoài cần chúng để dựng
@@ -31,10 +46,26 @@ export class KbController {
     return this.kb.moTrai(s);
   }
 
+  /**
+   * Lọc bằng `?bo=` và `?an=`, bỏ trống thì trả cả 78 lá như trước.
+   *
+   * Gõ sai tên bộ thì trả 400 chứ không trả mảng rỗng: rỗng trông y hệt một bộ
+   * thật mà hết lá, người nối API sẽ ngồi dò xem mình sai ở đâu.
+   */
   @Get("cards")
   @Header("cache-control", "public, max-age=3600")
-  cards() {
-    return { cards: this.kb.tatCaLa() };
+  cards(@Query("bo") bo?: string, @Query("an") an?: string) {
+    if (bo !== undefined && !laBoCoThat(bo)) {
+      throw new BadRequestException(
+        `Không có bộ "${bo}". Nhận: ${BO_HOP_LE.join(", ")}`,
+      );
+    }
+    if (an !== undefined && !laAnCoThat(an)) {
+      throw new BadRequestException(
+        `Không có ẩn "${an}". Nhận: ${AN_HOP_LE.join(", ")}`,
+      );
+    }
+    return { cards: this.kb.locLa(bo, an) };
   }
 
   @Get("cards/:slug")

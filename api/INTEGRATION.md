@@ -31,10 +31,18 @@ tổng đã dùng ở `/api/health` → `luot: { dem, tran }`.
 Một "lượt" là một lần gọi mô hình, không phải một bài: lượt gọi lại để sửa bài
 hỏng cũng tính. Thực tế cứ 100 bài thì mất khoảng 105 lượt.
 
-Khoá tiêu thẳng vào tiền mô hình, nên nó không được ra khỏi máy chủ: không nhúng vào bản dựng app điện thoại, không để lọt xuống
-trình duyệt, không đi kèm mã nguồn phía client. CORS của backend chỉ mở cho
-`tarot24.online`, nên gọi thẳng từ trình duyệt cũng không qua được — đó là chủ ý
-chứ không phải thiếu sót.
+Khoá tiêu thẳng vào tiền mô hình, nên **cách dùng đúng là không để nó ra khỏi
+máy chủ**: không nhúng vào bản dựng app điện thoại, không để lọt xuống trình
+duyệt, không đi kèm mã nguồn phía client. App gọi sang server của bạn, server
+của bạn mới gọi sang đây.
+
+CORS hiện mở cho `tarot24.online` và `nhomtroly.online`. Nhưng **mở CORS không
+làm cho việc gọi từ trình duyệt trở nên an toàn**: muốn gọi được vẫn phải đặt
+`x-api-key` vào mã chạy phía client, tức ai mở DevTools cũng đọc được. Chọn
+đường đó là chấp nhận khoá có thể lộ; cái chặn thiệt hại lúc ấy chỉ còn trần
+lượt mỗi ngày của riêng khoá bạn.
+
+Origin nào không nằm trong danh sách thì trình duyệt vẫn bị chặn như cũ.
 
 ## 2. Một lượt bói đi thế nào
 
@@ -42,7 +50,9 @@ Backend **không rút bài**. Ứng dụng của bạn tự xào, tự rút, r�
 một chuỗi gọi là **mã bài đọc** (`id`). Backend giải chuỗi đó ra rồi mới dựng
 bài luận.
 
-1. Người dùng chọn kiểu trải, nhập câu hỏi, chọn lĩnh vực
+1. Người dùng chọn kiểu trải, nhập câu hỏi, chọn lĩnh vực — muốn máy gợi ý
+   kiểu trải theo câu hỏi thì gọi `POST /api/suggest-spreads`, xem
+   `SUGGEST_API.md`
 2. App rút đủ số lá của kiểu trải đó
 3. App sinh `id` (mục 3)
 4. `POST /api/readings` với `{ id }` → bài luận, mất 8–15 giây
@@ -143,8 +153,9 @@ Sáu mã lĩnh vực, dùng nguyên văn: `love`, `work`, `money`, `mind`, `stud
 mà không có lỗi nào báo.
 
 Slug lá là tên tiếng Việt không dấu, **không phải** mã kiểu `major_00`. Cần cả
-nội dung lá — nghĩa, từ khoá, ảnh — thì gọi `GET /api/cards` (mục 6). Chỉ cần
-đúng danh sách slug để rút bài thì sinh bằng công thức, khỏi gọi mạng:
+nội dung lá — nghĩa, từ khoá, ảnh — thì gọi `GET /api/cards` (mục 6), lấy riêng
+một bộ thì thêm `?bo=` vào cùng đường đó. Chỉ cần đúng danh sách slug để rút bài
+thì sinh bằng công thức, khỏi gọi mạng:
 
 ```js
 const MAJORS = [
@@ -214,7 +225,9 @@ Bảng tra tên, nếu app của bạn cần hiển thị:
 Mọi request đều cần `x-api-key`. Đường `POST` cần thêm
 `content-type: application/json`, và nên có `x-client-ip` (mục 7).
 
-Bốn đường đầu là bói bài. Bốn đường cuối chỉ trả dữ liệu, không đụng mô hình.
+Bốn đường đầu là bói bài. Năm đường cuối không đụng mô hình: một đường đọc câu
+hỏi bằng luật viết tay — tài liệu riêng ở `SUGGEST_API.md` — bốn đường còn lại
+chỉ trả dữ liệu.
 
 ### POST /api/readings — viết bài luận
 
@@ -286,6 +299,14 @@ thật, hoặc lá đó **đã nằm trên bàn** — lá đã rút thì không 
 { "clarifiers": [{ "stt": 2, "slug": "sau-coc", "reversed": false, "answer": "..." }] }
 ```
 
+### POST /api/suggest-spreads — gợi ý kiểu trải từ câu hỏi
+
+Đưa câu hỏi người dùng vừa gõ, nhận về ba kiểu trải hợp nhất kèm lý do viết sẵn,
+cộng lời nhắc khi câu hỏi còn mơ hồ và lĩnh vực đoán được từ chính câu đó. Không
+gọi mô hình nên không tốn lượt.
+
+Đường này có tài liệu riêng: **`SUGGEST_API.md`**.
+
 ### GET /api/spreads — mười lăm kiểu trải
 
 Trả nguyên phần kiểu trải của KB, thêm `slug` là cái dùng trong mã bài đọc:
@@ -351,6 +372,37 @@ Trả nguyên phần lá của KB, thêm `slug`, `anh` và `anh_nho`:
 
 `GET /api/cards/:slug` trả đúng một lá, 404 nếu không có.
 
+**Lọc theo bộ và theo ẩn.** Hai tham số, dùng riêng hay chung đều được; bỏ trống
+cả hai thì vẫn là cả 78 lá như cũ.
+
+| Tham số | Nhận | Ra |
+|---|---|---|
+| `?bo=` | `gay`, `coc` (hoặc `cup`), `kiem`, `tien` | 14 lá của bộ đó |
+| `?an=` | `chinh`, `phu` | 22 lá ẩn chính, hoặc 56 lá ẩn phụ |
+
+```
+GET /api/cards?bo=kiem          14 lá bộ Kiếm
+GET /api/cards?an=chinh         22 lá ẩn chính
+GET /api/cards?bo=tien&an=phu   14 lá bộ Tiền
+```
+
+Lá trả về nguyên vẹn mọi trường như khi lấy cả bộ, chỉ ít lá hơn.
+
+**Bộ Cốc gõ `coc` hay `cup` đều được.** Trường `chat` trong dữ liệu ghi `cup`
+theo tiếng Anh, trong khi ba bộ còn lại ghi tiếng Việt (`gay`, `kiem`, `tien`)
+và đường dẫn lá lại ghi `ba-coc`. Chỗ lệch đó có sẵn trong KB và sửa thì gãy mọi
+bên đang đọc `chat`, nên `?bo=` nhận cả hai cách gõ. Ba bộ kia chỉ có một cách.
+
+Để ý **bộ ghi theo `chat` chứ không theo `id`**: bộ Kiếm là `?bo=kiem` còn id lá
+lại là `sword_01`. Gõ `?bo=sword` trả **400** chứ không trả mảng rỗng — rỗng
+trông y hệt một bộ thật mà hết lá, sẽ tốn của bạn cả buổi dò.
+
+Hai mươi hai lá ẩn chính không thuộc bộ nào (`chat` là `null`), nên `?bo=kiem&
+an=chinh` trả mảng rỗng. Đó là câu trả lời đúng, không phải lỗi.
+
+Mỗi tổ hợp tham số là một mục cache riêng và có ETag riêng. Cần vài bộ thì gọi
+`GET /api/cards` một lần rồi tự lọc trong bộ nhớ vẫn rẻ hơn gọi bốn lần.
+
 Ảnh đặt tên theo `id` chứ không theo `slug`, và nằm trên web chứ không trên
 backend — cứ dùng nguyên chuỗi trong trường `anh` hoặc `anh_nho`.
 
@@ -403,6 +455,7 @@ thêm và lá làm rõ nhanh hơn, cỡ 3–6 giây.
 |---|---|---|
 | 400 | `Thiếu mã bài đọc` / `Mã bài đọc không hợp lệ` | `id` rỗng, không giải mã được, hoặc kiểu trải không có thật |
 | 400 | `Thiếu câu hỏi` / `Vị trí hoặc lá làm rõ không hợp lệ` | thân request sai |
+| 400 | `Không có bộ "..."` / `Không có ẩn "..."` | `?bo=` hoặc `?an=` của `/api/cards` sai giá trị; thân nói rõ nhận những gì |
 | 403 | — | thiếu hoặc sai `x-api-key` |
 | 404 | `Chưa có bài đọc cho mã này` | chưa từng `POST /api/readings` với `id` đó |
 | 429 | `{ message, retryAfter }` | quá 30 lượt/giờ cho IP đó, `retryAfter` tính bằng giây |
@@ -414,7 +467,7 @@ thêm và lá làm rõ nhanh hơn, cỡ 3–6 giây.
 Hai trường hợp cuối nên có đường lui ở phía bạn: giữ bàn bài đã rút và nói bài
 luận đang không viết được, thay vì báo hỏng cả lượt bói.
 
-## 8. Bảy chỗ hay dính
+## 8. Tám chỗ hay dính
 
 1. **Slug lá sai không báo lỗi.** Lá không tra được bị loại im lặng, bài viết
    thiếu hẳn vị trí đó mà request vẫn 200. Đối chiếu với `DECK` ở mục 5 trước khi
@@ -432,6 +485,10 @@ luận đang không viết được, thay vì báo hỏng cả lượt bói.
    Ghép `id` với tài khoản người dùng ở phía bạn.
 7. **Lá ngược sinh ở đâu là việc của bạn.** Backend nhận sao dùng vậy. Tarot24
    để khoảng 32% lá ngược khi xào máy; bạn tự chọn tỉ lệ của mình.
+8. **Tên bộ không phải tiền tố của `id`.** Lọc bộ Kiếm là `?bo=kiem`, dù id lá
+   là `sword_01`; bộ Gậy là `gay` chứ không phải `wand`, bộ Tiền là `tien` chứ
+   không phải `coin`. Riêng Cốc nhận cả `coc` lẫn `cup`. Gõ sai trả 400 nên chỗ
+   này không nuốt lỗi, nhưng vẫn là chỗ đoán nhầm nhiều nhất.
 
 ## 9. Một lượt gọi đầy đủ
 

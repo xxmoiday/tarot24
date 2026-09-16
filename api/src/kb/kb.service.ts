@@ -242,6 +242,32 @@ export interface ReadingRequest {
   guard?: Guard | null;
 }
 
+/**
+ * Tên bộ mà bên ngoài gõ vào, quy về đúng giá trị trường `chat` của KB.
+ *
+ * Ba bộ ghi tiếng Việt nhưng riêng Cốc ghi `cup`, lệch cả với đường dẫn lá
+ * (`ba-coc`). Đổi dữ liệu thì gãy mọi client đang đọc `chat`, nên chỗ lệch được
+ * nuốt ở đây: gõ `coc` hay `cup` đều ra cùng mười bốn lá.
+ */
+const CHAT_CUA_BO: Record<string, string> = {
+  gay: "gay",
+  coc: "cup",
+  cup: "cup",
+  kiem: "kiem",
+  tien: "tien",
+};
+
+export const BO_HOP_LE = Object.keys(CHAT_CUA_BO);
+export const AN_HOP_LE = ["chinh", "phu"];
+
+export function laBoCoThat(bo: string) {
+  return bo in CHAT_CUA_BO;
+}
+
+export function laAnCoThat(an: string) {
+  return AN_HOP_LE.includes(an);
+}
+
 @Injectable()
 export class KbService {
   private readonly log = new Logger(KbService.name);
@@ -286,7 +312,9 @@ export class KbService {
    * `anh_nho` là ảnh gốc co về 288px — dành cho chỗ bày NHIỀU lá một lúc. Cả cỗ 78 lá
    * qua `anh` là 19MB, qua `anh_nho` là 3,2MB.
    */
-  moLa(raw: RawCard) {
+  moLa(
+    raw: RawCard,
+  ): RawCard & { slug: string; anh: string; anh_nho: string } {
     return {
       ...raw,
       slug: slugOf(raw.ten_vi),
@@ -299,8 +327,25 @@ export class KbService {
     return this.cards.map((c) => this.moLa(c));
   }
 
+  /**
+   * Cả bộ bài, lọc theo bộ và theo ẩn. Bỏ trống cả hai thì y hệt `tatCaLa`.
+   *
+   * Hai mươi hai lá ẩn chính không thuộc bộ nào — `chat` của chúng là null —
+   * nên `bo` kèm `an=chinh` trả mảng rỗng. Đó là câu trả lời đúng chứ không
+   * phải lỗi: không có lá nào vừa là Kiếm vừa là ẩn chính.
+   */
+  locLa(bo?: string, an?: string) {
+    let ds = this.cards;
+    if (bo) {
+      const chat = CHAT_CUA_BO[bo];
+      ds = ds.filter((c) => c.chat === chat);
+    }
+    if (an) ds = ds.filter((c) => c.arcana === an);
+    return ds.map((c) => this.moLa(c));
+  }
+
   /** Kiểu trải nguyên vẹn, thêm đường dẫn vì trong KB nó chỉ có id. */
-  moTrai(raw: RawSpread) {
+  moTrai(raw: RawSpread): RawSpread & { slug: string } {
     return { ...raw, slug: SLUG_CUA_TRAI.get(raw.id) ?? raw.id };
   }
 

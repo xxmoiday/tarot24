@@ -27,6 +27,63 @@ describe("KB mở ra ngoài", () => {
     expect(ba_coc.cach_noi_viet).toBeTruthy();
   });
 
+  it("lọc được từng bộ, mỗi bộ đúng mười bốn lá", () => {
+    for (const bo of ["gay", "coc", "kiem", "tien"]) {
+      expect(kb.locLa(bo), bo).toHaveLength(14);
+    }
+  });
+
+  it("bộ kiếm ra đúng mấy lá sword, chứ không phải lá tên có chữ kiếm", () => {
+    const kiem = kb.locLa("kiem");
+    expect(kiem).toHaveLength(14);
+    for (const c of kiem) {
+      expect(c.id, c.id).toMatch(/^sword_/);
+      expect(c.chat).toBe("kiem");
+    }
+  });
+
+  /* Trường `chat` của bộ Cốc ghi `cup` còn đường dẫn lá ghi `coc`. Ai nối API
+     cũng có thể gõ nhầm sang bên kia, nên cả hai phải ra cùng mười bốn lá. */
+  it("bộ Cốc gõ `coc` hay `cup` đều ra cùng một kết quả", () => {
+    const coc = kb.locLa("coc");
+    const cup = kb.locLa("cup");
+    expect(coc).toHaveLength(14);
+    expect(cup.map((c) => c.id)).toEqual(coc.map((c) => c.id));
+    for (const c of coc) expect(c.id).toMatch(/^cup_/);
+  });
+
+  it("lọc theo ẩn: hai hai lá ẩn chính, năm sáu lá ẩn phụ", () => {
+    expect(kb.locLa(undefined, "chinh")).toHaveLength(22);
+    expect(kb.locLa(undefined, "phu")).toHaveLength(56);
+  });
+
+  it("bốn bộ cộng lại đúng bằng số lá ẩn phụ, không lá nào lọt hay đếm hai lần", () => {
+    const tong = ["gay", "coc", "kiem", "tien"].flatMap((b) =>
+      kb.locLa(b).map((c) => c.id),
+    );
+    expect(new Set(tong).size).toBe(56);
+    expect(tong).toHaveLength(56);
+  });
+
+  /* Ẩn chính không thuộc bộ nào nên chỗ giao phải rỗng — đó là câu trả lời
+     đúng, không phải lỗi lọc. */
+  it("bộ kèm ẩn chính thì rỗng, còn bộ kèm ẩn phụ vẫn đủ mười bốn", () => {
+    expect(kb.locLa("kiem", "chinh")).toHaveLength(0);
+    expect(kb.locLa("kiem", "phu")).toHaveLength(14);
+  });
+
+  it("không lọc gì thì y hệt cả bộ bài", () => {
+    expect(kb.locLa()).toHaveLength(78);
+    expect(kb.locLa().map((c) => c.id)).toEqual(kb.tatCaLa().map((c) => c.id));
+  });
+
+  it("lá lọc ra vẫn nguyên vẹn mọi trường, kèm đường dẫn và ảnh", () => {
+    const at_kiem = kb.locLa("kiem").find((c) => c.id === "sword_01")!;
+    expect(at_kiem.slug).toBe("at-kiem");
+    expect(at_kiem.anh).toContain("sword_01.webp");
+    expect(Object.keys(at_kiem.lang_kinh)).toContain("tinh_cam");
+  });
+
   it("ảnh lá trỏ theo id, đổi được bằng WEB_BASE_URL", () => {
     expect(kb.tatCaLa()[0].anh).toBe("https://www.tarot24.online/cards/major_00.webp");
 
