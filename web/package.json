@@ -15,9 +15,11 @@
     "check:guard": "node scripts/check-guard.mjs",
     "check:lengths": "node --experimental-strip-types --no-warnings scripts/check-lengths.mjs",
     "check:cards": "node --experimental-strip-types --no-warnings scripts/check-cards.mjs",
+    "check:card-thumbs": "node scripts/check-card-thumbs.mjs",
     "check:seo": "node --experimental-strip-types --no-warnings scripts/check-seo.mjs",
     "build:og-cards": "node scripts/build-og-cards.mjs",
-    "build:og-covers": "node scripts/build-og-covers.mjs"
+    "build:og-covers": "node scripts/build-og-covers.mjs",
+    "build:card-thumbs": "node scripts/build-card-thumbs.mjs"
   },
   "dependencies": {
     "next": "16.3.4",

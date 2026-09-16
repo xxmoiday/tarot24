@@ -8,6 +8,17 @@ This is important: when switching decks, update **both** the web env and the API
 env. The web renders card faces directly, while the API returns card image URLs
 through the `anh` field.
 
+Every deck folder also carries a `thumb/` subfolder: the same artwork resized to
+288px wide, which the API serves as `anh_nho`. The web does not need it — it goes
+through `next/image` with `sizes`, so Next resizes and caches on its own. API
+clients get the raw file, so an app showing all 78 faces at once would pull 19MB
+without it. **Generated, not hand-made** — regenerate whenever artwork changes:
+
+```bash
+cd web && npm run build:card-thumbs   # writes <deck>/thumb/<id>.webp
+cd web && npm run check:card-thumbs   # every card has one, none orphaned
+```
+
 ## Current Decks
 
 | Deck id | Folder | Status |
@@ -167,9 +178,20 @@ web/.env.example
 api/.env.example
 ```
 
-5. Update this file with the new deck id, folder, and status.
+5. Generate the small variants, then check them:
 
-6. Add or update the deck's own `ART_DIRECTION.md` so future cards follow the
+```bash
+cd web && npm run build:card-thumbs && npm run check:card-thumbs
+```
+
+The script picks up any folder named `cards` or `cards-*`, so a new deck needs no
+code change here. Skipping this step is quiet: the web keeps working (`next/image`
+resizes the originals) and `anh` stays correct, while `anh_nho` returns a 404 URL
+for exactly the cards this deck added.
+
+6. Update this file with the new deck id, folder, and status.
+
+7. Add or update the deck's own `ART_DIRECTION.md` so future cards follow the
    right visual and symbolic rules.
 
 ## Verification
@@ -178,6 +200,7 @@ After changing deck code or env names, run:
 
 ```bash
 cd web && npm run lint
+cd web && npm run check:card-thumbs
 cd web && npx next build --webpack
 cd api && npm run lint
 cd api && PATH=/Users/huydd/.nvm/versions/node/v22.21.1/bin:$PATH npm test -- kb.spec.ts

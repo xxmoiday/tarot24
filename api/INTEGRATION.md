@@ -317,7 +317,7 @@ Trả nguyên phần kiểu trải của KB, thêm `slug` là cái dùng trong m
 
 ### GET /api/cards — bộ 78 lá
 
-Trả nguyên phần lá của KB, thêm `slug` và `anh`:
+Trả nguyên phần lá của KB, thêm `slug`, `anh` và `anh_nho`:
 
 ```json
 {
@@ -326,6 +326,7 @@ Trả nguyên phần lá của KB, thêm `slug` và `anh`:
       "id": "cup_03",
       "slug": "ba-coc",
       "anh": "https://www.tarot24.online/cards/cup_03.webp",
+      "anh_nho": "https://www.tarot24.online/cards/thumb/cup_03.webp",
       "ten_vi": "Ba Cốc",
       "ten_en": "Three of Cups",
       "arcana": "phu",
@@ -351,7 +352,26 @@ Trả nguyên phần lá của KB, thêm `slug` và `anh`:
 `GET /api/cards/:slug` trả đúng một lá, 404 nếu không có.
 
 Ảnh đặt tên theo `id` chứ không theo `slug`, và nằm trên web chứ không trên
-backend — cứ dùng nguyên chuỗi trong trường `anh`.
+backend — cứ dùng nguyên chuỗi trong trường `anh` hoặc `anh_nho`.
+
+**Bày NHIỀU lá một lúc thì dùng `anh_nho`.** `anh` là ảnh gốc 600×900, trung bình
+261KB — đẹp khi vẽ to một lá, nhưng cả cỗ 78 lá là **19MB cho một màn**. `anh_nho`
+là đúng ảnh đó co về 288×432 (~42KB), cả cỗ còn **3,2MB**. 288px là bề ngang vừa
+khít một lá 96pt trên màn @3x, tức chỗ sắc nhất mà máy sắc nhất dùng tới.
+
+Chọn theo SỐ LÁ trên màn, không theo màn nào:
+
+| Chỗ dùng | Trường | Vì sao |
+|---|---|---|
+| Xào bài, cỗ bài, thư viện lá — hàng chục lá | `anh_nho` | 78 lá × 261KB là không dùng được |
+| Bàn bài, một lá vẽ to, ảnh chia sẻ | `anh` | vài lá, mà vẽ to thì bản nhỏ bắt đầu mờ |
+
+Đừng tự ghép `/thumb/` vào chuỗi `anh`: hai trường tự đi theo cùng một bộ bài, kể cả
+khi một lá rơi về bộ mặc định vì bộ thay thế chưa vẽ tới nó. Ghép tay là có ngày trỏ
+vào một file không tồn tại.
+
+Không có tham số co ảnh (`?w=`, `?width=`) — ảnh là file tĩnh, mọi tham số bị bỏ qua
+và bạn vẫn tải về đủ 261KB. Chỉ có hai cỡ, đúng hai trường trên.
 
 **Về kích thước và cache.** `/api/cards` khoảng 270KB, `/api/spreads` khoảng
 120KB. Cả hai gắn `cache-control: public, max-age=3600` và ETag, nên nhớ ETag

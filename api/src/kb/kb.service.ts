@@ -171,17 +171,48 @@ const VIETNAMESE_CULTURE_CARDS = new Set([
   "coin_king",
 ]);
 
-function cardImagePath(id: string) {
+/**
+ * Thư mục deck của MỘT lá — chỗ duy nhất biết luật dự phòng từng lá.
+ *
+ * Tách ra khỏi `cardImagePath` vì bản nhỏ phải đi theo ĐÚNG deck mà bản gốc đã chọn:
+ * lá nào rơi về `cards` thì bản nhỏ của nó cũng phải là `cards/thumb`, không thể là
+ * `cards-vietnamese-culture/thumb` — ở đó không có file. Viết luật này hai lần là một
+ * ngày nào đó hai bản trỏ về hai bộ bài khác nhau, mà request vẫn 200.
+ */
+function deckFolder(id: string) {
   const deck = process.env.TAROT_CARD_DECK ?? process.env.NEXT_PUBLIC_TAROT_CARD_DECK;
-  if (deck === VIETNAMESE_CULTURE_DECK && VIETNAMESE_CULTURE_CARDS.has(id)) {
-    return `/cards-vietnamese-culture/${id}.webp`;
-  }
-  return `/cards/${id}.webp`;
+  return deck === VIETNAMESE_CULTURE_DECK && VIETNAMESE_CULTURE_CARDS.has(id)
+    ? "cards-vietnamese-culture"
+    : "cards";
+}
+
+function cardImagePath(id: string) {
+  return `/${deckFolder(id)}/${id}.webp`;
+}
+
+/**
+ * Bản NHỎ, 288px bề ngang, sinh sẵn bằng `npm run build:card-thumbs` bên web.
+ *
+ * 🔴 Đây là thư mục TĨNH, không phải một tham số co ảnh: `?w=` trên ảnh gốc không có
+ * tác dụng vì chúng là file tĩnh do Next phục vụ. Thêm một deck mới thì phải chạy lại
+ * script sinh bản nhỏ, không thì đường này 404 cho mấy lá của deck đó — xem
+ * `IMPORTANT_CARD_DECKS.md`.
+ */
+function cardThumbPath(id: string) {
+  return `/${deckFolder(id)}/thumb/${id}.webp`;
+}
+
+function webGoc() {
+  const goc = process.env.WEB_BASE_URL ?? "https://www.tarot24.online";
+  return goc.replace(/\/$/, "");
 }
 
 function anhCuaLa(id: string) {
-  const goc = process.env.WEB_BASE_URL ?? "https://www.tarot24.online";
-  return `${goc.replace(/\/$/, "")}${cardImagePath(id)}`;
+  return `${webGoc()}${cardImagePath(id)}`;
+}
+
+function anhNhoCuaLa(id: string) {
+  return `${webGoc()}${cardThumbPath(id)}`;
 }
 
 /** Sinh đường dẫn từ tên lá, đúng cùng quy tắc mà web đang dùng. */
@@ -249,11 +280,19 @@ export class KbService {
   }
 
   /**
-   * Cả bộ bài cho bên ngoài đọc, nguyên vẹn như trong KB, thêm hai thứ mà file
-   * gốc không có: đường dẫn tiếng Việt dùng trong mã bài đọc, và ảnh lá.
+   * Cả bộ bài cho bên ngoài đọc, nguyên vẹn như trong KB, thêm ba thứ mà file
+   * gốc không có: đường dẫn tiếng Việt dùng trong mã bài đọc, ảnh lá, và bản nhỏ.
+   *
+   * `anh_nho` là ảnh gốc co về 288px — dành cho chỗ bày NHIỀU lá một lúc. Cả cỗ 78 lá
+   * qua `anh` là 19MB, qua `anh_nho` là 3,2MB.
    */
   moLa(raw: RawCard) {
-    return { ...raw, slug: slugOf(raw.ten_vi), anh: anhCuaLa(raw.id) };
+    return {
+      ...raw,
+      slug: slugOf(raw.ten_vi),
+      anh: anhCuaLa(raw.id),
+      anh_nho: anhNhoCuaLa(raw.id),
+    };
   }
 
   tatCaLa() {

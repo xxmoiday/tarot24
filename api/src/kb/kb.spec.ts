@@ -34,6 +34,44 @@ describe("KB mở ra ngoài", () => {
     expect(kb.tatCaLa()[0].anh).toBe("http://localhost:3000/cards/major_00.webp");
   });
 
+  it("mỗi lá có bản nhỏ trong thumb/ của đúng deck mà bản gốc dùng", () => {
+    process.env.WEB_BASE_URL = "http://localhost:3000/";
+
+    const la = kb.tatCaLa();
+    expect(la[0].anh_nho).toBe("http://localhost:3000/cards/thumb/major_00.webp");
+
+    /* 🔴 Bản nhỏ phải đi theo ĐÚNG deck của bản gốc, cho cả 78 lá. Lệch deck thì file
+       không tồn tại và khách nhận 404 — mà `anh` vẫn đúng, nên không ai để ý. */
+    for (const c of la) {
+      expect(c.anh_nho, c.id).toBe(c.anh.replace(`/${c.id}.webp`, `/thumb/${c.id}.webp`));
+    }
+  });
+
+  it("bản nhỏ và bản gốc luôn cùng một deck, kể cả khi bật deck thay thế", () => {
+    process.env.WEB_BASE_URL = "http://localhost:3000/";
+    process.env.TAROT_CARD_DECK = "vietnamese-culture";
+
+    const la = kb.tatCaLa();
+    /* Lá có trong deck thay thế: cả hai bản đều nằm ở deck đó. */
+    const fool = la.find((c) => c.id === "major_00")!;
+    expect(fool.anh).toBe("http://localhost:3000/cards-vietnamese-culture/major_00.webp");
+    expect(fool.anh_nho).toBe(
+      "http://localhost:3000/cards-vietnamese-culture/thumb/major_00.webp",
+    );
+
+    /* 🔴 Viết thành BẤT BIẾN trên cả 78 lá, không phải một cặp lá chọn tay — và đây là
+       bài học vừa trả giá: bản đầu ghim `cup_03` làm ca fallback, rồi deck văn hoá Việt
+       vẽ đủ 78 lá và không còn lá nào fallback nữa, nên bài kiểm đỏ vì DỮ LIỆU đổi chứ
+       không vì luật đổi. Dạng bất biến này đúng với deck đầy, deck vẽ dở, và deck chưa
+       có lá nào.
+
+       Cái nó chặn vẫn thế: `anh` với `anh_nho` là hai hàm dựng URL, để chúng tự tra deck
+       riêng là có ngày hai bản trỏ vào hai bộ bài khác nhau mà request vẫn 200. */
+    for (const c of la) {
+      expect(c.anh_nho, c.id).toBe(c.anh.replace(`/${c.id}.webp`, `/thumb/${c.id}.webp`));
+    }
+  });
+
   it("ảnh lá đổi được sang deck văn hoá Việt Nam và tự fallback lá chưa có", () => {
     process.env.WEB_BASE_URL = "http://localhost:3000/";
     process.env.TAROT_CARD_DECK = "vietnamese-culture";
