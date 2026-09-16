@@ -110,8 +110,112 @@ export function detectVague(question: string): Vague | null {
 }
 
 
+/* ------------------------------------------------------------------ *
+ * Dò từ khoá: có dấu trước, bỏ dấu chỉ là đường lui
+ * ------------------------------------------------------------------ */
+
+/**
+ * Một mẫu dò, giữ sẵn hai bản: bản có dấu và bản đã bỏ dấu.
+ *
+ * Trước đây mọi thứ chỉ dò trên bản bỏ dấu, nên "yếu" đọc thành "yêu", "cuối"
+ * thành "cưới", "vô" thành "vợ", "thì" thành "thi". Câu hỏi sức khoẻ hay dự án
+ * bị đẩy sang tình cảm, rồi kiểu trải chuyên đề mất luôn điểm cộng lĩnh vực.
+ *
+ * Giữ cả hai bản để câu nào có dấu thì dò theo dấu — người gõ đủ dấu tức là đã
+ * nói rõ họ định nói từ nào. Chỉ câu gõ trần không dấu nào mới lui về bản bỏ
+ * dấu, và lúc ấy nhập nhằng là không tránh được.
+ */
+interface Mau {
+  coDau: RegExp;
+  khongDau: RegExp;
+}
+
+/**
+ * `\b` của JS chỉ biết `[A-Za-z0-9_]`, nên `\bvợ\b` **không** khớp "vợ tôi":
+ * `ợ` không phải chữ theo cách nó hiểu, sau `ợ` gặp dấu cách là hết biên. Ai vá
+ * lỗi này bằng cách thêm dấu vào mẫu cũ sẽ làm mấy từ tận cùng bằng nguyên âm
+ * có dấu chết lặng. Phải tự khoanh biên bằng `\p{L}`.
+ */
+function khoanhBien(than: string) {
+  return new RegExp(`(?<!\\p{L})(?:${than})(?!\\p{L})`, "u");
+}
+
+function thoat(s: string) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/** Mẫu từ một danh sách cụm từ viết đủ dấu. */
+function cum(...ds: string[]): Mau {
+  const than = ds.map(thoat).join("|");
+  return { coDau: khoanhBien(than), khongDau: khoanhBien(deaccent(than)) };
+}
+
+/**
+ * Mẫu dạng "A rồi trong vòng n ký tự có B", cho những câu như "nên nhận hay ở
+ * lại" — hai vế cách nhau nhưng vẫn thuộc một ý.
+ */
+function keo(dau: string[], n: number, sau: string[]): Mau {
+  const dung = (a: string[], b: string[]) =>
+    `(?<!\\p{L})(?:${a.map(thoat).join("|")})(?!\\p{L})[^?]{0,${n}}(?<!\\p{L})(?:${b.map(thoat).join("|")})(?!\\p{L})`;
+  return {
+    coDau: new RegExp(dung(dau, sau), "u"),
+    khongDau: new RegExp(dung(dau.map(deaccent), sau.map(deaccent)), "u"),
+  };
+}
+
+/** Câu có mang dấu tiếng Việt nào không. */
+function coDauTiengViet(q: string) {
+  return deaccent(q) !== q.toLowerCase();
+}
+
+/** Dò một mẫu: câu có dấu thì dò bản có dấu, câu gõ trần mới lui về bản kia. */
+function khop(m: Mau, q: string) {
+  return coDauTiengViet(q)
+    ? m.coDau.test(q.toLowerCase())
+    : m.khongDau.test(deaccent(q));
+}
+
+/**
+ * "chồng" người và "chồng" chồng chất viết y hệt nhau kể cả đủ dấu, "vợ" cũng
+ * đứng cạnh "vợ chồng" trong đủ thứ câu. Bỏ dấu hay không đều không cứu được —
+ * đây là chuyện nghĩa, nên hai từ này chỉ tính khi có người đứng cạnh.
+ */
+const VO_CHONG = cum(
+  "chồng tôi",
+  "chồng em",
+  "chồng mình",
+  "chồng cũ",
+  "chồng cô",
+  "ông chồng",
+  "lấy chồng",
+  "có chồng",
+  "chồng con",
+  "vợ tôi",
+  "vợ em",
+  "vợ mình",
+  "vợ cũ",
+  "ông xã",
+  "bà xã",
+  "lấy vợ",
+  "có vợ",
+  "vợ chồng",
+);
+
+/**
+ * "yêu" đủ dấu vẫn còn một chỗ hụt: "yêu cầu" chẳng liên quan gì tình cảm, mà
+ * câu hỏi công việc thì đầy chữ đó. Cắt riêng trường hợp ấy ra.
+ */
+const YEU: Mau = {
+  coDau: new RegExp("(?<!\\p{L})yêu(?! cầu)(?!\\p{L})", "u"),
+  khongDau: new RegExp("(?<!\\p{L})yeu(?! cau)(?!\\p{L})", "u"),
+};
+
+/**
+ * Một tín hiệu đọc được từ câu hỏi. Mỗi tín hiệu tự nói được lý do bằng tiếng
+ * người, vì lý do đó hiện thẳng dưới thẻ gợi ý chứ không giấu trong điểm số.
+ */
 interface Signal {
-  test: RegExp[];
+  test: Mau[];
   /** Kiểu trải hợp tín hiệu này, kèm điểm cộng */
   weight: Record<string, number>;
   /**
@@ -130,24 +234,41 @@ const SIGNALS: Signal[] = [
     /* Cân giữa hai hướng phải đứng trước dạng có/không, vì "nhận hay ở lại"
        thường viết kèm chữ "không" ở cuối và sẽ bị dạng kia nhận nhầm. */
     test: [
-      /\bhay la\b/,
-      /\b(nen|chon|di|nhan|o lai|theo)\b[^?]{0,40}\bhay\b/,
-      /\bgiua hai\b/,
-      /\b(hai lua chon|hai huong|hai ben|hai duong|ngã ba)\b/,
+      cum("hay là"),
+      keo(["nên", "chọn", "đi", "nhận", "ở lại", "theo"], 40, ["hay"]),
+      cum("giữa hai"),
+      cum("hai lựa chọn", "hai hướng", "hai bên", "hai đường", "ngã ba"),
     ],
     weight: { "nam-la-chon-huong": 5, "ba-la-tinh-huong": 1 },
     khung: true,
     reason: "Câu hỏi đang cân giữa hai hướng, nên xem cả hai nhánh rồi so.",
   },
   {
-    test: [/\bco nen\b/, /\bnen\b[^?]{0,30}\bkhong\b/, /\blieu\b[^?]{0,40}\bkhong\b/],
+    test: [
+      cum("có nên"),
+      keo(["nên"], 30, ["không"]),
+      keo(["liệu"], 40, ["không"]),
+    ],
     weight: { "co-hay-khong": 4, "ba-la-tinh-huong": 1 },
     khung: true,
     reason: "Câu hỏi dạng có hoặc không, một lá trả lời là đủ.",
   },
   {
     test: [
-      /\b(anh ay|co ay|nguoi do|nguoi kia|nguoi ta|em ay|ban ay|crush|nguoi yeu|ban trai|ban gai|chong|vo)\b/,
+      cum(
+        "anh ấy",
+        "cô ấy",
+        "người đó",
+        "người kia",
+        "người ta",
+        "em ấy",
+        "bạn ấy",
+        "crush",
+        "người yêu",
+        "bạn trai",
+        "bạn gái",
+      ),
+      VO_CHONG,
     ],
     weight: { "ba-la-giua-hai-nguoi": 4, "nam-la-tinh-cam": 3 },
     khung: true,
@@ -155,7 +276,20 @@ const SIGNALS: Signal[] = [
   },
   {
     test: [
-      /\b(tinh cam|yeu|quay lai|chia tay|tan vo|hen ho|cuoi|ket hon|thich|tinh yeu|moi quan he)\b/,
+      cum(
+        "tình cảm",
+        "quay lại",
+        "chia tay",
+        "tan vỡ",
+        "hẹn hò",
+        "cưới",
+        "kết hôn",
+        "thích",
+        "tình yêu",
+        "mối quan hệ",
+      ),
+      YEU,
+      VO_CHONG,
     ],
     weight: { "nam-la-tinh-cam": 3, "ba-la-giua-hai-nguoi": 2 },
     khung: false,
@@ -163,7 +297,22 @@ const SIGNALS: Signal[] = [
   },
   {
     test: [
-      /\b(cong viec|cong ty|sep|di lam|nghi viec|nhay viec|offer|du an|thang chuc|dong nghiep|phong van|nghe nghiep|deal|khoi nghiep)\b/,
+      cum(
+        "công việc",
+        "công ty",
+        "sếp",
+        "đi làm",
+        "nghỉ việc",
+        "nhảy việc",
+        "offer",
+        "dự án",
+        "thăng chức",
+        "đồng nghiệp",
+        "phỏng vấn",
+        "nghề nghiệp",
+        "deal",
+        "khởi nghiệp",
+      ),
     ],
     weight: { "nam-la-cong-viec": 4, "ba-la-tinh-huong": 1 },
     khung: false,
@@ -171,7 +320,18 @@ const SIGNALS: Signal[] = [
   },
   {
     test: [
-      /\b(tien|luong|thu nhap|chi tieu|tiet kiem|tai chinh|no nan|mon no|tra no|tien nong)\b/,
+      cum(
+        "tiền",
+        "lương",
+        "thu nhập",
+        "chi tiêu",
+        "tiết kiệm",
+        "tài chính",
+        "nợ nần",
+        "món nợ",
+        "trả nợ",
+        "tiền nong",
+      ),
     ],
     weight: { "bon-la-tien-bac": 4 },
     khung: false,
@@ -179,7 +339,20 @@ const SIGNALS: Signal[] = [
   },
   {
     test: [
-      /\b(ket|be tac|vuong|mac ket|tro ngai|kho khan|lam sao|phai lam gi|nen lam gi|xu ly|go ra|roi ren)\b/,
+      cum(
+        "kẹt",
+        "bế tắc",
+        "vướng",
+        "mắc kẹt",
+        "trở ngại",
+        "khó khăn",
+        "làm sao",
+        "phải làm gì",
+        "nên làm gì",
+        "xử lý",
+        "gỡ ra",
+        "rối ren",
+      ),
     ],
     weight: { "ba-la-tinh-huong": 4 },
     khung: true,
@@ -187,46 +360,85 @@ const SIGNALS: Signal[] = [
   },
   {
     test: [
-      /\b(sap toi|toi day|tuong lai gan|dien bien|di toi dau|ket qua ra sao|truoc mat|thoi gian toi)\b/,
+      cum(
+        "sắp tới",
+        "tới đây",
+        "tương lai gần",
+        "diễn biến",
+        "đi tới đâu",
+        "kết quả ra sao",
+        "trước mắt",
+        "thời gian tới",
+      ),
     ],
     weight: { "ba-la-thoi-gian": 4 },
     khung: true,
     reason: "Muốn nhìn một mạch từ trước tới sau.",
   },
   {
-    test: [/\b(hom nay|bua nay|ngay hom nay)\b/],
+    test: [cum("hôm nay", "bữa nay", "ngày hôm nay")],
     weight: { "mot-la-hom-nay": 5 },
     khung: true,
     reason: "Chuyện gói gọn trong hôm nay.",
   },
   {
-    test: [/\b(tuan nay|tuan toi|tuan sau|bay ngay)\b/],
+    test: [cum("tuần này", "tuần tới", "tuần sau", "bảy ngày")],
     weight: { "bay-la-tuan-nay": 5 },
     khung: true,
     reason: "Câu hỏi trải theo từng ngày trong tuần.",
   },
   {
-    test: [/\b(thang nay|thang toi|thang sau|thang truoc mat)\b/],
+    test: [cum("tháng này", "tháng tới", "tháng sau", "tháng trước mắt")],
     weight: { "nam-la-thang-toi": 5 },
     khung: true,
     reason: "Câu hỏi nhìn trọn một tháng.",
   },
   {
-    test: [/\b(nam nay|nam toi|sang nam|nam sau|ca nam|muoi hai thang|12 thang)\b/],
+    test: [
+      cum(
+        "năm nay",
+        "năm tới",
+        "sang năm",
+        "năm sau",
+        "cả năm",
+        "mười hai tháng",
+        "12 tháng",
+      ),
+    ],
     weight: { "muoi-hai-la-nam-toi": 5 },
     khung: true,
     reason: "Câu hỏi nhìn trọn một năm, đi theo từng tháng.",
   },
   {
     test: [
-      /\b(ban than|nhin lai minh|con nguoi minh|minh la ai|gia tri cua minh|tu tin|minh muon gi|hieu minh)\b/,
+      cum(
+        "bản thân",
+        "nhìn lại mình",
+        "con người mình",
+        "mình là ai",
+        "giá trị của mình",
+        "tự tin",
+        "mình muốn gì",
+        "hiểu mình",
+      ),
     ],
     weight: { "ba-la-nhin-lai-minh": 4 },
     khung: true,
     reason: "Câu hỏi hướng vào chính bạn chứ không vào ai khác.",
   },
   {
-    test: [/\b(toan bo|tong the|ca chuyen|moi mat|goc re|sau xa|day du|can ke)\b/],
+    test: [
+      cum(
+        "toàn bộ",
+        "tổng thể",
+        "cả chuyện",
+        "mọi mặt",
+        "gốc rễ",
+        "sâu xa",
+        "đầy đủ",
+        "cặn kẽ",
+      ),
+    ],
     weight: { "thap-tu-celtic": 4, "bay-la-mong-ngua": 3 },
     khung: true,
     reason: "Chuyện lớn, cần nhìn nhiều tầng cùng lúc.",
@@ -234,12 +446,69 @@ const SIGNALS: Signal[] = [
 ];
 
 /** Từ khoá lĩnh vực, chỉ để cộng thêm cho trải chuyên đề đúng mảng. */
-const TOPIC_HINTS: Record<Exclude<TopicKey, "general">, RegExp> = {
-  love: /\b(tinh cam|yeu|nguoi yeu|crush|hen ho|cuoi|chia tay|vo|chong|ban trai|ban gai)\b/,
-  work: /\b(cong viec|cong ty|sep|di lam|nghi viec|du an|dong nghiep|nghe nghiep|offer)\b/,
-  money: /\b(tien|luong|thu nhap|chi tieu|tiet kiem|tai chinh|no nan)\b/,
-  mind: /\b(lo lang|met moi|buon|stress|ap luc|hoang mang|tam trang|mat phuong huong)\b/,
-  study: /\b(hoc|thi|truong|luan van|du hoc|chuyen nganh|tot nghiep|bai vo)\b/,
+const TOPIC_HINTS: Record<Exclude<TopicKey, "general">, Mau[]> = {
+  love: [
+    cum(
+      "tình cảm",
+      "người yêu",
+      "crush",
+      "hẹn hò",
+      "cưới",
+      "chia tay",
+      "bạn trai",
+      "bạn gái",
+    ),
+    YEU,
+    VO_CHONG,
+  ],
+  work: [
+    cum(
+      "công việc",
+      "công ty",
+      "sếp",
+      "đi làm",
+      "nghỉ việc",
+      "dự án",
+      "đồng nghiệp",
+      "nghề nghiệp",
+      "offer",
+    ),
+  ],
+  money: [
+    cum(
+      "tiền",
+      "lương",
+      "thu nhập",
+      "chi tiêu",
+      "tiết kiệm",
+      "tài chính",
+      "nợ nần",
+    ),
+  ],
+  mind: [
+    cum(
+      "lo lắng",
+      "mệt mỏi",
+      "buồn",
+      "stress",
+      "áp lực",
+      "hoang mang",
+      "tâm trạng",
+      "mất phương hướng",
+    ),
+  ],
+  study: [
+    cum(
+      "học",
+      "thi",
+      "trường",
+      "luận văn",
+      "du học",
+      "chuyên ngành",
+      "tốt nghiệp",
+      "bài vở",
+    ),
+  ],
 };
 
 /**
@@ -248,9 +517,10 @@ const TOPIC_HINTS: Record<Exclude<TopicKey, "general">, RegExp> = {
  * chỗ gọi giữ mặc định của kiểu trải chứ đừng đoán bừa.
  */
 export function detectTopic(question: string): Exclude<TopicKey, "general"> | null {
-  const q = deaccent(question);
-  for (const [key, re] of Object.entries(TOPIC_HINTS)) {
-    if (re.test(q)) return key as Exclude<TopicKey, "general">;
+  for (const [key, ds] of Object.entries(TOPIC_HINTS)) {
+    if (ds.some((m) => khop(m, question))) {
+      return key as Exclude<TopicKey, "general">;
+    }
   }
   return null;
 }
@@ -373,7 +643,7 @@ export class SuggestService {
 
     for (const sig of SIGNALS) {
       if (khungOnly && !sig.khung) continue;
-      if (!sig.test.some((re) => re.test(q))) continue;
+      if (!sig.test.some((m) => khop(m, question))) continue;
       for (const [slug, w] of Object.entries(sig.weight)) bump(slug, w, sig.reason);
     }
 

@@ -29,6 +29,11 @@ về trong vài mili giây. Gọi mỗi lần người dùng gõ thêm chữ cũ
 Dùng `POST` chứ không `GET` vì câu hỏi là chuyện riêng của người ta: nhét vào
 query string là nó nằm lại trong log truy cập và lịch sử trình duyệt.
 
+**Không cần `x-client-ip` ở đường này.** Header đó để backend đếm 30 lượt/giờ
+theo từng người, mà bộ đếm ấy chỉ gắn trên ba đường `/api/readings*`. Gửi kèm
+cũng không sao, chỉ là thừa. Đừng lấy đoạn mẫu của `/api/readings` dùng lại ở
+đây rồi tưởng là bắt buộc.
+
 ## Gọi thế nào
 
 ```json
